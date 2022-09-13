@@ -1,8 +1,5 @@
-import { Box, HStack, useColorModeValue } from "@chakra-ui/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount, useDisconnect } from "wagmi";
-// import { ToggleColorMode } from './ToggleColorMode'
-// import { NavLink } from "./NavLink";
 import { useBalance } from "wagmi";
 
 export const NavBar = () => {
