@@ -21,7 +21,9 @@ export const NavBar = () => {
       <div>docs</div>
       <div>about</div>
       {address ? (
-        <a onClick={() => disconnect()}>Disconnect</a>
+        <a className="cursor-pointer" onClick={() => disconnect()}>
+          Disconnect
+        </a>
       ) : (
         <ConnectButton />
       )}
