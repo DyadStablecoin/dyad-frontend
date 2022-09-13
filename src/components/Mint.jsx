@@ -1,6 +1,6 @@
 export default function Mint() {
   return (
-    <div className="text-white bg-black">
+    <div className="">
       <div>2.00 ETH</div>
       <div>to</div>
       <div>$3500 DYAD</div>
