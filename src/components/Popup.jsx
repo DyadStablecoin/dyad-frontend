@@ -16,7 +16,7 @@ const theme = extendTheme({
     Modal: {
       baseStyle: (props) => ({
         dialog: {
-          bg: "#000000",
+          bg: "#3d3e40",
         },
       }),
     },
@@ -29,8 +29,8 @@ export default function Popup({ isOpen, onClose, children }) {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
-          <ModalCloseButton />
+          {/* <ModalHeader>Modal Title</ModalHeader> */}
+          {/* <ModalCloseButton /> */}
           <ModalBody>{children}</ModalBody>
         </ModalContent>
       </Modal>
