@@ -13,32 +13,18 @@ export const NavBar = () => {
   });
 
   return (
-    <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
-      {address && (
-        <div>
-          Balance: {data?.formatted} {data?.symbol}
-        </div>
+    <div className="flex justify-around items-center mt-8 mb-8 mr-16 ml-16">
+      <div>tvl</div>
+      <div>dNFT floor</div>
+      <div className="text-5xl font-bold">dyad</div>
+      <div>app</div>
+      <div>docs</div>
+      <div>about</div>
+      {address ? (
+        <a onClick={() => disconnect()}>Disconnect</a>
+      ) : (
+        <ConnectButton />
       )}
-      <HStack h={20} alignItems={"center"} justifyContent={"space-between"}>
-        <Box style={{ fontWeight: "800", cursor: "pointer" }}>
-          {/* <NavLink route={"/"}>CHC</NavLink> */}
-        </Box>
-        <HStack>
-          <Box mr={6} style={{ fontWeight: "800", cursor: "pointer" }}>
-            {/* <NavLink route={"/bets"}>Bets</NavLink> */}
-          </Box>
-          <Box mr={6}>
-            {address ? (
-              <Box cursor="pointer">
-                <a onClick={() => disconnect()}>Disconnect</a>
-              </Box>
-            ) : (
-              <ConnectButton />
-            )}
-          </Box>
-          {/* <ToggleColorMode /> */}
-        </HStack>
-      </HStack>
-    </Box>
+    </div>
   );
 };
