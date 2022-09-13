@@ -13,9 +13,9 @@ export const NavBar = () => {
   });
 
   return (
-    <div className="flex justify-around items-center mt-8 mb-8 mr-16 ml-16">
-      <div>tvl</div>
-      <div>dNFT floor</div>
+    <div className="flex justify-around items-center mt-8 mb-8">
+      <div>tvl: $50,000,000</div>
+      <div>dNFT floor: $15,000</div>
       <div className="text-5xl font-bold">dyad</div>
       <div>app</div>
       <div>docs</div>

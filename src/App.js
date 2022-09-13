@@ -13,10 +13,12 @@ function App() {
     <ChakraProvider>
       <WagmiConfig client={client}>
         <RainbowKitProvider chains={chains}>
-          <NavBar />
-          <div className="flex flex-col justify-center items-center m-10">
-            <Home />
-            <Example />
+          <div className="mr-16 ml-16">
+            <NavBar />
+            <div className="flex flex-col justify-center items-center m-10">
+              <Home />
+              {/* <Example /> */}
+            </div>
           </div>
         </RainbowKitProvider>
       </WagmiConfig>
