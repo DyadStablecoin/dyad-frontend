@@ -17,6 +17,10 @@ export default function Row() {
       <div className="underline underline-offset-4">#3852</div>
       <div className="underline underline-offset-4">$58,000</div>
       <div className="underline underline-ffset-4">100,000</div>
+      <div className="flex flex-col text-s">
+        <div>3.6x/0.8x</div>
+        <div>0.03x XP</div>
+      </div>
       <Button onClick={onOpen}>mint</Button>
       <Popup isOpen={isOpen} onClose={onClose}>
         <Mint />

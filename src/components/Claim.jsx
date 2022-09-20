@@ -20,10 +20,8 @@ export default function Claim() {
       <div className="flex gap-8 border-[1px] border-white border-dotted p-4 items-center justify-between">
         <div className="">120/2600 dNFTs available</div>
         <Button
-          // disabled={!write}
+          disabled={!write}
           onClick={() => {
-            console.log(3333);
-            console.log(write);
             write?.();
           }}
         >
