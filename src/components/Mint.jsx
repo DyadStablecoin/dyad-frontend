@@ -5,27 +5,14 @@ import abi from "../consts/abi/dyadABI.json";
 import { useEffect, useState } from "react";
 import TextInput from "./TextInput";
 
-export default function Mint({ address, tokenId }) {
+export default function Mint({ address, tokenId, ETH2USD }) {
   const [wETH, setWETH] = useState(0);
-  const [ethToUSD, setEthToUSD] = useState(0);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: abi,
     functionName: "mintDyad",
     args: [tokenId, wETH],
-  });
-
-  useEffect(() => {
-    async function getETHPrice() {
-      const res = await fetch(
-        "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR"
-      );
-      const data = await res.json();
-      setEthToUSD(data.USD);
-    }
-
-    getETHPrice();
   });
 
   const { data, isLoading, isSuccess, write } = useContractWrite(config);
@@ -43,7 +30,7 @@ export default function Mint({ address, tokenId }) {
         <div className="underline">ETH</div>
       </div>
       <div>to</div>
-      <div className="text-2xl">${wETH * ethToUSD} DYAD</div>
+      <div className="text-2xl">${wETH * ETH2USD} DYAD</div>
       <Button disabled={!write} onClick={() => write?.()}>
         mint DYAD 15-30 min
       </Button>
