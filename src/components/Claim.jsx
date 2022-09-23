@@ -3,13 +3,15 @@ import {
   useContractWrite,
   usePrepareContractWrite,
   useContractRead,
+  useWaitForTransaction,
 } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import Button from "./Button";
 import abi from "../consts/abi/dyadABI.json";
 import { useState } from "react";
+import { useForceUpdate } from "../utils/render";
 
-export default function Claim({ address }) {
+export default function Claim({ address, reload, setReload }) {
   const [totalSupply, setTotalSupply] = useState(0);
 
   const { config } = usePrepareContractWrite({
@@ -17,16 +19,36 @@ export default function Claim({ address }) {
     contractInterface: abi,
     functionName: "mint",
     args: [address],
+    onSuccess: () => {
+      console.log("mint", data);
+    },
   });
 
-  const {} = useContractRead({
+  const { refetch } = useContractRead({
     addressOrName: CONTRACT_dNFT,
     contractInterface: abi,
     functionName: "totalSupply",
-    onSuccess: (data) => setTotalSupply(data._hex),
+    onSuccess: (data) => {
+      console.log("totalSupply", data);
+      setTotalSupply(data._hex);
+    },
   });
 
   const { data, isLoading, isSuccess, write } = useContractWrite(config);
+
+  const {} = useWaitForTransaction({
+    hash: data?.hash,
+    onSuccess: () => {
+      console.log("onSuccess");
+      setReload(!reload);
+      refetch();
+    },
+    onSettled: () => {
+      console.log("onSettled");
+      setReload(!reload);
+      refetch();
+    },
+  });
 
   return (
     <div>

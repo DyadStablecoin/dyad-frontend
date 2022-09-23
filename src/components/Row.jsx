@@ -5,12 +5,12 @@ import Mint from "./Mint";
 import Sync from "./Sync";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useContractRead } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import abi from "../consts/abi/dyadABI.json";
 
-export default function Row({ address, id }) {
+export default function Row({ reload, address, id }) {
   const [data, setData] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -29,7 +29,7 @@ export default function Row({ address, id }) {
     onClose: onCloseWithdraw,
   } = useDisclosure();
 
-  const {} = useContractRead({
+  const { refetch } = useContractRead({
     addressOrName: CONTRACT_dNFT,
     contractInterface: abi,
     functionName: "tokenOfOwnerByIndex",
@@ -38,6 +38,10 @@ export default function Row({ address, id }) {
       setData(data);
     },
   });
+
+  useEffect(() => {
+    refetch();
+  }, [reload]);
 
   return (
     <>
