@@ -3,6 +3,7 @@ import Popup from "./Popup";
 import { useDisclosure } from "@chakra-ui/react";
 import Mint from "./Mint";
 import Sync from "./Sync";
+import Deposit from "./Deposit";
 
 export default function Row() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -10,6 +11,11 @@ export default function Row() {
     isOpen: isOpenSync,
     onOpen: onOpenSync,
     onClose: onCloseSync,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenDeposit,
+    onOpen: onOpenDeposit,
+    onClose: onCloseDeposit,
   } = useDisclosure();
 
   return (
@@ -26,7 +32,10 @@ export default function Row() {
         <Mint />
       </Popup>
       <div className="underline underline-offset-4">70,500</div>
-      <Button>deposit</Button>
+      <Button onClick={onOpenDeposit}>deposit</Button>
+      <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
+        <Deposit />
+      </Popup>
       <Button>withdraw</Button>
       <div className="underline underline-offset-4">5,000</div>
       <Button onClick={onOpenSync}>sync</Button>
