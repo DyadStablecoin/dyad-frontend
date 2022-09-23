@@ -9,12 +9,12 @@ export default function Home() {
 
   return (
     <div className="mt-8">
-      <Claim />
+      <Claim address={address} />
       {/* <NFTs address={address} /> */}
       <div className="flex flex-col gap-2 mt-32">
-        <Row />
-        <Row />
-        <Row />
+        <Row address={address} tokenId={0} />
+        <Row address={address} tokenId={1} />
+        <Row address={address} tokenId={2} />
       </div>
     </div>
   );
