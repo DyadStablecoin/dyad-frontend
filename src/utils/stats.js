@@ -8,10 +8,6 @@ export function calcdNFTAvg() {
   return 0;
 }
 
-export function calcXpAvg() {
-  return 0;
-}
-
 export function dyadMultiplier(P, dNFT, dNFTAvg, xp, xpAvg) {
   // TODO: 1 is hardcoded and should be f(E) -> see equations
   return 0.625 * (P * (dNFT / dNFTAvg) * (xp / xpAvg) * 1);
@@ -29,7 +25,9 @@ export function dNFTfloor() {
   return 0;
 }
 
-export function useAverageXD(nDNFTs) {
+export function useAverageXP(nDNFTs) {
+  nDNFTs = parseInt(nDNFTs);
+
   let aa = [];
   for (let i = 0; i < nDNFTs; i++) {
     aa.push({
@@ -46,9 +44,11 @@ export function useAverageXD(nDNFTs) {
 
   var sum = 0;
 
-  data.map((d) => {
-    sum += parseInt(d._hex);
-  });
+  if (data) {
+    data.map((d) => {
+      sum += parseInt(d._hex);
+    });
+  }
 
   return sum / nDNFTs;
 }

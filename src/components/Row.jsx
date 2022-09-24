@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { useContractRead, useContractReads } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import abi from "../consts/abi/dyadABI.json";
+import { xpCurve } from "../utils/stats";
 
 export default function Row({
   reload,
@@ -90,7 +91,7 @@ export default function Row({
           <div className="flex flex-col text-s ">
             <div>
               <div>3.6x/0.8x</div>
-              <div>0.03x XP</div>
+              <div>{Math.round(xpCurve(1) * 10000) / 10000}x XP</div>
             </div>
           </div>
           <Button onClick={onOpen}>mint</Button>

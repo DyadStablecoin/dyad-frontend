@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-import { useAverageXD } from "../utils/stats";
+import { useAverageXP } from "../utils/stats";
 import Claim from "./Claim";
 import NFTs from "./NFTs";
 
@@ -10,8 +10,9 @@ export default function Home() {
   const [reload, setReload] = useState(false);
   const [ETH2USD, setETH2USD] = useState(0);
 
-  const xp = useAverageXD(40);
-  console.log("xp", xp);
+  const [totalSupply, setTotalSupply] = useState(0);
+
+  const xp = useAverageXP(totalSupply);
 
   useEffect(() => {
     async function _ETH2USD() {
@@ -34,6 +35,9 @@ export default function Home() {
             reload={reload}
             setReload={setReload}
             ETH2USD={ETH2USD}
+            // totalSupply
+            totalSupply={totalSupply}
+            setTotalSupply={setTotalSupply}
           />
           <div className="mt-[10rem]">
             <NFTs reload={reload} address={address} ETH2USD={ETH2USD} />
