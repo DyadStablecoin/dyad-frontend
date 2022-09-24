@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
+import { useAverageXD } from "../utils/stats";
 import Claim from "./Claim";
 import NFTs from "./NFTs";
 
@@ -8,6 +9,9 @@ export default function Home() {
 
   const [reload, setReload] = useState(false);
   const [ETH2USD, setETH2USD] = useState(0);
+
+  const xp = useAverageXD(40);
+  console.log("xp", xp);
 
   useEffect(() => {
     async function _ETH2USD() {

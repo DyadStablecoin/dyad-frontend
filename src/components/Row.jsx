@@ -57,7 +57,6 @@ export default function Row({
       },
     ],
     onSuccess: (data) => {
-      console.log(data);
       setData(data);
     },
   });
