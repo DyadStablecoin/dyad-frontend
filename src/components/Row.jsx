@@ -10,7 +10,13 @@ import { useContractRead, useContractReads } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import abi from "../consts/abi/dyadABI.json";
 
-export default function Row({ reload, address, id, ETH2USD }) {
+export default function Row({
+  reload,
+  address,
+  id,
+  ETH2USD,
+  showHeader = false,
+}) {
   const [data, setData] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -64,22 +70,40 @@ export default function Row({ reload, address, id, ETH2USD }) {
     <>
       {data && (
         <div className="flex gap-8 border-[1px] border-white p-4 items-center">
-          <div className="underline underline-offset-4">
+          <div className="underline underline-offset-4 relative">
+            {showHeader && (
+              <div className="absolute mb-[4rem] bottom-1">rank</div>
+            )}
             #{parseInt(data[0]._hex)}
           </div>
-          <div className="underline underline-offset-4">$58,000</div>
-          <div className="underline underline-ffset-4">
-            {parseInt(data[2]._hex)}
+          <div className="underline underline-offset-4 relative">
+            {showHeader && (
+              <div className="absolute mb-[4rem] bottom-1 ml-2">value</div>
+            )}
+            $58,000
           </div>
-          <div className="flex flex-col text-s">
-            <div>3.6x/0.8x</div>
-            <div>0.03x XP</div>
+          <div className="underline underline-ffset-4 relative">
+            {showHeader && (
+              <div className="absolute mb-[4rem] bottom-1">minted DYAD</div>
+            )}
+            #{parseInt(data[2]._hex)}
+          </div>
+          <div className="flex flex-col text-s ">
+            <div>
+              <div>3.6x/0.8x</div>
+              <div>0.03x XP</div>
+            </div>
           </div>
           <Button onClick={onOpen}>mint</Button>
           <Popup isOpen={isOpen} onClose={onClose}>
             <Mint ETH2USD={ETH2USD} />
           </Popup>
-          <div className="underline underline-offset-4">70,500</div>
+          <div className="underline underline-offset-4 relative">
+            {showHeader && (
+              <div className="absolute mb-[4rem] bottom-1">invested DYAD</div>
+            )}
+            70,500
+          </div>
           <Button onClick={onOpenDeposit}>deposit</Button>
           <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
             <Deposit />
@@ -88,7 +112,10 @@ export default function Row({ reload, address, id, ETH2USD }) {
           <Popup isOpen={isOpenWithdraw} onClose={onCloseWithdraw}>
             <Withdraw />
           </Popup>
-          <div className="underline underline-offset-4">
+          <div className="underline underline-offset-4 relative">
+            {showHeader && (
+              <div className="absolute mb-[4rem] bottom-1">XP</div>
+            )}
             {parseInt(data[1]._hex)}
           </div>
           <Button onClick={onOpenSync}>sync</Button>

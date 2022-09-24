@@ -1,12 +1,18 @@
 export default function NFTsHeader() {
   return (
-    <div className="flex gap-4 mb-2">
-      <div className="ml-3 text-sm">rank</div>
-      <div className="ml-6 text-sm">value</div>
-      <div className="ml-2 text-sm">minted DYAD</div>
-      <div className="ml-5 text-sm">performance</div>
-      <div className="ml-[8rem] text-sm">invested DYAD</div>
-      <div className="ml-[22rem] text-sm">XP</div>
+    <div className="grid grid-cols-6 grid-rows-2">
+      {/* <div className="">rank</div> */}
+      {/* <div className="">value</div> */}
+      {/* <div className="">minted DYAD</div> */}
+      {/* <div className="">performance</div> */}
+      {/* <div className="xt-sm">invested DYAD</div> */}
+      {/* <div className="ext-sm">XP</div> */}
+      {/* <div className="">rank</div> */}
+      {/* <div className="">value</div> */}
+      {/* <div className="">minted DYAD</div> */}
+      {/* <div className="">performance</div> */}
+      {/* <div className="xt-sm">invested DYAD</div> */}
+      {/* <div className="ext-sm">XP</div> */}
     </div>
   );
 }

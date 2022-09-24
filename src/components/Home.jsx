@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import Claim from "./Claim";
 import NFTs from "./NFTs";
-import NFTsHeader from "./NFTsHeader";
 
 export default function Home() {
   const { address, isConnected } = useAccount();
@@ -31,8 +30,7 @@ export default function Home() {
         ETH2USD={ETH2USD}
       />
       {isConnected && (
-        <div className="mt-20">
-          <NFTsHeader />
+        <div className="mt-[10rem]">
           <NFTs reload={reload} address={address} ETH2USD={ETH2USD} />
         </div>
       )}
