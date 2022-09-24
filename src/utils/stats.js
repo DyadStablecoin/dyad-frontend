@@ -16,3 +16,11 @@ export function dyadMultiplier(P, dNFT, dNFTAvg, xp, xpAvg) {
 export function xpCurve(pL) {
   return Math.log(-pL + 1.002494) / 6 + 1;
 }
+
+export function getTVL() {
+  return 0;
+}
+
+export function dNFTfloor() {
+  return 0;
+}

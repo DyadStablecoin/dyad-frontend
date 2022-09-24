@@ -22,18 +22,22 @@ export default function Home() {
   }, [reload]);
 
   return (
-    <div className="mt-8">
-      <Claim
-        address={address}
-        reload={reload}
-        setReload={setReload}
-        ETH2USD={ETH2USD}
-      />
-      {isConnected && (
-        <div className="mt-[10rem]">
-          <NFTs reload={reload} address={address} ETH2USD={ETH2USD} />
+    <>
+      {isConnected ? (
+        <div className="mt-8">
+          <Claim
+            address={address}
+            reload={reload}
+            setReload={setReload}
+            ETH2USD={ETH2USD}
+          />
+          <div className="mt-[10rem]">
+            <NFTs reload={reload} address={address} ETH2USD={ETH2USD} />
+          </div>
         </div>
+      ) : (
+        <div className="mt-10">Connect your wallet!</div>
       )}
-    </div>
+    </>
   );
 }
