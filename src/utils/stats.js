@@ -1,10 +1,10 @@
+import { useContractReads } from "wagmi";
+import { CONTRACT_dNFT } from "../consts/contract";
+import abi from "../consts/abi/dyadABI.json";
+
 export function calcPerformance() {}
 
 export function calcdNFTAvg() {
-  return 0;
-}
-
-export function calcXpAvg() {
   return 0;
 }
 
@@ -23,4 +23,32 @@ export function getTVL() {
 
 export function dNFTfloor() {
   return 0;
+}
+
+export function useAverageXP(nDNFTs) {
+  nDNFTs = parseInt(nDNFTs);
+
+  let aa = [];
+  for (let i = 0; i < nDNFTs; i++) {
+    aa.push({
+      addressOrName: CONTRACT_dNFT,
+      contractInterface: abi,
+      functionName: "xp",
+      args: [i],
+    });
+  }
+
+  const { data } = useContractReads({
+    contracts: aa,
+  });
+
+  var sum = 0;
+
+  if (data) {
+    data.map((d) => {
+      sum += parseInt(d._hex);
+    });
+  }
+
+  return sum / nDNFTs;
 }

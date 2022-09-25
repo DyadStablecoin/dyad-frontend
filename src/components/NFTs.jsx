@@ -16,6 +16,7 @@ export default function NFTs({ reload, address, ETH2USD }) {
               // show header only for the first item
               // TODO: super hacky, needs refactoring
               showHeader={i === 0}
+              // xp
             />
           );
         })}

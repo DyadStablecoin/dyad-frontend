@@ -8,20 +8,20 @@ import {
 import { CONTRACT_dNFT } from "../consts/contract";
 import Button from "./Button";
 import abi from "../consts/abi/dyadABI.json";
-import { useState } from "react";
-import { useForceUpdate } from "../utils/render";
 
-export default function Claim({ address, reload, setReload }) {
-  const [totalSupply, setTotalSupply] = useState(0);
-
+export default function Claim({
+  address,
+  reload,
+  setReload,
+  totalSupply,
+  setTotalSupply,
+}) {
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: abi,
     functionName: "mint",
     args: [address],
-    onSuccess: () => {
-      console.log("mint", data);
-    },
+    onSuccess: () => {},
   });
 
   const { refetch } = useContractRead({
@@ -29,7 +29,6 @@ export default function Claim({ address, reload, setReload }) {
     contractInterface: abi,
     functionName: "totalSupply",
     onSuccess: (data) => {
-      console.log("totalSupply", data);
       setTotalSupply(data._hex);
     },
   });
@@ -39,12 +38,10 @@ export default function Claim({ address, reload, setReload }) {
   const {} = useWaitForTransaction({
     hash: data?.hash,
     onSuccess: () => {
-      console.log("onSuccess");
       setReload(!reload);
       refetch();
     },
     onSettled: () => {
-      console.log("onSettled");
       setReload(!reload);
       refetch();
     },

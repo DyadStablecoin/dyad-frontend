@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { useContractRead, useContractReads } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import abi from "../consts/abi/dyadABI.json";
+import { xpCurve } from "../utils/stats";
 
 export default function Row({
   reload,
@@ -18,6 +19,7 @@ export default function Row({
   showHeader = false,
 }) {
   const [data, setData] = useState();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isOpenSync,
@@ -74,7 +76,7 @@ export default function Row({
             {showHeader && (
               <div className="absolute mb-[4rem] bottom-1">rank</div>
             )}
-            #{parseInt(data[0]._hex)}
+            #{data[0] && parseInt(data[0]._hex)}
           </div>
           <div className="underline underline-offset-4 relative">
             {showHeader && (
@@ -86,12 +88,12 @@ export default function Row({
             {showHeader && (
               <div className="absolute mb-[4rem] bottom-1">minted DYAD</div>
             )}
-            #{parseInt(data[2]._hex)}
+            #{data[2] && parseInt(data[2]._hex)}
           </div>
           <div className="flex flex-col text-s ">
             <div>
               <div>3.6x/0.8x</div>
-              <div>0.03x XP</div>
+              <div>{Math.round(xpCurve(1) * 10000) / 10000}x XP</div>
             </div>
           </div>
           <Button onClick={onOpen}>mint</Button>
@@ -116,7 +118,7 @@ export default function Row({
             {showHeader && (
               <div className="absolute mb-[4rem] bottom-1">XP</div>
             )}
-            {parseInt(data[1]._hex)}
+            {data[1] && parseInt(data[1]._hex)}
           </div>
           <Button onClick={onOpenSync}>sync</Button>
           <Popup isOpen={isOpenSync} onClose={onCloseSync}>
