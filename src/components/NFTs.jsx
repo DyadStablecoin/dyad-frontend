@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { NFT_COLORS } from "../consts/colors";
 import Row from "./Row";
 
 export default function NFTs({ reload, address, ETH2USD }) {
@@ -17,6 +17,7 @@ export default function NFTs({ reload, address, ETH2USD }) {
               // TODO: super hacky, needs refactoring
               showHeader={i === 0}
               // xp
+              borderColor={NFT_COLORS[i % NFT_COLORS.length]}
             />
           );
         })}

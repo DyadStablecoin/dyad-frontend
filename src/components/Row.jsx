@@ -16,6 +16,7 @@ export default function Row({
   address,
   id,
   ETH2USD,
+  borderColor,
   showHeader = false,
 }) {
   const [data, setData] = useState();
@@ -60,7 +61,9 @@ export default function Row({
     ],
     onSuccess: (data) => {
       console.log(data);
-      setData(data);
+      if (data && data[0]) {
+        setData(data);
+      }
     },
   });
 
@@ -71,7 +74,12 @@ export default function Row({
   return (
     <>
       {data && (
-        <div className="flex gap-8 border-[1px] border-white p-4 items-center">
+        <div
+          className={`flex gap-8 border-[1px] p-4 items-center`}
+          style={{
+            borderColor: borderColor ? borderColor : "black",
+          }}
+        >
           <div className="underline underline-offset-4 relative">
             {showHeader && (
               <div className="absolute mb-[4rem] bottom-1">rank</div>
