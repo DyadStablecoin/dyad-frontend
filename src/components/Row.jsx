@@ -19,6 +19,7 @@ export default function Row({
   showHeader = false,
 }) {
   const [data, setData] = useState();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isOpenSync,
@@ -58,6 +59,7 @@ export default function Row({
       },
     ],
     onSuccess: (data) => {
+      console.log(data);
       setData(data);
     },
   });
@@ -74,7 +76,7 @@ export default function Row({
             {showHeader && (
               <div className="absolute mb-[4rem] bottom-1">rank</div>
             )}
-            #{parseInt(data[0]._hex)}
+            #{data[0] && parseInt(data[0]._hex)}
           </div>
           <div className="underline underline-offset-4 relative">
             {showHeader && (
@@ -86,7 +88,7 @@ export default function Row({
             {showHeader && (
               <div className="absolute mb-[4rem] bottom-1">minted DYAD</div>
             )}
-            #{parseInt(data[2]._hex)}
+            #{data[2] && parseInt(data[2]._hex)}
           </div>
           <div className="flex flex-col text-s ">
             <div>
@@ -116,7 +118,7 @@ export default function Row({
             {showHeader && (
               <div className="absolute mb-[4rem] bottom-1">XP</div>
             )}
-            {parseInt(data[1]._hex)}
+            {data[1] && parseInt(data[1]._hex)}
           </div>
           <Button onClick={onOpenSync}>sync</Button>
           <Popup isOpen={isOpenSync} onClose={onCloseSync}>
