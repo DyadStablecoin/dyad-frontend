@@ -43,6 +43,7 @@ export function useAverageXP(nDNFTs) {
   });
 
   var sum = 0;
+  console.log(data);
 
   if (data) {
     data.map((d) => {

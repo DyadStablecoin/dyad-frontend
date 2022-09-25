@@ -30,7 +30,9 @@ export default function Mint({ address, tokenId, ETH2USD }) {
         <div className="underline">ETH</div>
       </div>
       <div>to</div>
-      <div className="text-2xl">${wETH * ETH2USD} DYAD</div>
+      <div className="text-2xl">
+        ${Math.round(wETH * ETH2USD * 100) / 100} DYAD
+      </div>
       <Button disabled={!write} onClick={() => write?.()}>
         mint DYAD 15-30 min
       </Button>
@@ -38,7 +40,7 @@ export default function Mint({ address, tokenId, ETH2USD }) {
         <div>+8031 dNFTs</div>
         <div>950,000 GAS/ .02 ETH</div>
       </div>
-      <Button>mint DYAD instantly</Button>
+      <Button isPrimary>mint DYAD instantly</Button>
     </div>
   );
 }

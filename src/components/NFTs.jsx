@@ -4,7 +4,7 @@ import Row from "./Row";
 export default function NFTs({ reload, address, ETH2USD }) {
   return (
     <div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-8">
         {[...Array(5).keys()].map((i) => {
           // TODO: comment
           return (
