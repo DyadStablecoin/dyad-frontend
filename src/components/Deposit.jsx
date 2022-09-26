@@ -5,6 +5,7 @@ import abi from "../consts/abi/dyadABI.json";
 import { useEffect, useState } from "react";
 import TextInput from "./TextInput";
 import { ethers } from "ethers";
+import { formatUSD } from "../utils/currency";
 
 export default function Deposit({ address, tokenId }) {
   const [wETH, setWETH] = useState(0);
@@ -49,7 +50,7 @@ export default function Deposit({ address, tokenId }) {
       </div>
       <div>to</div>
       <div className="text-2xl">
-        ${Math.round(wETH * ethToUSD * 100) / 100} DYAD
+        {formatUSD(Math.round(wETH * ethToUSD * 100) / 100)} DYAD
       </div>
       <Button
         disabled={!write}

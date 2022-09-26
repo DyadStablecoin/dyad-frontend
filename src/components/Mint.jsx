@@ -4,6 +4,7 @@ import Button from "./Button";
 import abi from "../consts/abi/dyadABI.json";
 import { useEffect, useState } from "react";
 import TextInput from "./TextInput";
+import { formatUSD } from "../utils/currency";
 
 export default function Mint({ address, tokenId, ETH2USD }) {
   const [wETH, setWETH] = useState(0);
@@ -32,7 +33,7 @@ export default function Mint({ address, tokenId, ETH2USD }) {
       </div>
       <div>to</div>
       <div className="text-2xl">
-        ${Math.round(wETH * ETH2USD * 100) / 100} DYAD
+        {formatUSD(Math.round(wETH * ETH2USD * 100) / 100)} DYAD
       </div>
       <Button disabled={!write} onClick={() => write?.()}>
         mint DYAD 15-30 min
