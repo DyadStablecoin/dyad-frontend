@@ -49,7 +49,7 @@ export default function Claim({
 
   return (
     <div>
-      <div className="flex gap-8 border-[1px] border-[#716285] border-2 border-dashed p-4 items-center justify-between">
+      <div className="flex gap-[10rem] border-[1px] border-[#716285] border-2 border-dashed p-4 items-center justify-between">
         <div className="">{parseInt(totalSupply)}/2600 dNFTs available</div>
         <Button
           disabled={!write}

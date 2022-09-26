@@ -1,14 +1,14 @@
 import { NFT_COLORS } from "../consts/colors";
-import Row from "./Row";
+import NFT from "./NFT";
 
 export default function NFTs({ reload, address, ETH2USD }) {
   return (
     <div>
       <div className="flex flex-col gap-8">
-        {[...Array(5).keys()].map((i) => {
+        {[...Array(100).keys()].map((i) => {
           // TODO: comment
           return (
-            <Row
+            <NFT
               reload={reload}
               address={address}
               id={i}

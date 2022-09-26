@@ -5,27 +5,14 @@ import abi from "../consts/abi/dyadABI.json";
 import { useEffect, useState } from "react";
 import TextInput from "./TextInput";
 
-export default function Withdraw({ address, tokenId }) {
+export default function Withdraw({ address, tokenId, ETH2USD }) {
   const [dyad, setDyad] = useState(0);
-  const [ethToUSD, setEthToUSD] = useState(0);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: abi,
     functionName: "withdraw",
     args: [tokenId, dyad],
-  });
-
-  useEffect(() => {
-    async function getETHPrice() {
-      const res = await fetch(
-        "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR"
-      );
-      const data = await res.json();
-      setEthToUSD(data.USD);
-    }
-
-    getETHPrice();
   });
 
   const { data, isLoading, isSuccess, write } = useContractWrite(config);
@@ -44,7 +31,13 @@ export default function Withdraw({ address, tokenId }) {
       </div>
       {/* <div>to</div> */}
       {/* <div className="text-2xl">${wETH * ethToUSD} ETH</div> */}
-      <Button disabled={!write} onClick={() => write?.()}>
+      <Button
+        disabled={!write}
+        onClick={() => {
+          console.log(4444);
+          write?.();
+        }}
+      >
         withdraw DYAD
       </Button>
     </div>

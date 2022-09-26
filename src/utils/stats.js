@@ -47,7 +47,9 @@ export function useAverageXP(nDNFTs) {
 
   if (data) {
     data.map((d) => {
-      sum += parseInt(d._hex);
+      if (d) {
+        sum += parseInt(d._hex);
+      }
     });
   }
 

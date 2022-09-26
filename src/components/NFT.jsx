@@ -11,7 +11,7 @@ import { CONTRACT_dNFT } from "../consts/contract";
 import abi from "../consts/abi/dyadABI.json";
 import { xpCurve } from "../utils/stats";
 
-export default function Row({
+export default function NFT({
   reload,
   address,
   id,
@@ -19,7 +19,9 @@ export default function Row({
   borderColor,
   showHeader = false,
 }) {
-  const [data, setData] = useState();
+  const [rank, setRank] = useState();
+  const [xp, setXP] = useState();
+  const [dyad, setDyad] = useState();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -38,7 +40,7 @@ export default function Row({
     onClose: onCloseWithdraw,
   } = useDisclosure();
 
-  const { refetch } = useContractReads({
+  const { refetch: refetchRank } = useContractReads({
     contracts: [
       {
         addressOrName: CONTRACT_dNFT,
@@ -46,34 +48,45 @@ export default function Row({
         functionName: "tokenOfOwnerByIndex",
         args: [address, id],
       },
+    ],
+    onSuccess: (data) => {
+      console.log("data", data);
+      if (data && data[0]) {
+        setRank(parseInt(data[0]._hex));
+      }
+    },
+  });
+
+  const {} = useContractReads({
+    contracts: [
       {
         addressOrName: CONTRACT_dNFT,
         contractInterface: abi,
         functionName: "xp",
-        args: [id],
+        args: [rank],
       },
       {
         addressOrName: CONTRACT_dNFT,
         contractInterface: abi,
         functionName: "dyadMinted",
-        args: [id],
+        args: [rank],
       },
     ],
     onSuccess: (data) => {
-      console.log(data);
-      if (data && data[0]) {
-        setData(data);
+      if (data) {
+        setXP(parseInt(data[0]._hex));
+        setDyad(parseInt(data[1]._hex));
       }
     },
   });
 
   useEffect(() => {
-    refetch();
+    refetchRank();
   }, [reload]);
 
   return (
     <>
-      {data && (
+      {rank && (
         <div
           className={`flex gap-8 border-[1px] p-4 items-center`}
           style={{
@@ -84,7 +97,7 @@ export default function Row({
             {showHeader && (
               <div className="absolute mb-[4rem] bottom-1">rank</div>
             )}
-            #{data[0] && parseInt(data[0]._hex)}
+            #{rank && rank}
           </div>
           <div className="underline underline-offset-4 relative">
             {showHeader && (
@@ -96,7 +109,7 @@ export default function Row({
             {showHeader && (
               <div className="absolute mb-[4rem] bottom-1">minted DYAD</div>
             )}
-            #{data[2] && parseInt(data[2]._hex)}
+            {dyad && dyad}
           </div>
           <div className="flex flex-col text-s ">
             <div>
@@ -106,7 +119,7 @@ export default function Row({
           </div>
           <Button onClick={onOpen}>mint</Button>
           <Popup isOpen={isOpen} onClose={onClose}>
-            <Mint ETH2USD={ETH2USD} />
+            <Mint tokenId={rank} ETH2USD={ETH2USD} />
           </Popup>
           <div className="underline underline-offset-4 relative">
             {showHeader && (
@@ -116,21 +129,21 @@ export default function Row({
           </div>
           <Button onClick={onOpenDeposit}>deposit</Button>
           <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
-            <Deposit />
+            <Deposit address={address} tokenId={rank} />
           </Popup>
           <Button onClick={onOpenWithdraw}>withdraw</Button>
           <Popup isOpen={isOpenWithdraw} onClose={onCloseWithdraw}>
-            <Withdraw />
+            <Withdraw ETH2USD={ETH2USD} />
           </Popup>
           <div className="underline underline-offset-4 relative">
             {showHeader && (
               <div className="absolute mb-[4rem] bottom-1">XP</div>
             )}
-            {data[1] && parseInt(data[1]._hex)}
+            {xp && xp}
           </div>
           <Button onClick={onOpenSync}>sync</Button>
           <Popup isOpen={isOpenSync} onClose={onCloseSync}>
-            <Sync />
+            <Sync address={address} tokenId={rank} />
           </Popup>
         </div>
       )}

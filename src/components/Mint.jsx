@@ -7,6 +7,7 @@ import TextInput from "./TextInput";
 
 export default function Mint({ address, tokenId, ETH2USD }) {
   const [wETH, setWETH] = useState(0);
+  console.log(tokenId);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
