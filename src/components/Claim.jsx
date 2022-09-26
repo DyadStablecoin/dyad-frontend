@@ -1,5 +1,4 @@
 import {
-  useAccount,
   useContractWrite,
   usePrepareContractWrite,
   useContractRead,
@@ -8,6 +7,7 @@ import {
 import { CONTRACT_dNFT } from "../consts/contract";
 import Button from "./Button";
 import abi from "../consts/abi/dyadABI.json";
+import Loading from "./Loading";
 
 export default function Claim({
   address,
@@ -33,9 +33,9 @@ export default function Claim({
     },
   });
 
-  const { data, isLoading, isSuccess, write } = useContractWrite(config);
+  const { data, isLoading: isLoadingWrite, write } = useContractWrite(config);
 
-  const {} = useWaitForTransaction({
+  const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
     onSuccess: () => {
       setReload(!reload);
@@ -49,6 +49,7 @@ export default function Claim({
 
   return (
     <div>
+      {(isLoadingWrite || isLoading) && <Loading isLoading />}
       <div className="flex gap-[10rem] border-[1px] border-[#716285] border-2 border-dashed p-4 items-center justify-between">
         <div className="">{parseInt(totalSupply)}/2600 dNFTs available</div>
         <Button
