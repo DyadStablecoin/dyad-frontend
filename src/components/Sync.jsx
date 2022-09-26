@@ -1,12 +1,9 @@
 import Button from "./Button";
 import abi from "../consts/abi/dyadABI.json";
-import { useState } from "react";
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 
-export default function Sync() {
-  const [tokenId, setTokenId] = useState(0);
-
+export default function Sync({ address, tokenId }) {
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: abi,
@@ -21,7 +18,6 @@ export default function Sync() {
       <Button
         disabled={!write}
         onClick={() => {
-          write();
           console.log(333);
           write?.();
         }}
