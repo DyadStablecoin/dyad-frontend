@@ -1,7 +1,12 @@
 import Button from "./Button";
 import abi from "../consts/abi/dyadABI.json";
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useWaitForTransaction,
+} from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
+import Loading from "./Loading";
 
 export default function Sync({ address, tokenId }) {
   const { config } = usePrepareContractWrite({
@@ -11,10 +16,20 @@ export default function Sync({ address, tokenId }) {
     args: [tokenId],
   });
 
-  const { data, isLoading, isSuccess, write } = useContractWrite(config);
+  const {
+    data,
+    isLoading: isLoadingSync,
+    isSuccess,
+    write,
+  } = useContractWrite(config);
+
+  const { isLoading } = useWaitForTransaction({
+    hash: data?.hash,
+  });
 
   return (
     <div className="flex flex-col items-center p-14 gap-8">
+      {(isLoadingSync || isLoading) && <Loading isLoading />}
       <Button
         disabled={!write}
         onClick={() => {
