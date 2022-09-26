@@ -18,11 +18,11 @@ export function xpCurve(pL) {
 }
 
 export function getTVL() {
-  return 0;
+  return 50000000;
 }
 
 export function dNFTfloor() {
-  return 0;
+  return 15000;
 }
 
 export function useAverageXP(nDNFTs) {

@@ -1,6 +1,8 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount, useDisconnect } from "wagmi";
 import { useBalance } from "wagmi";
+import { dNFTfloor, getTVL } from "../../utils/stats";
+import { formatUSD } from "../../utils/currency";
 
 export const NavBar = () => {
   const { address } = useAccount();
@@ -11,8 +13,8 @@ export const NavBar = () => {
 
   return (
     <div className="flex justify-around items-center mt-8 mb-8">
-      <div>tvl: $50,000,000</div>
-      <div>dNFT floor: $15,000</div>
+      <div>tvl: {formatUSD(getTVL())}</div>
+      <div>dNFT floor: {formatUSD(dNFTfloor())}</div>
       <div className="text-5xl font-bold">dyad</div>
       <div>app</div>
       <div>docs</div>
