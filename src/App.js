@@ -16,7 +16,7 @@ function App() {
   const { address, isConnected } = useAccount();
 
   const tvl = useTVL(totalSupply);
-  const xp = useAverageXP(totalSupply);
+  const averageXP = useAverageXP(totalSupply);
 
   const { refetch } = useContractRead({
     addressOrName: CONTRACT_dNFT,
@@ -51,6 +51,7 @@ function App() {
           reload={reload}
           setReload={setReload}
           ETH2USD={ETH2USD}
+          averageXP={averageXP}
         />
       </div>
     </div>

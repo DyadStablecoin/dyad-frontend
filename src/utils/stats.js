@@ -8,9 +8,14 @@ export function calcdNFTAvg() {
   return 0;
 }
 
-export function dyadMultiplier(P, dNFT, dNFTAvg, xp, xpAvg) {
+export function dyadMultiplier(P, dNFT, dNFTAvg, xp, xpAvg, isUpside = false) {
   // TODO: 1 is hardcoded and should be f(E) -> see equations
-  return 0.625 * (P * (dNFT / dNFTAvg) * (xp / xpAvg) * 1);
+  var multiplier = (dNFT / dNFTAvg) * (xp / xpAvg) * 1;
+
+  if (!isUpside) {
+    multiplier = multiplier * P;
+  }
+  return multiplier;
 }
 
 export function xpCurve(pL) {

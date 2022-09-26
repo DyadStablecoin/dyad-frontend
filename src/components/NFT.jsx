@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { useContractRead, useContractReads } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import abi from "../consts/abi/dyadABI.json";
-import { xpCurve } from "../utils/stats";
+import { dyadMultiplier, xpCurve } from "../utils/stats";
 
 export default function NFT({
   reload,
@@ -17,6 +17,7 @@ export default function NFT({
   id,
   ETH2USD,
   borderColor,
+  averageXP,
   showHeader = false,
 }) {
   const [rank, setRank] = useState();
@@ -113,7 +114,10 @@ export default function NFT({
           </div>
           <div className="flex flex-col text-s ">
             <div>
-              <div>3.6x/0.8x</div>
+              <div>
+                {dyadMultiplier(1, 1000, 2000, xp, averageXP, true)}x/
+                {dyadMultiplier(0.5, 1000, 2000, xp, averageXP, false)}x
+              </div>
               <div>{Math.round(xpCurve(1) * 10000) / 10000}x XP</div>
             </div>
           </div>

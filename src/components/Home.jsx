@@ -8,6 +8,7 @@ export default function Home({
   reload,
   setReload,
   ETH2USD,
+  averageXP,
 }) {
   return (
     <>
@@ -21,7 +22,12 @@ export default function Home({
             totalSupply={totalSupply}
           />
           <div className="mt-[10rem]">
-            <NFTs reload={reload} address={address} ETH2USD={ETH2USD} />
+            <NFTs
+              reload={reload}
+              address={address}
+              ETH2USD={ETH2USD}
+              averageXP={averageXP}
+            />
           </div>
         </div>
       ) : (
