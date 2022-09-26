@@ -10,6 +10,8 @@ import { useContractRead, useContractReads } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import abi from "../consts/abi/dyadABI.json";
 import { dyadMultiplier, xpCurve } from "../utils/stats";
+import { dNFT_PRICE } from "../consts/consts";
+import { formatUSD } from "../utils/currency";
 
 export default function NFT({
   reload,
@@ -23,6 +25,7 @@ export default function NFT({
   const [rank, setRank] = useState();
   const [xp, setXP] = useState();
   const [dyad, setDyad] = useState();
+  const [dyadBalance, setDyadBalance] = useState();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -58,7 +61,7 @@ export default function NFT({
     },
   });
 
-  const {} = useContractReads({
+  const { isLoading } = useContractReads({
     contracts: [
       {
         addressOrName: CONTRACT_dNFT,
@@ -72,11 +75,18 @@ export default function NFT({
         functionName: "dyadMinted",
         args: [rank],
       },
+      {
+        addressOrName: CONTRACT_dNFT,
+        contractInterface: abi,
+        functionName: "virtualDyadBalance",
+        args: [rank],
+      },
     ],
     onSuccess: (data) => {
       if (data) {
         setXP(parseInt(data[0]._hex));
         setDyad(parseInt(data[1]._hex));
+        setDyadBalance(parseInt(data[2]._hex));
       }
     },
   });
@@ -87,7 +97,7 @@ export default function NFT({
 
   return (
     <>
-      {rank && (
+      {xp && (
         <div
           className={`flex gap-8 border-[1px] p-4 items-center`}
           style={{
@@ -104,7 +114,7 @@ export default function NFT({
             {showHeader && (
               <div className="absolute mb-[4rem] bottom-1 ml-2">value</div>
             )}
-            $58,000
+            {formatUSD(dNFT_PRICE)}
           </div>
           <div className="underline underline-ffset-4 relative">
             {showHeader && (
@@ -115,8 +125,8 @@ export default function NFT({
           <div className="flex flex-col text-s ">
             <div>
               <div>
-                {dyadMultiplier(1, 1000, 2000, xp, averageXP, true)}x/
-                {dyadMultiplier(0.5, 1000, 2000, xp, averageXP, false)}x
+                {dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x/
+                {1 / dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x
               </div>
               <div>{Math.round(xpCurve(1) * 10000) / 10000}x XP</div>
             </div>
@@ -129,7 +139,7 @@ export default function NFT({
             {showHeader && (
               <div className="absolute mb-[4rem] bottom-1">invested DYAD</div>
             )}
-            70,500
+            {dyadBalance && dyadBalance}
           </div>
           <Button onClick={onOpenDeposit}>deposit</Button>
           <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
