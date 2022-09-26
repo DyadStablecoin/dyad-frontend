@@ -5,7 +5,7 @@ export default function NFTs({ reload, address, ETH2USD }) {
   return (
     <div>
       <div className="flex flex-col gap-8">
-        {[...Array(2).keys()].map((i) => {
+        {[...Array(100).keys()].map((i) => {
           // TODO: comment
           return (
             <NFT
