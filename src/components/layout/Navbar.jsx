@@ -4,7 +4,7 @@ import { useBalance } from "wagmi";
 import { dNFTfloor, getTVL } from "../../utils/stats";
 import { formatUSD } from "../../utils/currency";
 
-export const NavBar = () => {
+export const NavBar = ({ tvl }) => {
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
   const { data, isError, isLoading } = useBalance({
@@ -13,7 +13,8 @@ export const NavBar = () => {
 
   return (
     <div className="flex justify-around items-center mt-8 mb-8">
-      <div>tvl: {formatUSD(getTVL())}</div>
+      {/* <div>tvl: {formatUSD(getTVL())}</div> */}
+      <div>tvl: {formatUSD(tvl)}</div>
       <div>dNFT floor: {formatUSD(dNFTfloor())}</div>
       <div className="text-5xl font-bold">dyad</div>
       <div>app</div>

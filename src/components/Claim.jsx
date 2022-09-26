@@ -9,13 +9,7 @@ import Button from "./Button";
 import abi from "../consts/abi/dyadABI.json";
 import Loading from "./Loading";
 
-export default function Claim({
-  address,
-  reload,
-  setReload,
-  totalSupply,
-  setTotalSupply,
-}) {
+export default function Claim({ address, reload, setReload, totalSupply }) {
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: abi,
@@ -24,26 +18,15 @@ export default function Claim({
     onSuccess: () => {},
   });
 
-  const { refetch } = useContractRead({
-    addressOrName: CONTRACT_dNFT,
-    contractInterface: abi,
-    functionName: "totalSupply",
-    onSuccess: (data) => {
-      setTotalSupply(data._hex);
-    },
-  });
-
   const { data, isLoading: isLoadingWrite, write } = useContractWrite(config);
 
   const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
     onSuccess: () => {
       setReload(!reload);
-      refetch();
     },
     onSettled: () => {
       setReload(!reload);
-      refetch();
     },
   });
 
