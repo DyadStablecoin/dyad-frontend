@@ -83,7 +83,7 @@ export default function NFT({
       },
     ],
     onSuccess: (data) => {
-      if (data) {
+      if (data && data[0]) {
         setXP(parseInt(data[0]._hex));
         setDyad(parseInt(data[1]._hex));
         setDyadBalance(parseInt(data[2]._hex));
@@ -147,7 +147,7 @@ export default function NFT({
           </Popup>
           <Button onClick={onOpenWithdraw}>withdraw</Button>
           <Popup isOpen={isOpenWithdraw} onClose={onCloseWithdraw}>
-            <Withdraw ETH2USD={ETH2USD} />
+            <Withdraw tokenId={rank} ETH2USD={ETH2USD} />
           </Popup>
           <div className="underline underline-offset-4 relative">
             {showHeader && (

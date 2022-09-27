@@ -20,6 +20,9 @@ export default function Deposit({ address, tokenId }) {
     // args: [0, parseInt(ethers.utils.parseEther("0.0001")._hex)],
     args: [0, ethers.utils.parseEther("0.01")],
     // args: [12, 1000000],
+    onError: (error) => {
+      console.log("error", error);
+    },
   });
 
   useEffect(() => {

@@ -4,6 +4,7 @@ import Button from "./Button";
 import abi from "../consts/abi/dyadABI.json";
 import { useEffect, useState } from "react";
 import TextInput from "./TextInput";
+import { BigNumber } from "ethers";
 
 export default function Withdraw({ address, tokenId, ETH2USD }) {
   const [dyad, setDyad] = useState(0);
@@ -13,6 +14,9 @@ export default function Withdraw({ address, tokenId, ETH2USD }) {
     contractInterface: abi,
     functionName: "withdraw",
     args: [tokenId, dyad],
+    onError: (error) => {
+      console.log("error", error);
+    },
   });
 
   const { data, isLoading, isSuccess, write } = useContractWrite(config);

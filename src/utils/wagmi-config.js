@@ -9,7 +9,7 @@ import { publicProvider } from "wagmi/providers/public";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 
 export const { chains, provider, webSocketProvider } = configureChains(
-  [chain.mainnet, chain.polygon, chain.rinkeby],
+  [chain.mainnet, chain.polygon, chain.rinkeby, chain.goerli],
   [publicProvider()]
 );
 

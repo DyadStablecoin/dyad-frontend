@@ -1,7 +1,6 @@
 import {
   useContractWrite,
   usePrepareContractWrite,
-  useContractRead,
   useWaitForTransaction,
 } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
@@ -19,6 +18,7 @@ export default function Claim({ address, reload, setReload, totalSupply }) {
   });
 
   const { data, isLoading: isLoadingWrite, write } = useContractWrite(config);
+  console.log("claim", write);
 
   const { isLoading } = useWaitForTransaction({
     hash: data?.hash,

@@ -5,19 +5,31 @@ import abi from "../consts/abi/dyadABI.json";
 import { useEffect, useState } from "react";
 import TextInput from "./TextInput";
 import { formatUSD } from "../utils/currency";
+import { ethers } from "ethers";
 
 export default function Mint({ address, tokenId, ETH2USD }) {
   const [wETH, setWETH] = useState(0);
-  console.log(tokenId);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: abi,
     functionName: "mintDyad",
-    args: [tokenId, wETH],
+    args: [parseInt(tokenId)],
+    onError: (error) => {
+      console.log(error);
+    },
   });
+  console.log("tokenId", tokenId);
 
   const { data, isLoading, isSuccess, write } = useContractWrite(config);
+  console.log("mint", write);
+
+  // write({
+  //   args: [tokenId],
+  //   overrides: { value: ethers.utils.parseEther("0.01") },
+  // });
+
+  // write({ overrides: { value: ethers.utils.parseEther("0.001") } });
 
   return (
     <div className="flex flex-col gap-4 items-center p-4">
