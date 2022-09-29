@@ -1,7 +1,13 @@
-import { useContractWrite, usePrepareContractWrite, useAccount } from "wagmi";
-import { CONTRACT_dNFT } from "../consts/contract";
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useAccount,
+  useContractRead,
+} from "wagmi";
+import { CONTRACT_dNFT, CONTRACT_DYAD } from "../consts/contract";
 import Button from "./Button";
-import abi from "../consts/abi/dNFTABI.json";
+// import abi from "../consts/abi/dNFTABI.json";
+import abi from "../consts/abi/dyadABI.json";
 import { useEffect, useState } from "react";
 import TextInput from "./TextInput";
 import { ethers } from "ethers";
@@ -11,19 +17,40 @@ export default function Deposit({ address, tokenId }) {
   const [wETH, setWETH] = useState(0);
   const [ethToUSD, setEthToUSD] = useState(0);
 
-  console.log("tokenId", tokenId);
-  console.log(parseInt(ethers.utils.parseEther("0.01")._hex));
+  // const { config } = usePrepareContractWrite({
+  //   addressOrName: CONTRACT_dNFT,
+  //   contractInterface: abi,
+  //   functionName: "deposit",
+  //   // args: [0, parseInt(ethers.utils.parseEther("0.0001")._hex)],
+  //   // args: [tokenId, ethers.utils.parseEther("0.0001")],
+  //   args: [1, 100],
+  //   onError: (error) => {
+  //     console.log("error", error);
+  //   },
+  // });
+
   const { config } = usePrepareContractWrite({
-    addressOrName: CONTRACT_dNFT,
+    addressOrName: CONTRACT_DYAD,
     contractInterface: abi,
-    functionName: "deposit",
+    functionName: "approve",
     // args: [0, parseInt(ethers.utils.parseEther("0.0001")._hex)],
     // args: [tokenId, ethers.utils.parseEther("0.0001")],
-    args: [1, 100],
+    args: [CONTRACT_dNFT, 9999],
     onError: (error) => {
       console.log("error", error);
     },
   });
+
+  const { refetch } = useContractRead({
+    addressOrName: CONTRACT_DYAD,
+    contractInterface: abi,
+    functionName: "allowance",
+    args: [CONTRACT_dNFT, address],
+    onSuccess: (data) => {
+      console.log("data", data);
+    },
+  });
+  const { data, isLoading, isSuccess, write } = useContractWrite(config);
 
   useEffect(() => {
     async function getETHPrice() {
@@ -37,7 +64,7 @@ export default function Deposit({ address, tokenId }) {
     getETHPrice();
   });
 
-  const { data, isLoading, isSuccess, write } = useContractWrite(config);
+  // const { data, isLoading, isSuccess, write } = useContractWrite(config);
 
   return (
     <div className="flex flex-col gap-4 items-center p-4">
@@ -55,6 +82,15 @@ export default function Deposit({ address, tokenId }) {
       <div className="text-2xl">
         {formatUSD(Math.round(wETH * ethToUSD * 100) / 100)} DYAD
       </div>
+      <Button
+        disabled={!write}
+        onClick={() => {
+          console.log(333333);
+          write?.();
+        }}
+      >
+        Approve
+      </Button>
       <Button
         disabled={!write}
         onClick={() => {
