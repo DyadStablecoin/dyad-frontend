@@ -15,6 +15,7 @@ export default function Mint({ address, tokenId, ETH2USD }) {
     contractInterface: abi,
     functionName: "mintDyad",
     args: [parseInt(tokenId)],
+    overrides: { value: ethers.utils.parseEther("0.001") },
     onError: (error) => {
       console.log(error);
     },

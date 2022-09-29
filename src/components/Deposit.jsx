@@ -18,8 +18,8 @@ export default function Deposit({ address, tokenId }) {
     contractInterface: abi,
     functionName: "deposit",
     // args: [0, parseInt(ethers.utils.parseEther("0.0001")._hex)],
-    args: [0, ethers.utils.parseEther("0.01")],
-    // args: [12, 1000000],
+    // args: [tokenId, ethers.utils.parseEther("0.0001")],
+    args: [1, 100],
     onError: (error) => {
       console.log("error", error);
     },

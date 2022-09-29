@@ -46,7 +46,7 @@ export function useTVL(nDNFTs) {
     });
   }
 
-  return sum;
+  return sum / 10 ** 18;
 }
 
 export function dNFTfloor() {
