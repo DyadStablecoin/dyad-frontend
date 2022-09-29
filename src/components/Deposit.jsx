@@ -17,6 +17,8 @@ export default function Deposit({ address, tokenId }) {
   const [wETH, setWETH] = useState(0);
   const [ethToUSD, setEthToUSD] = useState(0);
 
+  const [isApproved, setIsApproved] = useState(true);
+
   // const { config } = usePrepareContractWrite({
   //   addressOrName: CONTRACT_dNFT,
   //   contractInterface: abi,
@@ -33,9 +35,7 @@ export default function Deposit({ address, tokenId }) {
     addressOrName: CONTRACT_DYAD,
     contractInterface: abi,
     functionName: "approve",
-    // args: [0, parseInt(ethers.utils.parseEther("0.0001")._hex)],
-    // args: [tokenId, ethers.utils.parseEther("0.0001")],
-    args: [CONTRACT_dNFT, 9999],
+    args: [CONTRACT_dNFT, wETH],
     onError: (error) => {
       console.log("error", error);
     },
@@ -45,8 +45,13 @@ export default function Deposit({ address, tokenId }) {
     addressOrName: CONTRACT_DYAD,
     contractInterface: abi,
     functionName: "allowance",
-    args: [CONTRACT_dNFT, address],
+    args: [address, CONTRACT_dNFT],
     onSuccess: (data) => {
+      console.log(55555);
+      const allowance = parseInt(data._hex);
+      console.log("allowance", allowance);
+      setIsApproved(allowance >= wETH);
+      console.log("allowance", data);
       console.log("data", data);
     },
   });
@@ -74,6 +79,9 @@ export default function Deposit({ address, tokenId }) {
             value={wETH}
             onChange={(v) => setWETH(v)}
             placeholder={0}
+            onBlur={(e) => {
+              refetch();
+            }}
           />
         </div>
         <div className="underline">ETH</div>
@@ -82,24 +90,27 @@ export default function Deposit({ address, tokenId }) {
       <div className="text-2xl">
         {formatUSD(Math.round(wETH * ethToUSD * 100) / 100)} DYAD
       </div>
-      <Button
-        disabled={!write}
-        onClick={() => {
-          console.log(333333);
-          write?.();
-        }}
-      >
-        Approve
-      </Button>
-      <Button
-        disabled={!write}
-        onClick={() => {
-          console.log(333333);
-          write?.();
-        }}
-      >
-        deposit DYAD
-      </Button>
+      {isApproved ? (
+        <Button
+          disabled={!write}
+          onClick={() => {
+            console.log(333333);
+            write?.();
+          }}
+        >
+          deposit DYAD
+        </Button>
+      ) : (
+        <Button
+          disabled={!write}
+          onClick={() => {
+            console.log(333333);
+            write?.();
+          }}
+        >
+          Approve
+        </Button>
+      )}
     </div>
   );
 }
