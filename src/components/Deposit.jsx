@@ -8,6 +8,7 @@ import { CONTRACT_dNFT, CONTRACT_DYAD } from "../consts/contract";
 import Button from "./Button";
 // import abi from "../consts/abi/dNFTABI.json";
 import abi from "../consts/abi/dyadABI.json";
+import dNFTabi from "../consts/abi/dNFTABI.json";
 import { useEffect, useState } from "react";
 import TextInput from "./TextInput";
 import { ethers } from "ethers";
@@ -18,18 +19,26 @@ export default function Deposit({ address, tokenId }) {
   const [ethToUSD, setEthToUSD] = useState(0);
 
   const [isApproved, setIsApproved] = useState(true);
+  console.log("tokenId", tokenId);
 
-  // const { config } = usePrepareContractWrite({
-  //   addressOrName: CONTRACT_dNFT,
-  //   contractInterface: abi,
-  //   functionName: "deposit",
-  //   // args: [0, parseInt(ethers.utils.parseEther("0.0001")._hex)],
-  //   // args: [tokenId, ethers.utils.parseEther("0.0001")],
-  //   args: [1, 100],
-  //   onError: (error) => {
-  //     console.log("error", error);
-  //   },
-  // });
+  const { config: configDeposit } = usePrepareContractWrite({
+    addressOrName: CONTRACT_dNFT,
+    contractInterface: dNFTabi,
+    functionName: "deposit",
+    // args: [0, parseInt(ethers.utils.parseEther("0.0001")._hex)],
+    // args: [tokenId, ethers.utils.parseEther("0.0001")],
+    args: [tokenId, wETH],
+    onError: (error) => {
+      console.log("error deposit", error);
+    },
+  });
+
+  const {
+    // data,
+    // isLoading,
+    // isSuccess,
+    write: writeDeposit,
+  } = useContractWrite(configDeposit);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_DYAD,
@@ -47,7 +56,6 @@ export default function Deposit({ address, tokenId }) {
     functionName: "allowance",
     args: [address, CONTRACT_dNFT],
     onSuccess: (data) => {
-      console.log(55555);
       const allowance = parseInt(data._hex);
       console.log("allowance", allowance);
       setIsApproved(allowance >= wETH);
@@ -68,8 +76,6 @@ export default function Deposit({ address, tokenId }) {
 
     getETHPrice();
   });
-
-  // const { data, isLoading, isSuccess, write } = useContractWrite(config);
 
   return (
     <div className="flex flex-col gap-4 items-center p-4">
@@ -95,7 +101,7 @@ export default function Deposit({ address, tokenId }) {
           disabled={!write}
           onClick={() => {
             console.log(333333);
-            write?.();
+            writeDeposit?.();
           }}
         >
           deposit DYAD
