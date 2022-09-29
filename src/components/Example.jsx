@@ -1,5 +1,5 @@
 // import { useContractWrite, usePrepareContractWrite } from "wagmi";
-// import abi2 from "../consts/abi/dyadABI.json";
+// import abi2 from "../consts/abi/dNFTABI.json";
 
 // export default function Example() {
 //   const { config } = usePrepareContractWrite({

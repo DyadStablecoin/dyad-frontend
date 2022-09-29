@@ -6,7 +6,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { useTVL, useAverageXP } from "./utils/stats";
 import { useAccount, useContractRead } from "wagmi";
 import { CONTRACT_dNFT } from "./consts/contract";
-import abi from "./consts/abi/dyadABI.json";
+import abi from "./consts/abi/dNFTABI.json";
 
 function App() {
   const [totalSupply, setTotalSupply] = useState(0);

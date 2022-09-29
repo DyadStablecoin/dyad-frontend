@@ -1,5 +1,5 @@
 import Button from "./Button";
-import abi from "../consts/abi/dyadABI.json";
+import abi from "../consts/abi/dNFTABI.json";
 import {
   useContractWrite,
   usePrepareContractWrite,

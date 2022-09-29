@@ -1,7 +1,7 @@
 import { useContractWrite, usePrepareContractWrite, useAccount } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import Button from "./Button";
-import abi from "../consts/abi/dyadABI.json";
+import abi from "../consts/abi/dNFTABI.json";
 import { useEffect, useState } from "react";
 import TextInput from "./TextInput";
 import { ethers } from "ethers";

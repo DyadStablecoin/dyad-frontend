@@ -1,6 +1,6 @@
 import { useContractReads } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
-import abi from "../consts/abi/dyadABI.json";
+import abi from "../consts/abi/dNFTABI.json";
 import { dNFT_PRICE } from "../consts/consts";
 
 export function calcPerformance() {}

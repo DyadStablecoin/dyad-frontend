@@ -8,7 +8,7 @@ import Withdraw from "./Withdraw";
 import { useEffect, useState } from "react";
 import { useContractRead, useContractReads } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
-import abi from "../consts/abi/dyadABI.json";
+import abi from "../consts/abi/dNFTABI.json";
 import { dyadMultiplier, xpCurve } from "../utils/stats";
 import { dNFT_PRICE } from "../consts/consts";
 import { formatUSD } from "../utils/currency";
