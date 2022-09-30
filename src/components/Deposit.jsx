@@ -90,12 +90,12 @@ export default function Deposit({ address, tokenId }) {
             }}
           />
         </div>
-        <div className="underline">ETH</div>
+        <div className="underline">DYAD</div>
       </div>
-      <div>to</div>
-      <div className="text-2xl">
-        {formatUSD(Math.round(wETH * ethToUSD * 100) / 100)} DYAD
-      </div>
+      {/* <div>to</div> */}
+      {/* <div className="text-2xl"> */}
+      {/*   {formatUSD(Math.round(wETH * ethToUSD * 100) / 100)} DYAD */}
+      {/* </div> */}
       {isApproved ? (
         <Button
           disabled={!write}
@@ -104,7 +104,7 @@ export default function Deposit({ address, tokenId }) {
             writeDeposit?.();
           }}
         >
-          deposit DYAD
+          deposit
         </Button>
       ) : (
         <Button
