@@ -8,14 +8,14 @@ import { formatUSD } from "../utils/currency";
 import { ethers } from "ethers";
 
 export default function Mint({ address, tokenId, ETH2USD }) {
-  const [wETH, setWETH] = useState(0);
+  const [wETH, setWETH] = useState(0.0001);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: abi,
     functionName: "mintDyad",
     args: [parseInt(tokenId)],
-    overrides: { value: ethers.utils.parseEther("0.001") },
+    overrides: { value: ethers.utils.parseEther(String(wETH)) },
     onError: (error) => {
       console.log(error);
     },

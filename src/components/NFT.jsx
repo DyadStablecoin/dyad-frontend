@@ -12,6 +12,7 @@ import abi from "../consts/abi/dNFTABI.json";
 import { dyadMultiplier, xpCurve } from "../utils/stats";
 import { dNFT_PRICE } from "../consts/consts";
 import { formatUSD } from "../utils/currency";
+import { ethers } from "ethers";
 
 export default function NFT({
   reload,
@@ -86,6 +87,9 @@ export default function NFT({
       if (data && data[0]) {
         setXP(parseInt(data[0]._hex));
         setDyad(parseInt(data[1]._hex));
+        console.log("dyad", data[1]);
+        console.log("dyad", parseInt(data[1]._hex));
+        console.log("dyad", ethers.utils.formatEther(data[1]._hex));
         setDyadBalance(parseInt(data[2]._hex));
       }
     },
@@ -120,7 +124,7 @@ export default function NFT({
             {showHeader && (
               <div className="absolute mb-[4rem] bottom-1">minted DYAD</div>
             )}
-            {dyad && dyad}
+            {dyad && dyad / 10 ** 21}
           </div>
           <div className="flex flex-col text-s ">
             <div>
@@ -139,7 +143,7 @@ export default function NFT({
             {showHeader && (
               <div className="absolute mb-[4rem] bottom-1">invested DYAD</div>
             )}
-            {dyadBalance && dyadBalance}
+            {dyadBalance && dyadBalance / 10 ** 21}
           </div>
           <Button onClick={onOpenDeposit}>deposit</Button>
           <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
