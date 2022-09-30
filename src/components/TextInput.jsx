@@ -3,6 +3,7 @@ export default function TextInput({
   placeholder,
   value,
   onChange,
+  onBlur,
   error,
 }) {
   return (
@@ -14,6 +15,8 @@ export default function TextInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         // type="number"
+        onBlur={(e) => onBlur && onBlur()}
+        onMouseOut={(e) => onBlur && onBlur()}
       />
       {error && <span className="text-sm text-red-500">{error}</span>}
     </div>

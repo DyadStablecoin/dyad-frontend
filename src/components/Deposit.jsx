@@ -1,7 +1,14 @@
-import { useContractWrite, usePrepareContractWrite, useAccount } from "wagmi";
-import { CONTRACT_dNFT } from "../consts/contract";
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useAccount,
+  useContractRead,
+} from "wagmi";
+import { CONTRACT_dNFT, CONTRACT_DYAD } from "../consts/contract";
 import Button from "./Button";
-import abi from "../consts/abi/dNFTABI.json";
+// import abi from "../consts/abi/dNFTABI.json";
+import abi from "../consts/abi/dyadABI.json";
+import dNFTabi from "../consts/abi/dNFTABI.json";
 import { useEffect, useState } from "react";
 import TextInput from "./TextInput";
 import { ethers } from "ethers";
@@ -11,19 +18,52 @@ export default function Deposit({ address, tokenId }) {
   const [wETH, setWETH] = useState(0);
   const [ethToUSD, setEthToUSD] = useState(0);
 
+  const [isApproved, setIsApproved] = useState(true);
   console.log("tokenId", tokenId);
-  console.log(parseInt(ethers.utils.parseEther("0.01")._hex));
-  const { config } = usePrepareContractWrite({
+
+  const { config: configDeposit } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
-    contractInterface: abi,
+    contractInterface: dNFTabi,
     functionName: "deposit",
     // args: [0, parseInt(ethers.utils.parseEther("0.0001")._hex)],
     // args: [tokenId, ethers.utils.parseEther("0.0001")],
-    args: [1, 100],
+    args: [tokenId, wETH],
+    onError: (error) => {
+      console.log("error deposit", error);
+    },
+  });
+
+  const {
+    // data,
+    // isLoading,
+    // isSuccess,
+    write: writeDeposit,
+  } = useContractWrite(configDeposit);
+
+  const { config } = usePrepareContractWrite({
+    addressOrName: CONTRACT_DYAD,
+    contractInterface: abi,
+    functionName: "approve",
+    args: [CONTRACT_dNFT, wETH],
     onError: (error) => {
       console.log("error", error);
     },
   });
+
+  const { refetch } = useContractRead({
+    addressOrName: CONTRACT_DYAD,
+    contractInterface: abi,
+    functionName: "allowance",
+    args: [address, CONTRACT_dNFT],
+    onSuccess: (data) => {
+      const allowance = parseInt(data._hex);
+      console.log("allowance", allowance);
+      setIsApproved(allowance >= wETH);
+      console.log("allowance", data);
+      console.log("data", data);
+    },
+  });
+  const { data, isLoading, isSuccess, write } = useContractWrite(config);
 
   useEffect(() => {
     async function getETHPrice() {
@@ -37,8 +77,6 @@ export default function Deposit({ address, tokenId }) {
     getETHPrice();
   });
 
-  const { data, isLoading, isSuccess, write } = useContractWrite(config);
-
   return (
     <div className="flex flex-col gap-4 items-center p-4">
       <div className="flex gap-2 text-2xl items-center justify-center">
@@ -47,6 +85,9 @@ export default function Deposit({ address, tokenId }) {
             value={wETH}
             onChange={(v) => setWETH(v)}
             placeholder={0}
+            onBlur={(e) => {
+              refetch();
+            }}
           />
         </div>
         <div className="underline">ETH</div>
@@ -55,15 +96,27 @@ export default function Deposit({ address, tokenId }) {
       <div className="text-2xl">
         {formatUSD(Math.round(wETH * ethToUSD * 100) / 100)} DYAD
       </div>
-      <Button
-        disabled={!write}
-        onClick={() => {
-          console.log(333333);
-          write?.();
-        }}
-      >
-        deposit DYAD
-      </Button>
+      {isApproved ? (
+        <Button
+          disabled={!write}
+          onClick={() => {
+            console.log(333333);
+            writeDeposit?.();
+          }}
+        >
+          deposit DYAD
+        </Button>
+      ) : (
+        <Button
+          disabled={!write}
+          onClick={() => {
+            console.log(333333);
+            write?.();
+          }}
+        >
+          Approve
+        </Button>
+      )}
     </div>
   );
 }
