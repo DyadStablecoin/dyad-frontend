@@ -27,7 +27,8 @@ export default function Deposit({ address, tokenId }) {
     functionName: "deposit",
     // args: [0, parseInt(ethers.utils.parseEther("0.0001")._hex)],
     // args: [tokenId, ethers.utils.parseEther("0.0001")],
-    args: [tokenId, wETH],
+    // args: [tokenId, wETH],
+    args: [tokenId, 100],
     onError: (error) => {
       console.log("error deposit", error);
     },
@@ -63,7 +64,7 @@ export default function Deposit({ address, tokenId }) {
       console.log("data", data);
     },
   });
-  const { data, isLoading, isSuccess, write } = useContractWrite(config);
+  const { data, isLoading, isSuccess, writeApprove } = useContractWrite(config);
 
   useEffect(() => {
     async function getETHPrice() {
@@ -98,7 +99,7 @@ export default function Deposit({ address, tokenId }) {
       {/* </div> */}
       {isApproved ? (
         <Button
-          disabled={!write}
+          isDisabled={!writeDeposit}
           onClick={() => {
             console.log(333333);
             writeDeposit?.();
@@ -108,10 +109,10 @@ export default function Deposit({ address, tokenId }) {
         </Button>
       ) : (
         <Button
-          disabled={!write}
+          isDisabled={!writeApprove}
           onClick={() => {
             console.log(333333);
-            write?.();
+            writeApprove?.();
           }}
         >
           Approve

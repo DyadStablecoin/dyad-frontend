@@ -1,4 +1,9 @@
-import { useContractWrite, usePrepareContractWrite, useAccount } from "wagmi";
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useAccount,
+  useBalance,
+} from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import Button from "./Button";
 import abi from "../consts/abi/dNFTABI.json";
@@ -9,6 +14,8 @@ import { ethers } from "ethers";
 
 export default function Mint({ address, tokenId, ETH2USD }) {
   const [wETH, setWETH] = useState(0.0001);
+  const { data: ethBalance } = useBalance({ addressOrName: address });
+  console.log("ethBalance", ethBalance);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -43,6 +50,13 @@ export default function Mint({ address, tokenId, ETH2USD }) {
           />
         </div>
         <div className="underline">ETH</div>
+        <Button
+          onClick={() => {
+            setWETH(ethBalance.formatted);
+          }}
+        >
+          MAX
+        </Button>
       </div>
       <div>to</div>
       <div className="text-2xl">
