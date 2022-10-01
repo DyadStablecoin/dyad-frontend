@@ -1,5 +1,6 @@
 import Claim from "./Claim";
 import NFTs from "./NFTs";
+import NFTsTable from "./NFTsTable";
 
 export default function Home({
   address,
@@ -21,14 +22,15 @@ export default function Home({
             ETH2USD={ETH2USD}
             totalSupply={totalSupply}
           />
-          <div className="mt-[10rem]">
-            <NFTs
-              reload={reload}
-              address={address}
-              ETH2USD={ETH2USD}
-              averageXP={averageXP}
-            />
-          </div>
+          <NFTsTable />
+          {/* <div className="mt-[10rem]"> */}
+          {/*   <NFTs */}
+          {/*     reload={reload} */}
+          {/*     address={address} */}
+          {/*     ETH2USD={ETH2USD} */}
+          {/*     averageXP={averageXP} */}
+          {/*   /> */}
+          {/* </div> */}
         </div>
       ) : (
         <div className="mt-10">Connect your wallet!</div>

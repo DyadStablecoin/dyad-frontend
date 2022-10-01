@@ -45,24 +45,7 @@ export default function NFT({
     onClose: onCloseWithdraw,
   } = useDisclosure();
 
-  const { refetch: refetchRank } = useContractReads({
-    contracts: [
-      {
-        addressOrName: CONTRACT_dNFT,
-        contractInterface: abi,
-        functionName: "tokenOfOwnerByIndex",
-        args: [address, id],
-      },
-    ],
-    onSuccess: (data) => {
-      console.log("data", data);
-      if (data && data[0]) {
-        setRank(parseInt(data[0]._hex));
-      }
-    },
-  });
-
-  const { isLoading } = useContractReads({
+  const { refetch, isLoading } = useContractReads({
     contracts: [
       {
         addressOrName: CONTRACT_dNFT,
@@ -82,21 +65,25 @@ export default function NFT({
         functionName: "virtualDyadBalance",
         args: [rank],
       },
+      {
+        addressOrName: CONTRACT_dNFT,
+        contractInterface: abi,
+        functionName: "tokenOfOwnerByIndex",
+        args: [address, id],
+      },
     ],
     onSuccess: (data) => {
       if (data && data[0]) {
         setXP(parseInt(data[0]._hex));
         setDyad(parseInt(data[1]._hex));
-        console.log("dyad", data[1]);
-        console.log("dyad", parseInt(data[1]._hex));
-        console.log("dyad", ethers.utils.formatEther(data[1]._hex));
         setDyadBalance(parseInt(data[2]._hex));
+        setRank(parseInt(data[3]._hex));
       }
     },
   });
 
   useEffect(() => {
-    refetchRank();
+    refetch();
   }, [reload]);
 
   return (

@@ -56,8 +56,9 @@ function App() {
     }
 
     _ETH2USD();
+
     refetch();
-  }, [address, reload]);
+  }, [reload]);
 
   return (
     <div className="font-serif font-bold mr-16 ml-16 text-white">
