@@ -22,15 +22,15 @@ export default function Home({
             ETH2USD={ETH2USD}
             totalSupply={totalSupply}
           />
-          <NFTsTable />
-          {/* <div className="mt-[10rem]"> */}
-          {/*   <NFTs */}
-          {/*     reload={reload} */}
-          {/*     address={address} */}
-          {/*     ETH2USD={ETH2USD} */}
-          {/*     averageXP={averageXP} */}
-          {/*   /> */}
-          {/* </div> */}
+          {/* <NFTsTable /> */}
+          <div className="mt-[5rem]">
+            <NFTs
+              reload={reload}
+              address={address}
+              ETH2USD={ETH2USD}
+              averageXP={averageXP}
+            />
+          </div>
         </div>
       ) : (
         <div className="mt-10">Connect your wallet!</div>
