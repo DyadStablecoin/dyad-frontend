@@ -16,10 +16,12 @@ export const NavBar = ({ tvl }) => {
       {/* <div>tvl: {formatUSD(getTVL())}</div> */}
       <div>tvl: {formatUSD(tvl)}</div>
       <div>dNFT floor: {formatUSD(dNFTfloor())}</div>
-      <div className="text-5xl font-bold">dyad</div>
-      <div>app</div>
-      <div>docs</div>
-      <div>about</div>
+      <a className="text-5xl font-bold" href="/">
+        dyad
+      </a>
+      <a href="/">app</a>
+      <a href="/docs">docs</a>
+      <a href="/about-us">about</a>
       {address ? (
         <a className="cursor-pointer" onClick={() => disconnect()}>
           Disconnect

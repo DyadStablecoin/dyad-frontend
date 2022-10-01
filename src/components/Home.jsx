@@ -1,9 +1,11 @@
 import { useAccount } from "wagmi";
+import { useAverageXP } from "../utils/stats";
 import Claim from "./Claim";
 import NFTs from "./NFTs";
 
-export default function Home({ totalSupply, reload, setReload, averageXP }) {
+export default function Home({ totalSupply, reload, setReload }) {
   const { isConnected } = useAccount();
+  const averageXP = useAverageXP(totalSupply);
 
   return (
     <>

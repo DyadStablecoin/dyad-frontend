@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import "./index.css";
 import Home from "./components/Home";
 import { NavBar } from "./components/layout/Navbar";
 import "@rainbow-me/rainbowkit/styles.css";
@@ -8,6 +9,8 @@ import { useAccount, useContractReads } from "wagmi";
 import { CONTRACT_dNFT, CONTRACT_DYAD } from "./consts/contract";
 import abi from "./consts/abi/dNFTABI.json";
 import dyadABI from "./consts/abi/dNFTABI.json";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
   const [reload, setReload] = useState(false);
@@ -18,7 +21,6 @@ function App() {
   const { address } = useAccount();
 
   const tvl = useTVL(totalSupply);
-  const averageXP = useAverageXP(totalSupply);
 
   const { refetch } = useContractReads({
     contracts: [
@@ -45,17 +47,26 @@ function App() {
   }, [reload]);
 
   return (
-    <div className="font-serif font-bold mr-16 ml-16 text-white">
-      <NavBar tvl={tvl} />
-      <div className="flex flex-col justify-center items-center m-10">
-        <Home
-          totalSupply={totalSupply}
-          reload={reload}
-          setReload={setReload}
-          averageXP={averageXP}
-        />
+    <BrowserRouter>
+      <div className="font-serif font-bold mr-16 ml-16 text-white">
+        <NavBar tvl={tvl} />
+        <div className="flex flex-col justify-center items-center m-10">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Home
+                  totalSupply={totalSupply}
+                  reload={reload}
+                  setReload={setReload}
+                />
+              }
+            />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </BrowserRouter>
   );
 }
 
