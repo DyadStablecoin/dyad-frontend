@@ -2,7 +2,7 @@ import { useAccount, useContractReads } from "wagmi";
 import { dNFT_PRICE } from "../consts/consts";
 import { CONTRACT_dNFT } from "../consts/contract";
 import abi from "../consts/abi/dNFTABI.json";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { formatUSD } from "../utils/currency";
 import { dyadMultiplier, xpCurve } from "../utils/stats";
 import Mint from "./Mint";
@@ -13,7 +13,7 @@ import Sync from "./Sync";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 
-export default function NFT({ reload, averageXP, index, borderColor }) {
+export default function NFT({ averageXP, index, borderColor }) {
   const TD = {
     borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
     borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
@@ -59,7 +59,7 @@ export default function NFT({ reload, averageXP, index, borderColor }) {
     },
   });
 
-  const { refetch } = useContractReads({
+  const {} = useContractReads({
     contracts: [
       {
         addressOrName: CONTRACT_dNFT,
@@ -103,7 +103,7 @@ export default function NFT({ reload, averageXP, index, borderColor }) {
         <td style={TD}> {formatUSD(dNFT_PRICE)} </td>
         <td style={TD}>{dyad && dyad / 10 ** 21} </td>
         <td style={TD}>
-          <div className="flex flex-col text-s ">
+          <div className="flex flex-col text-s" style={{ color: borderColor }}>
             <div>
               {dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x/
               {1 / dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x
