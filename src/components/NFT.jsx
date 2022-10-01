@@ -101,7 +101,9 @@ export default function NFT({ reload, address, ETH2USD, averageXP, id }) {
                 {dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x/
                 {1 / dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x
               </div>
-              <div>{Math.round(xpCurve(1) * 10000) / 10000}x XP</div>
+              <div className="w-[5rem]">
+                {Math.round(xpCurve(1) * 10000) / 10000}x XP
+              </div>
             </div>
           </div>
         </td>
