@@ -21,10 +21,9 @@ export default function NFT({
   id,
   borderColor,
 }) {
-  const TR = "text-white text-center border-2 border-[#BCF0C8]";
   const TD = {
-    borderTop: `1px solid ${borderColor}`,
-    borderBottom: `1px solid ${borderColor}`,
+    borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
+    borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
   };
 
   const [rank, setRank] = useState();
@@ -99,27 +98,19 @@ export default function NFT({
   useEffect(() => {
     refetch();
   }, [reload]);
+
   return (
     <>
-      <tr className={TR}>
+      <tr>
         <td
           style={{
-            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
             borderLeft: `1px solid ${borderColor ? borderColor : "black"}`,
-            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
+            ...TD,
           }}
         >
           #{rank && rank}
         </td>
-        <td
-          style={{
-            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
-            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
-          }}
-        >
-          {" "}
-          {formatUSD(dNFT_PRICE)}{" "}
-        </td>
+        <td style={TD}> {formatUSD(dNFT_PRICE)} </td>
         <td
           style={{
             borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
@@ -129,12 +120,7 @@ export default function NFT({
           {" "}
           {dyad && dyad / 10 ** 21}{" "}
         </td>
-        <td
-          style={{
-            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
-            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
-          }}
-        >
+        <td style={TD}>
           <div className="flex flex-col text-s ">
             <div>
               <div>
@@ -147,51 +133,21 @@ export default function NFT({
             </div>
           </div>
         </td>
-        <td
-          style={{
-            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
-            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
-          }}
-        >
+        <td style={TD}>
           <Button onClick={onOpen}>mint</Button>
         </td>
-        <td
-          style={{
-            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
-            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
-          }}
-        >
-          {dyad && dyad / 10 ** 21}
-        </td>
-        <td
-          style={{
-            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
-            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
-          }}
-        >
+        <td style={TD}>{dyadBalance && dyadBalance / 10 ** 21}</td>
+        <td style={TD}>
           <Button onClick={onOpen}>deposit</Button>
         </td>
-        <td
-          style={{
-            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
-            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
-          }}
-        >
+        <td style={TD}>
           <Button onClick={onOpen}>withdraw</Button>
         </td>
-        <td
-          style={{
-            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
-            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
-          }}
-        >
-          {xp && xp}
-        </td>
+        <td style={TD}>{xp && xp}</td>
         <td
           style={{
             borderRight: `1px solid ${borderColor ? borderColor : "black"}`,
-            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
-            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
+            ...TD,
           }}
         >
           <Button onClick={onOpen}>sync</Button>
