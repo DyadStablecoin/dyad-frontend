@@ -14,15 +14,12 @@ export default function NFTs({ reload, address, ETH2USD, averageXP }) {
     functionName: "balanceOf",
     args: [address],
     onSuccess: (data) => {
-      console.log(33333);
-      console.log("numberOfdNFTs", data);
       setNumberOfdNFTs(parseInt(data._hex));
     },
     onError: (err) => {
       console.log(err);
     },
   });
-  console.log(5555);
 
   return (
     <table className="nfts-table table-auto ">
