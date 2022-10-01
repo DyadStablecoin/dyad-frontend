@@ -1,28 +1,31 @@
-import Button from "./Button";
+import { useContractReads } from "wagmi";
+import { dNFT_PRICE } from "../consts/consts";
+import { CONTRACT_dNFT } from "../consts/contract";
+import abi from "../consts/abi/dNFTABI.json";
+import { useEffect, useState } from "react";
+import { formatUSD } from "../utils/currency";
+import { dyadMultiplier, xpCurve } from "../utils/stats";
+import Mint from "./Mint";
 import Popup from "./Popup";
 import { useDisclosure } from "@chakra-ui/react";
-import Mint from "./Mint";
+import Button from "./Button";
 import Sync from "./Sync";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
-import { useEffect, useState } from "react";
-import { useContractRead, useContractReads } from "wagmi";
-import { CONTRACT_dNFT } from "../consts/contract";
-import abi from "../consts/abi/dNFTABI.json";
-import { dyadMultiplier, xpCurve } from "../utils/stats";
-import { dNFT_PRICE } from "../consts/consts";
-import { formatUSD } from "../utils/currency";
-import { ethers } from "ethers";
 
 export default function NFT({
   reload,
   address,
-  id,
   ETH2USD,
-  borderColor,
   averageXP,
-  showHeader = false,
+  id,
+  borderColor,
 }) {
+  const TD = {
+    borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
+    borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
+  };
+
   const [rank, setRank] = useState();
   const [xp, setXP] = useState();
   const [dyad, setDyad] = useState();
@@ -62,7 +65,7 @@ export default function NFT({
     },
   });
 
-  const { isLoading } = useContractReads({
+  const { refetch, isLoading } = useContractReads({
     contracts: [
       {
         addressOrName: CONTRACT_dNFT,
@@ -87,84 +90,81 @@ export default function NFT({
       if (data && data[0]) {
         setXP(parseInt(data[0]._hex));
         setDyad(parseInt(data[1]._hex));
-        console.log("dyad", data[1]);
-        console.log("dyad", parseInt(data[1]._hex));
-        console.log("dyad", ethers.utils.formatEther(data[1]._hex));
         setDyadBalance(parseInt(data[2]._hex));
       }
     },
   });
 
   useEffect(() => {
-    refetchRank();
+    refetch();
   }, [reload]);
 
   return (
     <>
-      {xp && (
-        <div
-          className={`flex gap-8 border-[1px] p-4 items-center`}
+      <tr>
+        <td
           style={{
-            borderColor: borderColor ? borderColor : "black",
+            borderLeft: `1px solid ${borderColor ? borderColor : "black"}`,
+            ...TD,
           }}
         >
-          <div className="underline underline-offset-4 relative">
-            {showHeader && (
-              <div className="absolute mb-[4rem] bottom-1">rank</div>
-            )}
-            #{rank && rank}
-          </div>
-          <div className="underline underline-offset-4 relative">
-            {showHeader && (
-              <div className="absolute mb-[4rem] bottom-1 ml-2">value</div>
-            )}
-            {formatUSD(dNFT_PRICE)}
-          </div>
-          <div className="underline underline-ffset-4 relative">
-            {showHeader && (
-              <div className="absolute mb-[4rem] bottom-1">minted DYAD</div>
-            )}
-            {dyad && dyad / 10 ** 21}
-          </div>
+          #{rank && rank}
+        </td>
+        <td style={TD}> {formatUSD(dNFT_PRICE)} </td>
+        <td
+          style={{
+            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
+            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
+          }}
+        >
+          {" "}
+          {dyad && dyad / 10 ** 21}{" "}
+        </td>
+        <td style={TD}>
           <div className="flex flex-col text-s ">
             <div>
               <div>
                 {dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x/
                 {1 / dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x
               </div>
-              <div>{Math.round(xpCurve(1) * 10000) / 10000}x XP</div>
+              <div className="w-[5rem]">
+                {Math.round(xpCurve(1) * 10000) / 10000}x XP
+              </div>
             </div>
           </div>
+        </td>
+        <td style={TD}>
           <Button onClick={onOpen}>mint</Button>
-          <Popup isOpen={isOpen} onClose={onClose}>
-            <Mint address={address} tokenId={rank} ETH2USD={ETH2USD} />
-          </Popup>
-          <div className="underline underline-offset-4 relative">
-            {showHeader && (
-              <div className="absolute mb-[4rem] bottom-1">invested DYAD</div>
-            )}
-            {dyadBalance && dyadBalance / 10 ** 21}
-          </div>
-          <Button onClick={onOpenDeposit}>deposit</Button>
-          <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
-            <Deposit address={address} tokenId={rank} />
-          </Popup>
-          <Button onClick={onOpenWithdraw}>withdraw</Button>
-          <Popup isOpen={isOpenWithdraw} onClose={onCloseWithdraw}>
-            <Withdraw address={address} tokenId={rank} ETH2USD={ETH2USD} />
-          </Popup>
-          <div className="underline underline-offset-4 relative">
-            {showHeader && (
-              <div className="absolute mb-[4rem] bottom-1">XP</div>
-            )}
-            {xp && xp}
-          </div>
-          <Button onClick={onOpenSync}>sync</Button>
-          <Popup isOpen={isOpenSync} onClose={onCloseSync}>
-            <Sync address={address} tokenId={rank} />
-          </Popup>
-        </div>
-      )}
+        </td>
+        <td style={TD}>{dyadBalance && dyadBalance / 10 ** 21}</td>
+        <td style={TD}>
+          <Button onClick={onOpen}>deposit</Button>
+        </td>
+        <td style={TD}>
+          <Button onClick={onOpen}>withdraw</Button>
+        </td>
+        <td style={TD}>{xp && xp}</td>
+        <td
+          style={{
+            borderRight: `1px solid ${borderColor ? borderColor : "black"}`,
+            ...TD,
+          }}
+        >
+          <Button onClick={onOpen}>sync</Button>
+        </td>
+      </tr>
+      <Popup isOpen={isOpen} onClose={onClose}>
+        <Mint />
+      </Popup>
+      <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
+        <Deposit address={address} tokenId={rank} />
+      </Popup>
+      <Popup isOpen={isOpenWithdraw} onClose={onCloseWithdraw}>
+        <Withdraw address={address} tokenId={rank} ETH2USD={ETH2USD} />
+      </Popup>
+      <Popup isOpen={isOpenSync} onClose={onCloseSync}>
+        <Sync address={address} tokenId={rank} />
+      </Popup>
     </>
   );
 }

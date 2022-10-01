@@ -21,7 +21,7 @@ export default function Home({
             ETH2USD={ETH2USD}
             totalSupply={totalSupply}
           />
-          <div className="mt-[10rem]">
+          <div className="mt-[5rem]">
             <NFTs
               reload={reload}
               address={address}
