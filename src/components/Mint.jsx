@@ -1,43 +1,28 @@
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useAccount,
-  useBalance,
-} from "wagmi";
+import { useContractWrite, usePrepareContractWrite, useBalance } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import Button from "./Button";
 import abi from "../consts/abi/dNFTABI.json";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TextInput from "./TextInput";
 import { formatUSD } from "../utils/currency";
 import { ethers } from "ethers";
 
 export default function Mint({ address, tokenId, ETH2USD }) {
-  const [wETH, setWETH] = useState(0.0001);
+  const [wETH, setWETH] = useState(0);
   const { data: ethBalance } = useBalance({ addressOrName: address });
-  console.log("ethBalance", ethBalance);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: abi,
     functionName: "mintDyad",
-    args: [parseInt(tokenId)],
+    args: [tokenId],
     overrides: { value: ethers.utils.parseEther(String(wETH)) },
     onError: (error) => {
       console.log(error);
     },
   });
-  console.log("tokenId", tokenId);
 
   const { data, isLoading, isSuccess, write } = useContractWrite(config);
-  console.log("mint", write);
-
-  // write({
-  //   args: [tokenId],
-  //   overrides: { value: ethers.utils.parseEther("0.01") },
-  // });
-
-  // write({ overrides: { value: ethers.utils.parseEther("0.001") } });
 
   return (
     <div className="flex flex-col gap-4 items-center p-4">

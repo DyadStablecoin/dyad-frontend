@@ -138,10 +138,10 @@ export default function NFT({
         </td>
         <td style={TD}>{dyadBalance && dyadBalance / 10 ** 21}</td>
         <td style={TD}>
-          <Button onClick={onOpen}>deposit</Button>
+          <Button onClick={onOpenDeposit}>deposit</Button>
         </td>
         <td style={TD}>
-          <Button onClick={onOpen}>withdraw</Button>
+          <Button onClick={onOpenWithdraw}>withdraw</Button>
         </td>
         <td style={TD}>{xp && xp}</td>
         <td
@@ -150,11 +150,11 @@ export default function NFT({
             ...TD,
           }}
         >
-          <Button onClick={onOpen}>sync</Button>
+          <Button onClick={onOpenSync}>sync</Button>
         </td>
       </tr>
       <Popup isOpen={isOpen} onClose={onClose}>
-        <Mint />
+        <Mint address={address} ETH2USD={ETH2USD} tokenId={rank} />
       </Popup>
       <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
         <Deposit address={address} tokenId={rank} />
