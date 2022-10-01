@@ -1,4 +1,4 @@
-import { useContractReads } from "wagmi";
+import { useAccount, useContractReads } from "wagmi";
 import { dNFT_PRICE } from "../consts/consts";
 import { CONTRACT_dNFT } from "../consts/contract";
 import abi from "../consts/abi/dNFTABI.json";
@@ -13,18 +13,13 @@ import Sync from "./Sync";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 
-export default function NFT({
-  reload,
-  address,
-  ETH2USD,
-  averageXP,
-  id,
-  borderColor,
-}) {
+export default function NFT({ reload, averageXP, index, borderColor }) {
   const TD = {
     borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
     borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
   };
+
+  const { address } = useAccount();
 
   const [rank, setRank] = useState();
   const [xp, setXP] = useState();
@@ -48,24 +43,23 @@ export default function NFT({
     onClose: onCloseWithdraw,
   } = useDisclosure();
 
-  const { refetch: refetchRank } = useContractReads({
+  const {} = useContractReads({
     contracts: [
       {
         addressOrName: CONTRACT_dNFT,
         contractInterface: abi,
         functionName: "tokenOfOwnerByIndex",
-        args: [address, id],
+        args: [address, index],
       },
     ],
     onSuccess: (data) => {
-      console.log("data", data);
       if (data && data[0]) {
         setRank(parseInt(data[0]._hex));
       }
     },
   });
 
-  const { refetch, isLoading } = useContractReads({
+  const { refetch } = useContractReads({
     contracts: [
       {
         addressOrName: CONTRACT_dNFT,
@@ -111,25 +105,15 @@ export default function NFT({
           #{rank && rank}
         </td>
         <td style={TD}> {formatUSD(dNFT_PRICE)} </td>
-        <td
-          style={{
-            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
-            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
-          }}
-        >
-          {" "}
-          {dyad && dyad / 10 ** 21}{" "}
-        </td>
+        <td style={TD}>{dyad && dyad / 10 ** 21} </td>
         <td style={TD}>
           <div className="flex flex-col text-s ">
             <div>
-              <div>
-                {dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x/
-                {1 / dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x
-              </div>
-              <div className="w-[5rem]">
-                {Math.round(xpCurve(1) * 10000) / 10000}x XP
-              </div>
+              {dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x/
+              {1 / dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x
+            </div>
+            <div className="w-[5rem]">
+              {Math.round(xpCurve(1) * 10000) / 10000}x XP
             </div>
           </div>
         </td>
@@ -154,13 +138,13 @@ export default function NFT({
         </td>
       </tr>
       <Popup isOpen={isOpen} onClose={onClose}>
-        <Mint address={address} ETH2USD={ETH2USD} tokenId={rank} />
+        <Mint address={address} tokenId={rank} />
       </Popup>
       <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
         <Deposit address={address} tokenId={rank} />
       </Popup>
       <Popup isOpen={isOpenWithdraw} onClose={onCloseWithdraw}>
-        <Withdraw address={address} tokenId={rank} ETH2USD={ETH2USD} />
+        <Withdraw address={address} tokenId={rank} />
       </Popup>
       <Popup isOpen={isOpenSync} onClose={onCloseSync}>
         <Sync address={address} tokenId={rank} />

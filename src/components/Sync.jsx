@@ -8,7 +8,7 @@ import {
 import { CONTRACT_dNFT } from "../consts/contract";
 import Loading from "./Loading";
 
-export default function Sync({ address, tokenId }) {
+export default function Sync({ tokenId }) {
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: abi,
@@ -16,12 +16,7 @@ export default function Sync({ address, tokenId }) {
     args: [tokenId],
   });
 
-  const {
-    data,
-    isLoading: isLoadingSync,
-    isSuccess,
-    write,
-  } = useContractWrite(config);
+  const { data, isLoading: isLoadingSync, write } = useContractWrite(config);
 
   const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
@@ -31,7 +26,7 @@ export default function Sync({ address, tokenId }) {
     <div className="flex flex-col items-center p-14 gap-8">
       {(isLoadingSync || isLoading) && <Loading isLoading />}
       <Button
-        disabled={!write}
+        isDisabled={!write}
         onClick={() => {
           console.log(333);
           write?.();
