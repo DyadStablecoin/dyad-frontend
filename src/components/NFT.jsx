@@ -13,8 +13,19 @@ import Sync from "./Sync";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 
-export default function NFT({ reload, address, ETH2USD, averageXP, id }) {
+export default function NFT({
+  reload,
+  address,
+  ETH2USD,
+  averageXP,
+  id,
+  borderColor,
+}) {
   const TR = "text-white text-center border-2 border-[#BCF0C8]";
+  const TD = {
+    borderTop: `1px solid ${borderColor}`,
+    borderBottom: `1px solid ${borderColor}`,
+  };
 
   const [rank, setRank] = useState();
   const [xp, setXP] = useState();
@@ -91,10 +102,39 @@ export default function NFT({ reload, address, ETH2USD, averageXP, id }) {
   return (
     <>
       <tr className={TR}>
-        <td style={{ borderLeft: "1px solid #BCF0C8" }}>#{rank && rank}</td>
-        <td> {formatUSD(dNFT_PRICE)} </td>
-        <td> {dyad && dyad / 10 ** 21} </td>
-        <td>
+        <td
+          style={{
+            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
+            borderLeft: `1px solid ${borderColor ? borderColor : "black"}`,
+            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
+          }}
+        >
+          #{rank && rank}
+        </td>
+        <td
+          style={{
+            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
+            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
+          }}
+        >
+          {" "}
+          {formatUSD(dNFT_PRICE)}{" "}
+        </td>
+        <td
+          style={{
+            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
+            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
+          }}
+        >
+          {" "}
+          {dyad && dyad / 10 ** 21}{" "}
+        </td>
+        <td
+          style={{
+            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
+            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
+          }}
+        >
           <div className="flex flex-col text-s ">
             <div>
               <div>
@@ -107,18 +147,53 @@ export default function NFT({ reload, address, ETH2USD, averageXP, id }) {
             </div>
           </div>
         </td>
-        <td>
+        <td
+          style={{
+            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
+            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
+          }}
+        >
           <Button onClick={onOpen}>mint</Button>
         </td>
-        <td>{dyad && dyad / 10 ** 21}</td>
-        <td>
+        <td
+          style={{
+            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
+            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
+          }}
+        >
+          {dyad && dyad / 10 ** 21}
+        </td>
+        <td
+          style={{
+            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
+            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
+          }}
+        >
           <Button onClick={onOpen}>deposit</Button>
         </td>
-        <td>
+        <td
+          style={{
+            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
+            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
+          }}
+        >
           <Button onClick={onOpen}>withdraw</Button>
         </td>
-        <td>{xp && xp}</td>
-        <td style={{ borderRight: "1px solid #BCF0C8" }}>
+        <td
+          style={{
+            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
+            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
+          }}
+        >
+          {xp && xp}
+        </td>
+        <td
+          style={{
+            borderRight: `1px solid ${borderColor ? borderColor : "black"}`,
+            borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
+            borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
+          }}
+        >
           <Button onClick={onOpen}>sync</Button>
         </td>
       </tr>
