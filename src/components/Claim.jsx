@@ -34,7 +34,9 @@ export default function Claim({ address, reload, setReload, totalSupply }) {
     <div>
       {(isLoadingWrite || isLoading) && <Loading isLoading />}
       <div className="flex gap-[10rem] border-[1px] border-[#716285] border-2 border-dashed p-4 items-center justify-between">
-        <div className="">{parseInt(totalSupply)}/2600 dNFTs available</div>
+        <div className="">
+          {2600 - parseInt(totalSupply)}/2600 dNFTs available
+        </div>
         <Button
           disabled={!write}
           onClick={() => {
