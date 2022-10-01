@@ -69,7 +69,7 @@ export default function Mint({ address, tokenId, ETH2USD }) {
         <div>+8031 dNFTs</div>
         <div>950,000 GAS/ .02 ETH</div>
       </div>
-      <Button isPrimary>mint DYAD instantly</Button>
+      <Button isSecondary>mint DYAD instantly</Button>
     </div>
   );
 }
