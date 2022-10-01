@@ -17,30 +17,28 @@ export default function NFTs({ reload, averageXP }) {
     onSuccess: (data) => {
       setDNftBalance(parseInt(data._hex));
     },
-    onError: (err) => {
-      console.log(err);
-    },
   });
 
   useEffect(() => {
-    console.log("NFTs");
     refetch();
   }, [reload]);
 
   return (
     <table className="nfts-table table-auto ">
-      <tr>
-        <th>rank</th>
-        <th>value</th>
-        <th>minted DYAD</th>
-        <th>performance</th>
-        <th></th>
-        <th>invested DYAD</th>
-        <th></th>
-        <th></th>
-        <th>XP</th>
-        <th></th>
-      </tr>
+      {dNftBalance > 0 && (
+        <tr>
+          <th>rank</th>
+          <th>value</th>
+          <th>minted DYAD</th>
+          <th>performance</th>
+          <th></th>
+          <th>invested DYAD</th>
+          <th></th>
+          <th></th>
+          <th>XP</th>
+          <th></th>
+        </tr>
+      )}
       {[...Array(dNftBalance).keys()].map((i) => {
         return (
           <NFT
