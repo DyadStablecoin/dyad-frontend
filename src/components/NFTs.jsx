@@ -4,7 +4,6 @@ import NFT from "./NFT";
 import dNFTabi from "../consts/abi/dNFTABI.json";
 import { useContractRead } from "wagmi";
 import { useState } from "react";
-import NFTsTable from "./NFTsTable";
 
 export default function NFTs({ reload, address, ETH2USD, averageXP }) {
   const [numberOfdNFTs, setNumberOfdNFTs] = useState(0);
@@ -41,7 +40,7 @@ export default function NFTs({ reload, address, ETH2USD, averageXP }) {
       </tr>
       {[...Array(numberOfdNFTs).keys()].map((i) => {
         return (
-          <NFTsTable
+          <NFT
             reload={reload}
             address={address}
             id={i}

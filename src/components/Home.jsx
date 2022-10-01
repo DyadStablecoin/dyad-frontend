@@ -1,6 +1,5 @@
 import Claim from "./Claim";
 import NFTs from "./NFTs";
-import NFTsTable from "./NFTsTable";
 
 export default function Home({
   address,
@@ -22,7 +21,6 @@ export default function Home({
             ETH2USD={ETH2USD}
             totalSupply={totalSupply}
           />
-          {/* <NFTsTable /> */}
           <div className="mt-[5rem]">
             <NFTs
               reload={reload}
