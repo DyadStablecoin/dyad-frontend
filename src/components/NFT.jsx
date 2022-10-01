@@ -137,7 +137,7 @@ export default function NFT({
           </div>
           <Button onClick={onOpen}>mint</Button>
           <Popup isOpen={isOpen} onClose={onClose}>
-            <Mint tokenId={rank} ETH2USD={ETH2USD} />
+            <Mint address={address} tokenId={rank} ETH2USD={ETH2USD} />
           </Popup>
           <div className="underline underline-offset-4 relative">
             {showHeader && (
@@ -151,7 +151,7 @@ export default function NFT({
           </Popup>
           <Button onClick={onOpenWithdraw}>withdraw</Button>
           <Popup isOpen={isOpenWithdraw} onClose={onCloseWithdraw}>
-            <Withdraw tokenId={rank} ETH2USD={ETH2USD} />
+            <Withdraw address={address} tokenId={rank} ETH2USD={ETH2USD} />
           </Popup>
           <div className="underline underline-offset-4 relative">
             {showHeader && (

@@ -4,13 +4,21 @@ import Home from "./components/Home";
 import { NavBar } from "./components/layout/Navbar";
 import "@rainbow-me/rainbowkit/styles.css";
 import { useTVL, useAverageXP } from "./utils/stats";
-import { useAccount, useContractRead } from "wagmi";
-import { CONTRACT_dNFT } from "./consts/contract";
+import {
+  useAccount,
+  useContractRead,
+  useContractReads,
+  useBalance,
+} from "wagmi";
+import { CONTRACT_dNFT, CONTRACT_DYAD } from "./consts/contract";
 import abi from "./consts/abi/dNFTABI.json";
+import dyadABI from "./consts/abi/dNFTABI.json";
 
 function App() {
-  const [totalSupply, setTotalSupply] = useState(0);
   const [reload, setReload] = useState(false);
+
+  const [totalSupply, setTotalSupply] = useState(0);
+  const [balanceOfDyad, setBalanceOfDyad] = useState(0);
   const [ETH2USD, setETH2USD] = useState(0);
 
   const { address, isConnected } = useAccount();
@@ -18,12 +26,23 @@ function App() {
   const tvl = useTVL(totalSupply);
   const averageXP = useAverageXP(totalSupply);
 
-  const { refetch } = useContractRead({
-    addressOrName: CONTRACT_dNFT,
-    contractInterface: abi,
-    functionName: "totalSupply",
+  const { refetch } = useContractReads({
+    contracts: [
+      {
+        addressOrName: CONTRACT_dNFT,
+        contractInterface: abi,
+        functionName: "totalSupply",
+      },
+      {
+        addressOrName: CONTRACT_DYAD,
+        contractInterface: dyadABI,
+        functionName: "balanceOf",
+        args: [address],
+      },
+    ],
     onSuccess: (data) => {
-      setTotalSupply(data._hex);
+      setTotalSupply(parseInt(data[0]._hex));
+      setBalanceOfDyad(parseInt(data[1]._hex));
     },
   });
 
