@@ -4,7 +4,7 @@ import "./index.css";
 import Home from "./components/Home";
 import { NavBar } from "./components/layout/Navbar";
 import "@rainbow-me/rainbowkit/styles.css";
-import { useTVL, useAverageXP } from "./utils/stats";
+import { useTVL } from "./utils/stats";
 import { useAccount, useContractReads } from "wagmi";
 import { CONTRACT_dNFT, CONTRACT_DYAD } from "./consts/contract";
 import abi from "./consts/abi/dNFTABI.json";

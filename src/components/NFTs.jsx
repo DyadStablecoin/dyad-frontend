@@ -3,13 +3,13 @@ import { CONTRACT_dNFT } from "../consts/contract";
 import NFT from "./NFT";
 import dNFTabi from "../consts/abi/dNFTABI.json";
 import { useAccount, useContractRead } from "wagmi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function NFTs({ reload, averageXP }) {
   const [dNftBalance, setDNftBalance] = useState(0);
   const { address } = useAccount();
 
-  const {} = useContractRead({
+  const { refetch } = useContractRead({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTabi,
     functionName: "balanceOf",
@@ -21,6 +21,11 @@ export default function NFTs({ reload, averageXP }) {
       console.log(err);
     },
   });
+
+  useEffect(() => {
+    console.log("NFTs");
+    refetch();
+  }, [reload]);
 
   return (
     <table className="nfts-table table-auto ">

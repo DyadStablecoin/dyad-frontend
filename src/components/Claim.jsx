@@ -1,4 +1,5 @@
 import {
+  useAccount,
   useContractWrite,
   usePrepareContractWrite,
   useWaitForTransaction,
@@ -8,26 +9,31 @@ import Button from "./Button";
 import abi from "../consts/abi/dNFTABI.json";
 import Loading from "./Loading";
 
-export default function Claim({ address, reload, setReload, totalSupply }) {
+export default function Claim({ reload, setReload, totalSupply }) {
+  const { address } = useAccount();
+
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: abi,
     functionName: "mint",
     args: [address],
     onSuccess: () => {},
+    onError: (e) => {
+      console.log("claim", e);
+    },
   });
 
   const { data, isLoading: isLoadingWrite, write } = useContractWrite(config);
-  console.log("claim", write);
 
   const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
     onSuccess: () => {
       setReload(!reload);
+      console.log("success");
     },
-    onSettled: () => {
-      setReload(!reload);
-    },
+    // onSettled: () => {
+    //   setReload(!reload);
+    // },
   });
 
   return (

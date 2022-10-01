@@ -89,10 +89,6 @@ export default function NFT({ reload, averageXP, index, borderColor }) {
     },
   });
 
-  useEffect(() => {
-    refetch();
-  }, [reload]);
-
   return (
     <>
       <tr>
