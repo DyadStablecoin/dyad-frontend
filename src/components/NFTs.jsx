@@ -46,10 +46,6 @@ export default function NFTs({ reload, address, ETH2USD, averageXP }) {
             id={i}
             ETH2USD={ETH2USD}
             averageXP={averageXP}
-            // show header only for the first item
-            // TODO: super hacky, needs refactoring
-            showHeader={i === 0}
-            // xp
             borderColor={NFT_COLORS[i % NFT_COLORS.length]}
           />
         );
