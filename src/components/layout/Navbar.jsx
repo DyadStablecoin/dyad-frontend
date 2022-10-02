@@ -1,7 +1,5 @@
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useAccount, useDisconnect } from "wagmi";
-import { useBalance } from "wagmi";
-import { dNFTfloor, getTVL } from "../../utils/stats";
+import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { dNFTfloor } from "../../utils/stats";
 import { formatUSD } from "../../utils/currency";
 import { addressSummary } from "../../utils/address";
 import Button from "../Button";
@@ -9,9 +7,8 @@ import Button from "../Button";
 export const NavBar = ({ tvl }) => {
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
-  const { data, isError, isLoading } = useBalance({
-    addressOrName: address,
-  });
+  const { connect, connectors, error, isLoading, pendingConnector } =
+    useConnect();
 
   return (
     <div className="flex justify-around items-center mt-8 mb-8">
@@ -32,7 +29,13 @@ export const NavBar = ({ tvl }) => {
           </div>
         </Button>
       ) : (
-        <ConnectButton />
+        <Button
+          onClick={() => {
+            connect({ connector: connectors[4] }); // 4 is for metamask
+          }}
+        >
+          Connect
+        </Button>
       )}
     </div>
   );
