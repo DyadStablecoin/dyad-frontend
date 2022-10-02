@@ -3,6 +3,8 @@ import { useAccount, useDisconnect } from "wagmi";
 import { useBalance } from "wagmi";
 import { dNFTfloor, getTVL } from "../../utils/stats";
 import { formatUSD } from "../../utils/currency";
+import { addressSummary } from "../../utils/address";
+import Button from "../Button";
 
 export const NavBar = ({ tvl }) => {
   const { address } = useAccount();
@@ -23,9 +25,12 @@ export const NavBar = ({ tvl }) => {
       <a href="/docs">docs</a>
       <a href="/about-us">about</a>
       {address ? (
-        <a className="cursor-pointer" onClick={() => disconnect()}>
-          Disconnect
-        </a>
+        <Button onClick={() => disconnect()}>
+          <div className="flex  items-center gap-2">
+            <a className="cursor-pointer">Disconnect</a>
+            <div>{addressSummary(address, 3)}</div>
+          </div>
+        </Button>
       ) : (
         <ConnectButton />
       )}
