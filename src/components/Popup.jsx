@@ -16,8 +16,7 @@ const theme = extendTheme({
     Modal: {
       baseStyle: (props) => ({
         dialog: {
-          bg: "#3d3e40",
-          opacity: "0.55",
+          bg: "rgba(255, 255, 255, 0.11)",
         },
       }),
     },
