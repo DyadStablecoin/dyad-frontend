@@ -42,7 +42,7 @@ export default function Mint({ tokenId }) {
             placeholder={0}
           />
         </div>
-        <div className="underline">ETH</div>
+        <div className="">ETH</div>
         <Button
           onClick={() => {
             setWETH(ethBalance.formatted);

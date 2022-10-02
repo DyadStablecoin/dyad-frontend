@@ -91,7 +91,7 @@ export default function Deposit({ address, tokenId }) {
             }}
           />
         </div>
-        <div className="underline">DYAD</div>
+        <div className="">DYAD</div>
       </div>
       {/* <div>to</div> */}
       {/* <div className="text-2xl"> */}

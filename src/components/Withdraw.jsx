@@ -53,7 +53,7 @@ export default function Withdraw({ address, tokenId, ETH2USD }) {
             placeholder={0}
           />
         </div>
-        <div className="underline">$DYAD</div>
+        <div className="">$DYAD</div>
         {balanceOf}
       </div>
       {/* <div>to</div> */}
