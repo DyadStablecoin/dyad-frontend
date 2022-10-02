@@ -29,7 +29,7 @@ export default function Popup({ isOpen, onClose, children }) {
       <Modal isOpen={isOpen} onClose={onClose}>
         <div className="modal">
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent className="modal-content">
             {/* <ModalHeader>Modal Title</ModalHeader> */}
             {/* <ModalCloseButton /> */}
             <ModalBody>{children}</ModalBody>
