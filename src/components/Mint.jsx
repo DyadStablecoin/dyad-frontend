@@ -42,8 +42,8 @@ export default function Mint({ tokenId }) {
               setWETH(v);
             }}
             placeholder={0}
-            type="number"
-            min={0}
+            // type="number"
+            // min={0}
           />
         </div>
         <div className="">ETH</div>

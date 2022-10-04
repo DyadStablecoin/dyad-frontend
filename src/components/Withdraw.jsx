@@ -51,12 +51,9 @@ export default function Withdraw({ address, tokenId, ETH2USD }) {
             value={dyad}
             onChange={(v) => setDyad(v)}
             placeholder={0}
-            type="number"
-            min={0}
           />
         </div>
         <div className="">$DYAD</div>
-        {balanceOf}
       </div>
       {/* <div>to</div> */}
       {/* <div className="text-2xl">${wETH * ethToUSD} ETH</div> */}
