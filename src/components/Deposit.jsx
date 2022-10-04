@@ -16,7 +16,6 @@ import { formatUSD } from "../utils/currency";
 
 export default function Deposit({ address, tokenId }) {
   const [wETH, setWETH] = useState(0);
-  const [ethToUSD, setEthToUSD] = useState(0);
 
   const [isApproved, setIsApproved] = useState(true);
   console.log("tokenId", tokenId);
@@ -28,7 +27,7 @@ export default function Deposit({ address, tokenId }) {
     // args: [0, parseInt(ethers.utils.parseEther("0.0001")._hex)],
     // args: [tokenId, ethers.utils.parseEther("0.0001")],
     // args: [tokenId, wETH],
-    args: [tokenId, 100],
+    args: [tokenId, 1],
     onError: (error) => {
       console.log("error deposit", error);
     },
@@ -45,11 +44,17 @@ export default function Deposit({ address, tokenId }) {
     addressOrName: CONTRACT_DYAD,
     contractInterface: abi,
     functionName: "approve",
-    args: [CONTRACT_dNFT, wETH],
+    // args: [CONTRACT_dNFT, ethers.utils.parseEther(String(wETH))],
+    args: [CONTRACT_dNFT, 10000000000],
+    onSuccess: () => {
+      console.log("success");
+    },
     onError: (error) => {
-      console.log("error", error);
+      console.log(error);
     },
   });
+
+  const { write: writeApprove } = useContractWrite(config);
 
   const { refetch } = useContractRead({
     addressOrName: CONTRACT_DYAD,
@@ -59,24 +64,13 @@ export default function Deposit({ address, tokenId }) {
     onSuccess: (data) => {
       const allowance = parseInt(data._hex);
       console.log("allowance", allowance);
-      setIsApproved(allowance >= wETH);
+      // setIsApproved(allowance >= wETH);
       console.log("allowance", data);
       console.log("data", data);
     },
   });
-  const { data, isLoading, isSuccess, writeApprove } = useContractWrite(config);
 
-  useEffect(() => {
-    async function getETHPrice() {
-      const res = await fetch(
-        "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR"
-      );
-      const data = await res.json();
-      setEthToUSD(data.USD);
-    }
-
-    getETHPrice();
-  });
+  useEffect(() => {}, [wETH]);
 
   return (
     <div className="flex flex-col gap-4 items-center p-4">
@@ -86,6 +80,8 @@ export default function Deposit({ address, tokenId }) {
             value={wETH}
             onChange={(v) => setWETH(v)}
             placeholder={0}
+            type="number"
+            min={0}
             onBlur={(e) => {
               refetch();
             }}
