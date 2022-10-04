@@ -24,7 +24,7 @@ export default function Mint({ tokenId }) {
     contractInterface: abi,
     functionName: "mintDyad",
     args: [tokenId],
-    overrides: { value: ethers.utils.parseEther(String(wETH)) },
+    overrides: { value: ethers.utils.parseEther(wETH ? String(wETH) : "0") },
     onError: (error) => {
       console.log(error);
     },
@@ -38,8 +38,12 @@ export default function Mint({ tokenId }) {
         <div className="w-[10rem]">
           <TextInput
             value={wETH}
-            onChange={(v) => setWETH(v)}
+            onChange={(v) => {
+              setWETH(v);
+            }}
             placeholder={0}
+            type="number"
+            min={0}
           />
         </div>
         <div className="">ETH</div>

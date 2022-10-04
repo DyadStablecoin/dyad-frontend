@@ -21,7 +21,7 @@ export default function Withdraw({ address, tokenId, ETH2USD }) {
     addressOrName: CONTRACT_dNFT,
     contractInterface: abi,
     functionName: "withdraw",
-    args: [tokenId, ethers.utils.parseEther(String(dyad))],
+    args: [tokenId, ethers.utils.parseEther(dyad ? String(dyad) : "0")],
     onError: (error) => {
       console.log("error", error);
     },
@@ -51,6 +51,8 @@ export default function Withdraw({ address, tokenId, ETH2USD }) {
             value={dyad}
             onChange={(v) => setDyad(v)}
             placeholder={0}
+            type="number"
+            min={0}
           />
         </div>
         <div className="">$DYAD</div>
