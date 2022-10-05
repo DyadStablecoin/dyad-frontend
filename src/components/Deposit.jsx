@@ -9,7 +9,6 @@ import abi from "../consts/abi/dyadABI.json";
 import dNFTabi from "../consts/abi/dNFTABI.json";
 import { useEffect, useState } from "react";
 import TextInput from "./TextInput";
-import { ethers } from "ethers";
 
 export default function Deposit({ address, tokenId }) {
   const [dyad, setDyad] = useState(0);
@@ -20,7 +19,8 @@ export default function Deposit({ address, tokenId }) {
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTabi,
     functionName: "deposit",
-    args: [tokenId, parseFloat(dyad) * 10 ** 18],
+    // args: [tokenId, parseFloat(dyad) * 10 ** 18],
+    args: [tokenId, dyad ? String(dyad * 10 ** 21) : "0"],
     onError: (error) => {
       console.log("error deposit", error);
     },
@@ -32,7 +32,7 @@ export default function Deposit({ address, tokenId }) {
     addressOrName: CONTRACT_DYAD,
     contractInterface: abi,
     functionName: "approve",
-    args: [CONTRACT_dNFT, dyad ? String(dyad * 10 ** 18) : 0],
+    args: [CONTRACT_dNFT, dyad ? String(dyad * 10 ** 21) : 0],
     onSuccess: () => {
       console.log("success");
     },
@@ -50,8 +50,8 @@ export default function Deposit({ address, tokenId }) {
     args: [address, CONTRACT_dNFT],
     onSuccess: (data) => {
       const allowance = parseInt(data._hex);
-      console.log("allowance", allowance / 10 ** 18);
-      setIsApproved(allowance / 10 ** 18 >= parseInt(dyad));
+      console.log("allowance", allowance / 10 ** 21);
+      setIsApproved(allowance / 10 ** 21 >= parseFloat(dyad));
     },
   });
 

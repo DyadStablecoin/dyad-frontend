@@ -10,8 +10,6 @@ import abi from "../consts/abi/dNFTABI.json";
 import dyadABI from "../consts/abi/dNFTABI.json";
 import { useEffect, useState } from "react";
 import TextInput from "./TextInput";
-import { BigNumber } from "ethers";
-import { ethers } from "ethers";
 
 export default function Withdraw({ address, tokenId, ETH2USD }) {
   const [dyad, setDyad] = useState(0);
@@ -21,7 +19,7 @@ export default function Withdraw({ address, tokenId, ETH2USD }) {
     addressOrName: CONTRACT_dNFT,
     contractInterface: abi,
     functionName: "withdraw",
-    args: [tokenId, ethers.utils.parseEther(dyad ? String(dyad) : "0")],
+    args: [tokenId, dyad ? String(dyad * 10 ** 21) : "0"],
     onError: (error) => {
       console.log("error", error);
     },
