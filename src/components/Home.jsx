@@ -17,7 +17,7 @@ export default function Home({ totalSupply, reload, setReload }) {
             totalSupply={totalSupply}
           />
           <div className="mt-[5rem]">
-            <NFTs reload={reload} averageXP={averageXP} />
+            <NFTs reload={reload} setReload={setReload} averageXP={averageXP} />
           </div>
         </div>
       ) : (

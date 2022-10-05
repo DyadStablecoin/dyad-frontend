@@ -2,6 +2,8 @@ import {
   useContractWrite,
   usePrepareContractWrite,
   useContractRead,
+  useAccount,
+  useWaitForTransaction,
 } from "wagmi";
 import { CONTRACT_dNFT, CONTRACT_DYAD } from "../consts/contract";
 import Button from "./Button";
@@ -9,8 +11,11 @@ import abi from "../consts/abi/dyadABI.json";
 import dNFTabi from "../consts/abi/dNFTABI.json";
 import { useEffect, useState } from "react";
 import TextInput from "./TextInput";
+import Loading from "./Loading";
 
-export default function Deposit({ address, tokenId }) {
+export default function Deposit({ tokenId, reload, setReload, onClose }) {
+  const { address } = useAccount();
+
   const [dyad, setDyad] = useState(0);
 
   const [isApproved, setIsApproved] = useState(true);
@@ -19,20 +24,19 @@ export default function Deposit({ address, tokenId }) {
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTabi,
     functionName: "deposit",
-    // args: [tokenId, parseFloat(dyad) * 10 ** 18],
     args: [tokenId, dyad ? String(dyad * 10 ** 21) : "0"],
     onError: (error) => {
       console.log("error deposit", error);
     },
   });
 
-  const { write: writeDeposit } = useContractWrite(configDeposit);
+  const { write: writeDeposit, data } = useContractWrite(configDeposit);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_DYAD,
     contractInterface: abi,
     functionName: "approve",
-    args: [CONTRACT_dNFT, dyad ? String(dyad * 10 ** 21) : 0],
+    args: [CONTRACT_dNFT, dyad ? String(dyad * 10 ** 18) : 0],
     onSuccess: () => {
       console.log("success");
     },
@@ -57,8 +61,17 @@ export default function Deposit({ address, tokenId }) {
 
   useEffect(() => {}, [dyad]);
 
+  const { isLoading } = useWaitForTransaction({
+    hash: data?.hash,
+    onSuccess: () => {
+      onClose(); // close modal
+      setReload(!reload);
+    },
+  });
+
   return (
     <div className="flex flex-col gap-4 items-center p-4">
+      {isLoading && <Loading isLoading />}
       <div className="flex gap-2 text-2xl items-center justify-center">
         <div className="w-[10rem]">
           <TextInput
@@ -91,7 +104,7 @@ export default function Deposit({ address, tokenId }) {
             writeApprove?.();
           }}
         >
-          Approve
+          approve
         </Button>
       )}
     </div>

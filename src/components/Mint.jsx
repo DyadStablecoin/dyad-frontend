@@ -3,6 +3,7 @@ import {
   usePrepareContractWrite,
   useBalance,
   useAccount,
+  useWaitForTransaction,
 } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import Button from "./Button";
@@ -11,8 +12,9 @@ import { useState } from "react";
 import TextInput from "./TextInput";
 import { formatUSD, useEthPrice } from "../utils/currency";
 import { ethers } from "ethers";
+import Loading from "./Loading";
 
-export default function Mint({ tokenId }) {
+export default function Mint({ tokenId, reload, setReload, onClose }) {
   const { address } = useAccount();
   const ethPrice = useEthPrice();
 
@@ -30,10 +32,19 @@ export default function Mint({ tokenId }) {
     },
   });
 
-  const { write } = useContractWrite(config);
+  const { data, write } = useContractWrite(config);
+
+  const { isLoading } = useWaitForTransaction({
+    hash: data?.hash,
+    onSuccess: () => {
+      onClose(); // close modal
+      setReload(!reload);
+    },
+  });
 
   return (
     <div className="flex flex-col gap-4 items-center p-4">
+      {isLoading && <Loading isLoading />}
       <div className="flex gap-2 text-2xl items-center">
         <div className="w-[10rem]">
           <TextInput

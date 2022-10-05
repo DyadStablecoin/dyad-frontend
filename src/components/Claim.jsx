@@ -31,9 +31,6 @@ export default function Claim({ reload, setReload, totalSupply }) {
       setReload(!reload);
       console.log("success");
     },
-    // onSettled: () => {
-    //   setReload(!reload);
-    // },
   });
 
   return (

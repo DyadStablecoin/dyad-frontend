@@ -2,7 +2,7 @@ import { useAccount, useContractReads } from "wagmi";
 import { dNFT_PRICE } from "../consts/consts";
 import { CONTRACT_dNFT } from "../consts/contract";
 import abi from "../consts/abi/dNFTABI.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { formatUSD } from "../utils/currency";
 import { dyadMultiplier, xpCurve } from "../utils/stats";
 import Mint from "./Mint";
@@ -13,7 +13,13 @@ import Sync from "./Sync";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 
-export default function NFT({ averageXP, index, borderColor }) {
+export default function NFT({
+  averageXP,
+  index,
+  borderColor,
+  reload,
+  setReload,
+}) {
   const TD = {
     borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
     borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
@@ -59,7 +65,7 @@ export default function NFT({ averageXP, index, borderColor }) {
     },
   });
 
-  const {} = useContractReads({
+  const { refetch } = useContractReads({
     contracts: [
       {
         addressOrName: CONTRACT_dNFT,
@@ -88,6 +94,10 @@ export default function NFT({ averageXP, index, borderColor }) {
       }
     },
   });
+
+  useEffect(() => {
+    refetch();
+  }, [reload]);
 
   return (
     <>
@@ -134,13 +144,28 @@ export default function NFT({ averageXP, index, borderColor }) {
         </td>
       </tr>
       <Popup isOpen={isOpen} onClose={onClose}>
-        <Mint address={address} tokenId={rank} />
+        <Mint
+          tokenId={rank}
+          reload={reload}
+          setReload={setReload}
+          onClose={onClose}
+        />
       </Popup>
       <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
-        <Deposit address={address} tokenId={rank} />
+        <Deposit
+          tokenId={rank}
+          reload={reload}
+          setReload={setReload}
+          onClose={onCloseDeposit}
+        />
       </Popup>
       <Popup isOpen={isOpenWithdraw} onClose={onCloseWithdraw}>
-        <Withdraw address={address} tokenId={rank} />
+        <Withdraw
+          tokenId={rank}
+          reload={reload}
+          setReload={setReload}
+          onClose={onCloseWithdraw}
+        />
       </Popup>
       <Popup isOpen={isOpenSync} onClose={onCloseSync}>
         <Sync address={address} tokenId={rank} />
