@@ -3,15 +3,19 @@ import {
   usePrepareContractWrite,
   useAccount,
   useContractRead,
+  useWaitForTransaction,
 } from "wagmi";
 import { CONTRACT_dNFT, CONTRACT_DYAD } from "../consts/contract";
 import Button from "./Button";
 import abi from "../consts/abi/dNFTABI.json";
 import dyadABI from "../consts/abi/dNFTABI.json";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TextInput from "./TextInput";
+import Loading from "./Loading";
 
-export default function Withdraw({ address, tokenId, ETH2USD }) {
+export default function Withdraw({ tokenId, reload, setReload, onClose }) {
+  const { address } = useAccount();
+
   const [dyad, setDyad] = useState(0);
   const [balanceOf, setBalanceOf] = useState(0);
 
@@ -39,10 +43,20 @@ export default function Withdraw({ address, tokenId, ETH2USD }) {
     },
   });
 
-  const { data, isLoading, isSuccess, write } = useContractWrite(config);
+  const { data, write } = useContractWrite(config);
+
+  const { isLoading } = useWaitForTransaction({
+    hash: data?.hash,
+    onSuccess: () => {
+      onClose(); // close modal
+      setReload(!reload);
+    },
+  });
 
   return (
     <div className="flex flex-col gap-4 items-center p-4">
+      {isLoading && <Loading isLoading />}
+
       <div className="flex gap-2 text-2xl items-center">
         <div className="w-[10rem]">
           <TextInput
