@@ -24,7 +24,6 @@ export function calcRank(xps, xp) {
 
 // calculate rank
 export function useXPs(nDNFTs) {
-  console.log("useXPs");
   nDNFTs = parseInt(nDNFTs);
 
   let aa = [];
@@ -51,7 +50,6 @@ export function useXPs(nDNFTs) {
       }
     });
   }
-  console.log("xp", xp);
 
   return xp;
 }
