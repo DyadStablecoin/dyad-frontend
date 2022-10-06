@@ -19,7 +19,7 @@ export function xpCurve(pL) {
 }
 
 export function calcRank(xps, xp) {
-  return xps.filter((x) => x > xp).length + 1;
+  return xps.reverse().filter((x) => x > xp).length + 1;
 }
 
 // calculate rank
