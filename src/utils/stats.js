@@ -18,8 +18,13 @@ export function xpCurve(pL) {
   return Math.log(-pL + 1.002494) / 6 + 1;
 }
 
+export function calcRank(xps, xp) {
+  return xps.filter((x) => x > xp).length + 1;
+}
+
 // calculate rank
-export function useRank(nDNFTs) {
+export function useXPs(nDNFTs) {
+  console.log("useXPs");
   nDNFTs = parseInt(nDNFTs);
 
   let aa = [];
