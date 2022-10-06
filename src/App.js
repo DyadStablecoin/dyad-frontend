@@ -4,7 +4,7 @@ import "./index.css";
 import Home from "./components/Home";
 import { NavBar } from "./components/layout/Navbar";
 import "@rainbow-me/rainbowkit/styles.css";
-import { useRank, useTVL, useXPs } from "./utils/stats";
+import { useTVL, useXPs } from "./utils/stats";
 import { useAccount, useContractReads } from "wagmi";
 import { CONTRACT_dNFT, CONTRACT_DYAD } from "./consts/contract";
 import abi from "./consts/abi/dNFTABI.json";
@@ -38,8 +38,10 @@ function App() {
       },
     ],
     onSuccess: (data) => {
-      setTotalSupply(parseInt(data[0]._hex));
-      setBalanceOfDyad(parseInt(data[1]._hex));
+      if (data && data[0]) {
+        setTotalSupply(parseInt(data[0]._hex));
+        setBalanceOfDyad(parseInt(data[1]._hex));
+      }
     },
   });
 
