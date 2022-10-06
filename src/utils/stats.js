@@ -18,6 +18,39 @@ export function xpCurve(pL) {
   return Math.log(-pL + 1.002494) / 6 + 1;
 }
 
+// calculate rank
+export function useRank(nDNFTs) {
+  nDNFTs = parseInt(nDNFTs);
+
+  let aa = [];
+  for (let i = 0; i < nDNFTs; i++) {
+    aa.push({
+      addressOrName: CONTRACT_dNFT,
+      contractInterface: abi,
+      functionName: "xp",
+      args: [i],
+    });
+  }
+
+  const { data } = useContractReads({
+    contracts: aa,
+  });
+
+  // map index to rank
+  var xp = [];
+
+  if (data) {
+    data.map((d, i) => {
+      if (d) {
+        xp.push(parseInt(d._hex));
+      }
+    });
+  }
+  console.log("xp", xp);
+
+  return xp;
+}
+
 // get TVL
 export function useTVL(nDNFTs) {
   nDNFTs = parseInt(nDNFTs);
