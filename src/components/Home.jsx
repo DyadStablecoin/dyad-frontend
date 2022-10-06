@@ -3,7 +3,7 @@ import { useAverageXP } from "../utils/stats";
 import Claim from "./Claim";
 import NFTs from "./NFTs";
 
-export default function Home({ totalSupply, reload, setReload }) {
+export default function Home({ totalSupply, reload, setReload, xps }) {
   const { isConnected } = useAccount();
   const averageXP = useAverageXP(totalSupply);
 
@@ -17,7 +17,12 @@ export default function Home({ totalSupply, reload, setReload }) {
             totalSupply={totalSupply}
           />
           <div className="mt-[5rem]">
-            <NFTs reload={reload} setReload={setReload} averageXP={averageXP} />
+            <NFTs
+              reload={reload}
+              setReload={setReload}
+              averageXP={averageXP}
+              xps={xps}
+            />
           </div>
         </div>
       ) : (

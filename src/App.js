@@ -4,7 +4,7 @@ import "./index.css";
 import Home from "./components/Home";
 import { NavBar } from "./components/layout/Navbar";
 import "@rainbow-me/rainbowkit/styles.css";
-import { useTVL } from "./utils/stats";
+import { useRank, useTVL, useXPs } from "./utils/stats";
 import { useAccount, useContractReads } from "wagmi";
 import { CONTRACT_dNFT, CONTRACT_DYAD } from "./consts/contract";
 import abi from "./consts/abi/dNFTABI.json";
@@ -21,6 +21,7 @@ function App() {
   const { address } = useAccount();
 
   const tvl = useTVL(totalSupply);
+  const xps = useXPs(totalSupply);
 
   const { refetch } = useContractReads({
     contracts: [
@@ -59,6 +60,7 @@ function App() {
                   totalSupply={totalSupply}
                   reload={reload}
                   setReload={setReload}
+                  xps={xps}
                 />
               }
             />

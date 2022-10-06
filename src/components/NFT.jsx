@@ -4,7 +4,7 @@ import { CONTRACT_dNFT } from "../consts/contract";
 import abi from "../consts/abi/dNFTABI.json";
 import { useEffect, useState } from "react";
 import { formatUSD } from "../utils/currency";
-import { dyadMultiplier, xpCurve } from "../utils/stats";
+import { calcRank, dyadMultiplier, xpCurve } from "../utils/stats";
 import Mint from "./Mint";
 import Popup from "./Popup";
 import { useDisclosure } from "@chakra-ui/react";
@@ -19,6 +19,7 @@ export default function NFT({
   borderColor,
   reload,
   setReload,
+  xps,
 }) {
   const TD = {
     borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
@@ -108,7 +109,7 @@ export default function NFT({
             ...TD,
           }}
         >
-          #{rank && rank}
+          #{calcRank(xps, xp)}
         </td>
         <td style={TD}> {formatUSD(dNFT_PRICE)} </td>
         <td style={TD}>{dyad && dyad / 10 ** 21} </td>
