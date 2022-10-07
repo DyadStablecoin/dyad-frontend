@@ -28,10 +28,11 @@ export default function NFT({
 
   const { address } = useAccount();
 
-  const [rank, setRank] = useState();
   const [xp, setXP] = useState();
   const [dyad, setDyad] = useState();
   const [dyadBalance, setDyadBalance] = useState();
+
+  const [tokenId, setTokenId] = useState();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -60,8 +61,9 @@ export default function NFT({
       },
     ],
     onSuccess: (data) => {
+      console.log("tokenOfOwnerByIndex", parseInt(data[0]._hex));
       if (data && data[0]) {
-        setRank(parseInt(data[0]._hex));
+        setTokenId(parseInt(data[0]._hex));
       }
     },
   });
@@ -72,19 +74,19 @@ export default function NFT({
         addressOrName: CONTRACT_dNFT,
         contractInterface: abi,
         functionName: "xp",
-        args: [rank],
+        args: [tokenId],
       },
       {
         addressOrName: CONTRACT_dNFT,
         contractInterface: abi,
         functionName: "dyadMinted",
-        args: [rank],
+        args: [tokenId],
       },
       {
         addressOrName: CONTRACT_dNFT,
         contractInterface: abi,
         functionName: "virtualDyadBalance",
-        args: [rank],
+        args: [tokenId],
       },
     ],
     onSuccess: (data) => {
@@ -112,7 +114,7 @@ export default function NFT({
           #{calcRank(xps, xp)}
         </td>
         <td style={TD}> {formatUSD(dNFT_PRICE)} </td>
-        <td style={TD}>{dyad && dyad / 10 ** 21} </td>
+        <td style={TD}>{dyad && Math.round((dyad / 10 ** 18) * 100) / 100} </td>
         <td style={TD}>
           <div className="flex flex-col text-s" style={{ color: borderColor }}>
             <div>
@@ -127,7 +129,9 @@ export default function NFT({
         <td style={TD}>
           <Button onClick={onOpen}>mint</Button>
         </td>
-        <td style={TD}>{dyadBalance && dyadBalance / 10 ** 21}</td>
+        <td style={TD}>
+          {dyadBalance && Math.round((dyadBalance / 10 ** 18) * 100) / 100}{" "}
+        </td>
         <td style={TD}>
           <Button onClick={onOpenDeposit}>deposit</Button>
         </td>
@@ -146,7 +150,7 @@ export default function NFT({
       </tr>
       <Popup isOpen={isOpen} onClose={onClose}>
         <Mint
-          tokenId={rank}
+          tokenId={tokenId}
           reload={reload}
           setReload={setReload}
           onClose={onClose}
@@ -154,7 +158,7 @@ export default function NFT({
       </Popup>
       <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
         <Deposit
-          tokenId={rank}
+          tokenId={tokenId}
           reload={reload}
           setReload={setReload}
           onClose={onCloseDeposit}
@@ -162,14 +166,14 @@ export default function NFT({
       </Popup>
       <Popup isOpen={isOpenWithdraw} onClose={onCloseWithdraw}>
         <Withdraw
-          tokenId={rank}
+          tokenId={tokenId}
           reload={reload}
           setReload={setReload}
           onClose={onCloseWithdraw}
         />
       </Popup>
       <Popup isOpen={isOpenSync} onClose={onCloseSync}>
-        <Sync address={address} tokenId={rank} />
+        <Sync address={address} tokenId={tokenId} />
       </Popup>
     </>
   );

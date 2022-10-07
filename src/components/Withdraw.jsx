@@ -23,7 +23,7 @@ export default function Withdraw({ tokenId, reload, setReload, onClose }) {
     addressOrName: CONTRACT_dNFT,
     contractInterface: abi,
     functionName: "withdraw",
-    args: [tokenId, dyad ? String(dyad * 10 ** 21) : "0"],
+    args: [tokenId, dyad ? String(dyad * 10 ** 18) : "0"],
     onError: (error) => {
       console.log("error", error);
     },
@@ -67,12 +67,9 @@ export default function Withdraw({ tokenId, reload, setReload, onClose }) {
         </div>
         <div className="">$DYAD</div>
       </div>
-      {/* <div>to</div> */}
-      {/* <div className="text-2xl">${wETH * ethToUSD} ETH</div> */}
       <Button
         isDisabled={!write}
         onClick={() => {
-          console.log(4444);
           write?.();
         }}
       >
