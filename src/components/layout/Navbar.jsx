@@ -10,8 +10,7 @@ import { CONTRACT_DYAD } from "../../consts/contract";
 export const NavBar = ({ tvl }) => {
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
-  const { connect, connectors, error, isLoading, pendingConnector } =
-    useConnect();
+  const { connect, connectors } = useConnect();
 
   const [balanceOf, setBalanceOf] = useState(0);
 
@@ -23,9 +22,6 @@ export const NavBar = ({ tvl }) => {
     onSuccess: (data) => {
       console.log("balanceOf", data);
       setBalanceOf(parseInt(data._hex) / 10 ** 18);
-    },
-    onError: (e) => {
-      console.log("balanceOf", e);
     },
   });
 
