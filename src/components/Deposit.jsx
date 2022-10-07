@@ -24,7 +24,7 @@ export default function Deposit({ tokenId, reload, setReload, onClose }) {
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTabi,
     functionName: "deposit",
-    args: [tokenId, dyad ? String(dyad * 10 ** 21) : "0"],
+    args: [tokenId, dyad ? String(dyad * 10 ** 18) : "0"],
     onError: (error) => {
       console.log("error deposit", error);
     },
@@ -54,8 +54,8 @@ export default function Deposit({ tokenId, reload, setReload, onClose }) {
     args: [address, CONTRACT_dNFT],
     onSuccess: (data) => {
       const allowance = parseInt(data._hex);
-      console.log("allowance", allowance / 10 ** 21);
-      setIsApproved(allowance / 10 ** 21 >= parseFloat(dyad));
+      console.log("allowance", allowance / 10 ** 18);
+      setIsApproved(allowance / 10 ** 18 >= parseFloat(dyad));
     },
   });
 
