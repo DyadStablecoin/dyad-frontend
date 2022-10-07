@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 
-export function formatUSD(amount) {
+export function formatUSD(amount, removeDollarSign = false) {
   // format with commas
-  return amount.toLocaleString("en-US", {
+  amount = amount.toLocaleString("en-US", {
     style: "currency",
     currency: "USD",
   });
+
+  if (removeDollarSign) {
+    amount = amount.slice(1);
+  }
+  return amount;
 }
 
 export function useEthPrice() {
