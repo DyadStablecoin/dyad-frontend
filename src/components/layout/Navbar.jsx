@@ -1,11 +1,12 @@
-import { useAccount, useConnect, useContractRead, useDisconnect } from "wagmi";
+import { useAccount, useConnect, useContractReads, useDisconnect } from "wagmi";
 import { dNFTfloor } from "../../utils/stats";
 import { formatUSD } from "../../utils/currency";
 import { addressSummary } from "../../utils/address";
 import dyadABI from "../../consts/abi/dNFTABI.json";
+import poolABI from "../../consts/abi/poolABI.json";
 import Button from "../Button";
 import { useState } from "react";
-import { CONTRACT_DYAD } from "../../consts/contract";
+import { CONTRACT_DYAD, CONTRACT_POOL } from "../../consts/contract";
 
 export const NavBar = ({ tvl }) => {
   const { address } = useAccount();
@@ -13,24 +14,36 @@ export const NavBar = ({ tvl }) => {
   const { connect, connectors } = useConnect();
 
   const [balanceOf, setBalanceOf] = useState(0);
+  const [ethPrice, setEthPrice] = useState(0);
 
-  const {} = useContractRead({
-    addressOrName: CONTRACT_DYAD,
-    contractInterface: dyadABI,
-    functionName: "balanceOf",
-    args: [address],
+  const {} = useContractReads({
+    contracts: [
+      {
+        addressOrName: CONTRACT_DYAD,
+        contractInterface: dyadABI,
+        functionName: "balanceOf",
+        args: [address],
+      },
+      {
+        addressOrName: CONTRACT_POOL,
+        contractInterface: poolABI,
+        functionName: "lastEthPrice",
+      },
+    ],
     onSuccess: (data) => {
-      console.log("balanceOf", data);
-      setBalanceOf(parseInt(data._hex) / 10 ** 18);
+      if (data) {
+        setBalanceOf(parseInt(data[0]._hex) / 10 ** 18);
+        setEthPrice(parseInt(data[1]._hex) / 10 ** 8);
+      }
     },
   });
-
   return (
     <div className="flex justify-around items-center mt-8 mb-8">
       {/* <div>tvl: {formatUSD(getTVL())}</div> */}
       <div>tvl: {formatUSD(tvl)}</div>
       <div>dNFT floor: {formatUSD(dNFTfloor())}</div>
-      <div>dyad balance: {formatUSD(balanceOf, true)}</div>
+      <div>balance: {formatUSD(balanceOf, true)} dyad</div>
+      <div>ETH/USD: {formatUSD(ethPrice)}</div>
       <a className="text-5xl font-bold" href="/">
         dyad
       </a>
