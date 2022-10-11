@@ -98,7 +98,7 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
 
   return (
     <>
-      <tr className="flex">
+      <tr className="flex gap-4">
         <td className="flex flex-col items-start">
           <div className={HEADER}>Rank</div>
           <div>#{calcRank(xps, xp)}</div>
@@ -119,27 +119,31 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
             </div>
           </div>
         </td>
-        <td className="flex flex-col items-start">
+        <td className="flex flex-col items-start gap-2">
           <div className={HEADER}>Minted $DYAD</div>
-          <div className="flex">
+          <div className="flex gap-4">
             <div>{dyad && Math.round((dyad / 10 ** 18) * 100) / 100}</div>
-            <Button onClick={onOpen}>mint</Button>
+            <Button onClick={onOpen}>Mint</Button>
           </div>
         </td>
-        <td style={TD}> </td>
-        <td style={TD}></td>
-        <td style={TD}>
-          {dyadBalance && Math.round((dyadBalance / 10 ** 18) * 100) / 100}{" "}
+        <td className="flex flex-col items-start gap-2">
+          <div className={HEADER}>Invested $DYAD</div>
+          <div className="flex gap-4">
+            <div>
+              {dyadBalance && Math.round((dyadBalance / 10 ** 18) * 100) / 100}
+            </div>
+            <div className="flex">
+              <Button onClick={onOpen}>Deposit</Button>
+              <Button onClick={onOpenWithdraw}>Withdraw</Button>
+            </div>
+          </div>
         </td>
-        <td style={TD}>
-          <Button onClick={onOpenDeposit}>deposit</Button>
+        <td className="flex flex-col items-start">
+          <div className={HEADER}>XP</div>
+          <div>{xp && xp}</div>
         </td>
-        <td style={TD}>
-          <Button onClick={onOpenWithdraw}>withdraw</Button>
-        </td>
-        <td style={TD}>{xp && xp}</td>
         <td>
-          <Button onClick={onOpenSync}>sync</Button>
+          <Button onClick={onOpenSync}>Sync</Button>
         </td>
       </tr>
       <Popup isOpen={isOpen} onClose={onClose}>
