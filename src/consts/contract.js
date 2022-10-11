@@ -3,6 +3,12 @@
 // export const CONTRACT_dNFT = "0xecb504d39723b0be0e3a9aa33d646642d1051ee1";
 
 // goerli
+// breaks sync
 export const CONTRACT_dNFT = "0xEf569857eF000566272cDfc5Bf5E8681f347A871";
 export const CONTRACT_DYAD = "0x23D4b7E8A70F844E23C734F7405A32103ffA24D7";
 export const CONTRACT_POOL = "0x46349c27362aB3779e65f4540d569f419575a8E7";
+
+// new deployment - not breaking sync
+// export const CONTRACT_dNFT = "0xEDf228001cF7b9f3ce718684284F72142F3B6Dd8";
+// export const CONTRACT_DYAD = "0xe887bBF9eEFC6e1E9A4dA9fb36A8318Be3B9b226";
+// export const CONTRACT_POOL = "0xa5243fc4c333a1a9d8ceEfa92b784c3E1dfEBa5A";

@@ -13,18 +13,8 @@ import Sync from "./Sync";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 
-export default function NFT({
-  averageXP,
-  index,
-  borderColor,
-  reload,
-  setReload,
-  xps,
-}) {
-  const TD = {
-    borderTop: `1px solid ${borderColor ? borderColor : "black"}`,
-    borderBottom: `1px solid ${borderColor ? borderColor : "black"}`,
-  };
+export default function NFT({ averageXP, index, reload, setReload, xps }) {
+  const TD = {};
 
   const { address } = useAccount();
 
@@ -91,6 +81,8 @@ export default function NFT({
     ],
     onSuccess: (data) => {
       if (data && data[0]) {
+        console.log("xp", data[0]._hex);
+        console.log("xp", parseInt(data[0]._hex));
         setXP(parseInt(data[0]._hex));
         setDyad(parseInt(data[1]._hex));
         setDyadBalance(parseInt(data[2]._hex));
@@ -102,21 +94,22 @@ export default function NFT({
     refetch();
   }, [reload]);
 
+  const HEADER = "text-gray-500 text-sm";
+
   return (
     <>
-      <tr>
-        <td
-          style={{
-            borderLeft: `1px solid ${borderColor ? borderColor : "black"}`,
-            ...TD,
-          }}
-        >
-          #{calcRank(xps, xp)}
+      <tr className="flex">
+        <td className="flex flex-col items-start">
+          <div className={HEADER}>Rank</div>
+          <div>#{calcRank(xps, xp)}</div>
         </td>
-        <td style={TD}> {formatUSD(dNFT_PRICE)} </td>
-        <td style={TD}>{dyad && Math.round((dyad / 10 ** 18) * 100) / 100} </td>
-        <td style={TD}>
-          <div className="flex flex-col text-s" style={{ color: borderColor }}>
+        <td className="flex flex-col items-start">
+          <div className={HEADER}>Value</div>
+          <div>{formatUSD(dNFT_PRICE)}</div>
+        </td>
+        <td className="flex flex-col items-start">
+          <div className={HEADER}>Performance</div>
+          <div className="flex flex-col text-s">
             <div>
               {dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x/
               {1 / dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x
@@ -126,9 +119,15 @@ export default function NFT({
             </div>
           </div>
         </td>
-        <td style={TD}>
-          <Button onClick={onOpen}>mint</Button>
+        <td className="flex flex-col items-start">
+          <div className={HEADER}>Minted $DYAD</div>
+          <div className="flex">
+            <div>{dyad && Math.round((dyad / 10 ** 18) * 100) / 100}</div>
+            <Button onClick={onOpen}>mint</Button>
+          </div>
         </td>
+        <td style={TD}> </td>
+        <td style={TD}></td>
         <td style={TD}>
           {dyadBalance && Math.round((dyadBalance / 10 ** 18) * 100) / 100}{" "}
         </td>
@@ -139,12 +138,7 @@ export default function NFT({
           <Button onClick={onOpenWithdraw}>withdraw</Button>
         </td>
         <td style={TD}>{xp && xp}</td>
-        <td
-          style={{
-            borderRight: `1px solid ${borderColor ? borderColor : "black"}`,
-            ...TD,
-          }}
-        >
+        <td>
           <Button onClick={onOpenSync}>sync</Button>
         </td>
       </tr>

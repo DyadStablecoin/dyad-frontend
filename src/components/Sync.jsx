@@ -9,11 +9,15 @@ import { CONTRACT_dNFT } from "../consts/contract";
 import Loading from "./Loading";
 
 export default function Sync({ tokenId }) {
+  console.log("syncing", tokenId);
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: abi,
     functionName: "syncTokenId",
     args: [tokenId],
+    onError: (error) => {
+      console.log("syncing", error);
+    },
   });
 
   const { data, isLoading: isLoadingSync, write } = useContractWrite(config);
