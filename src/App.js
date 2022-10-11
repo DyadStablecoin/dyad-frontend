@@ -11,6 +11,7 @@ import abi from "./consts/abi/dNFTABI.json";
 import dyadABI from "./consts/abi/dNFTABI.json";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageNotFound from "./components/PageNotFound";
+import Footer from "./components/Footer";
 
 function App() {
   const [reload, setReload] = useState(false);
@@ -51,7 +52,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="font-serif font-bold text-white">
+      <div className="page-container content-wrap font-serif font-bold text-white">
         <NavBar tvl={tvl} />
         <div className="flex flex-col justify-center items-center m-10">
           <Routes>
@@ -68,6 +69,9 @@ function App() {
             />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
+        </div>
+        <div className="footer">
+          <Footer />
         </div>
       </div>
     </BrowserRouter>
