@@ -51,7 +51,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="font-serif font-bold mr-16 ml-16 text-white">
+      <div className="font-serif font-bold text-white">
         <NavBar tvl={tvl} />
         <div className="flex flex-col justify-center items-center m-10">
           <Routes>

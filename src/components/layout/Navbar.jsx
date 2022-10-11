@@ -40,47 +40,38 @@ export const NavBar = ({ tvl }) => {
   });
   return (
     <div
-      className="flex justify-around items-center mt-8 mb-8 "
+      className="flex justify-between items-center"
       style={{
-        borderBottom: "1px solid white",
+        borderBottom: "0.2px solid white",
       }}
     >
-      <div>
+      <div
+        className="flex items-center justify-center"
+        style={{ borderRight: "0.2px solid white" }}
+      >
         <img src={logo} alt="logo" className="w-16" />
       </div>
-      <div
-        style={{
-          borderLeft: "1px solid white",
-          height: "80px",
-        }}
-      ></div>
-      {/* <div>tvl: {formatUSD(getTVL())}</div> */}
-      <div>tvl: {formatUSD(tvl)}</div>
-      <div>dNFT floor: {formatUSD(dNFTfloor())}</div>
-      <div>balance: {formatUSD(balanceOf, true)} dyad</div>
-      <div>ETH/USD: {formatUSD(ethPrice)}</div>
-      <a className="text-5xl font-bold" href="/">
-        dyad
-      </a>
-      <a href="/">app</a>
-      <a href="/docs">docs</a>
-      <a href="/about-us">about</a>
-      {address ? (
-        <Button onClick={() => disconnect()}>
-          <div className="flex  items-center gap-2">
-            <a className="cursor-pointer">Disconnect</a>
-            <div>{addressSummary(address, 3)}</div>
-          </div>
-        </Button>
-      ) : (
-        <Button
-          onClick={() => {
-            connect({ connector: connectors[4] }); // 4 is for metamask
-          }}
-        >
-          Connect
-        </Button>
-      )}
+      <div className="flex gap-4 mr-4">
+        <div>TVL {formatUSD(tvl)}</div>
+        <div>/</div>
+        <div>dNFT Floor {formatUSD(dNFTfloor())}</div>
+        {address ? (
+          <Button onClick={() => disconnect()}>
+            <div className="flex  items-center gap-2">
+              <a className="cursor-pointer">Disconnect</a>
+              <div>{addressSummary(address, 3)}</div>
+            </div>
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              connect({ connector: connectors[4] }); // 4 is for metamask
+            }}
+          >
+            Connect
+          </Button>
+        )}
+      </div>
     </div>
   );
 };
