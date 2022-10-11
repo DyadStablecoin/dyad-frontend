@@ -7,6 +7,7 @@ import poolABI from "../../consts/abi/poolABI.json";
 import Button from "../Button";
 import { useState } from "react";
 import { CONTRACT_DYAD, CONTRACT_POOL } from "../../consts/contract";
+import logo from "../../static/dyad.jpg";
 
 export const NavBar = ({ tvl }) => {
   const { address } = useAccount();
@@ -38,7 +39,21 @@ export const NavBar = ({ tvl }) => {
     },
   });
   return (
-    <div className="flex justify-around items-center mt-8 mb-8">
+    <div
+      className="flex justify-around items-center mt-8 mb-8 "
+      style={{
+        borderBottom: "1px solid white",
+      }}
+    >
+      <div>
+        <img src={logo} alt="logo" className="w-16" />
+      </div>
+      <div
+        style={{
+          borderLeft: "1px solid white",
+          height: "80px",
+        }}
+      ></div>
       {/* <div>tvl: {formatUSD(getTVL())}</div> */}
       <div>tvl: {formatUSD(tvl)}</div>
       <div>dNFT floor: {formatUSD(dNFTfloor())}</div>
