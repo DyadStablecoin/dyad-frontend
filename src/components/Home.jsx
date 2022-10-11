@@ -14,7 +14,7 @@ export default function Home({ totalSupply, reload, setReload, xps }) {
       {isConnected ? (
         <div>
           {chain.id === GOERLI ? (
-            <div className="mt-8">
+            <div className="">
               <Claim
                 reload={reload}
                 setReload={setReload}
