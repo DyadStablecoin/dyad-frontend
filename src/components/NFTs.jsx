@@ -25,7 +25,18 @@ export default function NFTs({ reload, setReload, averageXP, xps }) {
   }, [reload]);
 
   return (
-    <table className="nfts-table ">
+    <table className="nfts-table table-auto">
+      {dNftBalance > 0 && (
+        <tr>
+          <th>rank</th>
+          <th>value</th>
+          <th>minted DYAD</th>
+          <th>performance</th>
+          <th>invested DYAD</th>
+          <th>XP</th>
+          <th></th>
+        </tr>
+      )}
       {[...Array(dNftBalance).keys()].map((i) => {
         return (
           <NFT

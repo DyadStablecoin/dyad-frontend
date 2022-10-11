@@ -31,14 +31,14 @@ code {
 }
 
 .loader {
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-    overflow: hidden;
-    position: fixed;
-    background: rgba(0, 0, 0, 0.8) !important;
-    z-index: 9999;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.8) !important;
+  z-index: 9999;
 }
 
 .nfts-table {

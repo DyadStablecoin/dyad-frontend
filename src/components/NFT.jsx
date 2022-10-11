@@ -13,7 +13,14 @@ import Sync from "./Sync";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 
-export default function NFT({ averageXP, index, reload, setReload, xps }) {
+export default function NFT({
+  averageXP,
+  index,
+  reload,
+  setReload,
+  xps,
+  borderColor,
+}) {
   const TD = {};
 
   const { address } = useAccount();
@@ -98,49 +105,62 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
 
   return (
     <>
-      <tr className="flex gap-4">
-        <td className="flex flex-col items-start">
-          <div className={HEADER}>Rank</div>
-          <div>#{calcRank(xps, xp)}</div>
+      <tr className="gap-4">
+        <td>
+          <div className="flex flex-col items-start justify-start">
+            <div className={HEADER}>Rank</div>
+            <div>#{calcRank(xps, xp)}</div>
+          </div>
         </td>
-        <td className="flex flex-col items-start">
-          <div className={HEADER}>Value</div>
-          <div>{formatUSD(dNFT_PRICE)}</div>
+        <td>
+          <div className="flex flex-col items-start justify-start">
+            <div className={HEADER}>Value</div>
+            <div>{formatUSD(dNFT_PRICE)}</div>
+          </div>
         </td>
-        <td className="flex flex-col items-start">
-          <div className={HEADER}>Performance</div>
-          <div className="flex flex-col text-s">
-            <div>
-              {dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x/
-              {1 / dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x
-            </div>
-            <div className="w-[5rem]">
-              {Math.round(xpCurve(1) * 10000) / 10000}x XP
+        <td className="">
+          <div className="flex flex-col items-start">
+            <div className={HEADER}>Performance</div>
+            <div className="flex flex-col items-start text-s">
+              <div>
+                {dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x/
+                {1 / dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x
+              </div>
+              <div className="w-[5rem]">
+                {Math.round(xpCurve(1) * 10000) / 10000}x XP
+              </div>
             </div>
           </div>
         </td>
-        <td className="flex flex-col items-start gap-2">
-          <div className={HEADER}>Minted $DYAD</div>
-          <div className="flex gap-4">
-            <div>{dyad && Math.round((dyad / 10 ** 18) * 100) / 100}</div>
-            <Button onClick={onOpen}>Mint</Button>
-          </div>
-        </td>
-        <td className="flex flex-col items-start gap-2">
-          <div className={HEADER}>Invested $DYAD</div>
-          <div className="flex gap-4">
-            <div>
-              {dyadBalance && Math.round((dyadBalance / 10 ** 18) * 100) / 100}
-            </div>
-            <div className="flex">
-              <Button onClick={onOpen}>Deposit</Button>
-              <Button onClick={onOpenWithdraw}>Withdraw</Button>
+        <td>
+          <div className="flex flex-col items-start">
+            <div className={HEADER}>Minted $DYAD</div>
+            <div className="flex gap-4">
+              <div>{dyad && Math.round((dyad / 10 ** 18) * 100) / 100}</div>
+              <Button onClick={onOpen}>Mint</Button>
             </div>
           </div>
         </td>
-        <td className="flex flex-col items-start">
-          <div className={HEADER}>XP</div>
-          <div>{xp && xp}</div>
+        <td>
+          <div className="flex flex-col items-start">
+            <div className={HEADER}>Invested $DYAD</div>
+            <div className="flex gap-4">
+              <div>
+                {dyadBalance &&
+                  Math.round((dyadBalance / 10 ** 18) * 100) / 100}
+              </div>
+              <div className="flex">
+                <Button onClick={onOpen}>Deposit</Button>
+                <Button onClick={onOpenWithdraw}>Withdraw</Button>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td className="">
+          <div className="flex flex-col items-start">
+            <div className={HEADER}>XP</div>
+            <div>{xp && xp}</div>
+          </div>
         </td>
         <td>
           <Button onClick={onOpenSync}>Sync</Button>
