@@ -110,21 +110,21 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
         >
           <div className="flex flex-col items-start justify-start">
             <div className={HEADER}>Rank</div>
-            <div>#{calcRank(xps, xp)}</div>
+            <div className="mt-2">#{calcRank(xps, xp)}</div>
           </div>
         </td>
         <td style={TD}>
           <div className="flex items-start justify-start">
             <div className="flex flex-col items-start justify-start">
               <div className={HEADER}>Value</div>
-              <div>{formatUSD(dNFT_PRICE)}</div>
+              <div className="mt-2">{formatUSD(dNFT_PRICE)}</div>
             </div>
           </div>
         </td>
         <td style={TD}>
           <div className="flex flex-col items-start">
             <div className={HEADER}>Performance</div>
-            <div className="flex flex-col items-start text-s">
+            <div className="flex flex-col items-start text-s mt-2">
               <div>
                 {dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x/
                 {1 / dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x
@@ -152,7 +152,7 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
                 {dyadBalance &&
                   Math.round((dyadBalance / 10 ** 18) * 100) / 100}
               </div>
-              <div className="flex">
+              <div className="flex gap-2">
                 <Button onClick={onOpen}>Deposit</Button>
                 <Button onClick={onOpenWithdraw}>Withdraw</Button>
               </div>
@@ -163,7 +163,7 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
           <div className="flex items-center justify-center">
             <div className="flex flex-col items-start">
               <div className={HEADER}>XP</div>
-              <div>{xp && xp}</div>
+              <div className="mt-2">{xp && xp}</div>
             </div>
           </div>
         </td>
@@ -173,7 +173,9 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
             ...TD,
           }}
         >
-          <Button onClick={onOpenSync}>Sync</Button>
+          <div className="mt-7">
+            <Button onClick={onOpenSync}>Sync</Button>
+          </div>
         </td>
       </tr>
       <Popup isOpen={isOpen} onClose={onClose}>

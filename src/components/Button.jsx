@@ -1,7 +1,7 @@
 export default function Button({ children, onClick, isSecondary, isDisabled }) {
   return (
     <div
-      className={`border border-slate-600 pt-0 pb-0 pr-4 pl-4 cursor-pointer bg-zinc-800
+      className={`border border-slate-600 pt-0 pb-0 pr-4 pl-4 cursor-pointer bg-zinc-900
       ${isSecondary && "border-[#FFAFAF] "}
       ${isDisabled && !isSecondary && "opacity-50 cursor-not-allowed"}
       ${
