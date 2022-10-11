@@ -38,7 +38,7 @@ export default function Claim({ reload, setReload, totalSupply }) {
     <div>
       {(isLoadingWrite || isLoading) && <Loading isLoading />}
       <div
-        className="pl-4 pr-4 pt-2 pb-2 flex items-center justify-between w-full"
+        className="pl-4 pr-4  flex items-center justify-between w-full"
         style={{
           borderBottom: "0.2px solid #939393",
         }}
@@ -83,7 +83,7 @@ export default function Claim({ reload, setReload, totalSupply }) {
             </div>
           </div>
           <div
-            className="p-6 mr-6"
+            className="p-10 mr-6"
             style={{
               borderLeft: "0.2px solid #939393",
             }}
