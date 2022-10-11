@@ -54,7 +54,7 @@ function App() {
     <BrowserRouter>
       <div className="page-container content-wrap font-serif font-bold text-white">
         <NavBar tvl={tvl} />
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col ">
           <Routes>
             <Route
               path="/"

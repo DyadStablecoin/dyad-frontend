@@ -26,6 +26,7 @@ export default function NFTs({ reload, setReload, averageXP, xps }) {
 
   return (
     <table className="nfts-table table-auto">
+      <div>Your NFTs</div>
       {[...Array(dNftBalance).keys()].map((i) => {
         return (
           <NFT
