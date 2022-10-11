@@ -7,7 +7,7 @@ import poolABI from "../../consts/abi/poolABI.json";
 import Button from "../Button";
 import { useState } from "react";
 import { CONTRACT_DYAD, CONTRACT_POOL } from "../../consts/contract";
-import logo from "../../static/dyad.jpg";
+import logo from "../../static/dyad-logo.svg";
 
 export const NavBar = ({ tvl }) => {
   const { address } = useAccount();
@@ -40,14 +40,14 @@ export const NavBar = ({ tvl }) => {
   });
   return (
     <div
-      className="flex justify-between items-center"
+      className="flex justify-between items-center bg-[#0f0f0f]"
       style={{
-        borderBottom: "0.2px solid white",
+        borderBottom: "0.2px solid #939393",
       }}
     >
       <div
         className="flex items-center justify-center"
-        style={{ borderRight: "0.2px solid white" }}
+        style={{ borderRight: "0.2px solid #939393" }}
       >
         <img src={logo} alt="logo" className="w-16" />
       </div>
