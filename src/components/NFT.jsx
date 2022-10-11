@@ -13,15 +13,11 @@ import Sync from "./Sync";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 
-export default function NFT({
-  averageXP,
-  index,
-  reload,
-  setReload,
-  xps,
-  borderColor,
-}) {
-  const TD = {};
+export default function NFT({ averageXP, index, reload, setReload, xps }) {
+  const TD = {
+    borderTop: `0.2px solid gray`,
+    borderBottom: `0.2px solid gray`,
+  };
 
   const { address } = useAccount();
 
@@ -105,20 +101,27 @@ export default function NFT({
 
   return (
     <>
-      <tr className="gap-4">
-        <td>
+      <tr style={{ border: "0.1px solid gray" }}>
+        <td
+          style={{
+            borderLeft: `0.2px solid gray`,
+            ...TD,
+          }}
+        >
           <div className="flex flex-col items-start justify-start">
             <div className={HEADER}>Rank</div>
             <div>#{calcRank(xps, xp)}</div>
           </div>
         </td>
-        <td>
-          <div className="flex flex-col items-start justify-start">
-            <div className={HEADER}>Value</div>
-            <div>{formatUSD(dNFT_PRICE)}</div>
+        <td style={TD}>
+          <div className="flex items-start justify-start">
+            <div className="flex flex-col items-start justify-start">
+              <div className={HEADER}>Value</div>
+              <div>{formatUSD(dNFT_PRICE)}</div>
+            </div>
           </div>
         </td>
-        <td className="">
+        <td style={TD}>
           <div className="flex flex-col items-start">
             <div className={HEADER}>Performance</div>
             <div className="flex flex-col items-start text-s">
@@ -132,8 +135,8 @@ export default function NFT({
             </div>
           </div>
         </td>
-        <td>
-          <div className="flex flex-col items-start">
+        <td style={TD}>
+          <div className="flex flex-col items-start gap-2">
             <div className={HEADER}>Minted $DYAD</div>
             <div className="flex gap-4">
               <div>{dyad && Math.round((dyad / 10 ** 18) * 100) / 100}</div>
@@ -141,8 +144,8 @@ export default function NFT({
             </div>
           </div>
         </td>
-        <td>
-          <div className="flex flex-col items-start">
+        <td style={TD}>
+          <div className="flex flex-col items-start gap-2">
             <div className={HEADER}>Invested $DYAD</div>
             <div className="flex gap-4">
               <div>
@@ -156,13 +159,20 @@ export default function NFT({
             </div>
           </div>
         </td>
-        <td className="">
-          <div className="flex flex-col items-start">
-            <div className={HEADER}>XP</div>
-            <div>{xp && xp}</div>
+        <td style={TD}>
+          <div className="flex items-center justify-center">
+            <div className="flex flex-col items-start">
+              <div className={HEADER}>XP</div>
+              <div>{xp && xp}</div>
+            </div>
           </div>
         </td>
-        <td>
+        <td
+          style={{
+            borderRight: `0.2px solid gray`,
+            ...TD,
+          }}
+        >
           <Button onClick={onOpenSync}>Sync</Button>
         </td>
       </tr>

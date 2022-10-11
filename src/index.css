@@ -49,6 +49,7 @@ code {
 td {
   width: 150px;
   text-align: center;
-  padding: 15px;
+  padding: 25px;
+  vertical-align: top;
 }
 
