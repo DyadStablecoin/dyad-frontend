@@ -14,13 +14,13 @@ export default function Home({ totalSupply, reload, setReload, xps }) {
       {isConnected ? (
         <div>
           {chain.id === GOERLI ? (
-            <div className="">
+            <div>
               <Claim
                 reload={reload}
                 setReload={setReload}
                 totalSupply={totalSupply}
               />
-              <div className="mt-[5rem]">
+              <div className="mt-[2rem] flex justify-center items-center w-full">
                 <NFTs
                   reload={reload}
                   setReload={setReload}
