@@ -1,3 +1,7 @@
+import TwitterOutlined from "@ant-design/icons/lib/icons/TwitterOutlined";
+import MediumOutlined from "@ant-design/icons/lib/icons/MediumOutlined";
+import { SiDiscord } from "react-icons/si";
+
 export default function Footer() {
   return (
     <div className="p-8 flex justify-between bg-[#0f0f0f]">
@@ -6,9 +10,9 @@ export default function Footer() {
         <div>Disclaimer</div>
       </div>
       <div className="flex gap-4">
-        <div>T</div>
-        <div>M</div>
-        <div>D</div>
+        <TwitterOutlined />
+        <MediumOutlined />
+        <SiDiscord />
       </div>
     </div>
   );

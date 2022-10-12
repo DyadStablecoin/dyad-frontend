@@ -8,6 +8,7 @@ import Button from "../Button";
 import { useState } from "react";
 import { CONTRACT_DYAD, CONTRACT_POOL } from "../../consts/contract";
 import logo from "../../static/dyad-logo.svg";
+import WalletOutlined from "@ant-design/icons/lib/icons/WalletOutlined";
 
 export const NavBar = ({ tvl }) => {
   const { address } = useAccount();
@@ -56,7 +57,11 @@ export const NavBar = ({ tvl }) => {
         <div>/</div>
         <div>dNFT Floor {formatUSD(dNFTfloor())}</div>
         {address ? (
-          <Button onClick={() => disconnect()}>
+          <Button
+            onClick={() => disconnect()}
+            borderColor="#463D81"
+            bgColor="#0F0D1B"
+          >
             <div className="flex  items-center gap-2">
               <a className="cursor-pointer">Disconnect</a>
               <div>{addressSummary(address, 3)}</div>
@@ -64,11 +69,16 @@ export const NavBar = ({ tvl }) => {
           </Button>
         ) : (
           <Button
+            borderColor="#463D81"
+            bgColor="#0F0D1B"
             onClick={() => {
               connect({ connector: connectors[4] }); // 4 is for metamask
             }}
           >
-            Connect
+            <div className="flex gap-2 items-center justify-center">
+              <WalletOutlined />
+              <div>Connect</div>
+            </div>
           </Button>
         )}
       </div>
