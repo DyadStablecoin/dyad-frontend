@@ -93,6 +93,8 @@ export default function Claim({ reload, setReload, totalSupply }) {
               onClick={() => {
                 write?.();
               }}
+              bgColor="#0E190F"
+              borderColor="#1F4F23"
             >
               Mint
             </Button>

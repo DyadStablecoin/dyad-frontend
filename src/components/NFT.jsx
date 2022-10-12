@@ -174,7 +174,13 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
           }}
         >
           <div className="mt-7">
-            <Button onClick={onOpenSync}>Sync</Button>
+            <Button
+              borderColor="#463D81"
+              bgColor="#0F0D1B"
+              onClick={onOpenSync}
+            >
+              Sync
+            </Button>
           </div>
         </td>
       </tr>

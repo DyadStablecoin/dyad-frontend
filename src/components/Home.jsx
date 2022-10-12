@@ -20,7 +20,7 @@ export default function Home({ totalSupply, reload, setReload, xps }) {
                 setReload={setReload}
                 totalSupply={totalSupply}
               />
-              <div className="mt-[2rem] flex justify-center items-center w-full">
+              <div className="mt-[1rem] flex justify-center items-center w-full">
                 <NFTs
                   reload={reload}
                   setReload={setReload}
@@ -30,13 +30,13 @@ export default function Home({ totalSupply, reload, setReload, xps }) {
               </div>
             </div>
           ) : (
-            <div className="mt-10">
+            <div className="mt-10 flex justify-center">
               Please connect to the Goerli Test Network!
             </div>
           )}
         </div>
       ) : (
-        <div className="mt-10">Connect your wallet!</div>
+        <div className="mt-10 flex justify-center">Connect your wallet!</div>
       )}
     </>
   );
