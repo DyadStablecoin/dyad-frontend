@@ -37,20 +37,8 @@ export default function Claim({ reload, setReload, totalSupply }) {
   return (
     <div>
       {(isLoadingWrite || isLoading) && <Loading isLoading />}
-      <div
-        className="p-4"
-        style={
-          {
-            // borderBottom: "0.2px solid #939393",
-          }
-        }
-      >
-        <div
-          className="flex items-center justify-center"
-          style={{
-            borderBottom: "0.2px solid #939393",
-          }}
-        >
+      <div className="p-4 md:flex md:items-center md:border-2 gap-4 md:justify-between">
+        <div className="flex items-center justify-center border-b-2 md:border-b-0">
           <div className="w-[56px]">
             <img
               src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
@@ -62,57 +50,38 @@ export default function Claim({ reload, setReload, totalSupply }) {
             <div>Please mint your dNFT(s) to play</div>
           </div>
         </div>
-        <div
-          className="flex justify-around items-center p-4"
-          style={
-            {
-              // borderBottom: "0.2px solid #939393",
-            }
-          }
-        >
-          <div className="">
-            <div>dNFT Remaining</div>
-            <div className="flex gap-1 items-center">
-              <div className="rhombus"></div>
-              <div>{TOTAL_SUPPLY - totalSupply}/10000</div>
+        <div className="md:flex">
+          <div className="flex justify-around items-center p-4">
+            <div className="md:border-l-2 md:p-4">
+              <div>dNFT Remaining</div>
+              <div className="flex gap-1 items-center">
+                <div className="rhombus"></div>
+                <div>{TOTAL_SUPPLY - totalSupply}/10000</div>
+              </div>
+            </div>
+            <div className="w-[2px] h-[85px] bg-[#939393] md:invisible"></div>
+            <div className="flex flex-col justify-center items-center md:border-l-2 md:p-4">
+              <div>
+                <div>Minimum Deposit</div>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-green-400 rounded"></div>
+                <div>$300</div>
+              </div>
             </div>
           </div>
-          <div className="w-[2px] h-[85px] bg-[#939393]"></div>
-          <div
-            className="flex flex-col justify-center items-center"
-            style={
-              {
-                // borderLeft: "0.2px solid #939393",
-              }
-            }
-          >
-            <div>
-              <div>Minimum Deposit</div>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-green-400 rounded"></div>
-              <div>$300</div>
-            </div>
+          <div className="mt-2 md:border-l-2 md:p-4 md:flex md:items-center md:justify-center">
+            <Button
+              disabled={!write}
+              onClick={() => {
+                write?.();
+              }}
+              bgColor="#0E190F"
+              borderColor="#1F4F23"
+            >
+              Mint
+            </Button>
           </div>
-        </div>
-        <div
-          className="mt-2"
-          style={
-            {
-              // borderLeft: "0.2px solid #939393",
-            }
-          }
-        >
-          <Button
-            disabled={!write}
-            onClick={() => {
-              write?.();
-            }}
-            bgColor="#0E190F"
-            borderColor="#1F4F23"
-          >
-            Mint
-          </Button>
         </div>
       </div>
     </div>

@@ -20,14 +20,14 @@ export default function Home({ totalSupply, reload, setReload, xps }) {
                 setReload={setReload}
                 totalSupply={totalSupply}
               />
-              {/* <div className="mt-[1rem] flex justify-center items-center w-full"> */}
-              {/*   <NFTs */}
-              {/*     reload={reload} */}
-              {/*     setReload={setReload} */}
-              {/*     averageXP={averageXP} */}
-              {/*     xps={xps} */}
-              {/*   /> */}
-              {/* </div> */}
+              <div className="mt-[1rem] flex justify-center items-center w-full">
+                <NFTs
+                  reload={reload}
+                  setReload={setReload}
+                  averageXP={averageXP}
+                  xps={xps}
+                />
+              </div>
             </div>
           ) : (
             <div className="mt-10 flex justify-center">
