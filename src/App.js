@@ -53,7 +53,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="page-container content-wrap font-serif font-bold text-white">
-        <NavBar tvl={tvl} />
+        {/* <NavBar tvl={tvl} /> */}
         <div className="flex flex-col ">
           <Routes>
             <Route
@@ -70,9 +70,7 @@ function App() {
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </div>
-        <div className="footer">
-          <Footer />
-        </div>
+        <div className="footer">{/* <Footer /> */}</div>
       </div>
     </BrowserRouter>
   );

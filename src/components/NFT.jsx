@@ -100,80 +100,30 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
   const HEADER = "text-gray-500 text-sm";
 
   return (
-    <>
-      <tr style={{ border: "0.1px solid gray" }}>
-        <td
-          style={{
-            borderLeft: `0.2px solid gray`,
-            ...TD,
-          }}
-        >
-          <div className="flex flex-col items-start justify-start">
+    <div style={{ border: "1px solid #3A403C" }} className="p-4">
+      <div className="flex gap-4 justify-between">
+        <div>
+          <div className="w-[107px]">
+            <img
+              src="https://pbs.twimg.com/media/FJ4VWvUaIAIWv3f.jpg:large"
+              alt=""
+            />
+          </div>
+        </div>
+        <div className="w-full">
+          <div className="flex justify-between items-center">
             <div className={HEADER}>Rank</div>
-            <div className="mt-2">#{calcRank(xps, xp)}</div>
+            <div className="">#{calcRank(xps, xp)}</div>
           </div>
-        </td>
-        <td style={TD}>
-          <div className="flex items-start justify-start">
-            <div className="flex flex-col items-start justify-start">
-              <div className={HEADER}>Value</div>
-              <div className="mt-2">{formatUSD(dNFT_PRICE)}</div>
-            </div>
+          <div className="flex justify-between items-center">
+            <div className={HEADER}>Value</div>
+            <div className="">{formatUSD(dNFT_PRICE)}</div>
           </div>
-        </td>
-        <td style={TD}>
-          <div className="flex flex-col items-start">
-            <div className={HEADER}>Performance</div>
-            <div className="flex flex-col items-start text-s mt-2">
-              <div>
-                {dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x/
-                {1 / dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x
-              </div>
-              <div className="w-[5rem]">
-                {Math.round(xpCurve(1) * 10000) / 10000}x XP
-              </div>
-            </div>
+          <div className="flex justify-between items-center">
+            <div className={HEADER}>XP</div>
+            <div className="">{xp && xp}</div>
           </div>
-        </td>
-        <td style={TD}>
-          <div className="flex flex-col items-start gap-2">
-            <div className={HEADER}>Minted $DYAD</div>
-            <div className="flex gap-4">
-              <div>{dyad && Math.round((dyad / 10 ** 18) * 100) / 100}</div>
-              <Button onClick={onOpen}>Mint</Button>
-            </div>
-          </div>
-        </td>
-        <td style={TD}>
-          <div className="flex flex-col items-start gap-2">
-            <div className={HEADER}>Invested $DYAD</div>
-            <div className="flex gap-4">
-              <div>
-                {dyadBalance &&
-                  Math.round((dyadBalance / 10 ** 18) * 100) / 100}
-              </div>
-              <div className="flex gap-2">
-                <Button onClick={onOpen}>Deposit</Button>
-                <Button onClick={onOpenWithdraw}>Withdraw</Button>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td style={TD}>
-          <div className="flex items-center justify-center">
-            <div className="flex flex-col items-start">
-              <div className={HEADER}>XP</div>
-              <div className="mt-2">{xp && xp}</div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={{
-            borderRight: `0.2px solid gray`,
-            ...TD,
-          }}
-        >
-          <div className="mt-7">
+          <div className="mt-2">
             <Button
               borderColor="#463D81"
               bgColor="#0F0D1B"
@@ -182,8 +132,39 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
               Sync
             </Button>
           </div>
-        </td>
-      </tr>
+        </div>
+        <div className="flex flex-col items-start">
+          <div className={HEADER}>Performance</div>
+          <div className="flex flex-col items-start text-s text-[#519C58]">
+            <div className="">
+              {dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x/
+              {1 / dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x
+            </div>
+            <div className="w-[5rem]">
+              {Math.round(xpCurve(1) * 10000) / 10000}x XP
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="flex gap-4 mt-4">
+        <div className="flex flex-col gap-2">
+          <div className={HEADER}>Minted DYAD</div>
+          <div>{dyad && Math.round((dyad / 10 ** 18) * 100) / 100}</div>
+          <Button onClick={onOpen}>Mint</Button>
+        </div>
+        <div className="flex flex-col gap-2 ml-4">
+          <div className={HEADER}>Deposited DYAD</div>
+          <div>
+            {dyadBalance && Math.round((dyadBalance / 10 ** 18) * 100) / 100}
+          </div>
+          <div className="">
+            <div className="flex gap-2">
+              <Button onClick={onOpen}>Deposit</Button>
+              <Button onClick={onOpenWithdraw}>Withdraw</Button>
+            </div>
+          </div>
+        </div>
+      </div>
       <Popup isOpen={isOpen} onClose={onClose}>
         <Mint
           tokenId={tokenId}
@@ -211,6 +192,6 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
       <Popup isOpen={isOpenSync} onClose={onCloseSync}>
         <Sync address={address} tokenId={tokenId} />
       </Popup>
-    </>
+    </div>
   );
 }

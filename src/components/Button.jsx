@@ -20,7 +20,7 @@ export default function Button({
     <div
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`border-2 pt-0 pb-0 pr-4 pl-4 cursor-pointer 
+      className={`border-2 pt-0 pb-0 pr-4 pl-4 cursor-pointer flex justify-center
       ${isDisabled && "opacity-50 cursor-not-allowed"}
       ${!isDisabled && "hover:border-white"}
       `}

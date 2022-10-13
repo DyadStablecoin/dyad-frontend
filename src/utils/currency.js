@@ -10,7 +10,7 @@ export function formatUSD(amount, removeDollarSign = false) {
   if (removeDollarSign) {
     amount = amount.slice(1);
   }
-  return amount;
+  return amount.slice(0, -3);
 }
 
 export function useEthPrice() {

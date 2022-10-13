@@ -15,8 +15,8 @@ export default function NFTs({ reload, setReload, averageXP, xps }) {
     functionName: "balanceOf",
     args: [address],
     onSuccess: (data) => {
-      setDNftBalance(parseInt(data._hex));
-      // setDNftBalance(1);
+      // setDNftBalance(parseInt(data._hex));
+      setDNftBalance(1);
     },
   });
 
@@ -25,8 +25,8 @@ export default function NFTs({ reload, setReload, averageXP, xps }) {
   }, [reload]);
 
   return (
-    <table className="nfts-table table-auto">
-      <div>Your NFTs</div>
+    <div className="">
+      <div className="mb-2">Your dNFTs</div>
       {[...Array(dNftBalance).keys()].map((i) => {
         return (
           <NFT
@@ -40,6 +40,6 @@ export default function NFTs({ reload, setReload, averageXP, xps }) {
           />
         );
       })}
-    </table>
+    </div>
   );
 }

@@ -15,11 +15,11 @@ export default function Home({ totalSupply, reload, setReload, xps }) {
         <div>
           {chain.id === GOERLI ? (
             <div>
-              <Claim
-                reload={reload}
-                setReload={setReload}
-                totalSupply={totalSupply}
-              />
+              {/* <Claim */}
+              {/*   reload={reload} */}
+              {/*   setReload={setReload} */}
+              {/*   totalSupply={totalSupply} */}
+              {/* /> */}
               <div className="mt-[1rem] flex justify-center items-center w-full">
                 <NFTs
                   reload={reload}
