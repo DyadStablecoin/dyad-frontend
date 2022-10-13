@@ -16,7 +16,7 @@ export default function NFTs({ reload, setReload, averageXP, xps }) {
     args: [address],
     onSuccess: (data) => {
       setDNftBalance(parseInt(data._hex));
-      // setDNftBalance(1);
+      // setDNftBalance(2);
     },
   });
 
@@ -27,19 +27,21 @@ export default function NFTs({ reload, setReload, averageXP, xps }) {
   return (
     <div className="">
       <div className="mb-2">Your dNFTs</div>
-      {[...Array(dNftBalance).keys()].map((i) => {
-        return (
-          <NFT
-            reload={reload}
-            setReload={setReload}
-            address={address}
-            index={i}
-            averageXP={averageXP}
-            borderColor={NFT_COLORS[i % NFT_COLORS.length]}
-            xps={xps}
-          />
-        );
-      })}
+      <div className="flex flex-col gap-2">
+        {[...Array(dNftBalance).keys()].map((i) => {
+          return (
+            <NFT
+              reload={reload}
+              setReload={setReload}
+              address={address}
+              index={i}
+              averageXP={averageXP}
+              borderColor={NFT_COLORS[i % NFT_COLORS.length]}
+              xps={xps}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
