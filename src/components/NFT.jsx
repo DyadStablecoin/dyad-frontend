@@ -100,9 +100,12 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
   const HEADER = "text-gray-500 text-sm";
 
   return (
-    <div style={{ border: "1px solid #3A403C" }} className="p-4">
-      <div className="flex gap-4 justify-between">
-        <div>
+    <div
+      style={{ border: "1px solid #3A403C" }}
+      className="p-4 md:flex md:gap-[5rem]"
+    >
+      <div className="flex gap-4 justify-between w-full">
+        <div className="md:w-[8rem]">
           <div className="w-[107px]">
             <img
               src="https://pbs.twimg.com/media/FJ4VWvUaIAIWv3f.jpg:large"
@@ -133,7 +136,7 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
             </Button>
           </div>
         </div>
-        <div className="flex flex-col items-start">
+        <div className="flex flex-col items-start md:ml-4">
           <div className={HEADER}>Performance</div>
           <div className="flex flex-col items-start text-s text-[#519C58]">
             <div className="">
@@ -146,21 +149,31 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
           </div>
         </div>
       </div>
-      <div className="flex gap-4 mt-4">
-        <div className="flex flex-col gap-2">
+      <div className="hidden md:block md:w-full">
+        <div className={HEADER}>Deposit Ratio</div>
+        <div>Deposit Ratio</div>
+      </div>
+      <div className="flex gap-4 mt-4 md:mt-0">
+        <div className="flex flex-col gap-2 ">
           <div className={HEADER}>Minted DYAD</div>
-          <div>{dyad && Math.round((dyad / 10 ** 18) * 100) / 100}</div>
-          <Button onClick={onOpen}>Mint</Button>
+          <div className="md:flex">
+            <div className="md:mr-2">
+              {dyad && Math.round((dyad / 10 ** 18) * 100) / 100}
+            </div>
+            <Button onClick={onOpen}>Mint</Button>
+          </div>
         </div>
         <div className="flex flex-col gap-2 ml-4">
           <div className={HEADER}>Deposited DYAD</div>
-          <div>
-            {dyadBalance && Math.round((dyadBalance / 10 ** 18) * 100) / 100}
-          </div>
-          <div className="">
-            <div className="flex gap-2">
-              <Button onClick={onOpen}>Deposit</Button>
-              <Button onClick={onOpenWithdraw}>Withdraw</Button>
+          <div className="md:flex md:gap-2">
+            <div className="md:mr-2">
+              {dyadBalance && Math.round((dyadBalance / 10 ** 18) * 100) / 100}
+            </div>
+            <div className="">
+              <div className="flex gap-2">
+                <Button onClick={onOpen}>Deposit</Button>
+                <Button onClick={onOpenWithdraw}>Withdraw</Button>
+              </div>
             </div>
           </div>
         </div>
