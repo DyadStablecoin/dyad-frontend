@@ -40,48 +40,38 @@ export const NavBar = ({ tvl }) => {
     },
   });
   return (
-    <div
-      className="flex justify-between items-center bg-[#0f0f0f]"
-      style={{
-        borderBottom: "0.2px solid #939393",
-      }}
-    >
-      <div
-        className="flex items-center justify-center"
-        style={{ borderRight: "0.2px solid #939393" }}
-      >
+    <div className="flex items-center justify-between border-b-2 p-2">
+      <div className="">
         <img src={logo} alt="logo" className="w-16" />
       </div>
-      <div className="flex gap-4 mr-4">
-        <div>TVL {formatUSD(tvl)}</div>
-        <div>/</div>
-        <div>dNFT Floor {formatUSD(dNFTfloor())}</div>
-        {address ? (
-          <Button
-            onClick={() => disconnect()}
-            borderColor="#463D81"
-            bgColor="#0F0D1B"
-          >
-            <div className="flex  items-center gap-2">
-              <a className="cursor-pointer">Disconnect</a>
-              <div>{addressSummary(address, 3)}</div>
-            </div>
-          </Button>
-        ) : (
-          <Button
-            borderColor="#463D81"
-            bgColor="#0F0D1B"
-            onClick={() => {
-              connect({ connector: connectors[4] }); // 4 is for metamask
-            }}
-          >
-            <div className="flex gap-2 items-center justify-center">
-              <WalletOutlined />
-              <div>Connect</div>
-            </div>
-          </Button>
-        )}
-      </div>
+      {/* <div>TVL {formatUSD(tvl)}</div> */}
+      {/* <div>/</div> */}
+      {/* <div>dNFT Floor {formatUSD(dNFTfloor())}</div> */}
+      {address ? (
+        <Button
+          onClick={() => disconnect()}
+          borderColor="#463D81"
+          bgColor="#0F0D1B"
+        >
+          <div className="flex  items-center gap-2">
+            <a className="cursor-pointer">Disconnect</a>
+            <div>{addressSummary(address, 3)}</div>
+          </div>
+        </Button>
+      ) : (
+        <Button
+          borderColor="#463D81"
+          bgColor="#0F0D1B"
+          onClick={() => {
+            connect({ connector: connectors[4] }); // 4 is for metamask
+          }}
+        >
+          <div className="flex gap-2 items-center justify-center">
+            <WalletOutlined />
+            <div>Connect</div>
+          </div>
+        </Button>
+      )}
     </div>
   );
 };
