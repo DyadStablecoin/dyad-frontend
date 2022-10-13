@@ -158,7 +158,7 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
         <div className="flex flex-col gap-2 ">
           <div className={HEADER}>Minted DYAD</div>
           <div className="md:flex">
-            <div className="md:mr-2">
+            <div className="md:mr-2 mb-2 md:mb-0">
               {dyad && Math.round((dyad / 10 ** 18) * 100) / 100}
             </div>
             <Button onClick={onOpen}>Mint</Button>
@@ -167,7 +167,7 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
         <div className="flex flex-col gap-2 ml-4">
           <div className={HEADER}>Deposited DYAD</div>
           <div className="md:flex md:gap-2">
-            <div className="md:mr-2">
+            <div className="md:mr-2 mb-2 md:mb-0">
               {dyadBalance && Math.round((dyadBalance / 10 ** 18) * 100) / 100}
             </div>
             <div className="">
