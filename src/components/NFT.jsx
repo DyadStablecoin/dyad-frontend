@@ -12,6 +12,7 @@ import Button from "./Button";
 import Sync from "./Sync";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
+import DepositRatio from "./DepositRatio";
 
 export default function NFT({ averageXP, index, reload, setReload, xps }) {
   const TD = {
@@ -151,7 +152,7 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
       </div>
       <div className="hidden md:block md:w-full">
         <div className={HEADER}>Deposit Ratio</div>
-        <div>Deposit Ratio</div>
+        <DepositRatio />
       </div>
       <div className="flex gap-4 mt-4 md:mt-0">
         <div className="flex flex-col gap-2 ">
