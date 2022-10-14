@@ -1,6 +1,4 @@
 import { useAccount, useConnect, useContractReads, useDisconnect } from "wagmi";
-import { dNFTfloor } from "../../utils/stats";
-import { formatUSD } from "../../utils/currency";
 import { addressSummary } from "../../utils/address";
 import dyadABI from "../../consts/abi/dNFTABI.json";
 import poolABI from "../../consts/abi/poolABI.json";
@@ -40,13 +38,10 @@ export const NavBar = ({ tvl }) => {
     },
   });
   return (
-    <div className="flex items-center justify-between border-b-2 p-2">
+    <div className="flex items-center justify-between border-b border-gray-800 p-2">
       <div className="">
         <img src={logo} alt="logo" className="w-16" />
       </div>
-      {/* <div>TVL {formatUSD(tvl)}</div> */}
-      {/* <div>/</div> */}
-      {/* <div>dNFT Floor {formatUSD(dNFTfloor())}</div> */}
       {address ? (
         <Button
           onClick={() => disconnect()}

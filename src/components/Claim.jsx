@@ -37,7 +37,7 @@ export default function Claim({ reload, setReload, totalSupply }) {
   return (
     <div>
       {(isLoadingWrite || isLoading) && <Loading isLoading />}
-      <div className="p-4 md:flex md:items-center md:border-2 gap-4 md:justify-between">
+      <div className="p-4 md:flex md:items-center md:border-b border-gray-800 gap-4 md:justify-between">
         <div className="flex items-center justify-center border-b-2 md:border-b-0">
           <div className="w-[56px]">
             <img
@@ -52,7 +52,7 @@ export default function Claim({ reload, setReload, totalSupply }) {
         </div>
         <div className="md:flex">
           <div className="flex justify-around items-center p-4">
-            <div className="md:border-l-2 md:p-4">
+            <div className="md:border-l-2 border-gray-800 md:p-4">
               <div>dNFT Remaining</div>
               <div className="flex gap-1 items-center">
                 <div className="rhombus"></div>
@@ -60,7 +60,7 @@ export default function Claim({ reload, setReload, totalSupply }) {
               </div>
             </div>
             <div className="w-[2px] h-[85px] bg-[#939393] md:invisible"></div>
-            <div className="flex flex-col justify-center items-center md:border-l-2 md:p-4">
+            <div className="flex flex-col justify-center items-center md:border-l-2 border-gray-800 md:p-4">
               <div>
                 <div>Minimum Deposit</div>
               </div>
@@ -70,7 +70,7 @@ export default function Claim({ reload, setReload, totalSupply }) {
               </div>
             </div>
           </div>
-          <div className="mt-2 md:border-l-2 md:p-4 md:flex md:items-center md:justify-center">
+          <div className="mt-2 md:border-l-2 border-gray-800 md:p-4 md:flex md:items-center md:justify-center">
             <Button
               disabled={!write}
               onClick={() => {
