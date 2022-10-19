@@ -172,7 +172,7 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
             </div>
             <div className="">
               <div className="flex gap-2">
-                <Button onClick={onOpen}>Deposit</Button>
+                <Button onClick={onOpenDeposit}>Deposit</Button>
                 <Button onClick={onOpenWithdraw}>Withdraw</Button>
               </div>
             </div>
