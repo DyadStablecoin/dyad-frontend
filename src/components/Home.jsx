@@ -12,7 +12,6 @@ export default function Home({ totalSupply, reload, setReload, xps }) {
 
   return (
     <>
-      <ProgressBar />
       {isConnected ? (
         <div>
           {chain.id === GOERLI ? (
