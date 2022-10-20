@@ -3,7 +3,6 @@ import { GOERLI } from "../consts/networks";
 import { useAverageXP } from "../utils/stats";
 import Claim from "./Claim";
 import NFTs from "./NFTs";
-import ProgressBar from "./ProgressBar";
 
 export default function Home({ totalSupply, reload, setReload, xps }) {
   const { isConnected } = useAccount();
