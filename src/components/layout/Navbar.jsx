@@ -55,16 +55,18 @@ export const NavBar = ({ tvl, isSafetyModeActivated }) => {
             <MenuOutlined />
           </div>
           <img src={logo} alt="logo" className="w-14" />
-          <div className="hidden md:flex gap-2 items-center justify-center">
-            <WarningFilled style={{ color: "#E34158" }} />
-            <div style={{ color: "#E34158" }}>Safety Mode Activated</div>
-          </div>
+          {isSafetyModeActivated && (
+            <div className="hidden md:flex gap-2 items-center justify-center">
+              <WarningFilled style={{ color: "#E34158" }} />
+              <div style={{ color: "#E34158" }}>Safety Mode Activated</div>
+            </div>
+          )}
         </div>
         <div className="flex gap-8 items-center justify-center">
           <div className="gap-8 items-center justify-center hidden md:flex  mr-8">
             <div className="flex gap-4">
               <div>TVL</div>
-              <div>{tvl}</div>
+              <div>{formatUSD(tvl)}</div>
             </div>
             <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
             <div className="flex gap-4">

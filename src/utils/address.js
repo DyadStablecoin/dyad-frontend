@@ -17,7 +17,6 @@ export async function getEthName(address) {
   const nfts = await alchemy.nft.getNftsForOwner(address, {
     contractAddresses: [ensContractAddress],
   });
-  console.log(nfts);
 
   try {
     return nfts.ownedNfts[0].title;
