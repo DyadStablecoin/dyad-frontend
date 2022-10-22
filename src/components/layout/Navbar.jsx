@@ -8,10 +8,9 @@ import { useState } from "react";
 import { CONTRACT_DYAD, CONTRACT_POOL } from "../../consts/contract";
 import logo from "../../static/dyad-logo.svg";
 import WalletOutlined from "@ant-design/icons/lib/icons/WalletOutlined";
-import WarningOutlined from "@ant-design/icons/lib/icons/WarningOutlined";
 import { dNFT_PRICE } from "../../consts/consts";
 import ProgressBar from "../ProgressBar";
-import { WarningFilled } from "@ant-design/icons";
+import { MenuOutlined, WarningFilled } from "@ant-design/icons";
 
 export const NavBar = ({ tvl, isSafetyModeActivated }) => {
   const { address } = useAccount();
@@ -51,8 +50,11 @@ export const NavBar = ({ tvl, isSafetyModeActivated }) => {
           borderBottom: "0.02rem solid #403B39",
         }}
       >
-        <div className="flex gap-16 items-center justiy-center">
-          <img src={logo} alt="logo" className="w-16" />
+        <div className="flex md:gap-16 items-center justiy-center">
+          <div className="md:hidden mr-2 ml-2">
+            <MenuOutlined />
+          </div>
+          <img src={logo} alt="logo" className="w-14" />
           <div className="hidden md:flex gap-2 items-center justify-center">
             <WarningFilled style={{ color: "#E34158" }} />
             <div style={{ color: "#E34158" }}>Safety Mode Activated</div>
