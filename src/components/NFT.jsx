@@ -148,10 +148,7 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
       <div className="hidden md:block md:w-full">
         <div className={HEADER}>Deposit Ratio</div>
         <div className="mt-3">
-          <ProgressBar
-            color="#E6A264"
-            percent={parseInt((dyadBalance / dyad) * 100)}
-          />
+          <ProgressBar percent={parseInt((dyadBalance / dyad) * 100)} />
         </div>
       </div>
       <div className="flex gap-4 mt-4 md:mt-0">

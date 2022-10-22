@@ -1,5 +1,11 @@
-export default function ProgressBar({ color, percent }) {
+import { useEffect, useState } from "react";
+
+export default function ProgressBar({ percent }) {
+  const [colors, setColors] = useState();
   function getColors() {
+    if (isNaN(percent)) {
+      percent = 0;
+    }
     if (percent < 33) {
       return ["#71AD76", "#0A110B"];
     }
@@ -10,15 +16,26 @@ export default function ProgressBar({ color, percent }) {
     return ["#E66476", "#110A0A"];
   }
 
-  const colors = getColors();
+  useEffect(() => {
+    setColors(getColors());
+  }, []);
+  console.log(percent);
 
   return (
-    <div class={`border-2 border-[#737E76] bg-[${colors[1]}] max-w-[6rem]`}>
-      <div
-        class={`stripes m-[1px] bg-[${colors[0]}] w-[${
-          "" + percent
-        }%] h-[0.5rem]`}
-      ></div>
-    </div>
+    <>
+      {colors && (
+        <div
+          class={`border-2 border-[#737E76] bg-[${colors[1]}] min-w-[6rem] max-w-[6rem]`}
+        >
+          <div
+            style={{
+              width: `${isNaN(percent) ? 0 : percent}%`,
+              backgroundColor: colors[0],
+            }}
+            class={`stripes m-[1px] h-[0.5rem]`}
+          ></div>
+        </div>
+      )}
+    </>
   );
 }
