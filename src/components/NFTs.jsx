@@ -16,7 +16,7 @@ export default function NFTs({ reload, setReload, averageXP, xps }) {
     args: [address],
     onSuccess: (data) => {
       setDNftBalance(parseInt(data._hex));
-      // setDNftBalance(2);
+      // setDNftBalance(1);
     },
   });
 

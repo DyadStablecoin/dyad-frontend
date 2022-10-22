@@ -9,6 +9,7 @@ import Button from "./Button";
 import abi from "../consts/abi/dNFTABI.json";
 import Loading from "./Loading";
 import { TOTAL_SUPPLY } from "../consts/consts";
+import { addressSummary } from "../utils/address";
 
 export default function Claim({ reload, setReload, totalSupply }) {
   const { address } = useAccount();
@@ -46,7 +47,7 @@ export default function Claim({ reload, setReload, totalSupply }) {
             />
           </div>
           <div className="ml-2 p-2">
-            <div>Hi, niracle.eth 👋</div>
+            <div>Hi, {addressSummary(address)} 👋</div>
             <div>Please mint your dNFT(s) to play</div>
           </div>
         </div>
