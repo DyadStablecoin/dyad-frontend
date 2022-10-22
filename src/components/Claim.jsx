@@ -9,10 +9,12 @@ import Button from "./Button";
 import abi from "../consts/abi/dNFTABI.json";
 import Loading from "./Loading";
 import { TOTAL_SUPPLY } from "../consts/consts";
-import { addressSummary } from "../utils/address";
+import { addressSummary, getEthName } from "../utils/address";
+import { useEffect, useState } from "react";
 
 export default function Claim({ reload, setReload, totalSupply }) {
   const { address } = useAccount();
+  const [ethName, setEthName] = useState("");
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -35,6 +37,15 @@ export default function Claim({ reload, setReload, totalSupply }) {
     },
   });
 
+  useEffect(() => {
+    async function _getEthName() {
+      const res = await getEthName(address);
+      setEthName(res);
+    }
+
+    _getEthName();
+  }, [address]);
+
   return (
     <div>
       {(isLoadingWrite || isLoading) && <Loading isLoading />}
@@ -47,7 +58,7 @@ export default function Claim({ reload, setReload, totalSupply }) {
             />
           </div>
           <div className="ml-2 p-2">
-            <div>Hi, {addressSummary(address)} 👋</div>
+            <div>Hi, {ethName || addressSummary(address)} 👋</div>
             <div>Please mint your dNFT(s) to play</div>
           </div>
         </div>
