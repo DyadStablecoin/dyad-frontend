@@ -8,10 +8,12 @@ import { useState } from "react";
 import { CONTRACT_DYAD, CONTRACT_POOL } from "../../consts/contract";
 import logo from "../../static/dyad-logo.svg";
 import WalletOutlined from "@ant-design/icons/lib/icons/WalletOutlined";
+import WarningOutlined from "@ant-design/icons/lib/icons/WarningOutlined";
 import { dNFT_PRICE } from "../../consts/consts";
 import ProgressBar from "../ProgressBar";
+import { WarningFilled } from "@ant-design/icons";
 
-export const NavBar = ({ tvl }) => {
+export const NavBar = ({ tvl, isSafetyModeActivated }) => {
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
   const { connect, connectors } = useConnect();
@@ -41,9 +43,18 @@ export const NavBar = ({ tvl }) => {
     },
   });
   return (
-    <div className="flex items-center justify-between border-b border-gray-800 p-2">
-      <div className="">
+    <div
+      className="flex items-center justify-between border-b border-gray-800 p-2"
+      style={{
+        backgroundColor: isSafetyModeActivated && "#2F0F13",
+      }}
+    >
+      <div className="flex gap-16 items-center justiy-center">
         <img src={logo} alt="logo" className="w-16" />
+        <div className="hidden md:flex gap-2 items-center justify-center">
+          <WarningFilled style={{ color: "#E34158" }} />
+          <div style={{ color: "#E34158" }}>Safety Mode Activated</div>
+        </div>
       </div>
       <div className="flex gap-8 items-center justify-center">
         <div className="gap-8 items-center justify-center hidden md:flex  mr-8">

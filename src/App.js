@@ -53,7 +53,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="page-container content-wrap font-serif font-bold text-white">
-        <NavBar tvl={tvl} />
+        <NavBar tvl={tvl} isSafetyModeActivated />
         <div className="flex flex-col ">
           <Routes>
             <Route

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 export default function ProgressBar({ percent }) {
   const [colors, setColors] = useState();
+
   function getColors() {
     if (isNaN(percent)) {
       percent = 0;
@@ -19,7 +20,6 @@ export default function ProgressBar({ percent }) {
   useEffect(() => {
     setColors(getColors());
   }, []);
-  console.log(percent);
 
   return (
     <>
