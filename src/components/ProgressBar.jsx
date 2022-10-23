@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function ProgressBar({ percent }) {
+export default function ProgressBar({ percent, fullWidth = false }) {
   const [colors, setColors] = useState();
 
   function getColors() {
@@ -25,7 +25,9 @@ export default function ProgressBar({ percent }) {
     <>
       {colors && (
         <div
-          class={`border-2 border-[#737E76] bg-[${colors[1]}] min-w-[6rem] max-w-[6rem]`}
+          class={`border-2 border-[#737E76] bg-[${colors[1]}] min-w-[${
+            fullWidth ? "100%" : "6rem"
+          }] max-w-[6rem]`}
         >
           <div
             style={{

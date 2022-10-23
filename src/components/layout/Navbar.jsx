@@ -11,6 +11,7 @@ import WalletOutlined from "@ant-design/icons/lib/icons/WalletOutlined";
 import { dNFT_PRICE } from "../../consts/consts";
 import ProgressBar from "../ProgressBar";
 import { MenuOutlined, WarningFilled } from "@ant-design/icons";
+import MobileMenu from "../MobileMenu";
 
 export const NavBar = ({ tvl, isSafetyModeActivated }) => {
   const { address } = useAccount();
@@ -43,6 +44,7 @@ export const NavBar = ({ tvl, isSafetyModeActivated }) => {
   });
   return (
     <div>
+      {/* <MobileMenu tvl={tvl} /> */}
       <div
         className="flex items-center justify-between border-b border-gray-800 p-2"
         style={{
