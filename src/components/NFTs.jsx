@@ -26,7 +26,7 @@ export default function NFTs({ reload, setReload, averageXP, xps }) {
 
   return (
     <div className="">
-      <div className="mb-2">Your dNFTs</div>
+      {dNftBalance > 0 && <div className="mb-2">Your dNFTs</div>}
       <div className="flex flex-col gap-2">
         {[...Array(dNftBalance).keys()].map((i) => {
           return (

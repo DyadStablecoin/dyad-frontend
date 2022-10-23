@@ -50,7 +50,7 @@ export default function Claim({ reload, setReload, totalSupply }) {
     <div>
       {(isLoadingWrite || isLoading) && <Loading isLoading />}
       <div className="p-4 md:flex md:items-center md:border-b border-gray-800 gap-4 md:justify-between">
-        <div className="flex items-center justify-center border-b-2 md:border-b-0">
+        <div className="flex items-center justify-center ">
           <div className="w-[56px]">
             <img
               src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"

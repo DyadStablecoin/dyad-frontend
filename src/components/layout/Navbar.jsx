@@ -106,10 +106,12 @@ export const NavBar = ({ tvl, isSafetyModeActivated }) => {
           )}
         </div>
       </div>
-      <div className="md:hidden flex gap-2 items-center justify-center m-2">
-        <WarningFilled style={{ color: "#E34158" }} />
-        <div style={{ color: "#E34158" }}>Safety Mode Activated</div>
-      </div>
+      {isSafetyModeActivated && (
+        <div className="md:hidden flex gap-2 items-center justify-center m-2">
+          <WarningFilled style={{ color: "#E34158" }} />
+          <div style={{ color: "#E34158" }}>Safety Mode Activated</div>
+        </div>
+      )}
     </div>
   );
 };
