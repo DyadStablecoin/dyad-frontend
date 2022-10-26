@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 export default function ProgressBar({ percent, fullWidth = false }) {
+  console.log("ProgressBar", percent);
   const [colors, setColors] = useState();
 
   function getColors() {
@@ -25,7 +26,7 @@ export default function ProgressBar({ percent, fullWidth = false }) {
     <>
       {colors && (
         <div
-          class={`border-2 border-[#737E76] bg-[${colors[1]}] min-w-[${
+          class={`w-[6rem] border-2 border-[#737E76] bg-[${colors[1]}] min-w-[${
             fullWidth ? "100%" : "6rem"
           }] max-w-[6rem]`}
         >
@@ -34,7 +35,7 @@ export default function ProgressBar({ percent, fullWidth = false }) {
               width: `${isNaN(percent) ? 0 : percent}%`,
               backgroundColor: colors[0],
             }}
-            class={`stripes m-[1px] h-[0.5rem]`}
+            class={`stripes m-[1px] h-[0.5rem] `}
           ></div>
         </div>
       )}

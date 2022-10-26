@@ -48,7 +48,7 @@ export default function MobileMenu({ tvl }) {
       <div className="h-[1px] w-[100%] bg-[#3A403C]"></div>
       <div className="flex gap-2 ml-8 mr-8 mt-4 mb-4 items-center justify-center">
         <div>CR</div>
-        <ProgressBar percent={80} fullWidth />
+        <ProgressBar percent={23} fullWidth />
       </div>
       <div className="h-[1px] w-[100%] bg-[#3A403C]"></div>
     </div>

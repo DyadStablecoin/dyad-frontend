@@ -10,7 +10,7 @@ import logo from "../../static/dyad-logo.svg";
 import WalletOutlined from "@ant-design/icons/lib/icons/WalletOutlined";
 import { dNFT_PRICE } from "../../consts/consts";
 import ProgressBar from "../ProgressBar";
-import { MenuOutlined, WarningFilled } from "@ant-design/icons";
+import { CloseOutlined, MenuOutlined, WarningFilled } from "@ant-design/icons";
 import MobileMenu from "../MobileMenu";
 
 export const NavBar = ({ tvl, isSafetyModeActivated }) => {
@@ -58,7 +58,7 @@ export const NavBar = ({ tvl, isSafetyModeActivated }) => {
             className="md:hidden mr-2 ml-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            <MenuOutlined />
+            {isMenuOpen ? <CloseOutlined /> : <MenuOutlined />}
           </div>
           <img src={logo} alt="logo" className="w-14" />
           {isSafetyModeActivated && (
@@ -83,7 +83,7 @@ export const NavBar = ({ tvl, isSafetyModeActivated }) => {
               <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
               <div className="flex gap-1 items-center justify-center">
                 <div>CR</div>
-                <ProgressBar percent={63} fullWidth />
+                <ProgressBar percent={23} />
               </div>
               {address ? (
                 <Button
