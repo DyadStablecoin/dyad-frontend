@@ -12,8 +12,9 @@ import dyadABI from "./consts/abi/dNFTABI.json";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageNotFound from "./components/PageNotFound";
 import Footer from "./components/Footer";
+import Leaderboard from "./components/Leaderboard";
 
-function App() {
+export default function App() {
   const [reload, setReload] = useState(false);
 
   const [totalSupply, setTotalSupply] = useState(0);
@@ -54,6 +55,7 @@ function App() {
     <BrowserRouter>
       <div className="page-container content-wrap font-serif font-bold text-white">
         <NavBar tvl={tvl} isSafetyModeActivated={false} />
+        <Leaderboard />
         <div className="flex flex-col ">
           <Routes>
             <Route
@@ -77,5 +79,3 @@ function App() {
     </BrowserRouter>
   );
 }
-
-export default App;
