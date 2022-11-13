@@ -115,12 +115,16 @@ background:
 }
 
 table.leaderboard {
-  width: 100%;
+  /* width: 90%; */
   margin: 2rem;
 }
 
 td {
   height: 40px;
   text-align: center;
-  vertical-align: middle;
+}
+
+tr td:last-child {
+    width: 1%;
+    white-space: nowrap;
 }
