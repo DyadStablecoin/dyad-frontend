@@ -1,4 +1,5 @@
 import LeaderboardRow from "./LeaderboardRow";
+import LeaderboardScrollbar from "./LeaderboardScrollbar";
 
 const TABLE_HEADER = (
   <tr className="text-[#737E76]">
@@ -15,15 +16,20 @@ const TABLE_HEADER = (
 
 export default function Leaderboard() {
   return (
-    <table className="leaderboard">
-      {TABLE_HEADER}
-      <LeaderboardRow />
-      <LeaderboardRow />
-      <LeaderboardRow />
-      <LeaderboardRow />
-      <LeaderboardRow />
-      <LeaderboardRow />
-      <LeaderboardRow />
-    </table>
+    <div className="flex">
+      <div className="w-[80rem]">
+        <table className="leaderboard">
+          {TABLE_HEADER}
+          <LeaderboardRow />
+          <LeaderboardRow />
+          <LeaderboardRow />
+          <LeaderboardRow />
+          <LeaderboardRow />
+          <LeaderboardRow />
+          <LeaderboardRow />
+        </table>
+      </div>
+      <LeaderboardScrollbar />
+    </div>
   );
 }
