@@ -3,7 +3,7 @@ import useBlockchain from "../hooks/useBlockchain";
 import Claim from "./Claim";
 import NFTs from "./NFTs";
 
-export default function Home({ protocolData, nfts, reload, setReload }) {
+export default function Home({ balances, nfts, reload, setReload }) {
   const { isConnected, chain } = useBlockchain();
 
   return (
@@ -13,7 +13,7 @@ export default function Home({ protocolData, nfts, reload, setReload }) {
           {chain.id === GOERLI ? (
             <div>
               <Claim
-                protocolData={protocolData}
+                balances={balances}
                 reload={reload}
                 setReload={setReload}
               />
@@ -22,7 +22,7 @@ export default function Home({ protocolData, nfts, reload, setReload }) {
                   reload={reload}
                   setReload={setReload}
                   nfts={nfts}
-                  protocolData={protocolData}
+                  balances={balances}
                 />
               </div>
             </div>

@@ -5,10 +5,10 @@ import abi from "../consts/abi/dNFTABI.json";
 import dyadABI from "../consts/abi/dNFTABI.json";
 import { useTVL, useXPs } from "../utils/stats";
 
-export function useProtocolData() {
+export function useBalances() {
   const { address } = useAccount();
 
-  const [protocolData, setProtocolData] = useState({
+  const [balances, setBalances] = useState({
     totalSupplyOfNfts: 0,
     balanceOfdNFT: 0,
     balanceOfDyad: 0,
@@ -39,7 +39,7 @@ export function useProtocolData() {
     ],
     onSuccess: (data) => {
       if (data && data[0]) {
-        setProtocolData({
+        setBalances({
           totalSupplyOfNfts: parseInt(data[0]._hex),
           balanceOfdNFT: parseInt(data[1]._hex),
           balanceOfDyad: parseInt(data[2]._hex),
@@ -48,5 +48,5 @@ export function useProtocolData() {
     },
   });
 
-  return { refetch, protocolData };
+  return { refetch, balances };
 }

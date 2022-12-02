@@ -7,13 +7,13 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageNotFound from "./components/PageNotFound";
 import Footer from "./components/Footer";
-import { useProtocolData } from "./hooks/useProtocolData";
 import useNfts from "./hooks/useNfts";
+import { useBalances } from "./hooks/useBalances";
 
 export default function App() {
   const [reload, setReload] = useState(false);
 
-  const { refetch, protocolData } = useProtocolData();
+  const { refetch, balances } = useBalances();
   const { nfts } = useNfts();
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function App() {
               element={
                 <Home
                   nfts={nfts}
-                  protocolData={protocolData}
+                  balances={balances}
                   reload={reload}
                   setReload={setReload}
                 />

@@ -11,7 +11,7 @@ import { TOTAL_SUPPLY, MIN_DEPOSIT, MIN_DEPOSIT_USD } from "../consts/consts";
 import useBlockchain from "../hooks/useBlockchain";
 
 export default function Claim({
-  protocolData: { totalSupply, balanceOfdNFT },
+  balances: { totalSupply, balanceOfdNFT },
   reload,
   setReload,
 }) {

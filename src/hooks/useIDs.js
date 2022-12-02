@@ -1,15 +1,15 @@
-import { useProtocolData } from "./useProtocolData";
 import { CONTRACT_dNFT } from "../consts/contract";
 import abi from "../consts/abi/dNFTABI.json";
 import { useContractReads } from "wagmi";
 import { useState } from "react";
+import { useBalances } from "./useBalances";
 
 export default function useIDs() {
-  const { protocolData } = useProtocolData();
+  const { balances } = useBalances();
   const [ids, setIds] = useState([]);
 
   let calls = [];
-  for (let i = 0; i < protocolData.totalSupplyOfNfts; i++) {
+  for (let i = 0; i < balances.totalSupplyOfNfts; i++) {
     calls.push({
       addressOrName: CONTRACT_dNFT,
       contractInterface: abi,
