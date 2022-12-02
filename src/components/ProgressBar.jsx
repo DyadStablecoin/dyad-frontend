@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export default function ProgressBar({ percent, fullWidth = false }) {
-  console.log("ProgressBar", percent);
+  // console.log("ProgressBar", percent);
   const [colors, setColors] = useState();
 
   function getColors() {

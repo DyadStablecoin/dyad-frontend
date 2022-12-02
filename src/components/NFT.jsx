@@ -14,7 +14,7 @@ import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 import ProgressBar from "./ProgressBar";
 
-export default function NFT({ averageXP, index, reload, setReload, xps }) {
+export default function NFT({ index, reload, setReload }) {
   const { address } = useAccount();
 
   const [xp, setXP] = useState();
@@ -112,7 +112,7 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
         <div className="w-full">
           <div className="flex justify-between items-center">
             <div className={HEADER}>Rank</div>
-            <div className="">#{calcRank(xps, xp)}</div>
+            {/* <div className="">#{calcRank(xps, xp)}</div> */}
           </div>
           <div className="flex justify-between items-center">
             <div className={HEADER}>Value</div>
@@ -136,8 +136,8 @@ export default function NFT({ averageXP, index, reload, setReload, xps }) {
           <div className={HEADER}>Performance</div>
           <div className="flex flex-col items-start text-s text-[#519C58]">
             <div className="">
-              {dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x/
-              {1 / dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x
+              {/* {dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x/ */}
+              {/* {1 / dyadMultiplier(dNFT_PRICE, dNFT_PRICE, xp, averageXP)}x */}
             </div>
             <div className="w-[5rem]">
               {Math.round(xpCurve(1) * 10000) / 10000}x XP

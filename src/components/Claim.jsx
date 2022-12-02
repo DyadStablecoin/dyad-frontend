@@ -8,9 +8,13 @@ import Button from "./Button";
 import dNFT from "../abi/dNFT.json";
 import Loading from "./Loading";
 import { TOTAL_SUPPLY, MIN_DEPOSIT, MIN_DEPOSIT_USD } from "../consts/consts";
-import { useEnsName } from "../hooks/ens";
+import { useEnsName } from "../hooks/useEns";
 
-export default function Claim({ reload, setReload, totalSupply }) {
+export default function Claim({
+  protocolData: { totalSupply, balanceOfdNFT },
+  reload,
+  setReload,
+}) {
   const { ensName, address } = useEnsName();
 
   const { config } = usePrepareContractWrite({
@@ -43,7 +47,11 @@ export default function Claim({ reload, setReload, totalSupply }) {
           </div>
           <div className="ml-2 p-2">
             <div>Hi, {ensName} 👋</div>
-            <div>Please mint your dNFT(s) to play</div>
+            {balanceOfdNFT === 0 ? (
+              <div>Please mint your dNFT to play</div>
+            ) : (
+              <div>Access your dNFT(s) and play below</div>
+            )}
           </div>
         </div>
         <div className="md:flex">

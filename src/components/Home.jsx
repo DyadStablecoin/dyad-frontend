@@ -1,12 +1,10 @@
 import { useAccount, useNetwork } from "wagmi";
 import { GOERLI } from "../consts/networks";
-import { useAverageXP } from "../utils/stats";
 import Claim from "./Claim";
 import NFTs from "./NFTs";
 
-export default function Home({ totalSupply, reload, setReload, xps }) {
+export default function Home({ protocolData, reload, setReload }) {
   const { isConnected } = useAccount();
-  const averageXP = useAverageXP(totalSupply);
   const { chain, chains } = useNetwork();
 
   return (
@@ -16,17 +14,12 @@ export default function Home({ totalSupply, reload, setReload, xps }) {
           {chain.id === GOERLI ? (
             <div>
               <Claim
+                protocolData={protocolData}
                 reload={reload}
                 setReload={setReload}
-                totalSupply={totalSupply}
               />
               <div className="mt-[1rem] flex justify-center items-center w-full">
-                <NFTs
-                  reload={reload}
-                  setReload={setReload}
-                  averageXP={averageXP}
-                  xps={xps}
-                />
+                <NFTs reload={reload} setReload={setReload} />
               </div>
             </div>
           ) : (

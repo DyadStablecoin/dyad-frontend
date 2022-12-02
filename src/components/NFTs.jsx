@@ -5,7 +5,7 @@ import dNFTabi from "../consts/abi/dNFTABI.json";
 import { useAccount, useContractRead } from "wagmi";
 import { useEffect, useState } from "react";
 
-export default function NFTs({ reload, setReload, averageXP, xps }) {
+export default function NFTs({ reload, setReload }) {
   const [dNftBalance, setDNftBalance] = useState(0);
   const { address } = useAccount();
 
@@ -35,9 +35,7 @@ export default function NFTs({ reload, setReload, averageXP, xps }) {
               setReload={setReload}
               address={address}
               index={i}
-              averageXP={averageXP}
               borderColor={NFT_COLORS[i % NFT_COLORS.length]}
-              xps={xps}
             />
           );
         })}

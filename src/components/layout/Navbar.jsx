@@ -12,13 +12,17 @@ import { dNFT_PRICE } from "../../consts/consts";
 import ProgressBar from "../ProgressBar";
 import { CloseOutlined, MenuOutlined, WarningFilled } from "@ant-design/icons";
 import MobileMenu from "../MobileMenu";
+import useTVL from "../../hooks/useTVL";
 
-export const NavBar = ({ tvl, isSafetyModeActivated }) => {
+export const NavBar = ({ isSafetyModeActivated }) => {
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
   const { connect, connectors } = useConnect();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const { tvl } = useTVL(100);
+  console.log("tvl", tvl);
 
   const [balanceOf, setBalanceOf] = useState(0);
   const [ethPrice, setEthPrice] = useState(0);
