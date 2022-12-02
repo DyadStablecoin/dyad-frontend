@@ -95,7 +95,7 @@ export default function NFT({ index, reload, setReload }) {
     refetch();
   }, [reload]);
 
-  const { nft } = useNft(0);
+  const { nft } = useNft(0, []);
   const HEADER = "text-gray-500 text-sm";
 
   return (
@@ -123,7 +123,7 @@ export default function NFT({ index, reload, setReload }) {
           </div>
           <div className="flex justify-between items-center">
             <div className={HEADER}>XP</div>
-            <div className="">{nft.xp}</div>
+            {/* <div className="">{nft.xp}</div> */}
           </div>
           <div className="mt-2">
             <Button

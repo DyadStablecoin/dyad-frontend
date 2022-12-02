@@ -9,7 +9,7 @@ export function useProtocolData() {
   const { address } = useAccount();
 
   const [protocolData, setProtocolData] = useState({
-    totalSupply: 0,
+    totalSupplyOfNfts: 0,
     balanceOfdNFT: 0,
     balanceOfDyad: 0,
   });
@@ -40,7 +40,7 @@ export function useProtocolData() {
     onSuccess: (data) => {
       if (data && data[0]) {
         setProtocolData({
-          totalSupply: parseInt(data[0]._hex),
+          totalSupplyOfNfts: parseInt(data[0]._hex),
           balanceOfdNFT: parseInt(data[1]._hex),
           balanceOfDyad: parseInt(data[2]._hex),
         });

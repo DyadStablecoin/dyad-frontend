@@ -1,10 +1,13 @@
 import { GOERLI } from "../consts/networks";
 import useBlockchain from "../hooks/useBlockchain";
+import useNfts from "../hooks/useNfts";
 import Claim from "./Claim";
 import NFTs from "./NFTs";
 
 export default function Home({ protocolData, reload, setReload }) {
   const { isConnected, chain } = useBlockchain();
+
+  const { nfts } = useNfts();
 
   return (
     <>
