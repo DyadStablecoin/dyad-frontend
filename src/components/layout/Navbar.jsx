@@ -1,5 +1,4 @@
-import { useAccount, useConnect, useContractReads, useDisconnect } from "wagmi";
-import { addressSummary } from "../../utils/address";
+import { useConnect, useContractReads, useDisconnect } from "wagmi";
 import { formatUSD } from "../../utils/currency";
 import dyadABI from "../../consts/abi/dNFTABI.json";
 import poolABI from "../../consts/abi/poolABI.json";
@@ -13,11 +12,13 @@ import ProgressBar from "../ProgressBar";
 import { CloseOutlined, MenuOutlined, WarningFilled } from "@ant-design/icons";
 import MobileMenu from "../MobileMenu";
 import useTVL from "../../hooks/useTVL";
+import useBlockchain from "../../hooks/useBlockchain";
 
 export const NavBar = ({ isSafetyModeActivated, reload }) => {
-  const { address } = useAccount();
   const { disconnect } = useDisconnect();
   const { connect, connectors } = useConnect();
+
+  const { ensName, address, isConnected } = useBlockchain();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -74,11 +75,15 @@ export const NavBar = ({ isSafetyModeActivated, reload }) => {
         {!isMenuOpen && (
           <div className="flex gap-8 items-center justify-center">
             <div className="gap-8 items-center justify-center hidden md:flex  mr-8">
-              <div className="flex gap-4">
-                <div>TVL</div>
-                <div>{formatUSD(tvl)}</div>
-              </div>
-              <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
+              {isConnected && (
+                <>
+                  <div className="flex gap-4">
+                    <div>TVL</div>
+                    <div>{formatUSD(tvl)}</div>
+                  </div>
+                  <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
+                </>
+              )}
               <div className="flex gap-4">
                 <div>dNFT Floor</div>
                 <div>{formatUSD(dNFT_PRICE)}</div>
@@ -96,7 +101,7 @@ export const NavBar = ({ isSafetyModeActivated, reload }) => {
                 >
                   <div className="flex items-center gap-2">
                     <a className="cursor-pointer">Disconnect</a>
-                    <div>{addressSummary(address, 3)}</div>
+                    <div>{ensName}</div>
                   </div>
                 </Button>
               ) : (

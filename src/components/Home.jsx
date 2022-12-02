@@ -1,11 +1,10 @@
-import { useAccount, useNetwork } from "wagmi";
 import { GOERLI } from "../consts/networks";
+import useBlockchain from "../hooks/useBlockchain";
 import Claim from "./Claim";
 import NFTs from "./NFTs";
 
 export default function Home({ protocolData, reload, setReload }) {
-  const { isConnected } = useAccount();
-  const { chain, chains } = useNetwork();
+  const { isConnected, chain } = useBlockchain();
 
   return (
     <>

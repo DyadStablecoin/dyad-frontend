@@ -1,15 +1,15 @@
-import { useAccount } from "wagmi";
+import { useAccount, useNetwork } from "wagmi";
 import { getEnsName } from "../utils/address";
 import { useEffect, useState } from "react";
 import { addressSummary } from "../utils/address";
 
 /**
- * Returns the ENS name if found, otherwise returns the summary
- * of the address.
- * Always returns the address as it is.
+ * Thin wrapper around the wagmi useAccount and useNetwork hook, with the only
+ * difference being that we return the corresponding ENS name if it exists.
  */
-export function useEnsName() {
-  const { address } = useAccount();
+export default function useBlockchain() {
+  const { address, isConnected } = useAccount();
+  const { chain } = useNetwork();
   const [ensName, setEnsName] = useState();
 
   useEffect(() => {
@@ -20,5 +20,5 @@ export function useEnsName() {
     _getEnsName();
   }, [address]);
 
-  return { ensName, address };
+  return { ensName, address, isConnected, chain };
 }

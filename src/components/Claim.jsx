@@ -8,14 +8,14 @@ import Button from "./Button";
 import dNFT from "../abi/dNFT.json";
 import Loading from "./Loading";
 import { TOTAL_SUPPLY, MIN_DEPOSIT, MIN_DEPOSIT_USD } from "../consts/consts";
-import { useEnsName } from "../hooks/useEns";
+import useBlockchain from "../hooks/useBlockchain";
 
 export default function Claim({
   protocolData: { totalSupply, balanceOfdNFT },
   reload,
   setReload,
 }) {
-  const { ensName, address } = useEnsName();
+  const { ensName, address } = useBlockchain();
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
