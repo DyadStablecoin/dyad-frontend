@@ -1,13 +1,11 @@
-import { useProtocolData } from "./useProtocolData";
 import { CONTRACT_dNFT } from "../consts/contract";
 import dNFT from "../abi/dNFT.json";
 import { useContractReads } from "wagmi";
 import useIDs from "./useIDs";
-import abi from "../consts/abi/dNFTABI.json";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export default function useNfts(id, dependencies) {
-  const [nfts, setNfts] = useState([]);
+export default function useNfts() {
+  const [nfts, setNfts] = useState();
   const { ids } = useIDs();
 
   let calls = [];
@@ -16,14 +14,22 @@ export default function useNfts(id, dependencies) {
       addressOrName: CONTRACT_dNFT,
       contractInterface: dNFT["abi"],
       functionName: "idToNft",
-      args: ["0"],
+      args: [String(ids[i])],
     });
   }
 
   useContractReads({
     contracts: calls,
     onSuccess: (data) => {
-      setNfts(data);
+      let _nfts = {};
+      data.map((d, i) => {
+        _nfts[ids[i]] = {
+          withdrawn: parseInt(d[0]._hex),
+          deposit: parseInt(d[1]._hex),
+          xp: parseInt(d[2]._hex),
+        };
+      });
+      setNfts(_nfts);
     },
   });
 

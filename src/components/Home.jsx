@@ -1,13 +1,10 @@
 import { GOERLI } from "../consts/networks";
 import useBlockchain from "../hooks/useBlockchain";
-import useNfts from "../hooks/useNfts";
 import Claim from "./Claim";
 import NFTs from "./NFTs";
 
-export default function Home({ protocolData, reload, setReload }) {
+export default function Home({ protocolData, nfts, reload, setReload }) {
   const { isConnected, chain } = useBlockchain();
-
-  const { nfts } = useNfts();
 
   return (
     <>
@@ -21,7 +18,12 @@ export default function Home({ protocolData, reload, setReload }) {
                 setReload={setReload}
               />
               <div className="mt-[1rem] flex justify-center items-center w-full">
-                <NFTs reload={reload} setReload={setReload} />
+                <NFTs
+                  reload={reload}
+                  setReload={setReload}
+                  nfts={nfts}
+                  protocolData={protocolData}
+                />
               </div>
             </div>
           ) : (

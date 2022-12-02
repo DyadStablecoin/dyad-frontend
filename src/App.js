@@ -8,11 +8,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageNotFound from "./components/PageNotFound";
 import Footer from "./components/Footer";
 import { useProtocolData } from "./hooks/useProtocolData";
+import useNfts from "./hooks/useNfts";
 
 export default function App() {
   const [reload, setReload] = useState(false);
 
   const { refetch, protocolData } = useProtocolData();
+  const { nfts } = useNfts();
 
   useEffect(() => {
     refetch();
@@ -28,6 +30,7 @@ export default function App() {
               path="/"
               element={
                 <Home
+                  nfts={nfts}
                   protocolData={protocolData}
                   reload={reload}
                   setReload={setReload}
