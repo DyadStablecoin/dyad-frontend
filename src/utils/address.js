@@ -12,7 +12,7 @@ export function addressSummary(address, length = 6) {
   return `${address.slice(0, length + 2)}...${address.slice(42 - length, 42)}`;
 }
 
-export async function getEthName(address) {
+export async function getEnsName(address) {
   // return the first ens name that we can find
   const nfts = await alchemy.nft.getNftsForOwner(address, {
     contractAddresses: [ensContractAddress],

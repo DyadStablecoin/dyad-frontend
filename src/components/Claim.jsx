@@ -1,54 +1,38 @@
 import {
-  useAccount,
   useContractWrite,
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import Button from "./Button";
-import abi from "../consts/abi/dNFTABI.json";
+import dNFT from "../abi/dNFT.json";
 import Loading from "./Loading";
-import { TOTAL_SUPPLY } from "../consts/consts";
-import { addressSummary, getEthName } from "../utils/address";
-import { useEffect, useState } from "react";
+import { TOTAL_SUPPLY, MIN_DEPOSIT, MIN_DEPOSIT_USD } from "../consts/consts";
+import { useEnsName } from "../hooks/ens";
 
 export default function Claim({ reload, setReload, totalSupply }) {
-  const { address } = useAccount();
-  const [ethName, setEthName] = useState("");
+  const { ensName, address } = useEnsName();
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
-    contractInterface: abi,
-    functionName: "mint",
+    contractInterface: dNFT["abi"],
+    functionName: "mintNft",
     args: [address],
-    onSuccess: () => {},
-    onError: (e) => {
-      console.log("claim", e);
-    },
+    overrides: { value: String(MIN_DEPOSIT) },
   });
 
-  const { data, isLoading: isLoadingWrite, write } = useContractWrite(config);
+  const { data, write } = useContractWrite(config);
 
   const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
     onSuccess: () => {
       setReload(!reload);
-      console.log("success");
     },
   });
 
-  useEffect(() => {
-    async function _getEthName() {
-      const res = await getEthName(address);
-      setEthName(res);
-    }
-
-    _getEthName();
-  }, [address]);
-
   return (
     <div>
-      {(isLoadingWrite || isLoading) && <Loading isLoading />}
+      {isLoading && <Loading isLoading />}
       <div className="p-4 md:flex md:items-center md:border-b border-gray-800 gap-4 md:justify-between">
         <div className="flex items-center justify-center ">
           <div className="w-[56px]">
@@ -58,7 +42,7 @@ export default function Claim({ reload, setReload, totalSupply }) {
             />
           </div>
           <div className="ml-2 p-2">
-            <div>Hi, {ethName || addressSummary(address)} 👋</div>
+            <div>Hi, {ensName} 👋</div>
             <div>Please mint your dNFT(s) to play</div>
           </div>
         </div>
@@ -68,7 +52,7 @@ export default function Claim({ reload, setReload, totalSupply }) {
               <div>dNFT Remaining</div>
               <div className="flex gap-1 items-center">
                 <div className="rhombus"></div>
-                <div>{TOTAL_SUPPLY - totalSupply}/10000</div>
+                <div>{TOTAL_SUPPLY - totalSupply}/300</div>
               </div>
             </div>
             <div className="w-[2px] h-[85px] bg-[#939393] md:invisible"></div>
@@ -78,7 +62,7 @@ export default function Claim({ reload, setReload, totalSupply }) {
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-green-400 rounded"></div>
-                <div>$300</div>
+                <div>${MIN_DEPOSIT_USD}</div>
               </div>
             </div>
           </div>

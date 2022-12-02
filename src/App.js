@@ -41,6 +41,7 @@ export default function App() {
     ],
     onSuccess: (data) => {
       if (data && data[0]) {
+        console.log("data", data);
         setTotalSupply(parseInt(data[0]._hex));
         setBalanceOfDyad(parseInt(data[1]._hex));
       }
@@ -55,7 +56,7 @@ export default function App() {
     <BrowserRouter>
       <div className="page-container content-wrap font-serif font-bold text-white">
         <NavBar tvl={tvl} isSafetyModeActivated={false} />
-        <Leaderboard />
+        {/* <Leaderboard /> */}
         <div className="flex flex-col ">
           <Routes>
             <Route
