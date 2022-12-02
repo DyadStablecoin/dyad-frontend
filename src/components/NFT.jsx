@@ -13,6 +13,8 @@ import Sync from "./Sync";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 import ProgressBar from "./ProgressBar";
+import useXP from "../hooks/useXP";
+import useNft from "../hooks/useNft";
 
 export default function NFT({ index, reload, setReload }) {
   const { address } = useAccount();
@@ -93,6 +95,7 @@ export default function NFT({ index, reload, setReload }) {
     refetch();
   }, [reload]);
 
+  const { nft } = useNft(0);
   const HEADER = "text-gray-500 text-sm";
 
   return (
@@ -120,7 +123,7 @@ export default function NFT({ index, reload, setReload }) {
           </div>
           <div className="flex justify-between items-center">
             <div className={HEADER}>XP</div>
-            <div className="">{xp && xp}</div>
+            <div className="">{nft.xp}</div>
           </div>
           <div className="mt-2">
             <Button
