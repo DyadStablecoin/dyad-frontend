@@ -61,12 +61,13 @@ code {
   border-spacing: 0 15px;
 }
 
-td {
-  width: 150px;
-  text-align: center;
-  padding: 20px;
-  vertical-align: top;
-}
+/* TODO: add back */
+/* td { */
+/*   width: 150px; */
+/*   text-align: center; */
+/*   padding: 20px; */
+/*   vertical-align: top; */
+/* } */
 
 .rhombus {
 background:
@@ -111,4 +112,19 @@ background:
   height:100%; 
   display:block; 
   z-index:3;
+}
+
+table.leaderboard {
+  /* width: 90%; */
+  margin: 2rem;
+}
+
+td {
+  height: 40px;
+  text-align: center;
+}
+
+tr td:last-child {
+    width: 1%;
+    white-space: nowrap;
 }
