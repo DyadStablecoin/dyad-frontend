@@ -12,11 +12,13 @@ import Button from "./Button";
 import Sync from "./Sync";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
+import useNft from "../hooks/useNft";
 
-export default function NFT({ index, reload, setReload, nfts, xps }) {
+export default function NFT({ index, reload, setReload, xps }) {
   const { address } = useAccount();
 
   const [tokenId, setTokenId] = useState();
+  const { nft } = useNft(tokenId, [reload]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -70,7 +72,7 @@ export default function NFT({ index, reload, setReload, nfts, xps }) {
             <div className="w-full">
               <div className="flex justify-between items-center">
                 <div className={HEADER}>Rank</div>
-                <div className="">#{calcRank(xps, nfts[tokenId].xp)}</div>
+                <div className="">#{calcRank(xps, nft.xp)}</div>
               </div>
               <div className="flex justify-between items-center">
                 <div className={HEADER}>Value</div>
@@ -78,7 +80,7 @@ export default function NFT({ index, reload, setReload, nfts, xps }) {
               </div>
               <div className="flex justify-between items-center">
                 <div className={HEADER}>XP</div>
-                <div className="">{nfts[tokenId].xp}</div>
+                <div className="">{nft.xp}</div>
               </div>
               <div className="mt-2">
                 <Button
@@ -107,7 +109,7 @@ export default function NFT({ index, reload, setReload, nfts, xps }) {
             <div className={HEADER}>Deposit Ratio</div>
             <div className="mt-3">
               {/* <ProgressBar */}
-              {/*   percent={parseInt((nfts[tokenId].deposit / dyad) * 100)} */}
+              {/*   percent={parseInt((nft.deposit / dyad) * 100)} */}
               {/* /> */}
             </div>
           </div>
@@ -116,9 +118,7 @@ export default function NFT({ index, reload, setReload, nfts, xps }) {
               <div className={HEADER}>Minted DYAD</div>
               <div className="md:flex">
                 <div className="md:mr-2 mb-2 md:mb-0">
-                  {round2(
-                    (nfts[tokenId].deposit + nfts[tokenId].withdrawn) / 10 ** 18
-                  )}
+                  {round2((nft.deposit + nft.withdrawn) / 10 ** 18)}
                 </div>
                 <Button onClick={onOpen}>Mint</Button>
               </div>
@@ -127,7 +127,7 @@ export default function NFT({ index, reload, setReload, nfts, xps }) {
               <div className={HEADER}>Deposited DYAD</div>
               <div className="md:flex md:gap-2">
                 <div className="md:mr-2 mb-2 md:mb-0">
-                  {Math.round((nfts[tokenId].deposit / 10 ** 18) * 100) / 100}
+                  {Math.round((nft.deposit / 10 ** 18) * 100) / 100}
                 </div>
                 <div className="">
                   <div className="flex gap-2">

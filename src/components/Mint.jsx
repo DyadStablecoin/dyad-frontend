@@ -1,7 +1,6 @@
 import {
   useContractWrite,
   usePrepareContractWrite,
-  useAccount,
   useWaitForTransaction,
 } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
@@ -55,7 +54,6 @@ export default function Mint({ tokenId, reload, setReload, onClose }) {
         <div className="">ETH</div>
         <Button
           onClick={() => {
-            console.log(balances);
             setWETH(balances.balanceOfEth);
           }}
         >
