@@ -13,6 +13,7 @@ import Sync from "./Sync";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 import useNft from "../hooks/useNft";
+import ProgressBar from "./ProgressBar";
 
 export default function NFT({ index, xps }) {
   const { address } = useAccount();
@@ -108,9 +109,11 @@ export default function NFT({ index, xps }) {
           <div className="hidden md:block md:w-full">
             <div className={HEADER}>Deposit Ratio</div>
             <div className="mt-3">
-              {/* <ProgressBar */}
-              {/*   percent={parseInt((nft.deposit / dyad) * 100)} */}
-              {/* /> */}
+              <ProgressBar
+                percent={parseInt(
+                  (nft.deposit / (nft.deposit + nft.withdrawn)) * 100
+                )}
+              />
             </div>
           </div>
           <div className="flex gap-4 mt-4 md:mt-0">
