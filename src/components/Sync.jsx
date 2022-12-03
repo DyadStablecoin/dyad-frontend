@@ -1,23 +1,18 @@
 import Button from "./Button";
-import abi from "../consts/abi/dNFTABI.json";
+import PoolABI from "../abi/Pool.json";
 import {
   useContractWrite,
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
-import { CONTRACT_dNFT } from "../consts/contract";
+import { CONTRACT_POOL } from "../consts/contract";
 import Loading from "./Loading";
 
-export default function Sync({ tokenId }) {
-  console.log("syncing", tokenId);
+export default function Sync() {
   const { config } = usePrepareContractWrite({
-    addressOrName: CONTRACT_dNFT,
-    contractInterface: abi,
-    functionName: "syncTokenId",
-    args: [tokenId],
-    onError: (error) => {
-      console.log("syncing", error);
-    },
+    addressOrName: CONTRACT_POOL,
+    contractInterface: PoolABI["abi"],
+    functionName: "sync",
   });
 
   const { data, isLoading: isLoadingSync, write } = useContractWrite(config);
@@ -32,7 +27,6 @@ export default function Sync({ tokenId }) {
       <Button
         isDisabled={!write}
         onClick={() => {
-          console.log(333);
           write?.();
         }}
       >
