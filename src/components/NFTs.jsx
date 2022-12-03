@@ -9,13 +9,11 @@ export default function NFTs({ balances }) {
   return (
     <div>
       {balances.balanceOfdNFT > 0 && <div className="mb-2">Your dNFTs</div>}
-      {xps && (
-        <div className="flex flex-col gap-2">
-          {[...Array(balances.balanceOfdNFT).keys()].map((i) => {
-            return <NFT xps={xps} index={i} />;
-          })}
-        </div>
-      )}
+      <div className="flex flex-col gap-2">
+        {[...Array(balances.balanceOfdNFT).keys()].map((i) => {
+          return <NFT xps={xps} index={i} />;
+        })}
+      </div>
     </div>
   );
 }
