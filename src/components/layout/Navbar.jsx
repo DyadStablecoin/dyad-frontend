@@ -91,10 +91,12 @@ export const NavBar = ({ isSafetyModeActivated, reload }) => {
                 <div>{formatUSD(dNFT_PRICE)}</div>
               </div>
               <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
-              <div className="flex gap-1 items-center justify-center">
-                <div>CR</div>
-                {balances && <ProgressBar percent={cr} />}
-              </div>
+              {isConnected && (
+                <div className="flex gap-1 items-center justify-center">
+                  <div>CR</div>
+                  {balances && <ProgressBar percent={cr} />}
+                </div>
+              )}
               {address ? (
                 <Button
                   onClick={() => disconnect()}
