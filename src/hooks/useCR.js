@@ -4,7 +4,10 @@ import { useBalances } from "./useBalances";
 export default function useCR() {
   const { balances } = useBalances();
 
-  const cr = (balances.totalSupplyOfDyad / balances.poolBalanceOfDyad) * 100;
+  const cr =
+    ((balances.totalSupplyOfDyad - balances.poolBalanceOfDyad) /
+      balances.poolBalanceOfDyad) *
+    100;
 
   return { cr };
 }
