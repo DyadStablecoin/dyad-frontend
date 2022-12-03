@@ -1,3 +1,4 @@
+import { Skeleton } from "antd";
 import { GOERLI } from "../consts/networks";
 import useBlockchain from "../hooks/useBlockchain";
 import Claim from "./Claim";

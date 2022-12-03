@@ -14,12 +14,13 @@ import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 import useNft from "../hooks/useNft";
 import ProgressBar from "./ProgressBar";
+import Skeleton from "./Skeletion";
 
 export default function NFT({ index, xps }) {
   const { address } = useAccount();
 
   const [tokenId, setTokenId] = useState();
-  const { refetch, nft } = useNft(tokenId);
+  const { refetch, nft, isLoading } = useNft(tokenId);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -38,7 +39,7 @@ export default function NFT({ index, xps }) {
     onClose: onCloseWithdraw,
   } = useDisclosure();
 
-  const {} = useContractReads({
+  useContractReads({
     contracts: [
       {
         addressOrName: CONTRACT_dNFT,
@@ -54,9 +55,40 @@ export default function NFT({ index, xps }) {
 
   const HEADER = "text-gray-500 text-sm";
 
+  function renderPopups() {
+    if (tokenId) {
+      return (
+        <>
+          <Popup isOpen={isOpen} onClose={onClose}>
+            <Mint tokenId={tokenId} refetch={refetch} onClose={onClose} />
+          </Popup>
+          <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
+            <Deposit
+              tokenId={tokenId}
+              refetch={refetch}
+              onClose={onCloseDeposit}
+            />
+          </Popup>
+          <Popup isOpen={isOpenWithdraw} onClose={onCloseWithdraw}>
+            <Withdraw
+              tokenId={tokenId}
+              refetch={refetch}
+              onClose={onCloseWithdraw}
+            />
+          </Popup>
+          <Popup isOpen={isOpenSync} onClose={onCloseSync}>
+            <Sync address={address} tokenId={tokenId} />
+          </Popup>
+        </>
+      );
+    }
+  }
+
   return (
     <>
-      {tokenId && (
+      {isLoading ? (
+        <Skeleton />
+      ) : (
         <div
           style={{ border: "1px solid #3A403C" }}
           className="p-4 md:flex md:gap-[5rem]"
@@ -141,26 +173,7 @@ export default function NFT({ index, xps }) {
               </div>
             </div>
           </div>
-          <Popup isOpen={isOpen} onClose={onClose}>
-            <Mint tokenId={tokenId} refetch={refetch} onClose={onClose} />
-          </Popup>
-          <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
-            <Deposit
-              tokenId={tokenId}
-              refetch={refetch}
-              onClose={onCloseDeposit}
-            />
-          </Popup>
-          <Popup isOpen={isOpenWithdraw} onClose={onCloseWithdraw}>
-            <Withdraw
-              tokenId={tokenId}
-              refetch={refetch}
-              onClose={onCloseWithdraw}
-            />
-          </Popup>
-          <Popup isOpen={isOpenSync} onClose={onCloseSync}>
-            <Sync address={address} tokenId={tokenId} />
-          </Popup>
+          {renderPopups()}
         </div>
       )}
     </>
