@@ -18,10 +18,11 @@ export default function useNfts() {
     });
   }
 
-  useContractReads({
+  const { refetch } = useContractReads({
     contracts: calls,
     onSuccess: (data) => {
       let _nfts = {};
+      console.log("data", data);
       data.map((d, i) => {
         _nfts[ids[i]] = {
           withdrawn: parseInt(d[0]._hex),
@@ -33,5 +34,5 @@ export default function useNfts() {
     },
   });
 
-  return { nfts };
+  return { refetch, nfts };
 }

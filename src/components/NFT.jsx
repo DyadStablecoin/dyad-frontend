@@ -2,8 +2,8 @@ import { useAccount, useContractReads } from "wagmi";
 import { dNFT_PRICE } from "../consts/consts";
 import { CONTRACT_dNFT } from "../consts/contract";
 import abi from "../consts/abi/dNFTABI.json";
-import { useEffect, useState } from "react";
-import { formatUSD } from "../utils/currency";
+import { useState } from "react";
+import { formatUSD, round2 } from "../utils/currency";
 import { calcRank, dyadMultiplier, getRank, xpCurve } from "../utils/stats";
 import Mint from "./Mint";
 import Popup from "./Popup";
@@ -117,7 +117,9 @@ export default function NFT({ index, reload, setReload, nfts, xps }) {
               <div className={HEADER}>Minted DYAD</div>
               <div className="md:flex">
                 <div className="md:mr-2 mb-2 md:mb-0">
-                  {/* {dyad && Math.round((dyad / 10 ** 18) * 100) / 100} */}
+                  {round2(
+                    (nfts[tokenId].deposit + nfts[tokenId].withdrawn) / 10 ** 18
+                  )}
                 </div>
                 <Button onClick={onOpen}>Mint</Button>
               </div>
