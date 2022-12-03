@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CONTRACT_dNFT } from "../consts/contract";
 import dNFTABI from "../abi/dNFT.json";
 import { useContractRead } from "wagmi";
 
-export default function useNft(id, dependencies) {
+export default function useNft(id) {
   const [nft, setNft] = useState({
     withdrawn: 0,
     deposit: 0,
@@ -24,9 +24,5 @@ export default function useNft(id, dependencies) {
     },
   });
 
-  useEffect(() => {
-    refetch();
-  }, dependencies);
-
-  return { nft };
+  return { refetch, nft };
 }
