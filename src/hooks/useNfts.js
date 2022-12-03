@@ -5,6 +5,7 @@ import useIDs from "./useIDs";
 import { useState } from "react";
 
 export default function useNfts() {
+  console.log("useNfts");
   const [nfts, setNfts] = useState();
   const { ids } = useIDs();
 

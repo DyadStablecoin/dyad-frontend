@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAccount, useContractReads } from "wagmi";
+import { useAccount, useBalance, useContractReads } from "wagmi";
 import { CONTRACT_dNFT, CONTRACT_DYAD } from "../consts/contract";
 import dNFTABI from "../abi/dNFT.json";
 import dyadABI from "../abi/DYAD.json";
@@ -11,6 +11,7 @@ export function useBalances() {
     totalSupplyOfNfts: 0,
     balanceOfdNFT: 0,
     balanceOfDyad: 0,
+    balanceOfEth: 0,
   });
 
   const { refetch } = useContractReads({
@@ -36,11 +37,22 @@ export function useBalances() {
     onSuccess: (data) => {
       if (data && data[0]) {
         setBalances({
+          ...balances,
           totalSupplyOfNfts: parseInt(data[0]._hex),
           balanceOfdNFT: parseInt(data[1]._hex),
           balanceOfDyad: parseInt(data[2]._hex),
         });
       }
+    },
+  });
+
+  useBalance({
+    addressOrName: address,
+    onSuccess(data) {
+      setBalances({
+        ...balances,
+        balanceOfEth: parseFloat(data.formatted),
+      });
     },
   });
 

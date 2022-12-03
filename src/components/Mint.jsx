@@ -1,7 +1,6 @@
 import {
   useContractWrite,
   usePrepareContractWrite,
-  useBalance,
   useAccount,
   useWaitForTransaction,
 } from "wagmi";
@@ -10,25 +9,23 @@ import Button from "./Button";
 import abi from "../consts/abi/dNFTABI.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
-import { formatUSD, useEthPrice } from "../utils/currency";
-import { ethers } from "ethers";
+import { formatUSD, parseEther, useEthPrice } from "../utils/currency";
 import Loading from "./Loading";
+import { useBalances } from "../hooks/useBalances";
 
 export default function Mint({ tokenId, reload, setReload, onClose }) {
-  const { address } = useAccount();
   const ethPrice = useEthPrice();
+  const { balances } = useBalances();
 
-  const [wETH, setWETH] = useState(0);
-  const { data: ethBalance } = useBalance({ addressOrName: address });
+  const [wETH, setWETH] = useState("0");
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: abi,
     functionName: "mintDyad",
     args: [tokenId],
-    overrides: { value: ethers.utils.parseEther(wETH ? String(wETH) : "0") },
-    onError: (error) => {
-      console.log(error);
+    overrides: {
+      value: parseEther(wETH),
     },
   });
 
@@ -53,14 +50,13 @@ export default function Mint({ tokenId, reload, setReload, onClose }) {
               setWETH(v);
             }}
             placeholder={0}
-            // type="number"
-            // min={0}
           />
         </div>
         <div className="">ETH</div>
         <Button
           onClick={() => {
-            setWETH(ethBalance.formatted);
+            console.log(balances);
+            setWETH(balances.balanceOfEth);
           }}
         >
           MAX
@@ -71,14 +67,7 @@ export default function Mint({ tokenId, reload, setReload, onClose }) {
         {formatUSD(Math.round(wETH * ethPrice * 100) / 100)} DYAD
       </div>
       <Button isDisabled={!write} onClick={() => write?.()}>
-        mint DYAD 15-30 min
-      </Button>
-      <div className="flex flex-col items-center">
-        <div>+8031 dNFTs</div>
-        <div>950,000 GAS/ .02 ETH</div>
-      </div>
-      <Button isSecondar isDisabled={!write}>
-        mint DYAD instantly
+        mint DYAD
       </Button>
     </div>
   );

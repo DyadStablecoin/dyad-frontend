@@ -4,7 +4,7 @@ import { CONTRACT_dNFT } from "../consts/contract";
 import abi from "../consts/abi/dNFTABI.json";
 import { useState } from "react";
 import { formatUSD, round2 } from "../utils/currency";
-import { calcRank, dyadMultiplier, getRank, xpCurve } from "../utils/stats";
+import { calcRank, xpCurve } from "../utils/stats";
 import Mint from "./Mint";
 import Popup from "./Popup";
 import { useDisclosure } from "@chakra-ui/react";
@@ -12,7 +12,6 @@ import Button from "./Button";
 import Sync from "./Sync";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
-import ProgressBar from "./ProgressBar";
 
 export default function NFT({ index, reload, setReload, nfts, xps }) {
   const { address } = useAccount();
