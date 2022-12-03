@@ -13,16 +13,18 @@ import { CloseOutlined, MenuOutlined, WarningFilled } from "@ant-design/icons";
 import MobileMenu from "../MobileMenu";
 import useTVL from "../../hooks/useTVL";
 import useBlockchain from "../../hooks/useBlockchain";
+import { useBalances } from "../../hooks/useBalances";
 
 export const NavBar = ({ isSafetyModeActivated, reload }) => {
-  const { disconnect } = useDisconnect();
-  const { connect, connectors } = useConnect();
-
-  const { ensName, address, isConnected } = useBlockchain();
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const { disconnect } = useDisconnect();
+  const { connect, connectors } = useConnect();
+  const { ensName, address, isConnected } = useBlockchain();
   const { tvl } = useTVL([reload]);
+  const { balances } = useBalances();
+  console.log("balances", balances);
+  // console.log("balances", balances.poolBalanceOfDyad);
 
   const [balanceOf, setBalanceOf] = useState(0);
   const [ethPrice, setEthPrice] = useState(0);
@@ -91,7 +93,15 @@ export const NavBar = ({ isSafetyModeActivated, reload }) => {
               <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
               <div className="flex gap-1 items-center justify-center">
                 <div>CR</div>
-                <ProgressBar percent={23} />
+                {balances && (
+                  <ProgressBar
+                    percent={
+                      (balances.totalSupplyOfDyad /
+                        balances.poolBalanceOfDyad) *
+                      100
+                    }
+                  />
+                )}
               </div>
               {address ? (
                 <Button

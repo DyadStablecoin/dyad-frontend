@@ -26,7 +26,8 @@ export default function ProgressBar({ percent, fullWidth = false }) {
         >
           <div
             style={{
-              width: `${isNaN(percent) ? 0 : percent}%`,
+              // limit it to 100%
+              width: `${isNaN(percent) ? 0 : percent > 100 ? 100 : percent}%`,
               backgroundColor: colors[0],
             }}
             class={`stripes m-[1px] h-[0.5rem] `}
