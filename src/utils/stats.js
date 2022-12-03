@@ -22,6 +22,13 @@ export function calcRank(xps, xp) {
   return xps.reverse().filter((x) => x > xp).length + 1;
 }
 
+export function getRank(nfts, id) {
+  console.log();
+  const list = Object.entries(nfts);
+  console.log("list", list);
+  return 99;
+}
+
 // calculate rank
 export function useXPs(nDNFTs) {
   nDNFTs = parseInt(nDNFTs);

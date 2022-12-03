@@ -4,7 +4,7 @@ import { CONTRACT_dNFT } from "../consts/contract";
 import abi from "../consts/abi/dNFTABI.json";
 import { useEffect, useState } from "react";
 import { formatUSD } from "../utils/currency";
-import { calcRank, dyadMultiplier, xpCurve } from "../utils/stats";
+import { calcRank, dyadMultiplier, getRank, xpCurve } from "../utils/stats";
 import Mint from "./Mint";
 import Popup from "./Popup";
 import { useDisclosure } from "@chakra-ui/react";
@@ -14,7 +14,7 @@ import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 import ProgressBar from "./ProgressBar";
 
-export default function NFT({ index, reload, setReload, nfts }) {
+export default function NFT({ index, reload, setReload, nfts, xps }) {
   const { address } = useAccount();
 
   const [tokenId, setTokenId] = useState();
@@ -71,7 +71,7 @@ export default function NFT({ index, reload, setReload, nfts }) {
             <div className="w-full">
               <div className="flex justify-between items-center">
                 <div className={HEADER}>Rank</div>
-                {/* <div className="">#{calcRank(xps, xp)}</div> */}
+                <div className="">#{calcRank(xps, nfts[tokenId].xp)}</div>
               </div>
               <div className="flex justify-between items-center">
                 <div className={HEADER}>Value</div>
