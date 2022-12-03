@@ -18,11 +18,7 @@ export default function Home({ balances, reload, setReload }) {
                 setReload={setReload}
               />
               <div className="mt-[1rem] flex justify-center items-center w-full">
-                <NFTs
-                  reload={reload}
-                  setReload={setReload}
-                  balances={balances}
-                />
+                <NFTs balances={balances} />
               </div>
             </div>
           ) : (

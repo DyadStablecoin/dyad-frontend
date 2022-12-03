@@ -2,7 +2,7 @@ import NFT from "./NFT";
 import useXP from "../hooks/useXP";
 import useNfts from "../hooks/useNfts";
 
-export default function NFTs({ balances, reload, setReload }) {
+export default function NFTs({ balances }) {
   const { nfts } = useNfts();
   const { xps } = useXP(nfts);
 
@@ -12,9 +12,7 @@ export default function NFTs({ balances, reload, setReload }) {
       {xps && (
         <div className="flex flex-col gap-2">
           {[...Array(balances.balanceOfdNFT).keys()].map((i) => {
-            return (
-              <NFT xps={xps} reload={reload} setReload={setReload} index={i} />
-            );
+            return <NFT xps={xps} index={i} />;
           })}
         </div>
       )}

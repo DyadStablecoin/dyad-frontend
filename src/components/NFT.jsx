@@ -14,7 +14,7 @@ import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 import useNft from "../hooks/useNft";
 
-export default function NFT({ index, reload, setReload, xps }) {
+export default function NFT({ index, xps }) {
   const { address } = useAccount();
 
   const [tokenId, setTokenId] = useState();
@@ -151,8 +151,7 @@ export default function NFT({ index, reload, setReload, xps }) {
           <Popup isOpen={isOpenWithdraw} onClose={onCloseWithdraw}>
             <Withdraw
               tokenId={tokenId}
-              reload={reload}
-              setReload={setReload}
+              refetch={refetch}
               onClose={onCloseWithdraw}
             />
           </Popup>
