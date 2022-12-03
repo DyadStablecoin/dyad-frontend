@@ -12,7 +12,7 @@ import { formatUSD, parseEther, useEthPrice } from "../utils/currency";
 import Loading from "./Loading";
 import { useBalances } from "../hooks/useBalances";
 
-export default function Mint({ tokenId, refetchNft, onClose }) {
+export default function Mint({ tokenId, refetch, onClose }) {
   const ethPrice = useEthPrice();
   const { balances } = useBalances();
 
@@ -34,7 +34,7 @@ export default function Mint({ tokenId, refetchNft, onClose }) {
     hash: data?.hash,
     onSuccess: () => {
       onClose(); // close modal
-      refetchNft();
+      refetch(); // refetch nft data
     },
   });
 

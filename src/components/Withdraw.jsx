@@ -13,7 +13,7 @@ import { useState } from "react";
 import TextInput from "./TextInput";
 import Loading from "./Loading";
 
-export default function Withdraw({ tokenId, reload, setReload, onClose }) {
+export default function Withdraw({ tokenId, refetch, onClose }) {
   const { address } = useAccount();
 
   const [dyad, setDyad] = useState(0);
@@ -49,7 +49,7 @@ export default function Withdraw({ tokenId, reload, setReload, onClose }) {
     hash: data?.hash,
     onSuccess: () => {
       onClose(); // close modal
-      setReload(!reload);
+      refetch();
     },
   });
 

@@ -18,7 +18,7 @@ export default function NFT({ index, reload, setReload, xps }) {
   const { address } = useAccount();
 
   const [tokenId, setTokenId] = useState();
-  const { refetch: refetchNft, nft } = useNft(tokenId);
+  const { refetch, nft } = useNft(tokenId);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -139,13 +139,12 @@ export default function NFT({ index, reload, setReload, xps }) {
             </div>
           </div>
           <Popup isOpen={isOpen} onClose={onClose}>
-            <Mint tokenId={tokenId} refetchNft={refetchNft} onClose={onClose} />
+            <Mint tokenId={tokenId} refetch={refetch} onClose={onClose} />
           </Popup>
           <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
             <Deposit
               tokenId={tokenId}
-              reload={reload}
-              setReload={setReload}
+              refetch={refetch}
               onClose={onCloseDeposit}
             />
           </Popup>
