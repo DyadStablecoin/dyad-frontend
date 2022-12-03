@@ -5,7 +5,6 @@ import NFTs from "./NFTs";
 
 export default function Home({ balances, nfts, reload, setReload }) {
   const { isConnected, chain } = useBlockchain();
-  console.log("nfts", nfts);
 
   return (
     <>

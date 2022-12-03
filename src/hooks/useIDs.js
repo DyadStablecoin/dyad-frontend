@@ -1,5 +1,5 @@
 import { CONTRACT_dNFT } from "../consts/contract";
-import abi from "../consts/abi/dNFTABI.json";
+import dNFTABI from "../abi/dNFT.json";
 import { useContractReads } from "wagmi";
 import { useState } from "react";
 import { useBalances } from "./useBalances";
@@ -12,7 +12,7 @@ export default function useIDs() {
   for (let i = 0; i < balances.totalSupplyOfNfts; i++) {
     calls.push({
       addressOrName: CONTRACT_dNFT,
-      contractInterface: abi,
+      contractInterface: dNFTABI["abi"],
       functionName: "tokenByIndex",
       args: [i],
     });

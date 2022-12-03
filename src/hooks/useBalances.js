@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useAccount, useContractReads } from "wagmi";
 import { CONTRACT_dNFT, CONTRACT_DYAD } from "../consts/contract";
-import abi from "../consts/abi/dNFTABI.json";
-import dyadABI from "../consts/abi/dNFTABI.json";
-import { useTVL, useXPs } from "../utils/stats";
+import dNFTABI from "../abi/dNFT.json";
+import dyadABI from "../abi/DYAD.json";
 
 export function useBalances() {
   const { address } = useAccount();
@@ -14,25 +13,22 @@ export function useBalances() {
     balanceOfDyad: 0,
   });
 
-  // const tvl = useTVL(protocolData.totalSupply);
-  // const xps = useXPs(protocolData.totalSupply);
-
   const { refetch } = useContractReads({
     contracts: [
       {
         addressOrName: CONTRACT_dNFT,
-        contractInterface: abi,
+        contractInterface: dNFTABI["abi"],
         functionName: "totalSupply",
       },
       {
         addressOrName: CONTRACT_dNFT,
-        contractInterface: abi,
+        contractInterface: dNFTABI["abi"],
         functionName: "balanceOf",
         args: [address],
       },
       {
         addressOrName: CONTRACT_DYAD,
-        contractInterface: dyadABI,
+        contractInterface: dyadABI["abi"],
         functionName: "balanceOf",
         args: [address],
       },

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CONTRACT_dNFT } from "../consts/contract";
-import dNFT from "../abi/dNFT.json";
+import dNFTABI from "../abi/dNFT.json";
 import { useContractRead } from "wagmi";
 
 export default function useNft(id, dependencies) {
@@ -12,7 +12,7 @@ export default function useNft(id, dependencies) {
 
   const { refetch } = useContractRead({
     addressOrName: CONTRACT_dNFT,
-    contractInterface: dNFT["abi"],
+    contractInterface: dNFTABI["abi"],
     functionName: "idToNft",
     args: [String(id)],
     onSuccess: (data) => {

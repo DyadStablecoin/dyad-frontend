@@ -54,7 +54,7 @@ export default function NFT({ index, reload, setReload, nfts, xps }) {
 
   return (
     <>
-      {nfts && tokenId && (
+      {tokenId && (
         <div
           style={{ border: "1px solid #3A403C" }}
           className="p-4 md:flex md:gap-[5rem]"

@@ -11,7 +11,7 @@ import { TOTAL_SUPPLY, MIN_DEPOSIT, MIN_DEPOSIT_USD } from "../consts/consts";
 import useBlockchain from "../hooks/useBlockchain";
 
 export default function Claim({
-  balances: { totalSupply, balanceOfdNFT },
+  balances: { totalSupplyOfNfts, balanceOfdNFT },
   reload,
   setReload,
 }) {
@@ -60,7 +60,7 @@ export default function Claim({
               <div>dNFT Remaining</div>
               <div className="flex gap-1 items-center">
                 <div className="rhombus"></div>
-                <div>{TOTAL_SUPPLY - totalSupply}/300</div>
+                <div>{TOTAL_SUPPLY - totalSupplyOfNfts}/300</div>
               </div>
             </div>
             <div className="w-[2px] h-[85px] bg-[#939393] md:invisible"></div>
