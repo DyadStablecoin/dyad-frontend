@@ -1,8 +1,15 @@
 import NFT from "./NFT";
 import useXP from "../hooks/useXP";
+import useNfts from "../hooks/useNfts";
+import { useEffect } from "react";
 
-export default function NFTs({ balances, nfts, reload, setReload }) {
+export default function NFTs({ balances, reload, setReload }) {
+  const { refetch, nfts } = useNfts();
   const { xps } = useXP(nfts);
+
+  useEffect(() => {
+    refetch();
+  }, [reload]);
 
   // make sure the number of nfts we currently have matches the total supply
   // of nfts. we need to check this, because there can be a delay between
