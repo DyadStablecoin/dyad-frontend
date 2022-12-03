@@ -23,7 +23,7 @@ export default function ProgressBar({ percent, fullWidth = false }) {
           data-tip={`${round2(percent)}%`}
           class={`w-[6rem] border-2 border-[#737E76]  min-w-[${
             fullWidth ? "100%" : "6rem"
-          }] max-w-[6rem]`}
+          }] max-w-[6rem] pr-[2px]`}
           style={{
             backgroundColor: colors[1],
           }}

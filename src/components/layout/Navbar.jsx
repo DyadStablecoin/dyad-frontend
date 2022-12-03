@@ -14,6 +14,7 @@ import MobileMenu from "../MobileMenu";
 import useTVL from "../../hooks/useTVL";
 import useBlockchain from "../../hooks/useBlockchain";
 import { useBalances } from "../../hooks/useBalances";
+import useCR from "../../hooks/useCR";
 
 export const NavBar = ({ isSafetyModeActivated, reload }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,8 +24,7 @@ export const NavBar = ({ isSafetyModeActivated, reload }) => {
   const { ensName, address, isConnected } = useBlockchain();
   const { tvl } = useTVL([reload]);
   const { balances } = useBalances();
-  console.log("balances", balances);
-  // console.log("balances", balances.poolBalanceOfDyad);
+  const { cr } = useCR();
 
   const [balanceOf, setBalanceOf] = useState(0);
   const [ethPrice, setEthPrice] = useState(0);
@@ -93,15 +93,7 @@ export const NavBar = ({ isSafetyModeActivated, reload }) => {
               <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
               <div className="flex gap-1 items-center justify-center">
                 <div>CR</div>
-                {balances && (
-                  <ProgressBar
-                    percent={
-                      (balances.totalSupplyOfDyad /
-                        balances.poolBalanceOfDyad) *
-                      100
-                    }
-                  />
-                )}
+                {balances && <ProgressBar percent={cr} />}
               </div>
               {address ? (
                 <Button

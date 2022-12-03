@@ -8,11 +8,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageNotFound from "./components/PageNotFound";
 import Footer from "./components/Footer";
 import { useBalances } from "./hooks/useBalances";
+import useCR from "./hooks/useCR";
 
 export default function App() {
   const [reload, setReload] = useState(false);
 
   const { refetch, balances } = useBalances();
+  const { cr } = useCR();
 
   useEffect(() => {
     refetch();
@@ -21,7 +23,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="page-container content-wrap font-serif font-bold text-white">
-        <NavBar isSafetyModeActivated={false} reload={reload} />
+        <NavBar isSafetyModeActivated={cr <= 150} reload={reload} />
         <div className="flex flex-col ">
           <Routes>
             <Route
