@@ -22,7 +22,6 @@ export default function useNfts() {
     contracts: calls,
     onSuccess: (data) => {
       let _nfts = {};
-      console.log("data", data);
       data.map((d, i) => {
         _nfts[ids[i]] = {
           withdrawn: parseInt(d[0]._hex),
