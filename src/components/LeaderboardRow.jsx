@@ -1,6 +1,6 @@
 import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
 
-export default function LeaderboardRow() {
+export default function LeaderboardRow({ nft, rank }) {
   return (
     <tr className="" style={{ border: "1px solid #3A403C" }}>
       <td>
@@ -10,8 +10,8 @@ export default function LeaderboardRow() {
           alt=""
         />
       </td>
-      <td>#8234</td>
-      <td>200,325</td>
+      <td>#{rank + 1}</td>
+      <td>{nft.xp}</td>
       <td>$50,325</td>
       <td>
         <div className="flex gap-2 items-center justify-center">

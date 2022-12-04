@@ -1,3 +1,4 @@
+import useNfts from "../hooks/useNfts";
 import LeaderboardRow from "./LeaderboardRow";
 import LeaderboardScrollbar from "./LeaderboardScrollbar";
 
@@ -15,21 +16,21 @@ const TABLE_HEADER = (
 );
 
 export default function Leaderboard() {
+  const { nftsList } = useNfts();
+
   return (
     <div className="flex">
       <div className="w-[80rem]">
-        <table className="leaderboard">
-          {TABLE_HEADER}
-          <LeaderboardRow />
-          <LeaderboardRow />
-          <LeaderboardRow />
-          <LeaderboardRow />
-          <LeaderboardRow />
-          <LeaderboardRow />
-          <LeaderboardRow />
-        </table>
+        {nftsList && (
+          <table className="leaderboard">
+            {TABLE_HEADER}
+            {nftsList.map((nft, i) => {
+              return <LeaderboardRow nft={nft} rank={i} />;
+            })}
+          </table>
+        )}
       </div>
-      <LeaderboardScrollbar />
+      {/* <LeaderboardScrollbar /> */}
     </div>
   );
 }
