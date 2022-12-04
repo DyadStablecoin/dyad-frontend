@@ -24,6 +24,7 @@ export default function useNfts() {
       let _nfts = {};
       data.map((d, i) => {
         _nfts[ids[i]] = {
+          id: parseInt(ids[i]._hex),
           withdrawn: parseInt(d[0]._hex),
           deposit: parseInt(d[1]._hex),
           xp: parseInt(d[2]._hex),

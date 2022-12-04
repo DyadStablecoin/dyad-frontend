@@ -1,6 +1,12 @@
 import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
+import useEnsName from "../hooks/useEnsName";
+import useIdToOwner from "../hooks/useIdToOwner";
+import { addressSummary } from "../utils/address";
 
 export default function LeaderboardRow({ nft, rank }) {
+  const { owner } = useIdToOwner(nft.id);
+  const { ensName } = useEnsName(owner);
+
   return (
     <tr className="" style={{ border: "1px solid #3A403C" }}>
       <td>
@@ -37,7 +43,7 @@ export default function LeaderboardRow({ nft, rank }) {
           <div>5</div>
         </div>
       </td>
-      <td>monkeydluffy.eth</td>
+      <td>{ensName || addressSummary(owner)}</td>
     </tr>
   );
 }

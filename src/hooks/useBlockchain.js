@@ -1,7 +1,5 @@
 import { useAccount, useNetwork } from "wagmi";
-import { getEnsName } from "../utils/address";
-import { useEffect, useState } from "react";
-import { addressSummary } from "../utils/address";
+import useEnsName from "./useEnsName";
 
 /**
  * Thin wrapper around the wagmi useAccount and useNetwork hook, with the only
@@ -10,15 +8,7 @@ import { addressSummary } from "../utils/address";
 export default function useBlockchain() {
   const { address, isConnected } = useAccount();
   const { chain } = useNetwork();
-  const [ensName, setEnsName] = useState();
-
-  useEffect(() => {
-    async function _getEnsName() {
-      const res = await getEnsName(address);
-      res ? setEnsName(res) : setEnsName(addressSummary(address));
-    }
-    _getEnsName();
-  }, [address]);
+  const { ensName } = useEnsName(address);
 
   return { ensName, address, isConnected, chain };
 }

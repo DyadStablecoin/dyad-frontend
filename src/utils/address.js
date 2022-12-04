@@ -9,7 +9,12 @@ const alchemy = new Alchemy(config);
 const ensContractAddress = "0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85";
 
 export function addressSummary(address, length = 6) {
-  return `${address.slice(0, length + 2)}...${address.slice(42 - length, 42)}`;
+  if (address) {
+    return `${address.slice(0, length + 2)}...${address.slice(
+      42 - length,
+      42
+    )}`;
+  }
 }
 
 export async function getEnsName(address) {
