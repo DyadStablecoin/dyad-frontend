@@ -6,11 +6,18 @@ export default function useSortByXp(nfts) {
 
   useEffect(() => {
     if (nfts) {
-      setSortedNfts(
-        nfts.sort(function (a, b) {
-          return a.xp < b.xp ? 1 : b.xp > a.xp ? -1 : 0;
-        })
-      );
+      // conver to a list
+      let _nfts = [];
+      for (const [_, value] of Object.entries(nfts)) {
+        _nfts.push(value);
+      }
+
+      // sort list
+      let _sortedNfts = _nfts.sort(function (a, b) {
+        return a.xp < b.xp ? 1 : b.xp > a.xp ? -1 : 0;
+      });
+
+      setSortedNfts(_sortedNfts);
     }
   }, [nfts]);
 

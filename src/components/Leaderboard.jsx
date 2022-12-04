@@ -1,3 +1,4 @@
+import useIDs from "../hooks/useIDs";
 import useNfts from "../hooks/useNfts";
 import useSortByXp from "../hooks/useSortByXp";
 import LeaderboardRow from "./LeaderboardRow";
@@ -17,10 +18,8 @@ const TABLE_HEADER = (
 );
 
 export default function Leaderboard() {
-  const { nftsList } = useNfts();
-  const { sortedNfts } = useSortByXp(nftsList);
-
-  console.log("test", sortedNfts);
+  const { nfts } = useNfts();
+  const { sortedNfts } = useSortByXp(nfts);
 
   return (
     <div className="flex">
