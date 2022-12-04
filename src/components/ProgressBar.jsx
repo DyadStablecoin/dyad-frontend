@@ -6,6 +6,10 @@ export default function ProgressBar({ percent, fullWidth = false }) {
   const [colors, setColors] = useState();
 
   useEffect(() => {
+    // do not ask me why we need this, but without it the tooltip does not show
+    // sometimes.
+    ReactTooltip.rebuild();
+
     if (percent < 33) {
       setColors(["#E34158", "#0A110B"]);
     } else if (percent < 66) {
@@ -17,10 +21,9 @@ export default function ProgressBar({ percent, fullWidth = false }) {
 
   return (
     <>
-      <ReactTooltip />
       {colors && (
         <div
-          data-tip={`${round2(percent)}%`}
+          data-tip={`${round2(percent)}%` || "0%"}
           class={`w-[6rem] border-2 border-[#737E76]  min-w-[${
             fullWidth ? "100%" : "6rem"
           }] max-w-[6rem] pr-[2px]`}
@@ -38,6 +41,7 @@ export default function ProgressBar({ percent, fullWidth = false }) {
           ></div>
         </div>
       )}
+      <ReactTooltip />
     </>
   );
 }
