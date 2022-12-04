@@ -15,9 +15,7 @@ import Loading from "./Loading";
 
 export default function Deposit({ tokenId, reload, setReload, onClose }) {
   const { address } = useAccount();
-
-  const [dyad, setDyad] = useState(0);
-
+  const [dyad, setDyad] = useState("");
   const [isApproved, setIsApproved] = useState(true);
 
   const { config: configDeposit } = usePrepareContractWrite({
@@ -77,9 +75,9 @@ export default function Deposit({ tokenId, reload, setReload, onClose }) {
           <TextInput
             value={dyad}
             onChange={(v) => {
-              console.log("value", String(parseFloat(v) * 10 ** 18));
               setDyad(v);
             }}
+            type="number"
             placeholder={0}
             onBlur={(e) => {
               refetch();

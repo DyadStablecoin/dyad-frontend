@@ -16,7 +16,7 @@ export default function Mint({ tokenId, refetch, onClose }) {
   const ethPrice = useEthPrice();
   const { balances } = useBalances();
 
-  const [wETH, setWETH] = useState("0");
+  const [wETH, setWETH] = useState("");
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -49,6 +49,7 @@ export default function Mint({ tokenId, refetch, onClose }) {
               setWETH(v);
             }}
             placeholder={0}
+            type="number"
           />
         </div>
         <div className="">ETH</div>
