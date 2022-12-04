@@ -2,6 +2,7 @@ import { Skeleton } from "antd";
 import { GOERLI } from "../consts/networks";
 import useBlockchain from "../hooks/useBlockchain";
 import Claim from "./Claim";
+import Leaderboard from "./Leaderboard";
 import NFTs from "./NFTs";
 
 export default function Home({ balances, reload, setReload }) {
@@ -18,6 +19,7 @@ export default function Home({ balances, reload, setReload }) {
                 reload={reload}
                 setReload={setReload}
               />
+              {/* <Leaderboard /> */}
               <div className="mt-[1rem] flex justify-center items-center w-full">
                 <NFTs balances={balances} />
               </div>
