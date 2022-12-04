@@ -1,8 +1,4 @@
-import { useAccount, useContractReads } from "wagmi";
 import { dNFT_PRICE } from "../consts/consts";
-import { CONTRACT_dNFT } from "../consts/contract";
-import abi from "../consts/abi/dNFTABI.json";
-import { useState } from "react";
 import { formatUSD, round2 } from "../utils/currency";
 import { calcRank, xpCurve } from "../utils/stats";
 import Mint from "./Mint";
@@ -15,11 +11,12 @@ import Withdraw from "./Withdraw";
 import useNft from "../hooks/useNft";
 import ProgressBar from "./ProgressBar";
 import Skeleton from "./Skeletion";
+import useTokenOfOwnerByIndex from "../hooks/useTokenOfOwnerByIndex";
+
+const HEADER = "text-gray-500 text-sm";
 
 export default function NFT({ index, xps }) {
-  const { address } = useAccount();
-
-  const [tokenId, setTokenId] = useState();
+  const { tokenId } = useTokenOfOwnerByIndex(index);
   const { refetch, nft, isLoading } = useNft(tokenId);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -38,22 +35,6 @@ export default function NFT({ index, xps }) {
     onOpen: onOpenWithdraw,
     onClose: onCloseWithdraw,
   } = useDisclosure();
-
-  useContractReads({
-    contracts: [
-      {
-        addressOrName: CONTRACT_dNFT,
-        contractInterface: abi,
-        functionName: "tokenOfOwnerByIndex",
-        args: [address, index],
-      },
-    ],
-    onSuccess: (data) => {
-      setTokenId(parseInt(data[0]._hex));
-    },
-  });
-
-  const HEADER = "text-gray-500 text-sm";
 
   function renderPopups() {
     if (tokenId) {
@@ -77,7 +58,7 @@ export default function NFT({ index, xps }) {
             />
           </Popup>
           <Popup isOpen={isOpenSync} onClose={onCloseSync}>
-            <Sync address={address} tokenId={tokenId} />
+            <Sync tokenId={tokenId} />
           </Popup>
         </>
       );
