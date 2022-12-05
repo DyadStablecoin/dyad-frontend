@@ -16,7 +16,8 @@ const theme = extendTheme({
     Modal: {
       baseStyle: (props) => ({
         dialog: {
-          bg: "rgba(255, 255, 255, 0.11)",
+          bg: "rgba(255, 255, 255, 0.0)",
+          fontFamily: "Inconsolata",
         },
       }),
     },
@@ -29,11 +30,7 @@ export default function Popup({ isOpen, onClose, children }) {
       <Modal isOpen={isOpen} onClose={onClose}>
         <div className="modal">
           <ModalOverlay />
-          <ModalContent className="modal-content">
-            {/* <ModalHeader>Modal Title</ModalHeader> */}
-            {/* <ModalCloseButton /> */}
-            <ModalBody>{children}</ModalBody>
-          </ModalContent>
+          <ModalContent className="modal-content">{children}</ModalContent>
         </div>
       </Modal>
     </ChakraProvider>
