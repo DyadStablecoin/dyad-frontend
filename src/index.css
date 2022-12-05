@@ -59,6 +59,7 @@ code {
 .loader2 {
   position: absolute;
   z-index: 9999;
+  background: rgba(0, 0, 0, 0.8) !important;
 }
 
 
