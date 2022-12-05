@@ -1,68 +1,38 @@
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useAccount,
-  useContractRead,
-  useWaitForTransaction,
-} from "wagmi";
-import { CONTRACT_dNFT, CONTRACT_DYAD } from "../consts/contract";
+import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import { CONTRACT_dNFT } from "../consts/contract";
 import Button from "./Button";
 import abi from "../consts/abi/dNFTABI.json";
-import dyadABI from "../consts/abi/dNFTABI.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
-import Loading from "./Loading";
+import { parseEther } from "../utils/currency";
 
-export default function Withdraw({ tokenId, refetch, onClose }) {
-  const { address } = useAccount();
-
-  const [dyad, setDyad] = useState(0);
-  const [balanceOf, setBalanceOf] = useState(0);
+export default function Withdraw({ tokenId, onClose, setTxHash }) {
+  const [dyad, setDyad] = useState("");
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: abi,
     functionName: "withdraw",
-    args: [tokenId, dyad ? String(dyad * 10 ** 18) : "0"],
-    onError: (error) => {
-      console.log("error", error);
-    },
+    args: [tokenId, parseEther(dyad)],
   });
 
-  const {} = useContractRead({
-    addressOrName: CONTRACT_DYAD,
-    contractInterface: dyadABI,
-    functionName: "balanceOf",
-    args: [address],
+  const { write } = useContractWrite({
+    ...config,
     onSuccess: (data) => {
-      console.log("balanceOf", data);
-      setBalanceOf(parseInt(data._hex));
-    },
-    onError: (e) => {
-      console.log("balanceOf", e);
-    },
-  });
-
-  const { data, write } = useContractWrite(config);
-
-  const { isLoading } = useWaitForTransaction({
-    hash: data?.hash,
-    onSuccess: () => {
-      onClose(); // close modal
-      refetch();
+      onClose();
+      setTxHash(data?.hash);
     },
   });
 
   return (
     <div className="flex flex-col gap-4 items-center p-4">
-      {isLoading && <Loading isLoading />}
-
       <div className="flex gap-2 text-2xl items-center">
         <div className="w-[10rem]">
           <TextInput
             value={dyad}
             onChange={(v) => setDyad(v)}
             placeholder={0}
+            type="number"
           />
         </div>
         <div className="">$DYAD</div>
@@ -71,6 +41,7 @@ export default function Withdraw({ tokenId, refetch, onClose }) {
         isDisabled={!write}
         onClick={() => {
           write?.();
+          onClose();
         }}
       >
         withdraw DYAD
