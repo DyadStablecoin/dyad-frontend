@@ -19,7 +19,7 @@ import { useWaitForTransaction } from "wagmi";
 const HEADER = "text-gray-500 text-sm";
 
 export default function NFT({ index, xps }) {
-  const [data, setData] = useState();
+  const [txHash, setTxHash] = useState();
   const { tokenId } = useTokenOfOwnerByIndex(index);
   const { refetch, nft, isLoading } = useNft(tokenId);
 
@@ -40,12 +40,11 @@ export default function NFT({ index, xps }) {
     onClose: onCloseWithdraw,
   } = useDisclosure();
 
-  useEffect(() => {}, [data]);
+  useEffect(() => {}, [txHash]);
 
   const { isLoading: isLoadingTx } = useWaitForTransaction({
-    hash: data?.hash,
+    hash: txHash,
     onSuccess: () => {
-      onClose(); // close modal
       refetch(); // refetch nft data
     },
   });
@@ -55,12 +54,7 @@ export default function NFT({ index, xps }) {
       return (
         <>
           <Popup isOpen={isOpen} onClose={onClose}>
-            <Mint
-              tokenId={tokenId}
-              refetch={refetch}
-              onClose={onClose}
-              setData={setData}
-            />
+            <Mint tokenId={tokenId} onClose={onClose} setTxHash={setTxHash} />
           </Popup>
           <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
             <Deposit
