@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CONTRACT_DYAD, CONTRACT_POOL } from "../consts/contract";
 import dyadABI from "../abi/DYAD.json";
 import { useContractRead } from "wagmi";
 
-export default function useTVL(dependencies) {
+export default function useTVL() {
   const [tvl, setTVL] = useState(0);
 
   const { refetch } = useContractRead({
@@ -16,9 +16,5 @@ export default function useTVL(dependencies) {
     },
   });
 
-  useEffect(() => {
-    refetch();
-  }, dependencies);
-
-  return { tvl };
+  return { refetch, tvl };
 }

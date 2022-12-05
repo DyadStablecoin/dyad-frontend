@@ -1,6 +1,6 @@
 import { dNFT_AVERAGE_PRICE, dNFT_PRICE } from "../consts/consts";
 import { formatUSD, round2 } from "../utils/currency";
-import { calcRank, dyadMultiplier, xpCurve } from "../utils/stats";
+import { calcRank, dyadMultiplier, useTVL, xpCurve } from "../utils/stats";
 import Mint from "./Mint";
 import Popup from "./Popup";
 import { useDisclosure } from "@chakra-ui/react";
@@ -15,6 +15,7 @@ import useTokenOfOwnerByIndex from "../hooks/useTokenOfOwnerByIndex";
 import Loading2 from "./Loading2";
 import { useEffect, useState } from "react";
 import { useWaitForTransaction } from "wagmi";
+import { useBalances } from "../hooks/useBalances";
 
 const HEADER = "text-gray-500 text-sm";
 
@@ -22,6 +23,7 @@ export default function NFT({ index, xps, xpsAverage }) {
   const [txHash, setTxHash] = useState();
   const { tokenId } = useTokenOfOwnerByIndex(index);
   const { refetch, nft, isLoading } = useNft(tokenId);
+  useBalances([nft]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -45,7 +47,7 @@ export default function NFT({ index, xps, xpsAverage }) {
   const { isLoading: isLoadingTx } = useWaitForTransaction({
     hash: txHash,
     onSuccess: () => {
-      refetch(); // refetch nft data
+      refetch();
     },
   });
 

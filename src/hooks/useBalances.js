@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAccount, useBalance, useContractReads } from "wagmi";
 import {
   CONTRACT_dNFT,
@@ -8,7 +8,7 @@ import {
 import dNFTABI from "../abi/dNFT.json";
 import dyadABI from "../abi/DYAD.json";
 
-export function useBalances() {
+export function useBalances(dependencies = []) {
   const { address } = useAccount();
 
   const [balances, setBalances] = useState({
@@ -79,6 +79,10 @@ export function useBalances() {
       });
     },
   });
+
+  useEffect(() => {
+    refetch();
+  }, dependencies);
 
   return { refetch, balances };
 }

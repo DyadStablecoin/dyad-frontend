@@ -13,13 +13,13 @@ import useBlockchain from "../../hooks/useBlockchain";
 import { useBalances } from "../../hooks/useBalances";
 import useCR from "../../hooks/useCR";
 
-export const NavBar = ({ isSafetyModeActivated, reload }) => {
+export default function NavBar({ isSafetyModeActivated }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { disconnect } = useDisconnect();
   const { connect, connectors } = useConnect();
   const { ensName, address, isConnected } = useBlockchain();
-  const { tvl } = useTVL([reload]);
+  const { tvl } = useTVL();
   const { balances } = useBalances();
   const { cr } = useCR();
 
@@ -54,7 +54,9 @@ export const NavBar = ({ isSafetyModeActivated, reload }) => {
                 <>
                   <div className="flex gap-4">
                     <div>TVL</div>
-                    <div>{formatUSD(tvl)}</div>
+                    <div>
+                      {formatUSD(balances.poolBalanceOfDyad / 10 ** 18)}
+                    </div>
                   </div>
                   <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
                 </>
@@ -108,4 +110,4 @@ export const NavBar = ({ isSafetyModeActivated, reload }) => {
       )}
     </div>
   );
-};
+}
