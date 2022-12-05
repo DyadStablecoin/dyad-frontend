@@ -14,25 +14,6 @@ export function formatUSD(amount, removeDollarSign = false) {
   return amount.slice(0, -3);
 }
 
-export function useEthPrice() {
-  const [ethPrice, setEthPrice] = useState(0);
-
-  useEffect(() => {
-    async function _ETH2USD() {
-      const res = await fetch(
-        "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR"
-      );
-      const data = await res.json();
-      console.log("data", data);
-      setEthPrice(data.USD);
-    }
-
-    _ETH2USD();
-  });
-
-  return { ethPrice };
-}
-
 export function round2(value) {
   return Math.round(value * 100) / 100;
 }

@@ -1,6 +1,6 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
-import { round2, useEthPrice } from "../utils/currency";
+import { round2 } from "../utils/currency";
 import abi from "../consts/abi/dNFTABI.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
@@ -8,9 +8,10 @@ import { parseEther } from "../utils/currency";
 import { useBalances } from "../hooks/useBalances";
 import PopupContent from "./PopupContent";
 import { ArrowDownOutlined } from "@ant-design/icons";
+import useEthPrice from "../hooks/useEthPrice";
 
 export default function Mint({ tokenId, onClose, setTxHash }) {
-  const { balances } = useBalances();
+  const { balances } = useBalances([]);
   const [wETH, setWETH] = useState("");
   const { ethPrice } = useEthPrice();
 
