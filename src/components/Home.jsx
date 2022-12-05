@@ -3,6 +3,7 @@ import useBlockchain from "../hooks/useBlockchain";
 import Claim from "./Claim";
 import Leaderboard from "./Leaderboard";
 import NFTs from "./NFTs";
+import Withdraw from "./Withdraw";
 
 export default function Home() {
   const { isConnected, chain } = useBlockchain();
@@ -13,7 +14,8 @@ export default function Home() {
         <div>
           {chain.id === GOERLI ? (
             <div>
-              <Claim />
+              {/* <Withdraw /> */}
+              {/* <Claim /> */}
               {/* <Leaderboard /> */}
               <div className="mt-[1rem] flex justify-center items-center w-full">
                 <NFTs />

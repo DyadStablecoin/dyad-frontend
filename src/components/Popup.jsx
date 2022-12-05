@@ -16,7 +16,9 @@ const theme = extendTheme({
     Modal: {
       baseStyle: (props) => ({
         dialog: {
-          bg: "rgba(255, 255, 255, 0.11)",
+          bg: "rgba(255, 255, 255, 0.0)",
+          // margin: "0",
+          // padding: "0",
         },
       }),
     },
@@ -27,13 +29,9 @@ export default function Popup({ isOpen, onClose, children }) {
   return (
     <ChakraProvider theme={theme}>
       <Modal isOpen={isOpen} onClose={onClose}>
-        <div className="modal">
+        <div>
           <ModalOverlay />
-          <ModalContent className="modal-content">
-            {/* <ModalHeader>Modal Title</ModalHeader> */}
-            {/* <ModalCloseButton /> */}
-            <ModalBody>{children}</ModalBody>
-          </ModalContent>
+          <ModalContent className="modal-content">{children}</ModalContent>
         </div>
       </Modal>
     </ChakraProvider>

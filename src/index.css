@@ -38,11 +38,18 @@ code {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  /* background-color: rgba(0, 0, 0, 0.5); */
 }
 
 .modal-content {
-  backdrop-filter: blur(7px);
+  backdrop-filter: blur(700px);
+  padding: 0;
+  margin: 0;
+  box-shadow: 0 0 40px #413E6a;
+}
+
+.withdraw {
+  box-shadow: 0 0 40px #413E6a;
 }
 
 .loader {
@@ -126,6 +133,11 @@ table.leaderboard {
   margin: 2rem;
 }
 
+.chakra-modal__content {
+  margin: 0;
+  padding: 0;
+}
+
 td {
   height: 40px;
   text-align: center;
@@ -142,3 +154,4 @@ tr:hover {
   box-shadow: 0 0 40px #413E6a;
   background-color: #413E6a;
 }
+
