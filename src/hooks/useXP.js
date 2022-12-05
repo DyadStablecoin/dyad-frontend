@@ -18,4 +18,3 @@ export default function useXP(nfts) {
 
   return { xps };
 }
-

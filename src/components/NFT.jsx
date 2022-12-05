@@ -1,6 +1,6 @@
-import { dNFT_PRICE } from "../consts/consts";
+import { dNFT_AVERAGE_PRICE, dNFT_PRICE } from "../consts/consts";
 import { formatUSD, round2 } from "../utils/currency";
-import { calcRank, xpCurve } from "../utils/stats";
+import { calcRank, dyadMultiplier, xpCurve } from "../utils/stats";
 import Mint from "./Mint";
 import Popup from "./Popup";
 import { useDisclosure } from "@chakra-ui/react";
@@ -18,7 +18,7 @@ import { useWaitForTransaction } from "wagmi";
 
 const HEADER = "text-gray-500 text-sm";
 
-export default function NFT({ index, xps }) {
+export default function NFT({ index, xps, xpsAverage }) {
   const [txHash, setTxHash] = useState();
   const { tokenId } = useTokenOfOwnerByIndex(index);
   const { refetch, nft, isLoading } = useNft(tokenId);
@@ -125,7 +125,24 @@ export default function NFT({ index, xps }) {
             <div className="flex flex-col items-start md:ml-4">
               <div className={HEADER}>Performance</div>
               <div className="flex flex-col items-start text-s text-[#519C58]">
-                <div className="w-[5rem]">
+                <div className="">
+                  {dyadMultiplier(
+                    dNFT_PRICE,
+                    dNFT_AVERAGE_PRICE,
+                    nft.xp,
+                    xpsAverage
+                  )}
+                  x/
+                  {1 /
+                    dyadMultiplier(
+                      dNFT_PRICE,
+                      dNFT_AVERAGE_PRICE,
+                      nft.xp,
+                      xpsAverage
+                    )}
+                  x
+                </div>
+                <div className="w-[5rem] text-white">
                   {Math.round(xpCurve(1) * 10000) / 10000}x XP
                 </div>
               </div>
