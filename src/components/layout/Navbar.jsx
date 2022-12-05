@@ -1,10 +1,7 @@
-import { useConnect, useContractReads, useDisconnect } from "wagmi";
+import { useConnect, useDisconnect } from "wagmi";
 import { formatUSD } from "../../utils/currency";
-import dyadABI from "../../consts/abi/dNFTABI.json";
-import poolABI from "../../consts/abi/poolABI.json";
 import Button from "../Button";
 import { useState } from "react";
-import { CONTRACT_DYAD, CONTRACT_POOL } from "../../consts/contract";
 import logo from "../../static/dyad-logo.svg";
 import WalletOutlined from "@ant-design/icons/lib/icons/WalletOutlined";
 import { dNFT_PRICE } from "../../consts/consts";
@@ -26,30 +23,6 @@ export const NavBar = ({ isSafetyModeActivated, reload }) => {
   const { balances } = useBalances();
   const { cr } = useCR();
 
-  const [balanceOf, setBalanceOf] = useState(0);
-  const [ethPrice, setEthPrice] = useState(0);
-
-  const {} = useContractReads({
-    contracts: [
-      {
-        addressOrName: CONTRACT_DYAD,
-        contractInterface: dyadABI,
-        functionName: "balanceOf",
-        args: [address],
-      },
-      {
-        addressOrName: CONTRACT_POOL,
-        contractInterface: poolABI,
-        functionName: "lastEthPrice",
-      },
-    ],
-    onSuccess: (data) => {
-      if (data) {
-        setBalanceOf(parseInt(data[0]._hex) / 10 ** 18);
-        setEthPrice(parseInt(data[1]._hex) / 10 ** 8);
-      }
-    },
-  });
   return (
     <div>
       <div

@@ -9,13 +9,17 @@ export default function NFTs({ balances }) {
   const { average } = useAverage(xps);
 
   return (
-    <div>
-      {balances.balanceOfdNFT > 0 && <div className="mb-2">Your dNFTs</div>}
-      <div className="flex flex-col gap-2">
-        {[...Array(balances.balanceOfdNFT).keys()].map((i) => {
-          return <NFT xps={xps} xpsAverage={average} index={i} />;
-        })}
-      </div>
-    </div>
+    <>
+      {balances.balanceOfdNFT > 0 && (
+        <div>
+          <div className="mb-2">Your dNFTs</div>
+          <div className="flex flex-col gap-2">
+            {[...Array(balances.balanceOfdNFT).keys()].map((i) => {
+              return <NFT xps={xps} xpsAverage={average} index={i} />;
+            })}
+          </div>
+        </div>
+      )}
+    </>
   );
 }

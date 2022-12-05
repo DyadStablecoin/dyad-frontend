@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export default function useAverage(values) {
-  const [average, setAverage] = useState(1);
+  const [average, setAverage] = useState(0);
 
   useEffect(() => {
     if (values) {
