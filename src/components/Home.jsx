@@ -19,10 +19,10 @@ export default function Home({ balances, reload, setReload }) {
                 reload={reload}
                 setReload={setReload}
               />
-              {/* <Leaderboard /> */}
-              <div className="mt-[1rem] flex justify-center items-center w-full">
-                <NFTs balances={balances} />
-              </div>
+              <Leaderboard />
+              {/* <div className="mt-[1rem] flex justify-center items-center w-full"> */}
+              {/*   <NFTs balances={balances} /> */}
+              {/* </div> */}
             </div>
           ) : (
             <div className="mt-10 flex justify-center">
