@@ -87,11 +87,7 @@ export default function NFT({ index, xps }) {
           style={{ border: "1px solid #3A403C" }}
           className="p-4 md:flex md:gap-[5rem]"
         >
-          {isLoadingTx && (
-            <div className="loader2">
-              <Loading2 isLoading={isLoadingTx} />
-            </div>
-          )}
+          <Loading2 isLoading={isLoadingTx} />
           <div className="flex gap-4 justify-between w-full">
             <div className="md:w-[8rem]">
               <div className="w-[107px]">
