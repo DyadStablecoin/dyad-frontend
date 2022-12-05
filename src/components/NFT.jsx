@@ -62,8 +62,8 @@ export default function NFT({ index, xps, xpsAverage }) {
             <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
               <Deposit
                 tokenId={tokenId}
-                refetch={refetch}
                 onClose={onCloseDeposit}
+                setTxHash={setTxHash}
               />
             </Popup>
             <Popup isOpen={isOpenWithdraw} onClose={onCloseWithdraw}>
