@@ -18,8 +18,6 @@ const theme = extendTheme({
         dialog: {
           bg: "rgba(255, 255, 255, 0.0)",
           fontFamily: "Inconsolata",
-          // margin: "0",
-          // padding: "0",
         },
       }),
     },
