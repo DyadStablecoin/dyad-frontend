@@ -50,32 +50,34 @@ export default function NFT({ index, xps }) {
   });
 
   function renderPopups() {
-    if (tokenId) {
-      return (
-        <>
-          <Popup isOpen={isOpen} onClose={onClose}>
-            <Mint tokenId={tokenId} onClose={onClose} setTxHash={setTxHash} />
-          </Popup>
-          <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
-            <Deposit
-              tokenId={tokenId}
-              refetch={refetch}
-              onClose={onCloseDeposit}
-            />
-          </Popup>
-          <Popup isOpen={isOpenWithdraw} onClose={onCloseWithdraw}>
-            <Withdraw
-              tokenId={tokenId}
-              refetch={refetch}
-              onClose={onCloseWithdraw}
-            />
-          </Popup>
-          <Popup isOpen={isOpenSync} onClose={onCloseSync}>
-            <Sync tokenId={tokenId} />
-          </Popup>
-        </>
-      );
-    }
+    return (
+      <>
+        {tokenId && (
+          <>
+            <Popup isOpen={isOpen} onClose={onClose}>
+              <Mint tokenId={tokenId} onClose={onClose} setTxHash={setTxHash} />
+            </Popup>
+            <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
+              <Deposit
+                tokenId={tokenId}
+                refetch={refetch}
+                onClose={onCloseDeposit}
+              />
+            </Popup>
+            <Popup isOpen={isOpenWithdraw} onClose={onCloseWithdraw}>
+              <Withdraw
+                tokenId={tokenId}
+                refetch={refetch}
+                onClose={onCloseWithdraw}
+              />
+            </Popup>
+            <Popup isOpen={isOpenSync} onClose={onCloseSync}>
+              <Sync tokenId={tokenId} />
+            </Popup>
+          </>
+        )}
+      </>
+    );
   }
 
   return (
