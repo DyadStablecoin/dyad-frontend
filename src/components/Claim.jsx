@@ -9,13 +9,13 @@ import dNFT from "../abi/dNFT.json";
 import Loading from "./Loading";
 import { TOTAL_SUPPLY, MIN_DEPOSIT, MIN_DEPOSIT_USD } from "../consts/consts";
 import useBlockchain from "../hooks/useBlockchain";
+import useNfts from "../hooks/useNfts";
+import { useBalances } from "../hooks/useBalances";
 
-export default function Claim({
-  balances: { totalSupplyOfNfts, balanceOfdNFT },
-  reload,
-  setReload,
-}) {
+export default function Claim() {
   const { ensName, address } = useBlockchain();
+  const { refetch, balances } = useBalances();
+  useNfts([balances]);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -30,7 +30,7 @@ export default function Claim({
   const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
     onSuccess: () => {
-      setReload(!reload);
+      refetch();
     },
   });
 
@@ -47,7 +47,7 @@ export default function Claim({
           </div>
           <div className="ml-2 p-2">
             <div>Hi, {ensName} 👋</div>
-            {balanceOfdNFT === 0 ? (
+            {balances.balanceOfdNFT === 0 ? (
               <div>Please mint your dNFT to play</div>
             ) : (
               <div>Access your dNFT(s) and play below</div>
@@ -60,7 +60,7 @@ export default function Claim({
               <div>dNFT Remaining</div>
               <div className="flex gap-1 items-center">
                 <div className="rhombus"></div>
-                <div>{TOTAL_SUPPLY - totalSupplyOfNfts}/300</div>
+                <div>{TOTAL_SUPPLY - balances.totalSupplyOfNfts}/300</div>;
               </div>
             </div>
             <div className="w-[2px] h-[85px] bg-[#939393] md:invisible"></div>

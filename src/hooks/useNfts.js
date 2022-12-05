@@ -2,9 +2,9 @@ import { CONTRACT_dNFT } from "../consts/contract";
 import dNFTABI from "../abi/dNFT.json";
 import { useContractReads } from "wagmi";
 import useIDs from "./useIDs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function useNfts() {
+export default function useNfts(dependencies = []) {
   const [nfts, setNfts] = useState();
   const { ids } = useIDs(); // token id
 
@@ -33,6 +33,10 @@ export default function useNfts() {
       setNfts(_nfts);
     },
   });
+
+  useEffect(() => {
+    refetch();
+  }, dependencies);
 
   return { refetch, nfts };
 }

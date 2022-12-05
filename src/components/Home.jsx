@@ -1,11 +1,10 @@
-import { Skeleton } from "antd";
 import { GOERLI } from "../consts/networks";
 import useBlockchain from "../hooks/useBlockchain";
 import Claim from "./Claim";
 import Leaderboard from "./Leaderboard";
 import NFTs from "./NFTs";
 
-export default function Home({ balances, reload, setReload }) {
+export default function Home() {
   const { isConnected, chain } = useBlockchain();
 
   return (
@@ -14,14 +13,10 @@ export default function Home({ balances, reload, setReload }) {
         <div>
           {chain.id === GOERLI ? (
             <div>
-              <Claim
-                balances={balances}
-                reload={reload}
-                setReload={setReload}
-              />
+              <Claim />
               {/* <Leaderboard /> */}
               <div className="mt-[1rem] flex justify-center items-center w-full">
-                <NFTs balances={balances} />
+                <NFTs />
               </div>
             </div>
           ) : (

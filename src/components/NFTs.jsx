@@ -2,8 +2,10 @@ import NFT from "./NFT";
 import useXP from "../hooks/useXP";
 import useNfts from "../hooks/useNfts";
 import useAverage from "../hooks/useAverage";
+import { useBalances } from "../hooks/useBalances";
 
-export default function NFTs({ balances }) {
+export default function NFTs() {
+  const { balances } = useBalances();
   const { nfts } = useNfts();
   const { xps } = useXP(nfts);
   const { average } = useAverage(xps);
