@@ -1,4 +1,10 @@
-export default function PopupContent({ children, title, btnText, onClick }) {
+export default function PopupContent({
+  children,
+  title,
+  btnText,
+  onClick,
+  isDisabled,
+}) {
   return (
     <div
       className="flex flex-col gap-4 items-center"
@@ -10,7 +16,10 @@ export default function PopupContent({ children, title, btnText, onClick }) {
       <div className="bg-[#3A403C] h-[1px] w-full"></div>
       <div className="mt-2 mb-2">{children}</div>
       <div
-        className="text-[#519C58] bg-[#0E190F] border-[1px] border-[#519C58] w-full flex items-center justify-center p-[1rem] text-xl cursor-pointer hover:font-bold"
+        className={`text-[#519C58] bg-[#0E190F] border-[1px] border-[#519C58] w-full flex items-center justify-center p-[1rem] text-xl cursor-pointer 
+      ${isDisabled && "opacity-50 cursor-not-allowed"}
+      ${!isDisabled && "hover:font-bold "}
+        `}
         onClick={onClick}
       >
         {btnText}

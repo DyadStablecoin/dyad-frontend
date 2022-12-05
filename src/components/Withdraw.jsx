@@ -1,6 +1,5 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
-import Button from "./Button";
 import abi from "../consts/abi/dNFTABI.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
@@ -36,6 +35,7 @@ export default function Withdraw({ tokenId, onClose, setTxHash }) {
         write?.();
         onClose();
       }}
+      isDisabled={!write}
     >
       <div className="flex gap-2 items-center">
         <div>

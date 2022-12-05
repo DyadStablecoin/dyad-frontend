@@ -3,27 +3,30 @@ import {
   usePrepareContractWrite,
   useContractRead,
   useAccount,
-  useWaitForTransaction,
 } from "wagmi";
 import { CONTRACT_dNFT, CONTRACT_DYAD } from "../consts/contract";
-import Button from "./Button";
 import abi from "../consts/abi/dyadABI.json";
 import dNFTabi from "../consts/abi/dNFTABI.json";
 import { useEffect, useState } from "react";
 import TextInput from "./TextInput";
-import Loading from "./Loading";
-import { parseEther } from "../utils/currency";
+import { parseEther, round2 } from "../utils/currency";
+import PopupContent from "./PopupContent";
+import { useBalances } from "../hooks/useBalances";
 
 export default function Deposit({ tokenId, onClose, setTxHash }) {
   const { address } = useAccount();
   const [dyad, setDyad] = useState("");
   const [isApproved, setIsApproved] = useState(true);
+  const { balances } = useBalances();
 
   const { config: configDeposit } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTabi,
     functionName: "deposit",
     args: [tokenId, parseEther(dyad)],
+    onError: (e) => {
+      console.log("deposit", e);
+    },
   });
 
   const { write: writeDeposit } = useContractWrite({
@@ -57,9 +60,17 @@ export default function Deposit({ tokenId, onClose, setTxHash }) {
   useEffect(() => {}, [dyad]);
 
   return (
-    <div className="flex flex-col gap-4 items-center p-4">
-      <div className="flex gap-2 text-2xl items-center justify-center">
-        <div className="w-[10rem]">
+    <PopupContent
+      title="Deposit DYAD"
+      btnText={isApproved ? "Deposit" : "Approve"}
+      isDisabled={isApproved ? !writeDeposit : !writeApprove}
+      onClick={() => {
+        isApproved ? writeDeposit?.() : writeApprove?.();
+        onClose();
+      }}
+    >
+      <div className="flex gap-2 items-center">
+        <div>
           <TextInput
             value={dyad}
             onChange={(v) => {
@@ -72,28 +83,24 @@ export default function Deposit({ tokenId, onClose, setTxHash }) {
             }}
           />
         </div>
-        <div className="">DYAD</div>
+        <div className="flex flex-col items-end">
+          <div className="flex">
+            <div className="rhombus" />
+            <div>DYAD</div>
+          </div>
+          <div className="flex gap-2 items-center justify-center">
+            <div className="text-[#737E76]">
+              Balance:{round2(balances.balanceOfDyad / 10 ** 18)}
+            </div>
+            <div
+              className="text-[#584BAA] text-xl font-bold cursor-pointer"
+              onClick={() => setDyad(round2(balances.balanceOfDyad / 10 ** 18))}
+            >
+              MAX
+            </div>
+          </div>
+        </div>
       </div>
-      {isApproved ? (
-        <Button
-          isDisabled={!writeDeposit}
-          onClick={() => {
-            writeDeposit?.();
-            onClose();
-          }}
-        >
-          deposit
-        </Button>
-      ) : (
-        <Button
-          isDisabled={!writeApprove}
-          onClick={() => {
-            writeApprove?.();
-          }}
-        >
-          approve
-        </Button>
-      )}
-    </div>
+    </PopupContent>
   );
 }
