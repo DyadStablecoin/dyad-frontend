@@ -12,10 +12,14 @@ import useNft from "../hooks/useNft";
 import ProgressBar from "./ProgressBar";
 import Skeleton from "./Skeletion";
 import useTokenOfOwnerByIndex from "../hooks/useTokenOfOwnerByIndex";
+import Loading2 from "./Loading2";
+import { useEffect, useState } from "react";
+import { useWaitForTransaction } from "wagmi";
 
 const HEADER = "text-gray-500 text-sm";
 
 export default function NFT({ index, xps }) {
+  const [data, setData] = useState();
   const { tokenId } = useTokenOfOwnerByIndex(index);
   const { refetch, nft, isLoading } = useNft(tokenId);
 
@@ -36,12 +40,27 @@ export default function NFT({ index, xps }) {
     onClose: onCloseWithdraw,
   } = useDisclosure();
 
+  useEffect(() => {}, [data]);
+
+  const { isLoading: isLoadingTx } = useWaitForTransaction({
+    hash: data?.hash,
+    onSuccess: () => {
+      onClose(); // close modal
+      refetch(); // refetch nft data
+    },
+  });
+
   function renderPopups() {
     if (tokenId) {
       return (
         <>
           <Popup isOpen={isOpen} onClose={onClose}>
-            <Mint tokenId={tokenId} refetch={refetch} onClose={onClose} />
+            <Mint
+              tokenId={tokenId}
+              refetch={refetch}
+              onClose={onClose}
+              setData={setData}
+            />
           </Popup>
           <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
             <Deposit
@@ -74,6 +93,11 @@ export default function NFT({ index, xps }) {
           style={{ border: "1px solid #3A403C" }}
           className="p-4 md:flex md:gap-[5rem]"
         >
+          {isLoadingTx && (
+            <div className="loader2">
+              <Loading2 isLoading={isLoadingTx} />
+            </div>
+          )}
           <div className="flex gap-4 justify-between w-full">
             <div className="md:w-[8rem]">
               <div className="w-[107px]">

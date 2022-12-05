@@ -56,6 +56,15 @@ code {
   z-index: 9999;
 }
 
+.loader2 {
+  height: 7rem;
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.8) !important;
+  z-index: 9999;
+}
+
 .nfts-table {
   border-collapse: separate;
   border-spacing: 0 15px;

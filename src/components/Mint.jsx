@@ -12,7 +12,7 @@ import { formatUSD, parseEther, useEthPrice } from "../utils/currency";
 import Loading from "./Loading";
 import { useBalances } from "../hooks/useBalances";
 
-export default function Mint({ tokenId, refetch, onClose }) {
+export default function Mint({ tokenId, refetch, onClose, setData }) {
   const ethPrice = useEthPrice();
   const { balances } = useBalances();
 
@@ -26,9 +26,19 @@ export default function Mint({ tokenId, refetch, onClose }) {
     overrides: {
       value: parseEther(wETH),
     },
+    onSuccess: (data) => {
+      // onClose(); // close modal
+    },
   });
 
-  const { data, write } = useContractWrite(config);
+  const { data, write } = useContractWrite({
+    ...config,
+    onSuccess: (data) => {
+      onClose(); // close modal
+      console.log("data", data);
+      setData(data);
+    },
+  });
 
   const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
@@ -40,7 +50,7 @@ export default function Mint({ tokenId, refetch, onClose }) {
 
   return (
     <div className="flex flex-col gap-4 items-center p-4">
-      {isLoading && <Loading isLoading />}
+      {/* {isLoading && <Loading isLoading />} */}
       <div className="flex gap-2 text-2xl items-center">
         <div className="w-[10rem]">
           <TextInput
@@ -65,7 +75,13 @@ export default function Mint({ tokenId, refetch, onClose }) {
       <div className="text-2xl">
         {formatUSD(Math.round(wETH * ethPrice * 100) / 100)} DYAD
       </div>
-      <Button isDisabled={!write} onClick={() => write?.()}>
+      <Button
+        isDisabled={!write}
+        onClick={() => {
+          write?.();
+          onClose();
+        }}
+      >
         mint DYAD
       </Button>
     </div>
