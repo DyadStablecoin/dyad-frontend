@@ -2,6 +2,7 @@ import { GOERLI } from "../consts/networks";
 import useBlockchain from "../hooks/useBlockchain";
 import Claim from "./Claim";
 import Leaderboard from "./Leaderboard";
+import Mint from "./Mint";
 import NFTs from "./NFTs";
 import Withdraw from "./Withdraw";
 
@@ -17,6 +18,7 @@ export default function Home() {
               {/* <Withdraw /> */}
               {/* <Claim /> */}
               {/* <Leaderboard /> */}
+              {/* <Mint /> */}
               <div className="mt-[1rem] flex justify-center items-center w-full">
                 <NFTs />
               </div>

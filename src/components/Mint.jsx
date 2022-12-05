@@ -1,17 +1,18 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
-import Button from "./Button";
+import { round2, useEthPrice } from "../utils/currency";
 import abi from "../consts/abi/dNFTABI.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
-import { formatUSD, parseEther, useEthPrice } from "../utils/currency";
+import { parseEther } from "../utils/currency";
 import { useBalances } from "../hooks/useBalances";
+import PopupContent from "./PopupContent";
+import { ArrowDownOutlined } from "@ant-design/icons";
 
 export default function Mint({ tokenId, onClose, setTxHash }) {
-  const ethPrice = useEthPrice();
   const { balances } = useBalances();
-
   const [wETH, setWETH] = useState("");
+  const { ethPrice } = useEthPrice();
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -26,15 +27,23 @@ export default function Mint({ tokenId, onClose, setTxHash }) {
   const { write } = useContractWrite({
     ...config,
     onSuccess: (data) => {
-      onClose(); // close modal
+      onClose();
       setTxHash(data?.hash);
     },
   });
 
   return (
-    <div className="flex flex-col gap-4 items-center p-4">
-      <div className="flex gap-2 text-2xl items-center">
-        <div className="w-[10rem]">
+    <PopupContent
+      title="Mint DYAD"
+      btnText="MINT"
+      onClick={() => {
+        write?.();
+        onClose();
+      }}
+      isDisabled={!write}
+    >
+      <div className="flex flex-col gap-2 items-center">
+        <div className="flex gap-4 justify-between items-between w-full">
           <TextInput
             value={wETH}
             onChange={(v) => {
@@ -43,29 +52,39 @@ export default function Mint({ tokenId, onClose, setTxHash }) {
             placeholder={0}
             type="number"
           />
+          <div className="items-end flex flex-col">
+            <div className="flex items-center justify-center gap-1">
+              <div>
+                <img
+                  className="w-4"
+                  src="https://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/1024/Ethereum-ETH-icon.png"
+                  alt=""
+                />
+              </div>
+              <div>ETH</div>
+            </div>
+            <div className="text-[#737E76]">
+              Balance:{round2(balances.balanceOfEth)}
+            </div>
+          </div>
         </div>
-        <div className="">ETH</div>
-        <Button
-          onClick={() => {
-            setWETH(balances.balanceOfEth);
-          }}
-        >
-          MAX
-        </Button>
+        <div>
+          <ArrowDownOutlined />
+        </div>
+        <div className="flex gap-4 justify-between items-between w-full">
+          <div>
+            <TextInput
+              value={round2(wETH * ethPrice)}
+              type="number"
+              isDisabled
+            />
+          </div>
+          <div className="items-end flex">
+            <div className="rhombus" />
+            <div>DYAD</div>
+          </div>
+        </div>
       </div>
-      <div>to</div>
-      <div className="text-2xl">
-        {formatUSD(Math.round(wETH * ethPrice * 100) / 100)} DYAD
-      </div>
-      <Button
-        isDisabled={!write}
-        onClick={() => {
-          write?.();
-          onClose();
-        }}
-      >
-        mint DYAD
-      </Button>
-    </div>
+    </PopupContent>
   );
 }

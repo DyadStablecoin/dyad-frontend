@@ -23,13 +23,14 @@ export function useEthPrice() {
         "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR"
       );
       const data = await res.json();
+      console.log("data", data);
       setEthPrice(data.USD);
     }
 
     _ETH2USD();
   });
 
-  return ethPrice;
+  return { ethPrice };
 }
 
 export function round2(value) {

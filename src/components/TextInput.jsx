@@ -7,6 +7,7 @@ export default function TextInput({
   error,
   type,
   min,
+  isDisabled,
 }) {
   return (
     <div className="flex flex-col gap-1">
@@ -20,6 +21,7 @@ export default function TextInput({
         onBlur={(_) => onBlur && onBlur()}
         onMouseOut={(_) => onBlur && onBlur()}
         min={min && min}
+        disabled={isDisabled && isDisabled}
       />
       {error && <span className="text-sm text-red-500">{error}</span>}
     </div>
