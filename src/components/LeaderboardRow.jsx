@@ -1,7 +1,9 @@
 import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
+import { dNFT_PRICE } from "../consts/consts";
 import useEnsName from "../hooks/useEnsName";
 import useIdToOwner from "../hooks/useIdToOwner";
 import { addressSummary } from "../utils/address";
+import { formatUSD } from "../utils/currency";
 
 export default function LeaderboardRow({ nft, rank }) {
   const { owner } = useIdToOwner(nft.id);
@@ -18,7 +20,7 @@ export default function LeaderboardRow({ nft, rank }) {
       </td>
       <td>#{rank + 1}</td>
       <td>{nft.xp}</td>
-      <td>$50,325</td>
+      <td>{formatUSD(dNFT_PRICE)}</td>
       <td>
         <div className="flex gap-2 items-center justify-center">
           <div>
