@@ -9,7 +9,7 @@ import Footer from "./components/Footer";
 import useCR from "./hooks/useCR";
 import Leaderboard from "./components/Leaderboard";
 import useBlockchain from "./hooks/useBlockchain";
-import { GOERLI } from "./consts/networks";
+import { CURRENT_NETWORK } from "./consts/consts";
 
 export default function App() {
   const { cr } = useCR();
@@ -21,7 +21,7 @@ export default function App() {
         <NavBar isSafetyModeActivated={cr > 150} />
         {isConnected ? (
           <>
-            {chain.id === GOERLI ? (
+            {chain.id === CURRENT_NETWORK.id ? (
               <div className="flex flex-col ">
                 <Routes>
                   <Route path="/" element={<Home />} />
@@ -31,7 +31,7 @@ export default function App() {
               </div>
             ) : (
               <div className="mt-10 flex justify-center">
-                Please connect to the Goerli Test Network!
+                Please connect to the {CURRENT_NETWORK.name} Network!
               </div>
             )}
           </>
