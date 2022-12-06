@@ -18,7 +18,7 @@ export default function useNfts(dependencies = []) {
     });
   }
 
-  const { refetch, isLoading } = useContractReads({
+  const { refetch, isLoading, isFetching } = useContractReads({
     contracts: calls,
     onSuccess: (data) => {
       let _nfts = {};
@@ -38,5 +38,5 @@ export default function useNfts(dependencies = []) {
     refetch();
   }, dependencies);
 
-  return { refetch, nfts, isLoading };
+  return { refetch, nfts, isLoading, isFetching };
 }
