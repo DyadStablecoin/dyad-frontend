@@ -10,9 +10,9 @@ const TABLE_HEADER = (
     <th>Rank</th>
     <th>XP</th>
     <th>value</th>
-    <th>D</th>
-    <th>W</th>
-    <th>M</th>
+    <th className="hidden md:table-cell">D</th>
+    <th className="hidden md:table-cell">W</th>
+    <th className="hidden md:table-cell">M</th>
     <th>Address</th>
   </tr>
 );
@@ -25,7 +25,7 @@ export default function Leaderboard() {
     <div className="flex items-center justify-center flex-col">
       <Loading isLoading={isFetching} />
       <LeaderboardHeader />
-      <div className="w-[80rem]">
+      <div className="md:w-[80rem]">
         {sortedNfts && (
           <table className="leaderboard">
             {TABLE_HEADER}

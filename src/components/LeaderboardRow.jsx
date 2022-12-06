@@ -21,7 +21,7 @@ export default function LeaderboardRow({ nft, rank }) {
       <td>#{rank + 1}</td>
       <td>{nft.xp}</td>
       <td>{formatUSD(dNFT_PRICE)}</td>
-      <td>
+      <td className="hidden md:table-cell">
         <div className="flex gap-2 items-center justify-center">
           <div>
             <ArrowUpOutlined style={{ color: "#00FF00" }} />
@@ -29,7 +29,7 @@ export default function LeaderboardRow({ nft, rank }) {
           <div>5</div>
         </div>
       </td>
-      <td>
+      <td className="hidden md:table-cell">
         <div className="flex gap-2 items-center justify-center">
           <div>
             <ArrowDownOutlined style={{ color: "red" }} />
@@ -37,7 +37,7 @@ export default function LeaderboardRow({ nft, rank }) {
           <div>5</div>
         </div>
       </td>
-      <td>
+      <td className="hidden md:table-cell">
         <div className="flex gap-2 items-center justify-center">
           <div>
             <ArrowUpOutlined style={{ color: "#00FF00" }} />
