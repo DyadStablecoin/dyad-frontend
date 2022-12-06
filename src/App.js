@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageNotFound from "./components/PageNotFound";
 import Footer from "./components/Footer";
 import useCR from "./hooks/useCR";
+import Leaderboard from "./components/Leaderboard";
 
 export default function App() {
   const { cr } = useCR();
@@ -18,6 +19,7 @@ export default function App() {
         <div className="flex flex-col ">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </div>
