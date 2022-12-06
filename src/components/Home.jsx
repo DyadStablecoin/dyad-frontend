@@ -19,9 +19,9 @@ export default function Home() {
               <Claim />
               {/* <Leaderboard /> */}
               {/* <Mint /> */}
-              <div className="mt-[1rem] flex justify-center items-center w-full">
-                <NFTs />
-              </div>
+              {/* <div className="mt-[1rem] flex justify-center items-center w-full"> */}
+              {/*   <NFTs /> */}
+              {/* </div> */}
             </div>
           ) : (
             <div className="mt-10 flex justify-center">
