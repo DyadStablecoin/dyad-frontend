@@ -3,6 +3,7 @@ import useNfts from "../hooks/useNfts";
 
 export default function LeaderboardHeader() {
   const { refetch } = useNfts();
+
   return (
     <div className="flex gap-4 pt-10 pb-4 ">
       <div className="text-xl">Global Leaderboard</div>
