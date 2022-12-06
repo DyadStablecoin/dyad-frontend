@@ -10,6 +10,7 @@ import useBlockchain from "../../hooks/useBlockchain";
 import { useBalances } from "../../hooks/useBalances";
 import useCR from "../../hooks/useCR";
 import Menu from "../Menu";
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar({ isSafetyModeActivated }) {
   const { disconnect } = useDisconnect();
@@ -17,6 +18,7 @@ export default function NavBar({ isSafetyModeActivated }) {
   const { ensName, address, isConnected } = useBlockchain();
   const { balances } = useBalances();
   const { cr } = useCR();
+  let navigate = useNavigate();
 
   return (
     <div>
@@ -27,8 +29,13 @@ export default function NavBar({ isSafetyModeActivated }) {
           borderBottom: "0.02rem solid #403B39",
         }}
       >
-        <div className="flex md:gap-16 items-center justiy-center">
-          <img src={logo} alt="logo" className="w-14" />
+        <div className="flex md:gap-16 items-center justiy-center cursor-pointer">
+          <img
+            src={logo}
+            alt="logo"
+            className="w-14"
+            onClick={() => navigate("/")}
+          />
           {isSafetyModeActivated && (
             <div className="hidden md:flex gap-2 items-center justify-center">
               <WarningFilled style={{ color: "#E34158" }} />

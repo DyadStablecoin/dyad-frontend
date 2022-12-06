@@ -10,7 +10,7 @@ export default function LeaderboardRow({ nft, rank }) {
   const { ensName } = useEnsName(owner);
 
   return (
-    <tr className="" style={{ border: "1px solid #3A403C" }}>
+    <tr style={{ border: "1px solid #3A403C" }}>
       <td>
         <img
           className="w-10 h-10"
