@@ -8,21 +8,36 @@ import PageNotFound from "./components/PageNotFound";
 import Footer from "./components/Footer";
 import useCR from "./hooks/useCR";
 import Leaderboard from "./components/Leaderboard";
+import useBlockchain from "./hooks/useBlockchain";
+import { GOERLI } from "./consts/networks";
 
 export default function App() {
   const { cr } = useCR();
+  const { isConnected, chain } = useBlockchain();
 
   return (
     <BrowserRouter>
       <div className="page-container content-wrap font-serif font-bold text-white">
         <NavBar isSafetyModeActivated={cr > 150} />
-        <div className="flex flex-col ">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/leaderboard" element={<Leaderboard />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </div>
+        {isConnected ? (
+          <>
+            {chain.id === GOERLI ? (
+              <div className="flex flex-col ">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/leaderboard" element={<Leaderboard />} />
+                  <Route path="*" element={<PageNotFound />} />
+                </Routes>
+              </div>
+            ) : (
+              <div className="mt-10 flex justify-center">
+                Please connect to the Goerli Test Network!
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="mt-10 flex justify-center">Connect your wallet!</div>
+        )}
         <div className="footer">
           <Footer />
         </div>

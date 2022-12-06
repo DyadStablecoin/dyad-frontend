@@ -6,18 +6,27 @@ import { useNavigate } from "react-router-dom";
 export default function MenuCustom() {
   const navigate = useNavigate();
 
+  const MENU_ITEM_STYLE = {
+    backgroundColor: "black",
+  };
+
   return (
     <Menu>
-      <MenuButton as={Button}>
+      <MenuButton as={Button} style={{ backgroundColor: "black" }}>
         <MenuOutlined />
       </MenuButton>
-      <MenuList>
-        <MenuItem onClick={() => navigate("/")}>Home</MenuItem>
-        <MenuItem>Dashboard</MenuItem>
-        <MenuItem onClick={() => navigate("/leaderboard")}>
+      <MenuList style={{ backgroundColor: "black" }}>
+        <MenuItem style={MENU_ITEM_STYLE} onClick={() => navigate("/")}>
+          Home
+        </MenuItem>
+        <MenuItem style={MENU_ITEM_STYLE}>Dashboard</MenuItem>
+        <MenuItem
+          style={MENU_ITEM_STYLE}
+          onClick={() => navigate("/leaderboard")}
+        >
           Leaderboard
         </MenuItem>
-        <MenuItem>Docs</MenuItem>
+        <MenuItem style={MENU_ITEM_STYLE}>Docs</MenuItem>
       </MenuList>
     </Menu>
   );
