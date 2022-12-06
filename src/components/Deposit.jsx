@@ -1,32 +1,26 @@
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useContractRead,
-  useAccount,
-} from "wagmi";
-import { CONTRACT_dNFT, CONTRACT_DYAD } from "../consts/contract";
-import abi from "../consts/abi/dyadABI.json";
+import { useContractWrite, usePrepareContractWrite, useAccount } from "wagmi";
+import { CONTRACT_dNFT } from "../consts/contract";
 import dNFTabi from "../consts/abi/dNFTABI.json";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TextInput from "./TextInput";
 import { parseEther, round2 } from "../utils/currency";
 import PopupContent from "./PopupContent";
 import { useBalances } from "../hooks/useBalances";
+import useApprove from "../hooks/useApprove";
+import useIsApproved from "../hooks/useIsApproved";
 
 export default function Deposit({ tokenId, onClose, setTxHash }) {
   const { address } = useAccount();
   const [dyad, setDyad] = useState("");
-  const [isApproved, setIsApproved] = useState(true);
   const { balances } = useBalances();
+  const { write: writeApprove } = useApprove(parseEther(dyad));
+  const { refetch, isApproved } = useIsApproved(address, CONTRACT_dNFT, dyad);
 
   const { config: configDeposit } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTabi,
     functionName: "deposit",
     args: [tokenId, parseEther(dyad)],
-    onError: (e) => {
-      console.log("deposit", e);
-    },
   });
 
   const { write: writeDeposit } = useContractWrite({
@@ -36,28 +30,6 @@ export default function Deposit({ tokenId, onClose, setTxHash }) {
       setTxHash(data?.hash);
     },
   });
-
-  const { config } = usePrepareContractWrite({
-    addressOrName: CONTRACT_DYAD,
-    contractInterface: abi,
-    functionName: "approve",
-    args: [CONTRACT_dNFT, parseEther(dyad)],
-  });
-
-  const { write: writeApprove } = useContractWrite(config);
-
-  const { refetch } = useContractRead({
-    addressOrName: CONTRACT_DYAD,
-    contractInterface: abi,
-    functionName: "allowance",
-    args: [address, CONTRACT_dNFT],
-    onSuccess: (data) => {
-      const allowance = parseInt(data._hex);
-      setIsApproved(allowance / 10 ** 18 >= parseFloat(dyad));
-    },
-  });
-
-  useEffect(() => {}, [dyad]);
 
   return (
     <PopupContent

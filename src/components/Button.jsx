@@ -6,7 +6,7 @@ export default function Button({
   onClick,
   isDisabled,
   bgColor, // background color
-  borderColor, // background color
+  borderColor,
 }) {
   const [isHover, setIsHover] = useState(false);
   const handleMouseEnter = () => {

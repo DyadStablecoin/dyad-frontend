@@ -16,6 +16,7 @@ import Loading2 from "./Loading2";
 import { useEffect, useState } from "react";
 import { useWaitForTransaction } from "wagmi";
 import { useBalances } from "../hooks/useBalances";
+import Redeem from "./Redeem";
 
 const HEADER = "text-gray-500 text-sm";
 
@@ -40,6 +41,11 @@ export default function NFT({ index, xps, xpsAverage }) {
     isOpen: isOpenWithdraw,
     onOpen: onOpenWithdraw,
     onClose: onCloseWithdraw,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenRedeem,
+    onOpen: onOpenRedeem,
+    onClose: onCloseRedeem,
   } = useDisclosure();
 
   useEffect(() => {}, [txHash]);
@@ -68,6 +74,13 @@ export default function NFT({ index, xps, xpsAverage }) {
             </Popup>
             <Popup isOpen={isOpenWithdraw} onClose={onCloseWithdraw}>
               <Withdraw
+                tokenId={tokenId}
+                onClose={onCloseWithdraw}
+                setTxHash={setTxHash}
+              />
+            </Popup>
+            <Popup isOpen={isOpenRedeem} onClose={onCloseRedeem}>
+              <Redeem
                 tokenId={tokenId}
                 onClose={onCloseWithdraw}
                 setTxHash={setTxHash}
@@ -161,14 +174,23 @@ export default function NFT({ index, xps, xpsAverage }) {
             </div>
           </div>
           <div className="flex gap-4 mt-4 md:mt-0">
-            <div className="flex flex-col gap-2 ">
-              <div className={HEADER}>Minted DYAD</div>
-              <div className="md:flex">
-                <div className="md:mr-2 mb-2 md:mb-0">
-                  {round2((nft.deposit + nft.withdrawn) / 10 ** 18)}
+            <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 ">
+                <div className={HEADER}>Minted DYAD</div>
+                <div className="md:flex">
+                  <div className="md:mr-2 mb-2 md:mb-0">
+                    {round2((nft.deposit + nft.withdrawn) / 10 ** 18)}
+                  </div>
+                  <Button onClick={onOpen}>Mint</Button>
                 </div>
-                <Button onClick={onOpen}>Mint</Button>
               </div>
+              <Button
+                onClick={onOpenRedeem}
+                borderColor="#463D81"
+                bgColor="#0F0D1B"
+              >
+                Redeem
+              </Button>
             </div>
             <div className="flex flex-col gap-2 ml-4">
               <div className={HEADER}>Deposited DYAD</div>

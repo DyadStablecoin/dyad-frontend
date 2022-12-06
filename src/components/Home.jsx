@@ -16,7 +16,7 @@ export default function Home() {
           {chain.id === GOERLI ? (
             <div>
               {/* <Withdraw /> */}
-              {/* <Claim /> */}
+              <Claim />
               {/* <Leaderboard /> */}
               {/* <Mint /> */}
               <div className="mt-[1rem] flex justify-center items-center w-full">
