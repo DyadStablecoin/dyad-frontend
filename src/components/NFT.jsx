@@ -137,6 +137,7 @@ export default function NFT({ index, xps, xpsAverage }) {
                   borderColor="#463D81"
                   bgColor="#0F0D1B"
                   onClick={onOpenSync}
+                  isDisabled={isFetching}
                 >
                   Sync
                 </Button>
@@ -186,13 +187,16 @@ export default function NFT({ index, xps, xpsAverage }) {
                   <div className="md:mr-2 mb-2 md:mb-0">
                     {round2((nft.deposit + nft.withdrawn) / 10 ** 18)}
                   </div>
-                  <Button onClick={onOpen}>Mint</Button>
+                  <Button onClick={onOpen} isDisabled={isFetching}>
+                    Mint
+                  </Button>
                 </div>
               </div>
               <Button
                 onClick={onOpenRedeem}
                 borderColor="#463D81"
                 bgColor="#0F0D1B"
+                isDisabled={isFetching}
               >
                 Redeem
               </Button>
@@ -205,8 +209,12 @@ export default function NFT({ index, xps, xpsAverage }) {
                 </div>
                 <div className="">
                   <div className="flex gap-2">
-                    <Button onClick={onOpenDeposit}>Deposit</Button>
-                    <Button onClick={onOpenWithdraw}>Withdraw</Button>
+                    <Button onClick={onOpenDeposit} isDisabled={isFetching}>
+                      Deposit
+                    </Button>
+                    <Button onClick={onOpenWithdraw} isDisabled={isFetching}>
+                      Withdraw
+                    </Button>
                   </div>
                 </div>
               </div>
