@@ -3,6 +3,7 @@ import { useFeeData } from "wagmi";
 import { round } from "../utils/currency";
 
 // returns the gas cost of a transaction in ETH
+// config is what is returned by wagmi's `usePrepareContractWrite` hook
 export default function useGasCost(config) {
   const [gasCost, setGasCost] = useState(0);
   const { data } = useFeeData({
