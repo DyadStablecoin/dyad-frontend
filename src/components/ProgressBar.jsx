@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ReactTooltip from "react-tooltip";
+import { COLORS } from "../consts/colors";
 import { round2 } from "../utils/currency";
 
 export default function ProgressBar({ percent, fullWidth = false }) {
@@ -11,11 +12,11 @@ export default function ProgressBar({ percent, fullWidth = false }) {
     ReactTooltip.rebuild();
 
     if (percent < 33) {
-      setColors(["#E34158", "#0A110B"]);
+      setColors([COLORS.Red, "#0A110B"]);
     } else if (percent < 66) {
-      setColors(["#E6A264", "#181008"]);
+      setColors([COLORS.Orange, "#181008"]);
     } else {
-      setColors(["#71AD76", "#110A0A"]);
+      setColors([COLORS.Green, "#110A0A"]);
     }
   }, [percent]);
 
