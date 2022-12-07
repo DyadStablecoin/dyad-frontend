@@ -5,7 +5,7 @@ export default function LeaderboardHeader() {
   const { refetch } = useNfts();
 
   return (
-    <div className="flex gap-4 pt-10 pb-4 ">
+    <div className="flex gap-4 pt-10 pb-4 justify-center">
       <div className="text-xl">Global Leaderboard</div>
       <div
         className="flex items-center justify-center cursor-pointer"

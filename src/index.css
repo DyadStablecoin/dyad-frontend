@@ -135,7 +135,7 @@ background:
 
 table.leaderboard {
   /* width: 90%; */
-  margin: 2rem;
+  margin-top: 2rem;
 }
 
 .chakra-modal__content {

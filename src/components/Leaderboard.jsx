@@ -1,7 +1,9 @@
+import { useState } from "react";
 import useNfts from "../hooks/useNfts";
 import useSortByXp from "../hooks/useSortByXp";
 import LeaderboardHeader from "./LeaderboardHeader";
 import LeaderboardRow from "./LeaderboardRow";
+import LeaderboardSearch from "./LeaderboardSearch";
 import Loading from "./Loading";
 
 const TABLE_HEADER = (
@@ -20,12 +22,16 @@ const TABLE_HEADER = (
 export default function Leaderboard() {
   const { nfts, isFetching } = useNfts();
   const { sortedNfts } = useSortByXp(nfts);
+  const [filter, setFilter] = useState("");
 
   return (
     <div className="flex items-center justify-center flex-col">
-      <Loading isLoading={isFetching} />
-      <LeaderboardHeader />
       <div className="md:w-[80rem]">
+        <Loading isLoading={isFetching} />
+        <LeaderboardHeader />
+        <div className="hidden md:block">
+          <LeaderboardSearch filter={filter} setFilter={setFilter} />
+        </div>
         {sortedNfts && (
           <table className="leaderboard">
             {sortedNfts.map((nft, i) => {
@@ -37,7 +43,7 @@ export default function Leaderboard() {
               return (
                 <>
                   {i == 0 && TABLE_HEADER}
-                  <LeaderboardRow nft={nft} rank={i} />
+                  <LeaderboardRow nft={nft} rank={i} filter={filter} />
                 </>
               );
             })}
