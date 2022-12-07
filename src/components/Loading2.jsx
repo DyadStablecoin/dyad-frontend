@@ -1,4 +1,4 @@
-export default function Loading2({ isLoading }) {
+export default function Loading2({ isLoading, style }) {
   return (
     <>
       {isLoading && (
@@ -6,7 +6,9 @@ export default function Loading2({ isLoading }) {
           <div role="status">
             <svg
               aria-hidden="true"
-              class="mr-2 w-[7rem] mt-3 mb-4 h-20 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+              class={`${
+                style ? style : "mr-2 w-[7rem] mt-3 mb-4 h-20"
+              } text-gray-200 animate-spin dark:text-gray-600 fill-blue-600`}
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
