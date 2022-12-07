@@ -1,4 +1,5 @@
 import { useState } from "react";
+import useFilterNfts from "../hooks/useFilterNfts";
 import useNfts from "../hooks/useNfts";
 import useSortByXp from "../hooks/useSortByXp";
 import LeaderboardHeader from "./LeaderboardHeader";

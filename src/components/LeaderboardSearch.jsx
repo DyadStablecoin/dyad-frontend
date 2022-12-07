@@ -1,4 +1,5 @@
 import { SearchOutlined } from "@ant-design/icons";
+import Icon from "./Icon";
 import TextInput from "./TextInput";
 
 export default function LeaderboardSearch({ filter, setFilter }) {
@@ -9,7 +10,9 @@ export default function LeaderboardSearch({ filter, setFilter }) {
         value={filter}
         onChange={(v) => setFilter(v)}
       />
-      <SearchOutlined style={{ color: "#584BAA", fontSize: "1.5rem" }} />
+      <Icon>
+        <SearchOutlined style={{ color: "#584BAA", fontSize: "1.5rem" }} />
+      </Icon>
     </div>
   );
 }
