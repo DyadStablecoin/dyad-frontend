@@ -1,41 +1,44 @@
-import Button from "./Button";
 import PoolABI from "../abi/Pool.json";
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useWaitForTransaction,
-} from "wagmi";
+import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_POOL } from "../consts/contract";
-import Loading from "./Loading";
+import PopupContent from "./PopupContent";
+import useGasCost from "../hooks/useGasCost";
 
-export default function Sync() {
+export default function Sync({ onClose, setTxHash }) {
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_POOL,
     contractInterface: PoolABI["abi"],
     functionName: "sync",
   });
 
-  const { data, isLoading: isLoadingSync, write } = useContractWrite(config);
-
-  const { isLoading } = useWaitForTransaction({
-    hash: data?.hash,
+  const { write } = useContractWrite({
+    ...config,
+    onSuccess: (data) => {
+      onClose();
+      setTxHash(data?.hash);
+    },
   });
 
+  const { gasCost } = useGasCost(config);
+
   return (
-    <div className="flex flex-col items-center p-14 gap-8">
-      {(isLoadingSync || isLoading) && <Loading isLoading />}
-      <Button
-        isDisabled={!write}
-        onClick={() => {
-          write?.();
-        }}
-      >
-        sync dNFT
-      </Button>
-      <div className="flex flex-col items-center">
-        <div>+8031 dNFTs</div>
-        <div>950,000 GAS/ 0.2 ETH</div>
+    <PopupContent
+      title="Sync"
+      btnText="Sync"
+      onClick={() => {
+        write?.();
+        onClose();
+      }}
+      isDisabled={!write}
+    >
+      <div className="flex flex-col gap-4">
+        <div>+ help sync ALL DYAD NFT's for all players!</div>
+        <div className="bg-[#3A403C] h-[1px] w-full"></div>
+        <div className="flex justify-between">
+          <div>Sync Cost</div>
+          <div className="text-[#519C58]">{gasCost} ETH</div>
+        </div>
       </div>
-    </div>
+    </PopupContent>
   );
 }
