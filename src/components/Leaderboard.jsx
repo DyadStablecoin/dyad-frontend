@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useNfts from "../hooks/useNfts";
 import useSortByXp from "../hooks/useSortByXp";
 import LeaderboardHeader from "./LeaderboardHeader";
@@ -42,7 +42,7 @@ export default function Leaderboard() {
                */
               return (
                 <>
-                  {i == 0 && TABLE_HEADER}
+                  {i === 0 && TABLE_HEADER}
                   <LeaderboardRow nft={nft} rank={i} filter={filter} />
                 </>
               );
