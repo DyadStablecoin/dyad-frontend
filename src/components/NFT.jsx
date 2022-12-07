@@ -16,7 +16,7 @@ import useNft from "../hooks/useNft";
 import ProgressBar from "./ProgressBar";
 import Skeleton from "./Skeletion";
 import useTokenOfOwnerByIndex from "../hooks/useTokenOfOwnerByIndex";
-import Loading2 from "./Loading2";
+import LoadingInplace from "./LoadingInplace";
 import { useEffect, useState } from "react";
 import { useWaitForTransaction } from "wagmi";
 import { useBalances } from "../hooks/useBalances";
@@ -27,7 +27,7 @@ const HEADER = "text-gray-500 text-sm";
 export default function NFT({ index, xps, xpsAverage }) {
   const [txHash, setTxHash] = useState();
   const { tokenId } = useTokenOfOwnerByIndex(index);
-  const { refetch, nft, isLoading } = useNft(tokenId);
+  const { refetch, nft, isLoading, isFetching } = useNft(tokenId);
   useBalances([nft]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -112,7 +112,7 @@ export default function NFT({ index, xps, xpsAverage }) {
           style={{ border: "1px solid #3A403C" }}
           className="p-4 md:flex md:gap-[5rem]"
         >
-          <Loading2 isLoading={isLoadingTx} />
+          <LoadingInplace isLoading={isLoadingTx || isFetching} />
           <div className="flex gap-4 justify-between w-full">
             <div className="md:w-[8rem]">
               <div className="w-[107px]">

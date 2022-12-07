@@ -1,3 +1,4 @@
+// global loading, that blocks the application
 export default function Loading({ isLoading }) {
   return (
     <>

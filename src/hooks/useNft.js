@@ -10,7 +10,7 @@ export default function useNft(id) {
     xp: 0,
   });
 
-  const { refetch, isLoading } = useContractRead({
+  const { refetch, isLoading, isFetching } = useContractRead({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
     functionName: "idToNft",
@@ -24,5 +24,5 @@ export default function useNft(id) {
     },
   });
 
-  return { refetch, nft, isLoading };
+  return { refetch, nft, isLoading, isFetching };
 }

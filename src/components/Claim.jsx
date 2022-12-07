@@ -6,12 +6,11 @@ import {
 import { CONTRACT_dNFT } from "../consts/contract";
 import Button from "./Button";
 import dNFT from "../abi/dNFT.json";
-import Loading from "./Loading";
 import { TOTAL_SUPPLY, MIN_DEPOSIT, MIN_DEPOSIT_USD } from "../consts/consts";
 import useBlockchain from "../hooks/useBlockchain";
 import useNfts from "../hooks/useNfts";
 import { useBalances } from "../hooks/useBalances";
-import Loading2 from "./Loading2";
+import LoadingInplace from "./LoadingInplace";
 
 export default function Claim() {
   const { ensName, address } = useBlockchain();
@@ -40,7 +39,7 @@ export default function Claim() {
       <div className="p-4 md:flex md:items-center md:border-b border-gray-800 gap-4 md:justify-between">
         <div className="flex items-center justify-center ">
           <div className="w-[56px]">
-            <Loading2 isLoading={isLoading} style="mt w-[56px]" />
+            <LoadingInplace isLoading={isLoading} style="mt w-[56px]" />
             <img
               src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
               alt="claim"

@@ -1,4 +1,5 @@
-export default function Loading2({ isLoading, style }) {
+// in-place loading
+export default function LoadingInplace({ isLoading, style }) {
   return (
     <>
       {isLoading && (
