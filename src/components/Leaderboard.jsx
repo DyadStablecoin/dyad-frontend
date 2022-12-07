@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import useNfts from "../hooks/useNfts";
 import useSortByXp from "../hooks/useSortByXp";
 import LeaderboardHeader from "./LeaderboardHeader";
