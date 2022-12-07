@@ -1,5 +1,5 @@
 import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
-import { dNFT_PRICE } from "../consts/consts";
+import { dNFT_PRICE, RANDOM_IMAGES } from "../consts/consts";
 import useEnsName from "../hooks/useEnsName";
 import useIdToOwner from "../hooks/useIdToOwner";
 import { addressSummary } from "../utils/address";
@@ -14,7 +14,7 @@ export default function LeaderboardRow({ nft, rank }) {
       <td>
         <img
           className="w-10 h-10"
-          src="https://images.t3n.de/news/wp-content/uploads/2022/02/cryptopunk-feb-2021.jpeg?class=hero-small"
+          src={RANDOM_IMAGES[rank % RANDOM_IMAGES.length]}
           alt=""
         />
       </td>

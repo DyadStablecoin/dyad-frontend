@@ -1,6 +1,10 @@
-import { dNFT_AVERAGE_PRICE, dNFT_PRICE } from "../consts/consts";
+import {
+  dNFT_AVERAGE_PRICE,
+  dNFT_PRICE,
+  RANDOM_IMAGES,
+} from "../consts/consts";
 import { formatUSD, round2 } from "../utils/currency";
-import { calcRank, dyadMultiplier, useTVL, xpCurve } from "../utils/stats";
+import { calcRank, dyadMultiplier, xpCurve } from "../utils/stats";
 import Mint from "./Mint";
 import Popup from "./Popup";
 import { useDisclosure } from "@chakra-ui/react";
@@ -108,10 +112,7 @@ export default function NFT({ index, xps, xpsAverage }) {
           <div className="flex gap-4 justify-between w-full">
             <div className="md:w-[8rem]">
               <div className="w-[107px]">
-                <img
-                  src="https://pbs.twimg.com/media/FJ4VWvUaIAIWv3f.jpg:large"
-                  alt=""
-                />
+                <img src={RANDOM_IMAGES[index % RANDOM_IMAGES.length]} alt="" />
               </div>
             </div>
             <div className="w-full">
