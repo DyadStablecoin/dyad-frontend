@@ -29,7 +29,9 @@ export default function Leaderboard() {
       <div className="md:w-[80rem]">
         <Loading isLoading={isFetching} />
         <LeaderboardHeader />
-        <LeaderboardSearch filter={filter} setFilter={setFilter} />
+        <div className="hidden md:block">
+          <LeaderboardSearch filter={filter} setFilter={setFilter} />
+        </div>
         {sortedNfts && (
           <table className="leaderboard">
             {sortedNfts.map((nft, i) => {
