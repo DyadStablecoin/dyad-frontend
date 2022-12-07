@@ -3,7 +3,7 @@ import TextInput from "./TextInput";
 
 export default function LeaderboardSearch({ filter, setFilter }) {
   return (
-    <div className="flex justify-end w-[80rem] items-center">
+    <div className="flex justify-end w-[80rem] items-center gap-4">
       <TextInput
         placeholder="Type here to search..."
         value={filter}

@@ -1,17 +1,17 @@
 import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import { dNFT_PRICE, RANDOM_IMAGES } from "../consts/consts";
-import useEnsName from "../hooks/useEnsName";
+import useFilterAddress from "../hooks/useFilterAddress";
 import useIdToOwner from "../hooks/useIdToOwner";
 import { addressSummary } from "../utils/address";
 import { formatUSD } from "../utils/currency";
 
 export default function LeaderboardRow({ nft, rank, filter }) {
-  const { owner } = useIdToOwner(nft.id);
-  const { ensName } = useEnsName(owner);
+  const { owner: address } = useIdToOwner(nft.id);
+  const { ensName, isMatching, isLoading } = useFilterAddress(address, filter);
 
   return (
     <>
-      {ensName && ensName.includes(filter) && (
+      {isMatching && (
         <tr style={{ border: "1px solid #3A403C" }}>
           <td>
             <img
@@ -47,7 +47,7 @@ export default function LeaderboardRow({ nft, rank, filter }) {
               <div>5</div>
             </div>
           </td>
-          <td>{ensName || addressSummary(owner)}</td>
+          <td>{ensName || addressSummary(address)}</td>
         </tr>
       )}
     </>

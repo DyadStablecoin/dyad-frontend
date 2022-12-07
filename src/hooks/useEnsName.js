@@ -7,15 +7,18 @@ import { addressSummary } from "../utils/address";
  * difference being that we return the corresponding ENS name if it exists.
  */
 export default function useEnsName(address) {
-  const [ensName, setEnsName] = useState();
+  const [ensName, setEnsName] = useState(address);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function _getEnsName() {
+      setIsLoading(true);
       const res = await getEnsName(address);
       res ? setEnsName(res) : setEnsName(addressSummary(address));
+      setIsLoading(false);
     }
     _getEnsName();
   }, [address]);
 
-  return { ensName };
+  return { ensName, isLoading };
 }
