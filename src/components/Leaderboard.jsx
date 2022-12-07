@@ -28,9 +28,18 @@ export default function Leaderboard() {
       <div className="md:w-[80rem]">
         {sortedNfts && (
           <table className="leaderboard">
-            {TABLE_HEADER}
             {sortedNfts.map((nft, i) => {
-              return <LeaderboardRow nft={nft} rank={i} />;
+              /**
+               * we have to to render TABLE_HEADER like this unfortunately,
+               * otherwise it will be rendere too soon. I can not figure out to
+               * fix it in a cleaner way.
+               */
+              return (
+                <>
+                  {i == 0 && TABLE_HEADER}
+                  <LeaderboardRow nft={nft} rank={i} />
+                </>
+              );
             })}
           </table>
         )}

@@ -26,7 +26,17 @@ export default function MenuCustom() {
         >
           Leaderboard
         </MenuItem>
-        <MenuItem style={MENU_ITEM_STYLE}>Docs</MenuItem>
+        <MenuItem
+          style={MENU_ITEM_STYLE}
+          onClick={() =>
+            window.open(
+              "https://docs-8fzo3j5z1-dyad.vercel.app/intro",
+              "_blank"
+            )
+          }
+        >
+          Docs
+        </MenuItem>
       </MenuList>
     </Menu>
   );
