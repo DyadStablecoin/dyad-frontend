@@ -38,8 +38,8 @@ export default function Mint({ tokenId, onClose, setTxHash }) {
       title="Mint DYAD"
       btnText="MINT"
       onClick={() => {
-        write?.();
         onClose();
+        write?.();
       }}
       isDisabled={!write}
     >

@@ -7,6 +7,8 @@ export default function Button({
   isDisabled,
   bgColor, // background color
   borderColor,
+  textColor,
+  isLarge,
 }) {
   const [isHover, setIsHover] = useState(false);
   const handleMouseEnter = () => {
@@ -20,11 +22,17 @@ export default function Button({
     <div
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`border-2 pt-0 pb-0 pr-4 pl-4 cursor-pointer flex justify-center
+      className={`cursor-pointer flex justify-center items-center
+      ${
+        isLarge
+          ? "border-[1px] w-full p-[1rem] text-xl"
+          : "border-2 pt-0 pb-0 pr-4 pl-4 "
+      }
       ${isDisabled && "opacity-50 cursor-not-allowed"}
       ${!isDisabled && "hover:border-white"}
       `}
       style={{
+        color: textColor ? textColor : "white",
         borderColor: borderColor
           ? isHover
             ? convertToBrighterColor(borderColor)
@@ -36,7 +44,7 @@ export default function Button({
         backgroundColor: bgColor ? bgColor : "#131513",
       }}
       onClick={() => {
-        onClick();
+        !isDisabled && onClick();
       }}
     >
       <div>{children}</div>
