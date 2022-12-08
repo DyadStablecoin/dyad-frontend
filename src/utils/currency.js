@@ -15,10 +15,10 @@ export function formatUSD(amount, removeDollarSign = false) {
 }
 
 export function round2(value) {
-  return Math.round(value * 100) / 100;
+  return Math.round(parseFloat(value) * 100) / 100;
 }
 export function round(value, decimals) {
-  return Math.round(value * 10 ** decimals) / 10 ** decimals;
+  return Math.round(parseFloat(value) * 10 ** decimals) / 10 ** decimals;
 }
 
 // thin wrapper around `ethers.utils.parseEther`

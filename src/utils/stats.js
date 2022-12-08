@@ -2,7 +2,7 @@ import { useContractReads } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import abi from "../consts/abi/dNFTABI.json";
 import { dNFT_PRICE } from "../consts/consts";
-import { round2 } from "./currency";
+import { round } from "./currency";
 
 export function calcPerformance() {}
 
@@ -13,7 +13,7 @@ export function calcdNFTAvg() {
 export function dyadMultiplier(dNFT, dNFTAvg, xp, xpAvg) {
   // TODO: 1 is hardcoded and should be f(E) -> see equations
   let multi = (dNFT / dNFTAvg) * (xp / xpAvg) * 1;
-  return round2(multi);
+  return round(multi, 5);
 }
 
 export function xpCurve(pL) {

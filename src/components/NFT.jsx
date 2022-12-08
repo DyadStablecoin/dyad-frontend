@@ -3,7 +3,7 @@ import {
   dNFT_PRICE,
   RANDOM_IMAGES,
 } from "../consts/consts";
-import { formatUSD, round2 } from "../utils/currency";
+import { formatUSD, round } from "../utils/currency";
 import { calcRank, dyadMultiplier, xpCurve } from "../utils/stats";
 import Mint from "./Mint";
 import Popup from "./Popup";
@@ -147,24 +147,30 @@ export default function NFT({ index, xps, xpsAverage }) {
               <div className={HEADER}>Performance</div>
               <div className="flex flex-col items-start text-s text-[#519C58]">
                 <div className="">
-                  {dyadMultiplier(
-                    dNFT_PRICE,
-                    dNFT_AVERAGE_PRICE,
-                    nft.xp,
-                    xpsAverage
-                  )}
-                  x/
-                  {1 /
+                  {round(
                     dyadMultiplier(
                       dNFT_PRICE,
                       dNFT_AVERAGE_PRICE,
                       nft.xp,
                       xpsAverage
-                    )}
+                    ),
+                    3
+                  )}
+                  x/
+                  {round(
+                    1 /
+                      dyadMultiplier(
+                        dNFT_PRICE,
+                        dNFT_AVERAGE_PRICE,
+                        nft.xp,
+                        xpsAverage
+                      ),
+                    3
+                  )}
                   x
                 </div>
                 <div className="w-[5rem] text-white">
-                  {Math.round(xpCurve(1) * 10000) / 10000}x XP
+                  {round(xpCurve(1), 4)}x XP
                 </div>
               </div>
             </div>
@@ -185,7 +191,7 @@ export default function NFT({ index, xps, xpsAverage }) {
                 <div className={HEADER}>Minted DYAD</div>
                 <div className="md:flex">
                   <div className="md:mr-2 mb-2 md:mb-0">
-                    {round2((nft.deposit + nft.withdrawn) / 10 ** 18)}
+                    {round((nft.deposit + nft.withdrawn) / 10 ** 18, 2)}
                   </div>
                   <Button onClick={onOpen} isDisabled={isFetching}>
                     Mint
