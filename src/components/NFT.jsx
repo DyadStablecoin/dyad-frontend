@@ -4,7 +4,7 @@ import {
   RANDOM_IMAGES,
 } from "../consts/consts";
 import { formatUSD, round } from "../utils/currency";
-import { calcRank, dyadMultiplier, xpCurve } from "../utils/stats";
+import { dyadMultiplier, xpCurve } from "../utils/stats";
 import Mint from "./Mint";
 import Popup from "./Popup";
 import { useDisclosure } from "@chakra-ui/react";
@@ -21,6 +21,7 @@ import { useEffect, useState } from "react";
 import { useWaitForTransaction } from "wagmi";
 import { useBalances } from "../hooks/useBalances";
 import Redeem from "./Redeem";
+import useRank from "../hooks/useRank";
 
 const HEADER = "text-gray-500 text-sm";
 
@@ -28,6 +29,7 @@ export default function NFT({ index, xps, xpsAverage }) {
   const [txHash, setTxHash] = useState();
   const { tokenId } = useTokenOfOwnerByIndex(index);
   const { refetch, nft, isLoading, isFetching } = useNft(tokenId);
+  const { rank } = useRank(xps, nft.xp);
   useBalances([nft]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -116,13 +118,13 @@ export default function NFT({ index, xps, xpsAverage }) {
           <div className="flex gap-4 justify-between w-full">
             <div className="md:w-[8rem]">
               <div className="w-[107px]">
-                <img src={RANDOM_IMAGES[index % RANDOM_IMAGES.length]} alt="" />
+                <img src={RANDOM_IMAGES[rank % RANDOM_IMAGES.length]} alt="" />
               </div>
             </div>
             <div className="w-full">
               <div className="flex justify-between items-center">
                 <div className={HEADER}>Rank</div>
-                {xps && <div className="">#{calcRank(xps, nft.xp)}</div>}
+                {xps && <div className="">#{rank}</div>}
               </div>
               <div className="flex justify-between items-center">
                 <div className={HEADER}>Value</div>

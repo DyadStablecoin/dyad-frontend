@@ -43,7 +43,7 @@ export default function Leaderboard() {
               return (
                 <>
                   {i === 0 && TABLE_HEADER}
-                  <LeaderboardRow nft={nft} rank={i} filter={filter} />
+                  <LeaderboardRow nft={nft} rank={i + 1} filter={filter} />
                 </>
               );
             })}

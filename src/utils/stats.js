@@ -20,10 +20,6 @@ export function xpCurve(pL) {
   return Math.log(-pL + 1.002494) / 6 + 1;
 }
 
-export function calcRank(xps, xp) {
-  return xps.reverse().filter((x) => x > xp).length + 1;
-}
-
 export function useXPs(nDNFTs) {
   nDNFTs = parseInt(nDNFTs);
 

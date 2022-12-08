@@ -22,7 +22,7 @@ export default function LeaderboardRow({ nft, rank, filter }) {
               alt=""
             />
           </td>
-          <td>#{rank + 1}</td>
+          <td>#{rank}</td>
           <td>{nft.xp}</td>
           <td>{formatUSD(dNFT_PRICE)}</td>
           <td className="hidden md:table-cell">
