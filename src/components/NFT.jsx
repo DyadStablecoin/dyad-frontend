@@ -93,7 +93,7 @@ export default function NFT({ index, xps, xpsAverage }) {
             <Popup isOpen={isOpenSync} onClose={onCloseSync}>
               <Sync
                 tokenId={tokenId}
-                onClose={onCloseWithdraw}
+                onClose={onCloseSync}
                 setTxHash={setTxHash}
               />
             </Popup>

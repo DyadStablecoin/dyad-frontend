@@ -26,8 +26,8 @@ export default function Sync({ onClose, setTxHash }) {
       title="Sync"
       btnText="Sync"
       onClick={() => {
-        write?.();
         onClose();
+        write?.();
       }}
       isDisabled={!write}
     >
