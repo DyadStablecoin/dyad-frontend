@@ -17,9 +17,10 @@ export default function Redeem({ tokenId, onClose, setTxHash }) {
   const [dyad, setDyad] = useState("");
   const { ethPrice } = useEthPrice();
   const { address } = useAccount();
-  const { isApproved } = useIsApproved(address, CONTRACT_dNFT, dyad);
+  const { isApproved, refetch } = useIsApproved(address, CONTRACT_dNFT, dyad);
   const { write: writeApprove, isFetching: isFetchingApproval } = useApprove(
-    parseEther(dyad)
+    parseEther(dyad),
+    refetch
   );
 
   const { config } = usePrepareContractWrite({

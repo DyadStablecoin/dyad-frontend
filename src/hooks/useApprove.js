@@ -6,7 +6,7 @@ import {
 import { CONTRACT_dNFT, CONTRACT_DYAD } from "../consts/contract";
 import dyadABI from "../abi/DYAD.json";
 
-export default function useApprove(amount) {
+export default function useApprove(amount, onSuccess) {
   const { config, isLoading } = usePrepareContractWrite({
     addressOrName: CONTRACT_DYAD,
     contractInterface: dyadABI["abi"],
@@ -17,9 +17,13 @@ export default function useApprove(amount) {
   const { write, data } = useContractWrite({
     ...config,
   });
-  console.log("useApprove", data);
 
-  const { isFetching } = useWaitForTransaction({ hash: data?.hash });
+  const { isFetching } = useWaitForTransaction({
+    hash: data?.hash,
+    onSuccess: () => {
+      onSuccess();
+    },
+  });
 
   return { write, isLoading, isFetching };
 }
