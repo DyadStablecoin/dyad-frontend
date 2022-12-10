@@ -10,6 +10,11 @@ export function calcdNFTAvg() {
   return 0;
 }
 
+export function depositRatio(withdrawn, deposit) {
+  if (deposit === 0) return 0;
+  return 100 - round((withdrawn / deposit) * 100, 2);
+}
+
 export function dyadMultiplier(dNFT, dNFTAvg, xp, xpAvg) {
   // TODO: 1 is hardcoded and should be f(E) -> see equations
   let multi = (dNFT / dNFTAvg) * (xp / xpAvg) * 1;

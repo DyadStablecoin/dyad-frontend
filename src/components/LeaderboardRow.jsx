@@ -3,7 +3,8 @@ import { dNFT_PRICE, RANDOM_IMAGES } from "../consts/consts";
 import useFilterAddress from "../hooks/useFilterAddress";
 import useIdToOwner from "../hooks/useIdToOwner";
 import { addressSummary } from "../utils/address";
-import { formatUSD } from "../utils/currency";
+import { formatUSD, round } from "../utils/currency";
+import { depositRatio } from "../utils/stats";
 import LoadingInplace from "./LoadingInplace";
 
 export default function LeaderboardRow({ nft, rank, filter }) {
@@ -26,28 +27,13 @@ export default function LeaderboardRow({ nft, rank, filter }) {
           <td>{nft.xp}</td>
           <td>{formatUSD(dNFT_PRICE)}</td>
           <td className="hidden md:table-cell">
-            <div className="flex gap-2 items-center justify-center">
-              <div>
-                <ArrowUpOutlined style={{ color: "#00FF00" }} />
-              </div>
-              <div>5</div>
-            </div>
+            {round(nft.withdrawn / 10 ** 18, 2)}
           </td>
           <td className="hidden md:table-cell">
-            <div className="flex gap-2 items-center justify-center">
-              <div>
-                <ArrowDownOutlined style={{ color: "red" }} />
-              </div>
-              <div>5</div>
-            </div>
+            {round(nft.deposit / 10 ** 18, 2)}
           </td>
           <td className="hidden md:table-cell">
-            <div className="flex gap-2 items-center justify-center">
-              <div>
-                <ArrowUpOutlined style={{ color: "#00FF00" }} />
-              </div>
-              <div>5</div>
-            </div>
+            {depositRatio(nft.withdrawn, nft.deposit)}%
           </td>
           <td>{ensName || addressSummary(address)}</td>
         </tr>
