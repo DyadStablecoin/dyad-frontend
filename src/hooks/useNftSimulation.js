@@ -15,7 +15,8 @@ const opts = {
   },
 };
 
-export default function useXpUpdate(tokenId) {
+// simulate a sync call
+export default function useNftSimulation(tokenId) {
   const { address } = useAccount();
   const [nftAfterSyncSimulation, setNftAfterSyncSimulation] = useState();
 

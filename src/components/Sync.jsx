@@ -3,8 +3,8 @@ import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_POOL } from "../consts/contract";
 import PopupContent from "./PopupContent";
 import useGasCost from "../hooks/useGasCost";
-import useXpUpdate from "../hooks/useXpUpdate";
 import { SwapRightOutlined } from "@ant-design/icons";
+import useNftSimulation from "../hooks/useNftSimulation";
 
 export default function Sync({ onClose, setTxHash, tokenId, nft }) {
   const { config } = usePrepareContractWrite({
@@ -22,7 +22,7 @@ export default function Sync({ onClose, setTxHash, tokenId, nft }) {
   });
 
   const { gasCost } = useGasCost(config);
-  const { nftAfterSyncSimulation } = useXpUpdate(tokenId);
+  const { nftAfterSyncSimulation } = useNftSimulation(tokenId);
 
   return (
     <PopupContent
