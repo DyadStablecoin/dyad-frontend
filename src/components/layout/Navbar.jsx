@@ -1,5 +1,5 @@
 import { useConnect, useDisconnect } from "wagmi";
-import { formatUSD } from "../../utils/currency";
+import { formatUSD, round } from "../../utils/currency";
 import Button from "../Button";
 import logo from "../../static/dyad-logo.svg";
 import WalletOutlined from "@ant-design/icons/lib/icons/WalletOutlined";
@@ -62,9 +62,9 @@ export default function NavBar({ isSafetyModeActivated }) {
             <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
             {isConnected && (
               <>
-                <div className="flex gap-1 items-center justify-center">
+                <div className="flex gap-2 items-center justify-center">
                   <div>CR</div>
-                  {balances && <ProgressBar percent={cr} />}
+                  {cr && <div>{round(cr, 2)}%</div>}
                 </div>
                 <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
               </>

@@ -56,12 +56,13 @@ export default function NFT({ index, xps, xpsAverage }) {
 
   useEffect(() => {}, [txHash]);
 
-  const { isLoading: isLoadingTx } = useWaitForTransaction({
-    hash: txHash,
-    onSuccess: () => {
-      refetch();
-    },
-  });
+  const { isLoading: isLoadingTx, isFetching: isFetchingTx } =
+    useWaitForTransaction({
+      hash: txHash,
+      onSuccess: () => {
+        refetch();
+      },
+    });
 
   function renderPopups() {
     return (
@@ -139,7 +140,7 @@ export default function NFT({ index, xps, xpsAverage }) {
                   borderColor="#463D81"
                   bgColor="#0F0D1B"
                   onClick={onOpenSync}
-                  isDisabled={isFetching}
+                  isDisabled={isFetching || isFetchingTx}
                 >
                   Sync
                 </Button>
@@ -195,7 +196,10 @@ export default function NFT({ index, xps, xpsAverage }) {
                   <div className="md:mr-2 mb-2 md:mb-0">
                     {round((nft.deposit + nft.withdrawn) / 10 ** 18, 2)}
                   </div>
-                  <Button onClick={onOpen} isDisabled={isFetching}>
+                  <Button
+                    onClick={onOpen}
+                    isDisabled={isFetching || isFetchingTx}
+                  >
                     Mint
                   </Button>
                 </div>
@@ -204,7 +208,7 @@ export default function NFT({ index, xps, xpsAverage }) {
                 onClick={onOpenRedeem}
                 borderColor="#463D81"
                 bgColor="#0F0D1B"
-                isDisabled={isFetching}
+                isDisabled={isFetching || isFetchingTx}
               >
                 Redeem
               </Button>
@@ -217,10 +221,16 @@ export default function NFT({ index, xps, xpsAverage }) {
                 </div>
                 <div className="">
                   <div className="flex gap-2">
-                    <Button onClick={onOpenDeposit} isDisabled={isFetching}>
+                    <Button
+                      onClick={onOpenDeposit}
+                      isDisabled={isFetching || isFetchingTx}
+                    >
                       Deposit
                     </Button>
-                    <Button onClick={onOpenWithdraw} isDisabled={isFetching}>
+                    <Button
+                      onClick={onOpenWithdraw}
+                      isDisabled={isFetching || isFetchingTx}
+                    >
                       Withdraw
                     </Button>
                   </div>
