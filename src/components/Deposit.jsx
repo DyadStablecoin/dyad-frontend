@@ -8,12 +8,13 @@ import PopupContent from "./PopupContent";
 import { useBalances } from "../hooks/useBalances";
 import useApprove from "../hooks/useApprove";
 import useIsApproved from "../hooks/useIsApproved";
+import LoadingInplace from "./LoadingInplace";
 
 export default function Deposit({ tokenId, onClose, setTxHash }) {
   const { address } = useAccount();
   const [dyad, setDyad] = useState("");
   const { balances } = useBalances();
-  const { write: writeApprove } = useApprove(parseEther(dyad));
+  const { write: writeApprove, isFetching } = useApprove(parseEther(dyad));
   const { refetch, isApproved } = useIsApproved(address, CONTRACT_dNFT, dyad);
 
   const { config: configDeposit } = usePrepareContractWrite({
@@ -35,11 +36,14 @@ export default function Deposit({ tokenId, onClose, setTxHash }) {
     <PopupContent
       title="Deposit DYAD"
       btnText={isApproved ? "Deposit" : "Approve"}
-      isDisabled={isApproved ? !writeDeposit : !writeApprove}
+      isDisabled={isApproved ? !writeDeposit : !writeApprove || isFetching}
       onClick={() => {
         isApproved ? writeDeposit?.() : writeApprove?.();
-        onClose();
+        if (isApproved) {
+          onClose();
+        }
       }}
+      isLoading={isFetching}
     >
       <div className="flex gap-2 items-center">
         <div>

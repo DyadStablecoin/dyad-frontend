@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { convertToBrighterColor } from "../utils/colorUtils";
+import LoadingCore from "./LoadingCore";
 
 export default function Button({
   children,
@@ -9,6 +10,7 @@ export default function Button({
   borderColor,
   textColor,
   isLarge,
+  isLoading,
 }) {
   const [isHover, setIsHover] = useState(false);
   const handleMouseEnter = () => {
@@ -47,7 +49,12 @@ export default function Button({
         !isDisabled && onClick();
       }}
     >
-      <div>{children}</div>
+      <div className="flex gap-2 justify-center items-center">
+        {children}
+        <div>
+          <LoadingCore isLoading={isLoading} />
+        </div>
+      </div>
     </div>
   );
 }

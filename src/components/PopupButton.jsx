@@ -1,6 +1,11 @@
 import Button from "./Button";
 
-export default function PopupButton({ children, onClick, isDisabled }) {
+export default function PopupButton({
+  children,
+  onClick,
+  isDisabled,
+  isLoading,
+}) {
   return (
     <Button
       onClick={onClick}
@@ -9,6 +14,7 @@ export default function PopupButton({ children, onClick, isDisabled }) {
       bgColor="#0E190F"
       borderColor="#519C58"
       textColor="#519C58"
+      isLoading={isLoading}
     >
       {children}
     </Button>

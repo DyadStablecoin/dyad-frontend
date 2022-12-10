@@ -10,6 +10,7 @@ export function calcdNFTAvg() {
   return 0;
 }
 
+// the higher the better
 export function depositRatio(withdrawn, deposit) {
   if (deposit === 0) return 0;
   return 100 - round((withdrawn / deposit) * 100, 2);
