@@ -18,7 +18,9 @@ export default function Redeem({ tokenId, onClose, setTxHash }) {
   const { ethPrice } = useEthPrice();
   const { address } = useAccount();
   const { isApproved } = useIsApproved(address, CONTRACT_dNFT, dyad);
-  const { write: writeApprove } = useApprove(parseEther(dyad));
+  const { write: writeApprove, isFetching: isFetchingApproval } = useApprove(
+    parseEther(dyad)
+  );
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -41,9 +43,14 @@ export default function Redeem({ tokenId, onClose, setTxHash }) {
       btnText={isApproved ? "REDEEM" : "Approve"}
       onClick={() => {
         isApproved ? writeRedeem?.() : writeApprove?.();
-        onClose();
+        if (isApproved) {
+          onClose();
+        }
       }}
-      isDisabled={isApproved ? !writeRedeem : !writeApprove}
+      isDisabled={
+        isApproved ? !writeRedeem : !writeApprove || isFetchingApproval
+      }
+      isLoading={isFetchingApproval}
     >
       <div className="flex flex-col gap-2 items-center">
         <div className="flex gap-4 justify-between items-between w-full">
