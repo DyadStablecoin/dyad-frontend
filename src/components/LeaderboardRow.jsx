@@ -1,4 +1,3 @@
-import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import { dNFT_PRICE, RANDOM_IMAGES } from "../consts/consts";
 import useFilterAddress from "../hooks/useFilterAddress";
 import useIdToOwner from "../hooks/useIdToOwner";

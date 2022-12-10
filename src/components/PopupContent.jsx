@@ -6,6 +6,7 @@ export default function PopupContent({
   btnText,
   onClick,
   isDisabled,
+  isLoading,
 }) {
   return (
     <div
@@ -17,7 +18,11 @@ export default function PopupContent({
       <div className="pt-5 pr-5 pl-5 text-2xl">{title}</div>
       <div className="bg-[#3A403C] h-[1px] w-full"></div>
       <div className="mt-2 mb-2">{children}</div>
-      <PopupButton onClick={onClick} isDisabled={isDisabled}>
+      <PopupButton
+        onClick={onClick}
+        isDisabled={isDisabled}
+        isLoading={isLoading}
+      >
         {btnText}
       </PopupButton>
     </div>
