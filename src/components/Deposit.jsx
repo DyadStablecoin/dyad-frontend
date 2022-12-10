@@ -13,10 +13,11 @@ export default function Deposit({ tokenId, onClose, setTxHash }) {
   const { address } = useAccount();
   const [dyad, setDyad] = useState("");
   const { balances } = useBalances();
-  const { write: writeApprove, isFetching: isFetchingApproval } = useApprove(
-    parseEther(dyad)
-  );
   const { refetch, isApproved } = useIsApproved(address, CONTRACT_dNFT, dyad);
+  const { write: writeApprove, isFetching: isFetchingApproval } = useApprove(
+    parseEther(dyad),
+    refetch
+  );
 
   const { config: configDeposit } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,

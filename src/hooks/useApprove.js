@@ -21,7 +21,7 @@ export default function useApprove(amount, onSuccess) {
   const { isFetching } = useWaitForTransaction({
     hash: data?.hash,
     onSuccess: () => {
-      onSuccess();
+      onSuccess && onSuccess();
     },
   });
 
