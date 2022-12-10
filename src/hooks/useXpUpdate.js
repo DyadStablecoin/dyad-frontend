@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { CURRENT_NETWORK } from "../consts/consts";
 import axios from "axios";
 import poolABI from "../abi/Pool.json";
@@ -14,8 +14,12 @@ const opts = {
 };
 
 export default function useXpUpdate(tokenId) {
+  const [update, setUpdate] = useState();
+
   useEffect(() => {
     async function updateXP() {
+      if (!tokenId) return;
+
       const gp = new ethers.providers.JsonRpcProvider(
         process.env.REACT_APP_INFURA
       );
@@ -74,10 +78,13 @@ export default function useXpUpdate(tokenId) {
       );
       let res = await dnft.idToNft(tokenId);
       console.log(res);
+      setUpdate(res);
 
       const TENDERLY_FORK_ACCESS_URL = `https://api.tenderly.co/api/v1/account/${process.env.REACT_APP_TENDERLY_USER}/project/${process.env.REACT_APP_TENDERLY_PROJECT}/fork/${forkId}`;
       await axios.delete(TENDERLY_FORK_ACCESS_URL, opts);
     }
     updateXP();
   }, [tokenId]);
+
+  return { update };
 }

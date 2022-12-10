@@ -3,8 +3,9 @@ import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_POOL } from "../consts/contract";
 import PopupContent from "./PopupContent";
 import useGasCost from "../hooks/useGasCost";
+import useXpUpdate from "../hooks/useXpUpdate";
 
-export default function Sync({ onClose, setTxHash }) {
+export default function Sync({ onClose, setTxHash, tokenId }) {
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_POOL,
     contractInterface: PoolABI["abi"],
@@ -20,6 +21,8 @@ export default function Sync({ onClose, setTxHash }) {
   });
 
   const { gasCost } = useGasCost(config);
+  // const { update } = useXpUpdate(tokenId);
+  // console.log(update);
 
   return (
     <PopupContent
@@ -32,6 +35,7 @@ export default function Sync({ onClose, setTxHash }) {
       isDisabled={!write}
     >
       <div className="flex flex-col gap-4">
+        {/* {update && parseInt(update[2]._hex)} */}
         <div>+ help sync ALL DYAD NFT's for all players!</div>
         <div className="bg-[#3A403C] h-[1px] w-full"></div>
         <div className="flex justify-between">
