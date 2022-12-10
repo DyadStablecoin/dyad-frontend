@@ -52,7 +52,7 @@ export default function Button({
       <div className="flex gap-2 justify-center items-center">
         {children}
         <div>
-          <LoadingCore isLoading={isLoading} />
+          <LoadingCore isLoading={isLoading} color={borderColor} />
         </div>
       </div>
     </div>
