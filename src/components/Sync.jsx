@@ -22,7 +22,7 @@ export default function Sync({ onClose, setTxHash, tokenId, nft }) {
   });
 
   const { gasCost } = useGasCost(config);
-  const { update } = useXpUpdate(tokenId);
+  const { nftAfterSyncSimulation } = useXpUpdate(tokenId);
 
   return (
     <PopupContent
@@ -35,7 +35,7 @@ export default function Sync({ onClose, setTxHash, tokenId, nft }) {
       isDisabled={!write}
     >
       <div className="flex flex-col gap-4">
-        {update && (
+        {nftAfterSyncSimulation && (
           <>
             <div className="flex justify-between">
               <div className="text-sm">Before</div>
@@ -50,11 +50,11 @@ export default function Sync({ onClose, setTxHash, tokenId, nft }) {
                 <SwapRightOutlined />
               </div>
               <div className="flex gap-6 items-center justify-center">
-                {parseInt(update[2]._hex)}
+                {parseInt(nftAfterSyncSimulation[2]._hex)}
                 <div className="flex gap-1 items-center">
                   <div className="text-sm text-green-300">+</div>
                   <div className="text-sm">
-                    {parseInt(update[2]._hex) - nft.xp}
+                    {parseInt(nftAfterSyncSimulation[2]._hex) - nft.xp}
                   </div>
                 </div>
               </div>
