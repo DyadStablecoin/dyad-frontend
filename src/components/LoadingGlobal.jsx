@@ -1,7 +1,7 @@
 import LoadingCore from "./LoadingCore";
 
 // global loading, that blocks the application
-export default function Loading({ isLoading }) {
+export default function LoadingGlobal({ isLoading }) {
   return (
     <>
       {isLoading && (
