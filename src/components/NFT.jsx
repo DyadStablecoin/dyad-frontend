@@ -98,6 +98,7 @@ export default function NFT({ index, xps, xpsAverage }) {
                 tokenId={tokenId}
                 onClose={onCloseSync}
                 setTxHash={setTxHash}
+                nft={nft}
               />
             </Popup>
           </>
