@@ -35,33 +35,33 @@ export default function Sync({ onClose, setTxHash, tokenId, nft }) {
       isDisabled={!write}
     >
       <div className="flex flex-col gap-4">
-        <div className="flex justify-between">
-          <div className="text-sm">Before</div>
-          <div className="text-sm">After</div>
-        </div>
-        <div className="flex justify-between items-center">
-          {nft && (
-            <div>
-              <div className="text-[#737E76]">XP</div>
-              <div>{nft.xp}</div>
+        {update && (
+          <>
+            <div className="flex justify-between">
+              <div className="text-sm">Before</div>
+              <div className="text-sm">After</div>
             </div>
-          )}
-          <div>
-            <SwapRightOutlined />
-          </div>
-          {update && (
-            <div className="flex gap-6 items-center justify-center">
-              {update && parseInt(update[2]._hex)}
-              <div className="flex gap-1 items-center">
-                <div className="text-sm text-green-300">+</div>
-                <div className="text-sm">
-                  {parseInt(update[2]._hex) - nft.xp}
+            <div className="flex justify-between items-center">
+              <div>
+                <div className="text-[#737E76]">XP</div>
+                <div>{nft.xp}</div>
+              </div>
+              <div>
+                <SwapRightOutlined />
+              </div>
+              <div className="flex gap-6 items-center justify-center">
+                {parseInt(update[2]._hex)}
+                <div className="flex gap-1 items-center">
+                  <div className="text-sm text-green-300">+</div>
+                  <div className="text-sm">
+                    {parseInt(update[2]._hex) - nft.xp}
+                  </div>
                 </div>
               </div>
             </div>
-          )}
-        </div>
-        <div className="bg-[#3A403C] h-[1px] w-full"></div>
+            <div className="bg-[#3A403C] h-[1px] w-full"></div>
+          </>
+        )}
         <div>+ help sync ALL DYAD NFT's for all players!</div>
         <div className="bg-[#3A403C] h-[1px] w-full"></div>
         <div className="flex justify-between">

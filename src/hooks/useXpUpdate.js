@@ -4,6 +4,8 @@ import { CURRENT_NETWORK } from "../consts/consts";
 import axios from "axios";
 import poolABI from "../abi/Pool.json";
 import dnftABI from "../abi/dNFT.json";
+import { CONTRACT_POOL, CONTRACT_dNFT } from "../consts/contract";
+import { useAccount } from "wagmi";
 
 const TENDERLY_FORK_API = `https://api.tenderly.co/api/v1/account/${process.env.REACT_APP_TENDERLY_USER}/project/${process.env.REACT_APP_TENDERLY_PROJECT}/fork`;
 
@@ -14,11 +16,12 @@ const opts = {
 };
 
 export default function useXpUpdate(tokenId) {
+  const { address } = useAccount();
   const [update, setUpdate] = useState();
 
   useEffect(() => {
     async function updateXP() {
-      if (!tokenId) return;
+      if (!tokenId || !address) return;
 
       const gp = new ethers.providers.JsonRpcProvider(
         process.env.REACT_APP_INFURA
@@ -48,22 +51,14 @@ export default function useXpUpdate(tokenId) {
       ];
       await provider.send("tenderly_addBalance", params);
 
-      const pool = new ethers.Contract(
-        "0x67488Df72673d85c42a83e5ECAdBBEeA16C01A22",
-        poolABI["abi"],
-        signer
-      );
-      const dnft = new ethers.Contract(
-        "0x93c23f661F11E5cF62791294E03ee353AD1009a3",
-        dnftABI["abi"],
-        signer
-      );
+      const pool = new ethers.Contract(CONTRACT_POOL, poolABI["abi"], signer);
+      const dnft = new ethers.Contract(CONTRACT_dNFT, dnftABI["abi"], signer);
 
       const unsignedTx = await pool.populateTransaction.sync();
       const transactionParameters = [
         {
           to: pool.address,
-          from: "0xEd6715D2172BFd50C2DBF608615c2AB497904803",
+          from: address,
           data: unsignedTx.data,
           gas: ethers.utils.hexValue(3000000),
           gasPrice: ethers.utils.hexValue(1),
