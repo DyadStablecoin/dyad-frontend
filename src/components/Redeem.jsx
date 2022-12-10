@@ -1,4 +1,4 @@
-import { round, round2 } from "../utils/currency";
+import { round, normalize } from "../utils/currency";
 import dNFTABI from "../abi/dNFT.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
@@ -13,7 +13,7 @@ import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 
 export default function Redeem({ tokenId, onClose, setTxHash }) {
-  const { balances } = useBalances([]);
+  const { balances } = useBalances();
   const [dyad, setDyad] = useState("");
   const { ethPrice } = useEthPrice();
   const { address } = useAccount();
@@ -69,7 +69,7 @@ export default function Redeem({ tokenId, onClose, setTxHash }) {
               <div>DYAD</div>
             </div>
             <div className="text-[#737E76]">
-              Balance:{round2(balances.balanceOfDyad / 10 ** 18)}
+              Balance:{round(normalize(balances.balanceOfDyad), 2)}
             </div>
           </div>
         </div>

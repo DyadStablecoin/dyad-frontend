@@ -89,7 +89,7 @@ export default function NFT({ index, xps, xpsAverage }) {
             <Popup isOpen={isOpenRedeem} onClose={onCloseRedeem}>
               <Redeem
                 tokenId={tokenId}
-                onClose={onCloseWithdraw}
+                onClose={onCloseRedeem}
                 setTxHash={setTxHash}
               />
             </Popup>

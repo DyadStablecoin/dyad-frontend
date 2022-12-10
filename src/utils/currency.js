@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 
 export function formatUSD(amount, removeDollarSign = false) {
@@ -19,6 +18,13 @@ export function round2(value) {
 }
 export function round(value, decimals) {
   return Math.round(parseFloat(value) * 10 ** decimals) / 10 ** decimals;
+}
+
+export function normalize(value) {
+  if (value) {
+    return parseFloat(value) / 10 ** 18;
+  }
+  return 0;
 }
 
 // thin wrapper around `ethers.utils.parseEther`

@@ -3,7 +3,7 @@ import { CONTRACT_dNFT } from "../consts/contract";
 import dNFTabi from "../consts/abi/dNFTABI.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
-import { parseEther, round2 } from "../utils/currency";
+import { parseEther, round, normalize } from "../utils/currency";
 import PopupContent from "./PopupContent";
 import { useBalances } from "../hooks/useBalances";
 import useApprove from "../hooks/useApprove";
@@ -70,11 +70,13 @@ export default function Deposit({ tokenId, onClose, setTxHash }) {
           </div>
           <div className="flex gap-2 items-center justify-center">
             <div className="text-[#737E76]">
-              Balance:{round2(balances.balanceOfDyad / 10 ** 18)}
+              Balance:{round(normalize(balances.balanceOfDyad), 2)}
             </div>
             <div
               className="text-[#584BAA] text-xl font-bold cursor-pointer"
-              onClick={() => setDyad(round2(balances.balanceOfDyad / 10 ** 18))}
+              onClick={() =>
+                setDyad(round(normalize(balances.balanceOfDyad), 2))
+              }
             >
               MAX
             </div>
