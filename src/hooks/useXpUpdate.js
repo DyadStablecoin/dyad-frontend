@@ -28,7 +28,6 @@ export default function useXpUpdate(tokenId) {
         network_id: CURRENT_NETWORK.id,
         block_number: blockNumber,
       };
-      console.log(body);
       let forkId;
       await axios
         .post(TENDERLY_FORK_API, body, opts)
@@ -39,7 +38,6 @@ export default function useXpUpdate(tokenId) {
           forkId = res.data.simulation_fork.id;
         })
         .catch((err) => console.log(err));
-      console.log(forkId);
       const forkRPC = `https://rpc.tenderly.co/fork/${forkId}`;
       const provider = new ethers.providers.JsonRpcProvider(forkRPC);
       const signer = provider.getSigner();
@@ -72,12 +70,8 @@ export default function useXpUpdate(tokenId) {
           value: ethers.utils.hexValue(0),
         },
       ];
-      const txHash = await provider.send(
-        "eth_sendTransaction",
-        transactionParameters
-      );
+      await provider.send("eth_sendTransaction", transactionParameters);
       let res = await dnft.idToNft(tokenId);
-      console.log(res);
       setUpdate(res);
 
       const TENDERLY_FORK_ACCESS_URL = `https://api.tenderly.co/api/v1/account/${process.env.REACT_APP_TENDERLY_USER}/project/${process.env.REACT_APP_TENDERLY_PROJECT}/fork/${forkId}`;

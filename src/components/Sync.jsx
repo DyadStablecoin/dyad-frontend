@@ -23,7 +23,6 @@ export default function Sync({ onClose, setTxHash, tokenId, nft }) {
 
   const { gasCost } = useGasCost(config);
   const { update } = useXpUpdate(tokenId);
-  // console.log(update);
 
   return (
     <PopupContent
