@@ -4,7 +4,7 @@ import { CONTRACT_POOL } from "../consts/contract";
 import PopupContent from "./PopupContent";
 import useGasCost from "../hooks/useGasCost";
 import { SwapRightOutlined } from "@ant-design/icons";
-import useNftSimulation from "../hooks/useNftSimulation";
+import useNftSyncSimulation from "../hooks/useNftSyncSimulation";
 
 export default function Sync({ onClose, setTxHash, tokenId, nft }) {
   const { config } = usePrepareContractWrite({
@@ -22,7 +22,7 @@ export default function Sync({ onClose, setTxHash, tokenId, nft }) {
   });
 
   const { gasCost } = useGasCost(config);
-  const { nftAfterSyncSimulation } = useNftSimulation(tokenId);
+  const { nftAfterSimulation } = useNftSyncSimulation(tokenId);
 
   return (
     <PopupContent
@@ -35,7 +35,7 @@ export default function Sync({ onClose, setTxHash, tokenId, nft }) {
       isDisabled={!write}
     >
       <div className="flex flex-col gap-4">
-        {nftAfterSyncSimulation && (
+        {nftAfterSimulation && (
           <>
             <div className="flex justify-between">
               <div className="text-sm">Before</div>
@@ -50,11 +50,11 @@ export default function Sync({ onClose, setTxHash, tokenId, nft }) {
                 <SwapRightOutlined />
               </div>
               <div className="flex gap-6 items-center justify-center">
-                {parseInt(nftAfterSyncSimulation[2]._hex)}
+                {parseInt(nftAfterSimulation[2]._hex)}
                 <div className="flex gap-1 items-center">
                   <div className="text-sm text-green-300">+</div>
                   <div className="text-sm">
-                    {parseInt(nftAfterSyncSimulation[2]._hex) - nft.xp}
+                    {parseInt(nftAfterSimulation[2]._hex) - nft.xp}
                   </div>
                 </div>
               </div>

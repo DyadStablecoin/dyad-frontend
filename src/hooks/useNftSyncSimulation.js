@@ -16,9 +16,9 @@ const opts = {
 };
 
 // simulate a sync call
-export default function useNftSimulation(tokenId) {
+export default function useNftSyncSimulation(tokenId) {
   const { address } = useAccount();
-  const [nftAfterSyncSimulation, setNftAfterSyncSimulation] = useState();
+  const [nftAfterSimulation, setNftAfterSimulation] = useState();
 
   useEffect(() => {
     async function updateXP() {
@@ -68,7 +68,7 @@ export default function useNftSimulation(tokenId) {
       ];
       await provider.send("eth_sendTransaction", transactionParameters);
       let res = await dnft.idToNft(tokenId);
-      setNftAfterSyncSimulation(res);
+      setNftAfterSimulation(res);
 
       const TENDERLY_FORK_ACCESS_URL = `https://api.tenderly.co/api/v1/account/${process.env.REACT_APP_TENDERLY_USER}/project/${process.env.REACT_APP_TENDERLY_PROJECT}/fork/${forkId}`;
       await axios.delete(TENDERLY_FORK_ACCESS_URL, opts);
@@ -76,5 +76,5 @@ export default function useNftSimulation(tokenId) {
     updateXP();
   }, [tokenId]);
 
-  return { nftAfterSyncSimulation };
+  return { nftAfterSimulation };
 }
