@@ -11,10 +11,12 @@ export default function useGasCost(config) {
   });
 
   useEffect(() => {
-    const gasLimit = parseInt(config.request.gasLimit._hex);
-    const maxFeePerGas = parseFloat(data?.formatted.maxFeePerGas);
-    const gasCost = gasLimit * maxFeePerGas;
-    setGasCost(round(gasCost / 10 ** 9, 8));
+    if (config && config.request) {
+      const gasLimit = parseInt(config.request.gasLimit._hex);
+      const maxFeePerGas = parseFloat(data?.formatted.maxFeePerGas);
+      const gasCost = gasLimit * maxFeePerGas;
+      setGasCost(round(gasCost / 10 ** 9, 8));
+    }
   }, [config]);
 
   return { gasCost };
