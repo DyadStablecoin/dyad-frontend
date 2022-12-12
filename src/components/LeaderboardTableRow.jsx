@@ -32,7 +32,7 @@ export default function LeaderboardTableRow({ nft, rank, filter }) {
           <td className="hidden md:table-cell">
             {round(nft.deposit / 10 ** 18, 2)}
           </td>
-          {false && (
+          {nft.deposit < 0 && (
             <td>
               <Button style="w-[6rem]">Liquidate</Button>
             </td>
