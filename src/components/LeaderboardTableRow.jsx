@@ -16,6 +16,20 @@ export default function LeaderboardTableRow({
   const { owner: address } = useIdToOwner(nft.id);
   const { ensName, isMatching, isLoading } = useFilterAddress(address, filter);
 
+  function renderLiquidateBtn() {
+    if (isOneLiquidatable) {
+      if (nft.deposit < 0) {
+        return (
+          <td className="w-[4rem]">
+            <Button style="w-[6rem]">Liquidate</Button>
+          </td>
+        );
+      } else {
+        return <td></td>;
+      }
+    }
+  }
+
   return (
     <>
       {isMatching && (
@@ -37,13 +51,7 @@ export default function LeaderboardTableRow({
           <td className="hidden md:table-cell">
             {round(nft.deposit / 10 ** 18, 2)}
           </td>
-          {nft.deposit < 0 ? (
-            <td className="w-[4rem]">
-              <Button style="w-[6rem]">Liquidate</Button>
-            </td>
-          ) : (
-            isOneLiquidatable && <td></td>
-          )}
+          {renderLiquidateBtn()}
           <td className="hidden md:table-cell">
             {depositRatio(nft.withdrawn, nft.deposit)}%
           </td>
