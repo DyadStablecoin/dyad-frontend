@@ -25,10 +25,10 @@ export default function NavBar() {
   return (
     <div>
       <div
-        className="flex items-center justify-between border-b border-gray-800 p-2"
+        className="flex items-center justify-between p-2"
         style={{
           backgroundColor: isSafetyModeActivated && "#2F0F13",
-          borderBottom: "0.02rem solid #403B39",
+          borderBottom: "0.02rem solid #1f2937",
         }}
       >
         <div className="flex md:gap-16 items-center justiy-center cursor-pointer">
