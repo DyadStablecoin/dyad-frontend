@@ -19,7 +19,7 @@ export default function MenuCustom() {
         <MenuItem style={MENU_ITEM_STYLE} onClick={() => navigate("/")}>
           Home
         </MenuItem>
-        <MenuItem style={MENU_ITEM_STYLE}>Dashboard</MenuItem>
+        {/* <MenuItem style={MENU_ITEM_STYLE}>Dashboard</MenuItem> */}
         <MenuItem
           style={MENU_ITEM_STYLE}
           onClick={() => navigate("/leaderboard")}
@@ -29,10 +29,7 @@ export default function MenuCustom() {
         <MenuItem
           style={MENU_ITEM_STYLE}
           onClick={() =>
-            window.open(
-              "https://docs-8fzo3j5z1-dyad.vercel.app/intro",
-              "_blank"
-            )
+            window.open("https://docs-psi-six.vercel.app/intro", "_blank")
           }
         >
           Docs
