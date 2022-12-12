@@ -2,6 +2,7 @@ import { MenuOutlined } from "@ant-design/icons";
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { DOCS_URL } from "../consts/consts";
 
 export default function MenuCustom() {
   const navigate = useNavigate();
@@ -27,9 +28,7 @@ export default function MenuCustom() {
         </MenuItem>
         <MenuItem
           style={MENU_ITEM_STYLE}
-          onClick={() =>
-            window.open("https://docs-psi-six.vercel.app/intro", "_blank")
-          }
+          onClick={() => window.open(DOCS_URL + "/intro")}
         >
           Docs
         </MenuItem>

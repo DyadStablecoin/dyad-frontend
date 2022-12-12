@@ -5,6 +5,8 @@ export const MIN_DEPOSIT = 1000000000000000;
 export const MIN_DEPOSIT_USD = 1;
 export const SAFETY_MODE_THRESHOLD = 150;
 
+export const DOCS_URL = "https://docs-psi-six.vercel.app";
+
 export const NETWORKS = {
   Mainnet: {
     id: 1,
