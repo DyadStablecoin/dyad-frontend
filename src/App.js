@@ -6,20 +6,18 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageNotFound from "./components/PageNotFound";
 import Footer from "./components/Footer";
-import useCR from "./hooks/useCR";
 import Leaderboard from "./components/Leaderboard";
 import useBlockchain from "./hooks/useBlockchain";
 import { CURRENT_NETWORK } from "./consts/consts";
 import Button from "./components/Button";
 
 export default function App() {
-  const { cr } = useCR();
   const { isConnected, chain, switchNetwork } = useBlockchain();
 
   return (
     <BrowserRouter>
       <div className="page-container content-wrap font-serif font-bold text-white">
-        <NavBar isSafetyModeActivated={cr > 150} />
+        <NavBar />
         {isConnected ? (
           <>
             {chain.id === CURRENT_NETWORK.id ? (

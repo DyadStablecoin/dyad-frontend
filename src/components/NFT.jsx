@@ -22,6 +22,7 @@ import { useWaitForTransaction } from "wagmi";
 import { useBalances } from "../hooks/useBalances";
 import Redeem from "./Redeem";
 import useRank from "../hooks/useRank";
+import useSafetyModeActivated from "../hooks/useSafetyMode";
 
 const HEADER = "text-gray-500 text-sm";
 
@@ -30,6 +31,7 @@ export default function NFT({ index, xps, xpsAverage }) {
   const { tokenId } = useTokenOfOwnerByIndex(index);
   const { refetch, nft, isLoading, isFetching } = useNft(tokenId);
   const { rank } = useRank(xps, nft.xp);
+  const { isSafetyModeActivated } = useSafetyModeActivated();
   useBalances([nft]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -230,7 +232,9 @@ export default function NFT({ index, xps, xpsAverage }) {
                     </Button>
                     <Button
                       onClick={onOpenWithdraw}
-                      isDisabled={isFetching || isFetchingTx}
+                      isDisabled={
+                        isFetching || isFetchingTx || isSafetyModeActivated
+                      }
                     >
                       Withdraw
                     </Button>
