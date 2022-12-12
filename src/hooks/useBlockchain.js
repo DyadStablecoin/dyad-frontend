@@ -1,4 +1,4 @@
-import { useAccount, useNetwork } from "wagmi";
+import { useAccount, useNetwork, useSwitchNetwork } from "wagmi";
 import useEnsName from "./useEnsName";
 
 /**
@@ -9,6 +9,7 @@ export default function useBlockchain() {
   const { address, isConnected } = useAccount();
   const { chain } = useNetwork();
   const { ensName } = useEnsName(address);
+  const { switchNetwork } = useSwitchNetwork();
 
-  return { ensName, address, isConnected, chain };
+  return { ensName, address, isConnected, chain, switchNetwork };
 }

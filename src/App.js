@@ -10,10 +10,11 @@ import useCR from "./hooks/useCR";
 import Leaderboard from "./components/Leaderboard";
 import useBlockchain from "./hooks/useBlockchain";
 import { CURRENT_NETWORK } from "./consts/consts";
+import Button from "./components/Button";
 
 export default function App() {
   const { cr } = useCR();
-  const { isConnected, chain } = useBlockchain();
+  const { isConnected, chain, switchNetwork } = useBlockchain();
 
   return (
     <BrowserRouter>
@@ -30,8 +31,11 @@ export default function App() {
                 </Routes>
               </div>
             ) : (
-              <div className="mt-10 flex justify-center">
-                Please connect to the {CURRENT_NETWORK.name} Network!
+              <div className="mt-10 flex justify-center gap-2">
+                Please switch to the {CURRENT_NETWORK.name} Network!
+                <Button onClick={() => switchNetwork(CURRENT_NETWORK.id)}>
+                  Switch
+                </Button>
               </div>
             )}
           </>
