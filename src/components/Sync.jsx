@@ -34,6 +34,9 @@ export default function Sync({ onClose, setTxHash, tokenId, nft }) {
       }}
       isDisabled={!write}
       isLoading={isLoading}
+      infoOnClick={() =>
+        window.open("https://docs-psi-six.vercel.app/pool#sync")
+      }
     >
       <div className="flex flex-col gap-4">
         {nftAfterSimulation && (
