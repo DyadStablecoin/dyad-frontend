@@ -13,7 +13,7 @@ export function calcdNFTAvg() {
 // the higher the better
 export function depositRatio(withdrawn, deposit) {
   if (deposit === 0) return 0;
-  return 100 - round((withdrawn / deposit) * 100, 2);
+  return round(100 - (withdrawn / deposit) * 100, 2);
 }
 
 export function dyadMultiplier(dNFT, dNFTAvg, xp, xpAvg) {
