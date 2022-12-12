@@ -11,6 +11,7 @@ export default function Button({
   textColor,
   isLarge,
   isLoading,
+  style,
 }) {
   const [isHover, setIsHover] = useState(false);
   const handleMouseEnter = () => {
@@ -28,8 +29,9 @@ export default function Button({
       ${
         isLarge
           ? "border-[1px] w-full p-[1rem] text-xl"
-          : "border-2 pt-0 pb-0 pr-4 pl-4 "
+          : "border-2 pt-0 pb-0 pr-4 pl-4"
       }
+      ${style && style}
       ${isDisabled && "opacity-50 cursor-not-allowed"}
       ${!isDisabled && "hover:border-white"}
       `}
@@ -51,13 +53,11 @@ export default function Button({
     >
       <div className="flex gap-2 justify-center items-center">
         {children}
-        <div>
-          <LoadingCore
-            isLoading={isLoading}
-            color={borderColor}
-            style="w-[2rem] m-1"
-          />
-        </div>
+        {isLoading && (
+          <div>
+            <LoadingCore isLoading color={borderColor} style="w-[2rem] m-1" />
+          </div>
+        )}
       </div>
     </div>
   );

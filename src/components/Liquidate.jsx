@@ -1,5 +1,7 @@
-import Button from "./Button";
-
 export default function Sync({}) {
-  return <Button>Liquidate</Button>;
+  return (
+    <div>
+      <div>ttt</div>
+    </div>
+  );
 }

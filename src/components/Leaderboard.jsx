@@ -2,27 +2,17 @@ import { useState } from "react";
 import useNfts from "../hooks/useNfts";
 import useSortByXp from "../hooks/useSortByXp";
 import LeaderboardHeader from "./LeaderboardHeader";
-import LeaderboardRow from "./LeaderboardRow";
+import LeaderboardTableRow from "./LeaderboardTableRow";
 import LeaderboardSearch from "./LeaderboardSearch";
+import LeaderboardTableHeader from "./LeaderboardTableHeader";
 import LoadingGlobal from "./LoadingGlobal";
-
-const TABLE_HEADER = (
-  <tr className="text-[#737E76]">
-    <th></th>
-    <th>Rank</th>
-    <th>XP</th>
-    <th>value</th>
-    <th className="hidden md:table-cell">Withdrawn</th>
-    <th className="hidden md:table-cell">Deposited</th>
-    <th className="hidden md:table-cell">Deposit Ratio</th>
-    <th>Address</th>
-  </tr>
-);
+import useIsOneNftLiquidatable from "../hooks/useIsOneNftLiquidatable";
 
 export default function Leaderboard() {
   const { nfts, isFetching } = useNfts();
   const { sortedNfts } = useSortByXp(nfts);
   const [filter, setFilter] = useState("");
+  const { isOneLiquidatable } = useIsOneNftLiquidatable(sortedNfts);
 
   return (
     <div className="flex items-center justify-center flex-col">
@@ -42,8 +32,17 @@ export default function Leaderboard() {
                */
               return (
                 <>
-                  {i === 0 && TABLE_HEADER}
-                  <LeaderboardRow nft={nft} rank={i + 1} filter={filter} />
+                  {i === 0 && (
+                    <LeaderboardTableHeader
+                      isOneLiquidatable={isOneLiquidatable}
+                    />
+                  )}
+                  <LeaderboardTableRow
+                    nft={nft}
+                    rank={i + 1}
+                    filter={filter}
+                    isOneLiquidatable={isOneLiquidatable}
+                  />
                 </>
               );
             })}
