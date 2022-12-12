@@ -5,6 +5,7 @@ import PopupContent from "./PopupContent";
 import useGasCost from "../hooks/useGasCost";
 import { SwapRightOutlined } from "@ant-design/icons";
 import useNftSyncSimulation from "../hooks/useNftSyncSimulation";
+import { DOCS_URL } from "../consts/consts";
 
 export default function Sync({ onClose, setTxHash, tokenId, nft }) {
   const { config } = usePrepareContractWrite({
@@ -34,9 +35,7 @@ export default function Sync({ onClose, setTxHash, tokenId, nft }) {
       }}
       isDisabled={!write}
       isLoading={isLoading}
-      infoOnClick={() =>
-        window.open("https://docs-psi-six.vercel.app/pool#sync")
-      }
+      infoOnClick={() => window.open(DOCS_URL + "/pool#sync")}
     >
       <div className="flex flex-col gap-4">
         {nftAfterSimulation && (
