@@ -12,7 +12,7 @@ export default function NFTs() {
 
   return (
     <>
-      {balances.balanceOfdNFT > 0 && (
+      {balances.balanceOfdNFT > 0 ? (
         <div>
           <div className="mb-2">Your dNFTs</div>
           <div className="flex flex-col gap-2">
@@ -20,6 +20,10 @@ export default function NFTs() {
               return <NFT xps={xps} xpsAverage={average} index={i} />;
             })}
           </div>
+        </div>
+      ) : (
+        <div className="text-gray-600 text-xl mt-[8rem]">
+          Wow, such empty...
         </div>
       )}
     </>
