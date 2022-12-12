@@ -6,11 +6,13 @@ import LeaderboardTableRow from "./LeaderboardTableRow";
 import LeaderboardSearch from "./LeaderboardSearch";
 import LeaderboardTableHeader from "./LeaderboardTableHeader";
 import LoadingGlobal from "./LoadingGlobal";
+import useIsOneNftLiquidatable from "../hooks/useIsOneNftLiquidatable";
 
 export default function Leaderboard() {
   const { nfts, isFetching } = useNfts();
   const { sortedNfts } = useSortByXp(nfts);
   const [filter, setFilter] = useState("");
+  const { isOneLiquidatable } = useIsOneNftLiquidatable(sortedNfts);
 
   return (
     <div className="flex items-center justify-center flex-col">
@@ -30,8 +32,17 @@ export default function Leaderboard() {
                */
               return (
                 <>
-                  {i === 0 && <LeaderboardTableHeader nfts={sortedNfts} />}
-                  <LeaderboardTableRow nft={nft} rank={i + 1} filter={filter} />
+                  {i === 0 && (
+                    <LeaderboardTableHeader
+                      isOneLiquidatable={isOneLiquidatable}
+                    />
+                  )}
+                  <LeaderboardTableRow
+                    nft={nft}
+                    rank={i + 1}
+                    filter={filter}
+                    isOneLiquidatable={isOneLiquidatable}
+                  />
                 </>
               );
             })}
