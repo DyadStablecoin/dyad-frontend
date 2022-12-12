@@ -19,7 +19,6 @@ export default function MenuCustom() {
         <MenuItem style={MENU_ITEM_STYLE} onClick={() => navigate("/")}>
           Home
         </MenuItem>
-        {/* <MenuItem style={MENU_ITEM_STYLE}>Dashboard</MenuItem> */}
         <MenuItem
           style={MENU_ITEM_STYLE}
           onClick={() => navigate("/leaderboard")}
