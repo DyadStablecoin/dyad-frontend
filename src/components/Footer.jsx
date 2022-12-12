@@ -17,11 +17,9 @@ export default function Footer() {
         <Icon onClick={() => window.open("https://medium.com/@dyadstable")}>
           <MediumOutlined />
         </Icon>
-        <div className="mt-2">
-          <Icon onClick={() => window.open("http://discord.gg/DYAD")}>
-            <SiDiscord />
-          </Icon>
-        </div>
+        <Icon onClick={() => window.open("http://discord.gg/DYAD")}>
+          <SiDiscord />
+        </Icon>
       </div>
     </div>
   );

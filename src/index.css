@@ -159,7 +159,5 @@ tr td:last-child {
   border-color: #413E6a;
   box-shadow: 0 0 40px #413E6a;
   background-color: #413E6a;
-  font-size: 1.5em; 
+  /* font-size: 1.5em; */ 
 }
-
-
