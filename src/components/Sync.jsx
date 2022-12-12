@@ -22,7 +22,7 @@ export default function Sync({ onClose, setTxHash, tokenId, nft }) {
   });
 
   const { gasCost } = useGasCost(config);
-  const { nftAfterSimulation } = useNftSyncSimulation(tokenId);
+  const { nftAfterSimulation, isLoading } = useNftSyncSimulation(tokenId);
 
   return (
     <PopupContent
@@ -33,6 +33,7 @@ export default function Sync({ onClose, setTxHash, tokenId, nft }) {
         write?.();
       }}
       isDisabled={!write}
+      isLoading={isLoading}
     >
       <div className="flex flex-col gap-4">
         {nftAfterSimulation && (

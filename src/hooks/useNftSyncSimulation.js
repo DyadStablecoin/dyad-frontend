@@ -15,15 +15,17 @@ const opts = {
   },
 };
 
-// simulate a sync call
+// simulate a sync call for a specific nft
 export default function useNftSyncSimulation(tokenId) {
   const { address } = useAccount();
   const [nftAfterSimulation, setNftAfterSimulation] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function updateXP() {
       if (!tokenId || !address) return;
 
+      setIsLoading(true);
       const gp = new ethers.providers.JsonRpcProvider(
         process.env.REACT_APP_INFURA
       );
@@ -32,6 +34,7 @@ export default function useNftSyncSimulation(tokenId) {
         network_id: CURRENT_NETWORK.id,
         block_number: blockNumber,
       };
+
       let forkId;
       await axios
         .post(TENDERLY_FORK_API, body, opts)
@@ -42,15 +45,10 @@ export default function useNftSyncSimulation(tokenId) {
           forkId = res.data.simulation_fork.id;
         })
         .catch((err) => console.log(err));
+
       const forkRPC = `https://rpc.tenderly.co/fork/${forkId}`;
       const provider = new ethers.providers.JsonRpcProvider(forkRPC);
       const signer = provider.getSigner();
-
-      const params = [
-        ["0xEd6715D2172BFd50C2DBF608615c2AB497904803"],
-        ethers.utils.hexValue(100), // hex encoded wei amount
-      ];
-      await provider.send("tenderly_addBalance", params);
 
       const pool = new ethers.Contract(CONTRACT_POOL, poolABI["abi"], signer);
       const dnft = new ethers.Contract(CONTRACT_dNFT, dnftABI["abi"], signer);
@@ -69,6 +67,7 @@ export default function useNftSyncSimulation(tokenId) {
       await provider.send("eth_sendTransaction", transactionParameters);
       let res = await dnft.idToNft(tokenId);
       setNftAfterSimulation(res);
+      setIsLoading(false);
 
       const TENDERLY_FORK_ACCESS_URL = `https://api.tenderly.co/api/v1/account/${process.env.REACT_APP_TENDERLY_USER}/project/${process.env.REACT_APP_TENDERLY_PROJECT}/fork/${forkId}`;
       await axios.delete(TENDERLY_FORK_ACCESS_URL, opts);
@@ -76,5 +75,5 @@ export default function useNftSyncSimulation(tokenId) {
     updateXP();
   }, [tokenId]);
 
-  return { nftAfterSimulation };
+  return { nftAfterSimulation, isLoading };
 }
