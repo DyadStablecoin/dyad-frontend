@@ -4,7 +4,6 @@ import Button from "../Button";
 import logo from "../../static/dyad-logo.svg";
 import WalletOutlined from "@ant-design/icons/lib/icons/WalletOutlined";
 import { dNFT_PRICE } from "../../consts/consts";
-import ProgressBar from "../ProgressBar";
 import { WarningFilled } from "@ant-design/icons";
 import useBlockchain from "../../hooks/useBlockchain";
 import { useBalances } from "../../hooks/useBalances";
@@ -12,13 +11,15 @@ import useCR from "../../hooks/useCR";
 import Menu from "../Menu";
 import { useNavigate } from "react-router-dom";
 import { COLORS } from "../../consts/colors";
+import useSafetyModeActivated from "../../hooks/useSafetyMode";
 
-export default function NavBar({ isSafetyModeActivated }) {
+export default function NavBar() {
   const { disconnect } = useDisconnect();
   const { connect, connectors } = useConnect();
   const { ensName, address, isConnected } = useBlockchain();
   const { balances } = useBalances();
   const { cr } = useCR();
+  const { isSafetyModeActivated } = useSafetyModeActivated();
   let navigate = useNavigate();
 
   return (
