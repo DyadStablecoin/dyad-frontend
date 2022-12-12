@@ -24,9 +24,8 @@ export default function LeaderboardTableRow({
             <Button style="w-[6rem]">Liquidate</Button>
           </td>
         );
-      } else {
-        return <td></td>;
       }
+      return <td></td>;
     }
   }
 
