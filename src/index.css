@@ -133,14 +133,15 @@ background:
   z-index:3;
 }
 
-table.leaderboard {
-  /* width: 90%; */
-  margin-top: 2rem;
-}
-
 .chakra-modal__content {
   margin: 0;
   padding: 0;
+}
+
+table.leaderboard {
+  /* width: 90%; */
+  margin-top: 2rem;
+  table-layout: fixed;
 }
 
 td {
@@ -150,13 +151,15 @@ td {
 }
 
 tr td:last-child {
-    width: 1%;
-    white-space: nowrap;
+  width: 1%;
+  white-space: nowrap;
 }
 
-tr:hover {
+.leaderboard-row:hover {
   border-color: #413E6a;
   box-shadow: 0 0 40px #413E6a;
   background-color: #413E6a;
+  font-size: 1.5em; 
 }
+
 

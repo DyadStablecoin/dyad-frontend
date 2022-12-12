@@ -32,7 +32,7 @@ export default function LeaderboardTableRow({
   return (
     <>
       {isMatching && (
-        <tr style={{ border: "1px solid #3A403C" }}>
+        <tr className="leaderboard-row" style={{ border: "1px solid #3A403C" }}>
           <td>
             <LoadingInplace isLoading={isLoading} style="w-[40px]" />
             <img
