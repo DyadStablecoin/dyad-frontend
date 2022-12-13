@@ -1,10 +1,11 @@
 import Claim from "./Claim";
+import Liquidate from "./Liquidate";
 import NFTs from "./NFTs";
 
 export default function Home() {
   return (
     <>
-      <Claim />
+      <Liquidate />
       <div className="mt-[1rem] flex justify-center items-center w-full">
         <NFTs />
       </div>
