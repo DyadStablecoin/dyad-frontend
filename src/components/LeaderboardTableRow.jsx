@@ -1,3 +1,5 @@
+import { useDisclosure } from "@chakra-ui/react";
+import { useWaitForTransaction } from "wagmi";
 import { dNFT_PRICE, RANDOM_IMAGES } from "../consts/consts";
 import useFilterAddress from "../hooks/useFilterAddress";
 import useIdToOwner from "../hooks/useIdToOwner";
@@ -5,7 +7,11 @@ import { addressSummary } from "../utils/address";
 import { formatUSD, round } from "../utils/currency";
 import { depositRatio } from "../utils/stats";
 import Button from "./Button";
+import Liquidate from "./Liquidate";
 import LoadingInplace from "./LoadingInplace";
+import Popup from "./Popup";
+import { useState } from "react";
+import useNft from "../hooks/useNft";
 
 export default function LeaderboardTableRow({
   isOneLiquidatable,
@@ -13,15 +19,21 @@ export default function LeaderboardTableRow({
   rank,
   filter,
 }) {
+  const [txHash, setTxHash] = useState();
+
   const { owner: address } = useIdToOwner(nft.id);
   const { ensName, isMatching, isLoading } = useFilterAddress(address, filter);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { refetch, isLoading: isLoadingNft } = useNft(nft.id);
 
   function renderLiquidateBtn() {
     if (isOneLiquidatable) {
       if (nft.deposit < 0) {
         return (
           <td className="w-[4rem]">
-            <Button style="w-[6rem]">Liquidate</Button>
+            <Button onClick={onOpen} style="w-[6rem]">
+              Liquidate
+            </Button>
           </td>
         );
       }
@@ -29,12 +41,22 @@ export default function LeaderboardTableRow({
     }
   }
 
+  const { isLoading: isLoadingTx } = useWaitForTransaction({
+    hash: txHash,
+    onSuccess: () => {
+      refetch();
+    },
+  });
+
   return (
     <>
       {isMatching && (
         <tr className="leaderboard-row" style={{ border: "1px solid #3A403C" }}>
           <td>
-            <LoadingInplace isLoading={isLoading} style="w-[40px]" />
+            <LoadingInplace
+              isLoading={isLoadingTx || isLoading || isLoadingNft}
+              style="w-[40px]"
+            />
             <img
               className="w-10 h-10"
               src={RANDOM_IMAGES[rank % RANDOM_IMAGES.length]}
@@ -57,6 +79,9 @@ export default function LeaderboardTableRow({
           <td>{ensName || addressSummary(address)}</td>
         </tr>
       )}
+      <Popup isOpen={isOpen} onClose={onClose}>
+        <Liquidate tokenId={nft.id} onClose={onClose} setTxHash={setTxHash} />
+      </Popup>
     </>
   );
 }
