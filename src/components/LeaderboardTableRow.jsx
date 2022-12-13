@@ -24,7 +24,7 @@ export default function LeaderboardTableRow({
   const { owner: address } = useIdToOwner(nft.id);
   const { ensName, isMatching, isLoading } = useFilterAddress(address, filter);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { refetch } = useNft(nft.id);
+  const { refetch, isLoading: isLoadingNft } = useNft(nft.id);
 
   function renderLiquidateBtn() {
     if (isOneLiquidatable) {
@@ -54,7 +54,7 @@ export default function LeaderboardTableRow({
         <tr className="leaderboard-row" style={{ border: "1px solid #3A403C" }}>
           <td>
             <LoadingInplace
-              isLoading={isLoadingTx || isLoading}
+              isLoading={isLoadingTx || isLoading || isLoadingNft}
               style="w-[40px]"
             />
             <img
