@@ -8,6 +8,7 @@ export default function useNft(id) {
     withdrawn: 0,
     deposit: 0,
     xp: 0,
+    id: id,
   });
 
   const { refetch, isLoading, isFetching } = useContractRead({
@@ -20,6 +21,7 @@ export default function useNft(id) {
         withdrawn: parseInt(data[0]._hex),
         deposit: parseInt(data[1]._hex),
         xp: parseInt(data[2]._hex),
+        id: id,
       });
     },
   });
