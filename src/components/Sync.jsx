@@ -59,9 +59,15 @@ export default function Sync({ onClose, setTxHash, tokenId, nft }) {
             <div className="flex gap-6 items-center justify-center">
               {ethPrice}
               <div className="flex gap-1 items-center">
-                <div className="text-sm text-green-300">+</div>
+                <div className="text-sm ">
+                  {lastEthPrice - ethPrice < 0 ? (
+                    <span className="text-green-300">+</span>
+                  ) : (
+                    <span className="text-red-300">-</span>
+                  )}
+                </div>
                 <div className="text-sm">
-                  {round(lastEthPrice - ethPrice, 2)}
+                  {Math.abs(round(lastEthPrice - ethPrice, 2))}
                 </div>
               </div>
             </div>
@@ -75,7 +81,7 @@ export default function Sync({ onClose, setTxHash, tokenId, nft }) {
               <div>
                 <SwapRightOutlined />
               </div>
-              <div className="flex gap-6 items-center justify-center">
+              <div className="flex gap-6 items-center justify-between">
                 {parseInt(nftAfterSimulation[2]._hex)}
                 <div className="flex gap-1 items-center">
                   <div className="text-sm text-green-300">+</div>
