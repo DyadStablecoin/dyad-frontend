@@ -17,7 +17,6 @@ const opts = {
 
 // simulate a sync call for a specific nft
 export default function useNftSyncSimulation(tokenId) {
-  console.log("useNftSyncSimulation", tokenId);
   const { address } = useAccount();
   const [nftAfterSimulation, setNftAfterSimulation] = useState();
   const [isLoading, setIsLoading] = useState(false);
