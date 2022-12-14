@@ -9,7 +9,6 @@ export default function useEthPrice() {
         "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR"
       );
       const data = await res.json();
-      console.log("data", data);
       setEthPrice(data.USD);
     }
 
