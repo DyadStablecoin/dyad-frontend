@@ -17,6 +17,7 @@ const opts = {
 
 // simulate a sync call for a specific nft
 export default function useNftSyncSimulation(tokenId) {
+  console.log("useNftSyncSimulation", tokenId);
   const { address } = useAccount();
   const [nftAfterSimulation, setNftAfterSimulation] = useState();
   const [isLoading, setIsLoading] = useState(false);
@@ -24,6 +25,7 @@ export default function useNftSyncSimulation(tokenId) {
   useEffect(() => {
     async function updateXP() {
       if (!tokenId || !address) return;
+      console.log("updating xp for", tokenId);
 
       setIsLoading(true);
       const gp = new ethers.providers.JsonRpcProvider(

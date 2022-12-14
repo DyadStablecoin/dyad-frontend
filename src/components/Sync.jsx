@@ -3,14 +3,12 @@ import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_POOL } from "../consts/contract";
 import PopupContent from "./PopupContent";
 import useGasCost from "../hooks/useGasCost";
-import { SwapRightOutlined } from "@ant-design/icons";
 import useNftSyncSimulation from "../hooks/useNftSyncSimulation";
 import { DOCS_URL } from "../consts/consts";
-import useEthPrice from "../hooks/useEthPrice";
-import useLastEthPrice from "../hooks/useLastEthPrice";
-import { round } from "../utils/currency";
+import SyncLastEthPrice from "./SyncLastEthPrice";
+import SyncXp from "./SyncXp";
 
-export default function Sync({ onClose, setTxHash, tokenId, nft }) {
+export default function Sync({ onClose, setTxHash, nft }) {
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_POOL,
     contractInterface: PoolABI["abi"],
@@ -26,9 +24,7 @@ export default function Sync({ onClose, setTxHash, tokenId, nft }) {
   });
 
   const { gasCost } = useGasCost(config);
-  const { nftAfterSimulation, isLoading } = useNftSyncSimulation(tokenId);
-  const { ethPrice } = useEthPrice();
-  const { lastEthPrice } = useLastEthPrice();
+  const { isLoading } = useNftSyncSimulation(nft.id);
 
   return (
     <PopupContent
@@ -48,50 +44,8 @@ export default function Sync({ onClose, setTxHash, tokenId, nft }) {
             <div className="text-sm">Before</div>
             <div className="text-sm">After</div>
           </div>
-          <div className="flex justify-between items-center">
-            <div>
-              <div className="text-[#737E76]">Price</div>
-              <div>{lastEthPrice}</div>
-            </div>
-            <div>
-              <SwapRightOutlined />
-            </div>
-            <div className="flex gap-6 items-center justify-center">
-              {ethPrice}
-              <div className="flex gap-1 items-center">
-                <div className="text-sm ">
-                  {lastEthPrice - ethPrice < 0 ? (
-                    <span className="text-green-300">+</span>
-                  ) : (
-                    <span className="text-red-300">-</span>
-                  )}
-                </div>
-                <div className="text-sm">
-                  {Math.abs(round(lastEthPrice - ethPrice, 2))}
-                </div>
-              </div>
-            </div>
-          </div>
-          {nftAfterSimulation && (
-            <div className="flex justify-between items-center">
-              <div>
-                <div className="text-[#737E76]">XP</div>
-                <div>{nft.xp}</div>
-              </div>
-              <div>
-                <SwapRightOutlined />
-              </div>
-              <div className="flex gap-6 items-center justify-between">
-                {parseInt(nftAfterSimulation[2]._hex)}
-                <div className="flex gap-1 items-center">
-                  <div className="text-sm text-green-300">+</div>
-                  <div className="text-sm">
-                    {parseInt(nftAfterSimulation[2]._hex) - nft.xp}
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+          <SyncLastEthPrice />
+          <SyncXp nft={nft} />
           <div className="bg-[#3A403C] h-[1px] w-full"></div>
         </>
         <div>+ help sync ALL DYAD NFT's for all players!</div>
