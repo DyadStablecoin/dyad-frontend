@@ -24,7 +24,6 @@ export default function useNftSyncSimulation(tokenId) {
   useEffect(() => {
     async function updateXP() {
       if (!tokenId || !address) return;
-      console.log("updating xp for", tokenId);
 
       setIsLoading(true);
       const gp = new ethers.providers.JsonRpcProvider(
