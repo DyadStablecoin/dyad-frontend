@@ -31,7 +31,7 @@ export default function LeaderboardTableRow({
       if (nft.deposit < 0) {
         return (
           <td className="w-[4rem]">
-            <Button onClick={onOpen} style="w-[6rem]">
+            <Button onClick={onOpen} style="w-[6rem]" tokenId={nft.id}>
               Liquidate
             </Button>
           </td>

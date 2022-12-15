@@ -1,5 +1,5 @@
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
-import { CONTRACT_dNFT } from "../consts/contract";
+import { CONTRACT_POOL } from "../consts/contract";
 import { round2 } from "../utils/currency";
 import PoolABI from "../abi/Pool.json";
 import { useState } from "react";
@@ -7,7 +7,6 @@ import TextInput from "./TextInput";
 import { parseEther } from "../utils/currency";
 import { useBalances } from "../hooks/useBalances";
 import PopupContent from "./PopupContent";
-import useEthPrice from "../hooks/useEthPrice";
 
 export default function Liquidate({ tokenId, onClose, setTxHash }) {
   const { balances } = useBalances([]);
@@ -15,7 +14,7 @@ export default function Liquidate({ tokenId, onClose, setTxHash }) {
   const { address } = useAccount();
 
   const { config } = usePrepareContractWrite({
-    addressOrName: CONTRACT_dNFT,
+    addressOrName: CONTRACT_POOL,
     contractInterface: PoolABI["abi"],
     functionName: "claim",
     args: [tokenId, address],
