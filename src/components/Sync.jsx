@@ -24,7 +24,7 @@ export default function Sync({ onClose, setTxHash, nft }) {
   });
 
   const { gasCost } = useGasCost(config);
-  const { isLoading } = useNftSyncSimulation(nft.id);
+  // const { isLoading } = useNftSyncSimulation(nft.id);
 
   return (
     <PopupContent
@@ -35,7 +35,7 @@ export default function Sync({ onClose, setTxHash, nft }) {
         write?.();
       }}
       isDisabled={!write}
-      isLoading={isLoading}
+      // isLoading={isLoading}
       infoOnClick={() => window.open(DOCS_URL + "/pool#sync")}
     >
       <div className="flex flex-col gap-4">
@@ -45,7 +45,7 @@ export default function Sync({ onClose, setTxHash, nft }) {
             <div className="text-sm">After</div>
           </div>
           <SyncLastEthPrice />
-          <SyncXp nft={nft} />
+          {/* <SyncXp nft={nft} /> */}
           <div className="bg-[#3A403C] h-[1px] w-full"></div>
         </>
         <div>+ help sync ALL DYAD NFT's for all players!</div>
