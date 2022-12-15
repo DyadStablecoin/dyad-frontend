@@ -27,6 +27,13 @@
 //    fixes:
 //    - xp with 18 decimals
 //    - claim function wrong ethRequired calculatio
-export const CONTRACT_dNFT = "0x93c23f661F11E5cF62791294E03ee353AD1009a3";
-export const CONTRACT_DYAD = "0xb936dc3F7C826A1358FB5881DD4fe0F7688aEF1f";
-export const CONTRACT_POOL = "0x67488Df72673d85c42a83e5ECAdBBEeA16C01A22";
+// export const CONTRACT_dNFT = "0x93c23f661F11E5cF62791294E03ee353AD1009a3";
+// export const CONTRACT_DYAD = "0xb936dc3F7C826A1358FB5881DD4fe0F7688aEF1f";
+// export const CONTRACT_POOL = "0x67488Df72673d85c42a83e5ECAdBBEeA16C01A22";
+
+// goerli v0.3: First Testnet Launch
+//    fixes:
+//    - xp burn limit
+export const CONTRACT_dNFT = "0x2544bA4Bc4A1d4Eb834a2770Fd5B52bAfa500B44";
+export const CONTRACT_DYAD = "0xb9a5a09B5a58c56bBC0fE1890DbB035994028035";
+export const CONTRACT_POOL = "0xC98D30Cf8837dE6ae019D37084f1893751D47C4E";
