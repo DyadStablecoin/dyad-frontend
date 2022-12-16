@@ -8,6 +8,7 @@ import PopupContent from "./PopupContent";
 import { useBalances } from "../hooks/useBalances";
 import useApprove from "../hooks/useApprove";
 import useIsApproved from "../hooks/useIsApproved";
+import MaxButton from "./MaxButton";
 
 export default function Deposit({ tokenId, onClose, setTxHash }) {
   const { address } = useAccount();
@@ -78,14 +79,11 @@ export default function Deposit({ tokenId, onClose, setTxHash }) {
             <div className="text-[#737E76]">
               Balance:{round(normalize(balances.balanceOfDyad), 2)}
             </div>
-            <div
-              className="text-[#584BAA] text-xl font-bold cursor-pointer"
+            <MaxButton
               onClick={() =>
                 setDyad(floor(normalize(balances.balanceOfDyad), 2))
               }
-            >
-              MAX
-            </div>
+            />
           </div>
         </div>
       </div>
