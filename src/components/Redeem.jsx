@@ -11,6 +11,7 @@ import useIsApproved from "../hooks/useIsApproved";
 import useApprove from "../hooks/useApprove";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
+import MaxButton from "./MaxButton";
 
 export default function Redeem({ tokenId, onClose, setTxHash }) {
   const { balances } = useBalances();
@@ -80,14 +81,11 @@ export default function Redeem({ tokenId, onClose, setTxHash }) {
               <div className="text-[#737E76]">
                 Balance:{round(normalize(balances.balanceOfDyad), 2)}
               </div>
-              <div
-                className="text-[#584BAA] text-xl font-bold cursor-pointer"
+              <MaxButton
                 onClick={() =>
                   setDyad(floor(normalize(balances.balanceOfDyad), 2))
                 }
-              >
-                MAX
-              </div>
+              />
             </div>
           </div>
         </div>

@@ -7,6 +7,7 @@ import { parseEther } from "../utils/currency";
 import { round, floor, normalize } from "../utils/currency";
 import useNft from "../hooks/useNft";
 import PopupContent from "./PopupContent";
+import MaxButton from "./MaxButton";
 
 export default function Withdraw({ tokenId, onClose, setTxHash }) {
   const [dyad, setDyad] = useState("");
@@ -55,12 +56,9 @@ export default function Withdraw({ tokenId, onClose, setTxHash }) {
             <div className="text-[#737E76]">
               Balance:{round(normalize(nft.deposit), 2)}
             </div>
-            <div
-              className="text-[#584BAA] text-xl font-bold cursor-pointer"
+            <MaxButton
               onClick={() => setDyad(floor(normalize(nft.deposit), 2))}
-            >
-              MAX
-            </div>
+            />
           </div>
         </div>
       </div>
