@@ -13,9 +13,13 @@ export default function Deposit({ tokenId, onClose, setTxHash }) {
   const { address } = useAccount();
   const [dyad, setDyad] = useState("");
   const { balances } = useBalances();
-  const { refetch, isApproved } = useIsApproved(address, CONTRACT_dNFT, dyad);
+  const { refetch: refetchIsApproved, isApproved } = useIsApproved(
+    address,
+    CONTRACT_dNFT,
+    dyad
+  );
 
-  const { config: configDeposit, refetch: refetchDeposit } =
+  const { config: configDeposit, refetch: refetchPrepareDeposit } =
     usePrepareContractWrite({
       addressOrName: CONTRACT_dNFT,
       contractInterface: dNFTabi,
@@ -26,8 +30,8 @@ export default function Deposit({ tokenId, onClose, setTxHash }) {
   const { write: writeApprove, isFetching: isFetchingApproval } = useApprove(
     parseEther(dyad),
     () => {
-      refetch();
-      refetchDeposit();
+      refetchIsApproved();
+      refetchPrepareDeposit();
     }
   );
 
@@ -63,9 +67,6 @@ export default function Deposit({ tokenId, onClose, setTxHash }) {
             }}
             type="number"
             placeholder={0}
-            onBlur={(_) => {
-              refetch();
-            }}
           />
         </div>
         <div className="flex flex-col items-end">
