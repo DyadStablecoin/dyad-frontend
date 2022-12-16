@@ -10,7 +10,7 @@ import useApprove from "../hooks/useApprove";
 import useIsApproved from "../hooks/useIsApproved";
 import MaxButton from "./MaxButton";
 
-export default function Deposit({ tokenId, onClose, setTxHash }) {
+export default function Deposit({ nft, onClose, setTxHash }) {
   const { address } = useAccount();
   const [dyad, setDyad] = useState("");
   const { balances } = useBalances();
@@ -25,7 +25,7 @@ export default function Deposit({ tokenId, onClose, setTxHash }) {
       addressOrName: CONTRACT_dNFT,
       contractInterface: dNFTabi,
       functionName: "deposit",
-      args: [tokenId, parseEther(dyad)],
+      args: [nft.id, parseEther(dyad)],
     });
 
   const { write: writeApprove, isFetching: isFetchingApproval } = useApprove(
@@ -77,12 +77,10 @@ export default function Deposit({ tokenId, onClose, setTxHash }) {
           </div>
           <div className="flex gap-2 items-center justify-center">
             <div className="text-[#737E76]">
-              Balance:{round(normalize(balances.balanceOfDyad), 2)}
+              Balance:{round(normalize(nft.withdrawn), 2)}
             </div>
             <MaxButton
-              onClick={() =>
-                setDyad(floor(normalize(balances.balanceOfDyad), 2))
-              }
+              onClick={() => setDyad(floor(normalize(nft.withdrawn), 2))}
             />
           </div>
         </div>

@@ -5,13 +5,12 @@ import dNFTABI from "../abi/dNFT.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
 import { parseEther } from "../utils/currency";
-import { useBalances } from "../hooks/useBalances";
 import PopupContent from "./PopupContent";
 import { ArrowDownOutlined } from "@ant-design/icons";
 import useEthPrice from "../hooks/useEthPrice";
 import useEthBalance from "../hooks/useEthBalance";
 
-export default function Mint({ tokenId, onClose, setTxHash }) {
+export default function Mint({ nft, onClose, setTxHash }) {
   const [wETH, setWETH] = useState("");
   const { ethPrice } = useEthPrice();
   const { ethBalance } = useEthBalance();
@@ -20,7 +19,7 @@ export default function Mint({ tokenId, onClose, setTxHash }) {
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
     functionName: "mintDyad",
-    args: [tokenId],
+    args: [nft.id],
     overrides: {
       value: parseEther(wETH),
     },
