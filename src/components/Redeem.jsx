@@ -83,7 +83,7 @@ export default function Redeem({ tokenId, onClose, setTxHash }) {
               <div
                 className="text-[#584BAA] text-xl font-bold cursor-pointer"
                 onClick={() =>
-                  setDyad(floor(normalize(balances.balanceOfDyad), 12))
+                  setDyad(floor(normalize(balances.balanceOfDyad), 2))
                 }
               >
                 MAX

@@ -57,7 +57,7 @@ export default function Withdraw({ tokenId, onClose, setTxHash }) {
             </div>
             <div
               className="text-[#584BAA] text-xl font-bold cursor-pointer"
-              onClick={() => setDyad(floor(normalize(nft.deposit), 12))}
+              onClick={() => setDyad(floor(normalize(nft.deposit), 2))}
             >
               MAX
             </div>
