@@ -5,13 +5,13 @@ import PoolABI from "../abi/Pool.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
 import { parseEther } from "../utils/currency";
-import { useBalances } from "../hooks/useBalances";
 import PopupContent from "./PopupContent";
+import useEthBalance from "../hooks/useEthBalance";
 
 export default function Liquidate({ tokenId, onClose, setTxHash }) {
-  const { balances } = useBalances([]);
   const [wETH, setWETH] = useState("");
   const { address } = useAccount();
+  const { ethBalance } = useEthBalance();
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_POOL,
@@ -62,9 +62,7 @@ export default function Liquidate({ tokenId, onClose, setTxHash }) {
               </div>
               <div>ETH</div>
             </div>
-            <div className="text-[#737E76]">
-              Balance:{round2(balances.balanceOfEth)}
-            </div>
+            <div className="text-[#737E76]">Balance:{round2(ethBalance)}</div>
           </div>
         </div>
       </div>

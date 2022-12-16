@@ -9,11 +9,13 @@ import { useBalances } from "../hooks/useBalances";
 import PopupContent from "./PopupContent";
 import { ArrowDownOutlined } from "@ant-design/icons";
 import useEthPrice from "../hooks/useEthPrice";
+import useEthBalance from "../hooks/useEthBalance";
 
 export default function Mint({ tokenId, onClose, setTxHash }) {
   const { balances } = useBalances([]);
   const [wETH, setWETH] = useState("");
   const { ethPrice } = useEthPrice();
+  const { ethBalance } = useEthBalance();
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -64,9 +66,7 @@ export default function Mint({ tokenId, onClose, setTxHash }) {
               </div>
               <div>ETH</div>
             </div>
-            <div className="text-[#737E76]">
-              Balance:{round2(balances.balanceOfEth)}
-            </div>
+            <div className="text-[#737E76]">Balance:{round2(ethBalance)}</div>
           </div>
         </div>
         <div>

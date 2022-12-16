@@ -18,7 +18,6 @@ export function useBalances(dependencies = []) {
     // balances of address
     balanceOfdNFT: 0,
     balanceOfDyad: 0,
-    balanceOfEth: 0,
 
     // pool balances
     totalSupplyOfDyad: 0,
@@ -67,16 +66,6 @@ export function useBalances(dependencies = []) {
           poolBalanceOfDyad: parseInt(data[4]._hex),
         });
       }
-    },
-  });
-
-  useBalance({
-    addressOrName: address,
-    onSuccess(data) {
-      setBalances({
-        ...balances,
-        balanceOfEth: parseFloat(data.formatted),
-      });
     },
   });
 
