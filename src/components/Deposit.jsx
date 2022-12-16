@@ -13,7 +13,7 @@ export default function Deposit({ tokenId, onClose, setTxHash }) {
   const { address } = useAccount();
   const [dyad, setDyad] = useState("");
   const { balances } = useBalances();
-  const { refetch: refetchIsApproved, isApproved } = useIsApproved(
+  const { isApproved, refetch: refetchIsApproved } = useIsApproved(
     address,
     CONTRACT_dNFT,
     dyad

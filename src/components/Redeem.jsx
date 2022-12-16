@@ -17,18 +17,26 @@ export default function Redeem({ tokenId, onClose, setTxHash }) {
   const [dyad, setDyad] = useState("");
   const { ethPrice } = useEthPrice();
   const { address } = useAccount();
-  const { isApproved, refetch } = useIsApproved(address, CONTRACT_dNFT, dyad);
-  const { write: writeApprove, isFetching: isFetchingApproval } = useApprove(
-    parseEther(dyad),
-    refetch
+  const { isApproved, refetch: refetchIsApproved } = useIsApproved(
+    address,
+    CONTRACT_dNFT,
+    dyad
   );
 
-  const { config } = usePrepareContractWrite({
+  const { config, refetch: refetchPrepareRedeem } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
     functionName: "redeem",
     args: [tokenId, parseEther(dyad)],
   });
+
+  const { write: writeApprove, isFetching: isFetchingApproval } = useApprove(
+    parseEther(dyad),
+    () => {
+      refetchIsApproved();
+      refetchPrepareRedeem();
+    }
+  );
 
   const { write: writeRedeem } = useContractWrite({
     ...config,
