@@ -4,7 +4,7 @@ import abi from "../consts/abi/dNFTABI.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
 import { parseEther } from "../utils/currency";
-import { round2 } from "../utils/currency";
+import { round, floor, normalize } from "../utils/currency";
 import useNft from "../hooks/useNft";
 import PopupContent from "./PopupContent";
 
@@ -53,11 +53,11 @@ export default function Withdraw({ tokenId, onClose, setTxHash }) {
           </div>
           <div className="flex gap-2 items-center justify-center">
             <div className="text-[#737E76]">
-              Balance:{round2(nft.deposit / 10 ** 18)}
+              Balance:{round(normalize(nft.deposit), 2)}
             </div>
             <div
               className="text-[#584BAA] text-xl font-bold cursor-pointer"
-              onClick={() => setDyad(round2(nft.deposit / 10 ** 18))}
+              onClick={() => setDyad(floor(normalize(nft.deposit), 12))}
             >
               MAX
             </div>
