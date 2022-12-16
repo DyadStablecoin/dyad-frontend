@@ -13,9 +13,6 @@ export function formatUSD(amount, removeDollarSign = false) {
   return amount.slice(0, -3);
 }
 
-export function round2(value) {
-  return Math.round(parseFloat(value) * 100) / 100;
-}
 export function round(value, decimals) {
   return Math.round(parseFloat(value) * 10 ** decimals) / 10 ** decimals;
 }
