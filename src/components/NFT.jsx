@@ -69,31 +69,27 @@ export default function NFT({ index, xps, xpsAverage }) {
   function renderPopups() {
     return (
       <>
-        {tokenId && (
+        {nft && (
           <>
             <Popup isOpen={isOpen} onClose={onClose}>
-              <Mint tokenId={tokenId} onClose={onClose} setTxHash={setTxHash} />
+              <Mint nft={nft} onClose={onClose} setTxHash={setTxHash} />
             </Popup>
             <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
               <Deposit
-                tokenId={tokenId}
+                nft={nft}
                 onClose={onCloseDeposit}
                 setTxHash={setTxHash}
               />
             </Popup>
             <Popup isOpen={isOpenWithdraw} onClose={onCloseWithdraw}>
               <Withdraw
-                tokenId={tokenId}
+                nft={nft}
                 onClose={onCloseWithdraw}
                 setTxHash={setTxHash}
               />
             </Popup>
             <Popup isOpen={isOpenRedeem} onClose={onCloseRedeem}>
-              <Redeem
-                tokenId={tokenId}
-                onClose={onCloseRedeem}
-                setTxHash={setTxHash}
-              />
+              <Redeem nft={nft} onClose={onCloseRedeem} setTxHash={setTxHash} />
             </Popup>
             <Popup isOpen={isOpenSync} onClose={onCloseSync}>
               <Sync onClose={onCloseSync} setTxHash={setTxHash} nft={nft} />

@@ -13,7 +13,7 @@ import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import MaxButton from "./MaxButton";
 
-export default function Redeem({ tokenId, onClose, setTxHash }) {
+export default function Redeem({ nft, onClose, setTxHash }) {
   const { balances } = useBalances();
   const [dyad, setDyad] = useState("");
   const { ethPrice } = useEthPrice();
@@ -28,7 +28,7 @@ export default function Redeem({ tokenId, onClose, setTxHash }) {
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
     functionName: "redeem",
-    args: [tokenId, parseEther(dyad)],
+    args: [nft.id, parseEther(dyad)],
   });
 
   const { write: writeApprove, isFetching: isFetchingApproval } = useApprove(
@@ -79,12 +79,10 @@ export default function Redeem({ tokenId, onClose, setTxHash }) {
             </div>
             <div className="flex gap-2 items-center justify-center">
               <div className="text-[#737E76]">
-                Balance:{round(normalize(balances.balanceOfDyad), 2)}
+                Balance:{round(normalize(nft.withdrawn), 2)}
               </div>
               <MaxButton
-                onClick={() =>
-                  setDyad(floor(normalize(balances.balanceOfDyad), 2))
-                }
+                onClick={() => setDyad(floor(normalize(nft.withdrawn), 2))}
               />
             </div>
           </div>

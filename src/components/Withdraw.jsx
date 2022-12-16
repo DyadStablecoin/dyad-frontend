@@ -5,19 +5,17 @@ import { useState } from "react";
 import TextInput from "./TextInput";
 import { parseEther } from "../utils/currency";
 import { round, floor, normalize } from "../utils/currency";
-import useNft from "../hooks/useNft";
 import PopupContent from "./PopupContent";
 import MaxButton from "./MaxButton";
 
-export default function Withdraw({ tokenId, onClose, setTxHash }) {
+export default function Withdraw({ nft, onClose, setTxHash }) {
   const [dyad, setDyad] = useState("");
-  const { nft } = useNft(tokenId);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: abi,
     functionName: "withdraw",
-    args: [tokenId, parseEther(dyad)],
+    args: [nft.id, parseEther(dyad)],
   });
 
   const { write } = useContractWrite({
