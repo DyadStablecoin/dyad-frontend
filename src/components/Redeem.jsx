@@ -1,4 +1,4 @@
-import { round, normalize } from "../utils/currency";
+import { round, normalize, floor } from "../utils/currency";
 import dNFTABI from "../abi/dNFT.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
@@ -68,8 +68,18 @@ export default function Redeem({ tokenId, onClose, setTxHash }) {
               <div className="rhombus" />
               <div>DYAD</div>
             </div>
-            <div className="text-[#737E76]">
-              Balance:{round(normalize(balances.balanceOfDyad), 2)}
+            <div className="flex gap-2 items-center justify-center">
+              <div className="text-[#737E76]">
+                Balance:{round(normalize(balances.balanceOfDyad), 2)}
+              </div>
+              <div
+                className="text-[#584BAA] text-xl font-bold cursor-pointer"
+                onClick={() =>
+                  setDyad(floor(normalize(balances.balanceOfDyad), 12))
+                }
+              >
+                MAX
+              </div>
             </div>
           </div>
         </div>
