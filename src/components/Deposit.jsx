@@ -14,17 +14,22 @@ export default function Deposit({ tokenId, onClose, setTxHash }) {
   const [dyad, setDyad] = useState("");
   const { balances } = useBalances();
   const { refetch, isApproved } = useIsApproved(address, CONTRACT_dNFT, dyad);
+
+  const { config: configDeposit, refetch: refetchDeposit } =
+    usePrepareContractWrite({
+      addressOrName: CONTRACT_dNFT,
+      contractInterface: dNFTabi,
+      functionName: "deposit",
+      args: [tokenId, parseEther(dyad)],
+    });
+
   const { write: writeApprove, isFetching: isFetchingApproval } = useApprove(
     parseEther(dyad),
-    refetch
+    () => {
+      refetch();
+      refetchDeposit();
+    }
   );
-
-  const { config: configDeposit } = usePrepareContractWrite({
-    addressOrName: CONTRACT_dNFT,
-    contractInterface: dNFTabi,
-    functionName: "deposit",
-    args: [tokenId, parseEther(dyad)],
-  });
 
   const { write: writeDeposit } = useContractWrite({
     ...configDeposit,
