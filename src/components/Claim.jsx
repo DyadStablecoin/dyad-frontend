@@ -60,7 +60,9 @@ export default function Claim() {
               <div>dNFT Remaining</div>
               <div className="flex gap-1 items-center">
                 <div className="rhombus"></div>
-                <div>{TOTAL_SUPPLY - balances.totalSupplyOfNfts}/300</div>
+                <div>
+                  {TOTAL_SUPPLY - balances.totalSupplyOfNfts}/{TOTAL_SUPPLY}
+                </div>
               </div>
             </div>
             <div className="w-[2px] h-[85px] bg-[#939393] md:invisible"></div>
