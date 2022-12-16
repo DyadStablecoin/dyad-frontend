@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactTooltip from "react-tooltip";
 import { COLORS } from "../consts/colors";
-import { round2 } from "../utils/currency";
+import { round } from "../utils/currency";
 
 export default function ProgressBar({ percent, fullWidth = false }) {
   const [colors, setColors] = useState();
@@ -24,7 +24,7 @@ export default function ProgressBar({ percent, fullWidth = false }) {
     <>
       {colors && (
         <div
-          data-tip={`${round2(percent)}%` || "0%"}
+          data-tip={`${round(percent, 2)}%` || "0%"}
           class={`w-[6rem] border-2 border-[#737E76]  min-w-[${
             fullWidth ? "100%" : "6rem"
           }] max-w-[6rem] pr-[2px]`}

@@ -1,6 +1,6 @@
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_POOL } from "../consts/contract";
-import { round2 } from "../utils/currency";
+import { round } from "../utils/currency";
 import PoolABI from "../abi/Pool.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
@@ -62,7 +62,7 @@ export default function Liquidate({ tokenId, onClose, setTxHash }) {
               </div>
               <div>ETH</div>
             </div>
-            <div className="text-[#737E76]">Balance:{round2(ethBalance)}</div>
+            <div className="text-[#737E76]">Balance:{round(ethBalance, 2)}</div>
           </div>
         </div>
       </div>

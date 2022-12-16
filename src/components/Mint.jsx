@@ -1,6 +1,6 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
-import { round2 } from "../utils/currency";
+import { round } from "../utils/currency";
 import dNFTABI from "../abi/dNFT.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
@@ -12,7 +12,6 @@ import useEthPrice from "../hooks/useEthPrice";
 import useEthBalance from "../hooks/useEthBalance";
 
 export default function Mint({ tokenId, onClose, setTxHash }) {
-  const { balances } = useBalances([]);
   const [wETH, setWETH] = useState("");
   const { ethPrice } = useEthPrice();
   const { ethBalance } = useEthBalance();
@@ -66,7 +65,7 @@ export default function Mint({ tokenId, onClose, setTxHash }) {
               </div>
               <div>ETH</div>
             </div>
-            <div className="text-[#737E76]">Balance:{round2(ethBalance)}</div>
+            <div className="text-[#737E76]">Balance:{round(ethBalance, 2)}</div>
           </div>
         </div>
         <div>
@@ -75,7 +74,7 @@ export default function Mint({ tokenId, onClose, setTxHash }) {
         <div className="flex gap-4 justify-between items-between w-full">
           <div>
             <TextInput
-              value={round2(wETH * ethPrice)}
+              value={round(wETH * ethPrice, 2)}
               type="number"
               isDisabled
             />
