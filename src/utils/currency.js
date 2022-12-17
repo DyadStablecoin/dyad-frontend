@@ -29,5 +29,9 @@ export function normalize(value) {
 
 // thin wrapper around `ethers.utils.parseEther`
 export function parseEther(eth) {
-  return ethers.utils.parseEther(eth ? String(parseFloat(eth)) : "0");
+  try {
+    return ethers.utils.parseEther(eth ? String(parseFloat(eth)) : "0");
+  } catch (e) {
+    return 0;
+  }
 }
