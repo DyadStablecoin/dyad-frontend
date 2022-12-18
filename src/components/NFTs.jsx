@@ -3,6 +3,7 @@ import useXP from "../hooks/useXP";
 import useNfts from "../hooks/useNfts";
 import useAverage from "../hooks/useAverage";
 import { useBalances } from "../hooks/useBalances";
+import { useEffect } from "react";
 
 export default function NFTs() {
   const { balances } = useBalances();

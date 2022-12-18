@@ -17,7 +17,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="page-container content-wrap font-serif font-bold text-white">
-        <NavBar />
+        {/* <NavBar /> */}
         {isConnected ? (
           <>
             {chain.id === CURRENT_NETWORK.id ? (

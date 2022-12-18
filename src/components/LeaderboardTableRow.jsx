@@ -21,10 +21,10 @@ export default function LeaderboardTableRow({
 }) {
   const [txHash, setTxHash] = useState();
 
-  const { owner: address } = useIdToOwner(nft.id);
-  const { ensName, isMatching, isLoading } = useFilterAddress(address, filter);
+  // const { owner: address } = useIdToOwner(nft.id);
+  // const { ensName, isMatching, isLoading } = useFilterAddress(address, filter);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { refetch, isLoading: isLoadingNft } = useNft(nft.id);
+  // const { refetch, isLoading: isLoadingNft } = useNft(nft.id);
 
   function renderLiquidateBtn() {
     if (isOneLiquidatable) {
@@ -44,19 +44,16 @@ export default function LeaderboardTableRow({
   const { isLoading: isLoadingTx } = useWaitForTransaction({
     hash: txHash,
     onSuccess: () => {
-      refetch();
+      // refetch();
     },
   });
 
   return (
     <>
-      {isMatching && (
+      {nft && (
         <tr className="leaderboard-row" style={{ border: "1px solid #3A403C" }}>
           <td>
-            <LoadingInplace
-              isLoading={isLoadingTx || isLoading || isLoadingNft}
-              style="w-[40px]"
-            />
+            <LoadingInplace isLoading={isLoadingTx} style="w-[40px]" />
             <img
               className="w-10 h-10"
               src={RANDOM_IMAGES[rank % RANDOM_IMAGES.length]}
@@ -76,7 +73,7 @@ export default function LeaderboardTableRow({
           <td className="hidden md:table-cell">
             {depositRatio(nft.withdrawn, nft.deposit)}%
           </td>
-          <td>{ensName || addressSummary(address)}</td>
+          <td>{nft.ensName || addressSummary(nft.owner)}</td>
         </tr>
       )}
       <Popup isOpen={isOpen} onClose={onClose}>
