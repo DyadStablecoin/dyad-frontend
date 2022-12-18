@@ -7,7 +7,7 @@ import useIsOneNftLiquidatable from "./useIsOneNftLiquidatable";
 /**
  * return the nfts from the indexer, sorted by xp in descending order
  */
-export function useNftsFromIndexer(start, end) {
+export function useNftsFromIndexer(range) {
   const [nfts, setNfts] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const { isOneLiquidatable } = useIsOneNftLiquidatable(nfts);
@@ -21,7 +21,7 @@ export function useNftsFromIndexer(start, end) {
       .select("*")
       .eq("contractAddress", CONTRACT_dNFT)
       .order("xp", { ascending: false })
-      .range(start, end)
+      .range(range.start, range.end)
       .then((res) => {
         setNfts(res.data);
         setIsLoading(false);
@@ -29,7 +29,7 @@ export function useNftsFromIndexer(start, end) {
       .catch((_) => {
         setIsLoading(false);
       });
-  }, [start, end, trigger]);
+  }, [range, trigger]);
 
   return { nfts, isOneLiquidatable, isLoading, refetch };
 }

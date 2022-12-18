@@ -16,9 +16,9 @@ export default function CustomPagination({
     return (
       <div
         className="border-[1px] border-white pl-1 pr-1 hover:cursor-pointer"
-        style={{ color: range[0] === i * rowsPerPage ? "white" : "gray" }}
+        style={{ color: range.start === i * rowsPerPage ? "white" : "gray" }}
         onClick={() => {
-          setRange([i * rowsPerPage, (i + 1) * rowsPerPage]);
+          setRange({ start: i * rowsPerPage, end: (i + 1) * rowsPerPage });
         }}
       >
         {i}
