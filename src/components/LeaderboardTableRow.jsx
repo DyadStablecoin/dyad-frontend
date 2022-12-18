@@ -71,7 +71,7 @@ export default function LeaderboardTableRow({
           </td>
           {renderLiquidateBtn()}
           <td className="hidden md:table-cell">
-            {depositRatio(nft.withdrawn, nft.deposit)}%
+            {depositRatio(parseFloat(nft.withdrawn), parseFloat(nft.deposit))}%
           </td>
           <td>{nft.ensName || addressSummary(nft.owner)}</td>
         </tr>
