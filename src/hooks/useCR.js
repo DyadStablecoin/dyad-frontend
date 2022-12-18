@@ -12,7 +12,7 @@ export default function useCR() {
         (balances.totalSupplyOfDyad - balances.poolBalanceOfDyad)) *
       100;
 
-    setCR(_cr);
+    setCR(isNaN(_cr) ? 0 : _cr);
   }, [balances]);
 
   return { cr };
