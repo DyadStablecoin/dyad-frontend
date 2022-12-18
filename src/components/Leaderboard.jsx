@@ -23,13 +23,20 @@ export default function Leaderboard() {
   // const { isOneLiquidatable } = useIsOneNftLiquidatable(sortedNfts);
   // const [nfts, setNfts] = useState();
 
-  const { nfts } = useNftsFromIndexer(2, 4);
   const { count } = useNftsCountFromIndexer();
+  const [index, setIndex] = useState([0, 25]);
+  const { nfts } = useNftsFromIndexer(index[0], [index[1]]);
   console.log("count", count);
 
   return (
     <div className="flex items-center justify-center flex-col">
-      <Pagination totalRows={count} rowsPerPage={25} />
+      <Pagination totalRows={count} rowsPerPage={25} setIndex={setIndex} />
+      {index && (
+        <div>
+          <div>{index[0]}</div>
+          <div>{index[1]}</div>
+        </div>
+      )}
       <div className="md:w-[80rem]">
         <LoadingGlobal isLoading={false} />
         {/* <LeaderboardHeader /> */}
