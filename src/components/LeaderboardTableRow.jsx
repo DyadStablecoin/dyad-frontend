@@ -17,6 +17,7 @@ export default function LeaderboardTableRow({
   nft,
   rank,
   isOneLiquidatable,
+  refetch,
   filter,
 }) {
   const [txHash, setTxHash] = useState();
@@ -26,7 +27,7 @@ export default function LeaderboardTableRow({
   const { isLoading: isLoadingTx } = useWaitForTransaction({
     hash: txHash,
     onSuccess: () => {
-      // refetch();
+      refetch();
     },
   });
 
@@ -74,7 +75,12 @@ export default function LeaderboardTableRow({
         </tr>
       )}
       <Popup isOpen={isOpen} onClose={onClose}>
-        <Liquidate tokenId={nft.id} onClose={onClose} setTxHash={setTxHash} />
+        <Liquidate
+          nft={nft}
+          tokenId={nft.id}
+          onClose={onClose}
+          setTxHash={setTxHash}
+        />
       </Popup>
     </>
   );

@@ -43,6 +43,7 @@ export default function Leaderboard() {
                     nft={nft}
                     rank={range.start + i}
                     isOneLiquidatable={isOneLiquidatable}
+                    refetch={refetch}
                   />
                 );
               })}
