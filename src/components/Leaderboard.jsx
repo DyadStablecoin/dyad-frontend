@@ -1,28 +1,20 @@
-import { useState, useEffect } from "react";
-import useNfts from "../hooks/useNfts";
-import useSortByXp from "../hooks/useSortByXp";
+import { useState } from "react";
 import LeaderboardHeader from "./LeaderboardHeader";
 import LeaderboardTableRow from "./LeaderboardTableRow";
-import LeaderboardSearch from "./LeaderboardSearch";
 import LeaderboardTableHeader from "./LeaderboardTableHeader";
 import LoadingGlobal from "./LoadingGlobal";
-import useIsOneNftLiquidatable from "../hooks/useIsOneNftLiquidatable";
-import { supabase } from "../utils/supabase";
-import { CONTRACT_dNFT } from "../consts/contract";
 import {
-  useCountNftsFromIndexer,
   useNftsCountFromIndexer,
   useNftsFromIndexer,
 } from "../hooks/useNftsFromIndexer";
 import Pagination from "./Pagination";
 
-export default function Leaderboard() {
-  const [filter, setFilter] = useState("");
-  // const { isOneLiquidatable } = useIsOneNftLiquidatable(sortedNfts);
+const ROWS_PER_PAGE = 25;
 
+export default function Leaderboard() {
   const { count } = useNftsCountFromIndexer();
-  const [index, setIndex] = useState([0, 25]);
-  const { nfts, isLoading, refetch } = useNftsFromIndexer(index[0], index[1]);
+  const [range, setRange] = useState([0, ROWS_PER_PAGE]);
+  const { nfts, isLoading, refetch } = useNftsFromIndexer(range[0], range[1]);
 
   return (
     <div className="flex items-center justify-center flex-col">
@@ -30,32 +22,24 @@ export default function Leaderboard() {
         <LoadingGlobal isLoading={isLoading} />
         <LeaderboardHeader refetch={refetch} />
         {nfts && (
-          <table className="leaderboard">
-            <LeaderboardTableHeader isOneLiquidatable={false} />
-            {nfts.map((nft, i) => {
-              return (
-                <>
-                  <LeaderboardTableRow
-                    nft={nft}
-                    rank={index[0] + i}
-                    isOneLiquidatable={false}
-                  />
-                </>
-              );
-            })}
-          </table>
+          <div>
+            <div className="mb-4 mt-4 flex justify-center">
+              <Pagination
+                totalRows={count}
+                rowsPerPage={ROWS_PER_PAGE}
+                range={range}
+                setRange={setRange}
+              />
+            </div>
+            <table className="leaderboard">
+              <LeaderboardTableHeader isOneLiquidatable={false} />
+              {nfts.map((nft, i) => {
+                return <LeaderboardTableRow nft={nft} rank={range[0] + i} />;
+              })}
+            </table>
+          </div>
         )}
       </div>
-      {nfts && (
-        <div className="mt-4">
-          <Pagination
-            totalRows={count}
-            rowsPerPage={25}
-            index={index}
-            setIndex={setIndex}
-          />
-        </div>
-      )}
     </div>
   );
 }

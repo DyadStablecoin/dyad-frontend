@@ -23,6 +23,9 @@ export function useNftsFromIndexer(start, end) {
       .then((res) => {
         setNfts(res.data);
         setIsLoading(false);
+      })
+      .catch((_) => {
+        setIsLoading(false);
       });
   }, [start, end, trigger]);
 

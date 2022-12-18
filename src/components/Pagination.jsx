@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 export default function CustomPagination({
   totalRows,
   rowsPerPage,
-  index,
-  setIndex,
+  range,
+  setRange,
 }) {
   const [numberOfPages, setNumberOfPages] = useState();
 
@@ -16,9 +16,9 @@ export default function CustomPagination({
     return (
       <div
         className="border-[1px] border-white pl-1 pr-1 hover:cursor-pointer"
-        style={{ color: index[0] === i * rowsPerPage ? "white" : "gray" }}
+        style={{ color: range[0] === i * rowsPerPage ? "white" : "gray" }}
         onClick={() => {
-          setIndex([i * rowsPerPage, (i + 1) * rowsPerPage]);
+          setRange([i * rowsPerPage, (i + 1) * rowsPerPage]);
         }}
       >
         {i}
