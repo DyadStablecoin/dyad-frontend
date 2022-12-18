@@ -30,13 +30,6 @@ export default function Leaderboard() {
 
   return (
     <div className="flex items-center justify-center flex-col">
-      <Pagination totalRows={count} rowsPerPage={25} setIndex={setIndex} />
-      {index && (
-        <div>
-          <div>{index[0]}</div>
-          <div>{index[1]}</div>
-        </div>
-      )}
       <div className="md:w-[80rem]">
         <LoadingGlobal isLoading={false} />
         {/* <LeaderboardHeader /> */}
@@ -71,6 +64,14 @@ export default function Leaderboard() {
             })}
           </table>
         )}
+      </div>
+      <div className="mt-4">
+        <Pagination
+          totalRows={count}
+          rowsPerPage={25}
+          index={index}
+          setIndex={setIndex}
+        />
       </div>
     </div>
   );
