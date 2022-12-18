@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabase";
 import { CONTRACT_dNFT } from "../consts/contract";
+import useRefetch from "./useRefetch";
 
 /**
  * return the nfts from the indexer, sorted by xp in descending order
  */
 export function useNftsFromIndexer(start, end) {
   const [nfts, setNfts] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+
+  const { refetch, trigger } = useRefetch();
 
   useEffect(() => {
+    setIsLoading(true);
     supabase
       .from("nfts")
       .select("*")
@@ -17,10 +22,11 @@ export function useNftsFromIndexer(start, end) {
       .range(start, end)
       .then((res) => {
         setNfts(res.data);
+        setIsLoading(false);
       });
-  }, [start, end]);
+  }, [start, end, trigger]);
 
-  return { nfts };
+  return { nfts, isLoading, refetch };
 }
 
 // return the number of nfts in the nfts table

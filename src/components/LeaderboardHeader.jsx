@@ -1,9 +1,7 @@
 import { ReloadOutlined } from "@ant-design/icons";
 import useNfts from "../hooks/useNfts";
 
-export default function LeaderboardHeader() {
-  const { refetch } = useNfts();
-
+export default function LeaderboardHeader({ refetch }) {
   return (
     <div className="flex gap-4 pt-10 pb-4 justify-center">
       <div className="text-xl">Global Leaderboard</div>
