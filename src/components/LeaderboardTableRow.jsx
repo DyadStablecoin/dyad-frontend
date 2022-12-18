@@ -13,7 +13,12 @@ import Popup from "./Popup";
 import { useState } from "react";
 import useNft from "../hooks/useNft";
 
-export default function LeaderboardTableRow({ nft, rank, filter }) {
+export default function LeaderboardTableRow({
+  nft,
+  rank,
+  isOneLiquidatable,
+  filter,
+}) {
   const [txHash, setTxHash] = useState();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -24,6 +29,21 @@ export default function LeaderboardTableRow({ nft, rank, filter }) {
       // refetch();
     },
   });
+
+  function renderLiquidateBtn() {
+    if (isOneLiquidatable) {
+      if (nft.deposit < 0) {
+        return (
+          <td className="w-[4rem]">
+            <Button onClick={onOpen} style="w-[6rem]" tokenId={nft.id}>
+              Liquidate
+            </Button>
+          </td>
+        );
+      }
+      return <td></td>;
+    }
+  }
 
   return (
     <>
@@ -46,7 +66,7 @@ export default function LeaderboardTableRow({ nft, rank, filter }) {
           <td className="hidden md:table-cell">
             {round(nft.deposit / 10 ** 18, 2)}
           </td>
-          {/* {renderLiquidateBtn()} */}
+          {renderLiquidateBtn()}
           <td className="hidden md:table-cell">
             {depositRatio(parseFloat(nft.withdrawn), parseFloat(nft.deposit))}%
           </td>

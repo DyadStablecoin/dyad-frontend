@@ -14,7 +14,10 @@ const ROWS_PER_PAGE = 25;
 export default function Leaderboard() {
   const { count } = useNftsCountFromIndexer();
   const [range, setRange] = useState([0, ROWS_PER_PAGE]);
-  const { nfts, isLoading, refetch } = useNftsFromIndexer(range[0], range[1]);
+  const { nfts, isOneLiquidatable, isLoading, refetch } = useNftsFromIndexer(
+    range[0],
+    range[1]
+  );
 
   return (
     <div className="flex items-center justify-center flex-col">
@@ -32,9 +35,15 @@ export default function Leaderboard() {
               />
             </div>
             <table className="leaderboard">
-              <LeaderboardTableHeader isOneLiquidatable={false} />
+              <LeaderboardTableHeader isOneLiquidatable={isOneLiquidatable} />
               {nfts.map((nft, i) => {
-                return <LeaderboardTableRow nft={nft} rank={range[0] + i} />;
+                return (
+                  <LeaderboardTableRow
+                    nft={nft}
+                    rank={range[0] + i}
+                    isOneLiquidatable={isOneLiquidatable}
+                  />
+                );
               })}
             </table>
           </div>

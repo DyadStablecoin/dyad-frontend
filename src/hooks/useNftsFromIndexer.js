@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabase";
 import { CONTRACT_dNFT } from "../consts/contract";
 import useRefetch from "./useRefetch";
+import useIsOneNftLiquidatable from "./useIsOneNftLiquidatable";
 
 /**
  * return the nfts from the indexer, sorted by xp in descending order
@@ -9,6 +10,7 @@ import useRefetch from "./useRefetch";
 export function useNftsFromIndexer(start, end) {
   const [nfts, setNfts] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const { isOneLiquidatable } = useIsOneNftLiquidatable(nfts);
 
   const { refetch, trigger } = useRefetch();
 
@@ -29,7 +31,7 @@ export function useNftsFromIndexer(start, end) {
       });
   }, [start, end, trigger]);
 
-  return { nfts, isLoading, refetch };
+  return { nfts, isOneLiquidatable, isLoading, refetch };
 }
 
 // return the number of nfts in the nfts table
