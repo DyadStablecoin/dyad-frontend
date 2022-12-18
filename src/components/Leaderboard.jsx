@@ -25,7 +25,7 @@ export default function Leaderboard() {
 
   const { count } = useNftsCountFromIndexer();
   const [index, setIndex] = useState([0, 25]);
-  const { nfts } = useNftsFromIndexer(index[0], [index[1]]);
+  const { nfts } = useNftsFromIndexer(index[0], index[1]);
   console.log("count", count);
 
   return (
