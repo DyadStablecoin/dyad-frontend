@@ -61,7 +61,7 @@ export default function Leaderboard() {
                   )}
                   <LeaderboardTableRow
                     nft={nft}
-                    rank={i + 1}
+                    rank={index[0] + i}
                     // filter={filter}
                     // {/* isOneLiquidatable={isOneLiquidatable} */}
                     isOneLiquidatable={false}
