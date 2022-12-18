@@ -7,7 +7,7 @@ export default function LeaderboardTableHeader({ isOneLiquidatable }) {
       <th>value</th>
       <th className="hidden md:table-cell">Withdrawn</th>
       <th className="hidden md:table-cell">Deposited</th>
-      {isOneLiquidatable && <th>Liquidate</th>}
+      <th className="hidden md:table-cell">Liquidate</th>
       <th className="hidden md:table-cell">Deposit Ratio</th>
       <th>Address</th>
     </tr>

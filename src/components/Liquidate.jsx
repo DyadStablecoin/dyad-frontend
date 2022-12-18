@@ -7,8 +7,10 @@ import TextInput from "./TextInput";
 import { parseEther } from "../utils/currency";
 import PopupContent from "./PopupContent";
 import useEthBalance from "../hooks/useEthBalance";
+import useNfts from "../hooks/useNfts";
 
-export default function Liquidate({ tokenId, onClose, setTxHash }) {
+export default function Liquidate({ nft, tokenId, onClose, setTxHash }) {
+  console.log("id", tokenId);
   const [wETH, setWETH] = useState("");
   const { address } = useAccount();
   const { ethBalance } = useEthBalance();
@@ -20,6 +22,9 @@ export default function Liquidate({ tokenId, onClose, setTxHash }) {
     args: [tokenId, address],
     overrides: {
       value: parseEther(wETH),
+    },
+    onError: (error) => {
+      console.log(error);
     },
   });
 

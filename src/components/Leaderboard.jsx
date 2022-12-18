@@ -9,7 +9,7 @@ import {
 } from "../hooks/useNftsFromIndexer";
 import Pagination from "./Pagination";
 
-const ROWS_PER_PAGE = 25;
+const ROWS_PER_PAGE = 20;
 
 export default function Leaderboard() {
   const { count } = useNftsCountFromIndexer();
@@ -36,11 +36,11 @@ export default function Leaderboard() {
               />
             </div>
             <table className="leaderboard">
-              <LeaderboardTableHeader isOneLiquidatable={isOneLiquidatable} />
+              <LeaderboardTableHeader />
               {nfts.map((nft, i) => {
                 return (
                   <LeaderboardTableRow
-                    nft={nft}
+                    id={nft.id}
                     rank={range.start + i}
                     isOneLiquidatable={isOneLiquidatable}
                     refetch={refetch}

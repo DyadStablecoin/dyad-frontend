@@ -1,8 +1,6 @@
 import { useDisclosure } from "@chakra-ui/react";
 import { useWaitForTransaction } from "wagmi";
 import { dNFT_PRICE, RANDOM_IMAGES } from "../consts/consts";
-import useFilterAddress from "../hooks/useFilterAddress";
-import useIdToOwner from "../hooks/useIdToOwner";
 import { addressSummary } from "../utils/address";
 import { formatUSD, round } from "../utils/currency";
 import { depositRatio } from "../utils/stats";
@@ -13,16 +11,10 @@ import Popup from "./Popup";
 import { useState } from "react";
 import useNft from "../hooks/useNft";
 
-export default function LeaderboardTableRow({
-  nft,
-  rank,
-  isOneLiquidatable,
-  refetch,
-  filter,
-}) {
+export default function LeaderboardTableRow({ id, rank, refetch }) {
   const [txHash, setTxHash] = useState();
-
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { nft } = useNft(id);
 
   const { isLoading: isLoadingTx } = useWaitForTransaction({
     hash: txHash,
@@ -30,21 +22,6 @@ export default function LeaderboardTableRow({
       refetch();
     },
   });
-
-  function renderLiquidateBtn() {
-    if (isOneLiquidatable) {
-      if (nft.deposit < 0) {
-        return (
-          <td className="w-[4rem]">
-            <Button onClick={onOpen} style="w-[6rem]" tokenId={nft.id}>
-              Liquidate
-            </Button>
-          </td>
-        );
-      }
-      return <td></td>;
-    }
-  }
 
   return (
     <>
@@ -67,7 +44,14 @@ export default function LeaderboardTableRow({
           <td className="hidden md:table-cell">
             {round(nft.deposit / 10 ** 18, 2)}
           </td>
-          {renderLiquidateBtn()}
+          <td className="hidden md:table-cell">
+            {nft.deposit < 0 && (
+              <Button onClick={onOpen} style="w-[6rem]" tokenId={nft.id}>
+                Liquidate
+              </Button>
+            )}
+          </td>
+          {nft.deposit < 0}
           <td className="hidden md:table-cell">
             {depositRatio(parseFloat(nft.withdrawn), parseFloat(nft.deposit))}%
           </td>
