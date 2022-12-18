@@ -8,10 +8,11 @@ export default function useCR() {
 
   useEffect(() => {
     const _cr =
-      ((balances.totalSupplyOfDyad - balances.poolBalanceOfDyad) /
-        balances.poolBalanceOfDyad) *
+      (balances.poolBalanceOfDyad /
+        (balances.totalSupplyOfDyad - balances.poolBalanceOfDyad)) *
       100;
-    setCR(isNaN(_cr) ? 0 : _cr);
+
+    setCR(_cr);
   }, [balances]);
 
   return { cr };
