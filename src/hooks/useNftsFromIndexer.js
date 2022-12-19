@@ -3,16 +3,14 @@ import { supabase } from "../utils/supabase";
 import { CONTRACT_dNFT } from "../consts/contract";
 import useRefetch from "./useRefetch";
 import useIsOneNftLiquidatable from "./useIsOneNftLiquidatable";
-import useLastSyncVersion from "./useLastSyncVersion";
 
 /**
  * return the nfts from the indexer, sorted by xp in descending order
  */
-export function useNftsFromIndexer(range) {
+export function useNftsFromIndexer(range, lastSyncVersion) {
   const [nfts, setNfts] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const { isOneLiquidatable } = useIsOneNftLiquidatable(nfts);
-  const { lastSyncVersion } = useLastSyncVersion();
 
   const { refetch, trigger } = useRefetch();
 
@@ -40,18 +38,21 @@ export function useNftsFromIndexer(range) {
 }
 
 // return the number of nfts in the nfts table
-export function useNftsCountFromIndexer() {
+export function useNftsCountFromIndexer(lastSyncVersion) {
   const [count, setCount] = useState();
 
   useEffect(() => {
-    supabase
-      .from("nfts")
-      .select("*", { count: "exact", head: true })
-      .eq("contractAddress", CONTRACT_dNFT)
-      .then((res) => {
-        setCount(res.count);
-      });
-  }, []);
+    if (lastSyncVersion) {
+      supabase
+        .from("nfts")
+        .select("*", { count: "exact", head: true })
+        .eq("contractAddress", CONTRACT_dNFT)
+        .eq("version", lastSyncVersion)
+        .then((res) => {
+          setCount(res.count);
+        });
+    }
+  }, [lastSyncVersion]);
 
   return { count };
 }
