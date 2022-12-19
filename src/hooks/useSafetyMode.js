@@ -7,7 +7,7 @@ export default function useSafetyModeActivated() {
   const { cr } = useCR();
 
   useEffect(() => {
-    cr && setIsSafetyModeActivated(cr > SAFETY_MODE_THRESHOLD);
+    cr && setIsSafetyModeActivated(cr < SAFETY_MODE_THRESHOLD);
   }, [cr]);
 
   return { isSafetyModeActivated };

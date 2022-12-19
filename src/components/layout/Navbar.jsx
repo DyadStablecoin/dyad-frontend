@@ -65,7 +65,7 @@ export default function NavBar() {
               <>
                 <div className="flex gap-2 items-center justify-center">
                   <div>CR</div>
-                  {cr && <div>{round(cr, 2)}%</div>}
+                  {cr && <div>{round(cr, 0)}%</div>}
                 </div>
                 <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
               </>
