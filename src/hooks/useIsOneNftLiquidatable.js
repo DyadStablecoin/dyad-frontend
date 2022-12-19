@@ -4,6 +4,8 @@ export default function useIsOneNftLiquidatable(nfts) {
   const [isOneLiquidatable, setIsOneLiquidatable] = useState(false);
 
   useEffect(() => {
+    setIsOneLiquidatable(false);
+
     if (nfts) {
       nfts.map((nft) => {
         if (nft.deposit < 0) {
