@@ -8,21 +8,17 @@ import {
   useNftsFromIndexer,
 } from "../hooks/useNftsFromIndexer";
 import Pagination from "./Pagination";
-import useLastSyncVersion from "../hooks/useLastSyncVersion";
 
 const ROWS_PER_PAGE = 20;
 
 export default function Leaderboard() {
-  const { lastSyncVersion } = useLastSyncVersion();
   const [range, setRange] = useState({
     start: 0,
     end: ROWS_PER_PAGE,
   });
-  const { count } = useNftsCountFromIndexer(lastSyncVersion);
-  const { nfts, isOneLiquidatable, isLoading, refetch } = useNftsFromIndexer(
-    range,
-    lastSyncVersion
-  );
+  const { count } = useNftsCountFromIndexer();
+  const { nfts, isOneLiquidatable, isLoading, refetch } =
+    useNftsFromIndexer(range);
 
   return (
     <div className="flex items-center justify-center flex-col">
