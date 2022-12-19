@@ -8,14 +8,15 @@ import Button from "./Button";
 import dNFT from "../abi/dNFT.json";
 import { TOTAL_SUPPLY, MIN_DEPOSIT, MIN_DEPOSIT_USD } from "../consts/consts";
 import useBlockchain from "../hooks/useBlockchain";
-import useNfts from "../hooks/useNfts";
-import { useBalances } from "../hooks/useBalances";
 import LoadingInplace from "./LoadingInplace";
+import useBalanceOfNft from "../hooks/useBalanceOfNfts";
+import useTotalNftSupply from "../hooks/useTotalNftSupply";
 
 export default function Claim() {
   const { ensName, address } = useBlockchain();
-  const { refetch, balances } = useBalances();
-  useNfts([balances]);
+
+  const { refetch: refetchBalance, nftBalance } = useBalanceOfNft();
+  const { refetch: refetchTotalSupply, totalNftSupply } = useTotalNftSupply();
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -30,7 +31,8 @@ export default function Claim() {
   const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
     onSuccess: () => {
-      refetch();
+      refetchBalance();
+      refetchTotalSupply();
     },
   });
 
@@ -47,7 +49,7 @@ export default function Claim() {
           </div>
           <div className="ml-2 p-2">
             <div>Hi, {ensName} 👋</div>
-            {balances.balanceOfdNFT === 0 ? (
+            {nftBalance === 0 ? (
               <div>Please mint your dNFT to play</div>
             ) : (
               <div>Access your dNFT(s) and play below</div>
@@ -61,7 +63,7 @@ export default function Claim() {
               <div className="flex gap-1 items-center">
                 <div className="rhombus"></div>
                 <div>
-                  {TOTAL_SUPPLY - balances.totalSupplyOfNfts}/{TOTAL_SUPPLY}
+                  {TOTAL_SUPPLY - totalNftSupply}/{TOTAL_SUPPLY}
                 </div>
               </div>
             </div>

@@ -10,9 +10,12 @@ import Leaderboard from "./components/Leaderboard";
 import useBlockchain from "./hooks/useBlockchain";
 import { CURRENT_NETWORK } from "./consts/consts";
 import Button from "./components/Button";
+import { useAccount, useNetwork, useSwitchNetwork } from "wagmi";
 
 export default function App() {
-  const { isConnected, chain, switchNetwork } = useBlockchain();
+  const { isConnected } = useAccount();
+  const { chain } = useNetwork();
+  const { switchNetwork } = useSwitchNetwork();
 
   return (
     <BrowserRouter>

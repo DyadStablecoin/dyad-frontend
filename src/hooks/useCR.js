@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import { useBalances } from "./useBalances";
+import usePoolBalance from "./usePoolBalance";
+import useTotalDyadSupply from "./useTotalDyadSupply";
 
 // return the current collatorization ration of the protocol
 export default function useCR() {
-  const { balances } = useBalances();
   const [cr, setCR] = useState(0);
 
+  const { poolBalance } = usePoolBalance();
+  const { totalDyadSupply } = useTotalDyadSupply();
+
   useEffect(() => {
-    const _cr =
-      (balances.poolBalanceOfDyad /
-        (balances.totalSupplyOfDyad - balances.poolBalanceOfDyad)) *
-      100;
+    const _cr = (poolBalance / (totalDyadSupply - poolBalance)) * 100;
     setCR(isNaN(_cr) ? 0 : _cr);
-  }, [balances]);
+  }, [poolBalance, totalDyadSupply]);
 
   return { cr };
 }
