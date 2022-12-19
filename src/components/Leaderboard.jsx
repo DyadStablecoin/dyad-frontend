@@ -17,8 +17,7 @@ export default function Leaderboard() {
     end: ROWS_PER_PAGE,
   });
   const { count } = useNftsCountFromIndexer();
-  const { nfts, isOneLiquidatable, isLoading, refetch } =
-    useNftsFromIndexer(range);
+  const { nfts, isLoading, refetch } = useNftsFromIndexer(range);
 
   return (
     <div className="flex items-center justify-center flex-col">
@@ -41,8 +40,8 @@ export default function Leaderboard() {
                 return (
                   <LeaderboardTableRow
                     id={nft.id}
+                    owner={nft.owner}
                     rank={range.start + i}
-                    isOneLiquidatable={isOneLiquidatable}
                     refetch={refetch}
                   />
                 );

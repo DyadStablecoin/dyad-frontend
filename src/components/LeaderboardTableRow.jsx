@@ -11,7 +11,7 @@ import Popup from "./Popup";
 import { useState } from "react";
 import useNft from "../hooks/useNft";
 
-export default function LeaderboardTableRow({ id, rank, refetch }) {
+export default function LeaderboardTableRow({ id, owner, rank, refetch }) {
   const [txHash, setTxHash] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { nft } = useNft(id);
@@ -54,19 +54,11 @@ export default function LeaderboardTableRow({ id, rank, refetch }) {
           <td className="hidden md:table-cell">
             {depositRatio(parseFloat(nft.withdrawn), parseFloat(nft.deposit))}%
           </td>
-          <td>
-            {nft.ensName ||
-              addressSummary("0xEd6715D2172BFd50C2DBF608615c2AB497904803")}
-          </td>
+          <td>{addressSummary(owner)}</td>
         </tr>
       )}
       <Popup isOpen={isOpen} onClose={onClose}>
-        <Liquidate
-          nft={nft}
-          tokenId={nft.id}
-          onClose={onClose}
-          setTxHash={setTxHash}
-        />
+        <Liquidate tokenId={nft.id} onClose={onClose} setTxHash={setTxHash} />
       </Popup>
     </>
   );

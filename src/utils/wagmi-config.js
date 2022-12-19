@@ -13,7 +13,7 @@ import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 export const { chains, provider, webSocketProvider } = configureChains(
   // [chain.mainnet, chain.polygon, chain.rinkeby, chain.goerli],
   [chain.mainnet, chain.goerli],
-  [alchemyProvider({ apiKey: process.env.REACT_APP_ALCHEMY_KEY })]
+  [infuraProvider({ apiKey: process.env.REACT_APP_INFURA_KEY })]
 );
 
 const { connectors } = getDefaultWallets({
