@@ -13,8 +13,9 @@ export default function useEnsName(address) {
   useEffect(() => {
     async function _getEnsName() {
       setIsLoading(true);
-      const res = await getEnsName(address);
-      res ? setEnsName(res) : setEnsName(addressSummary(address));
+      // const res = await getEnsName(address);
+      // res ? setEnsName(res) : setEnsName(addressSummary(address));
+      setEnsName(addressSummary(address));
       setIsLoading(false);
     }
     _getEnsName();
