@@ -27,7 +27,7 @@ export default function useNftSyncSimulation(tokenId) {
 
       setIsLoading(true);
       const gp = new ethers.providers.JsonRpcProvider(
-        process.env.REACT_APP_INFURA
+        `https://${CURRENT_NETWORK}.infura.io/v3/${process.env.REACT_APP_INFURA_KEY}`
       );
       const blockNumber = await gp.getBlockNumber();
       const body = {
