@@ -1,4 +1,5 @@
 import {
+  useAccount,
   useContractWrite,
   usePrepareContractWrite,
   useWaitForTransaction,
@@ -7,13 +8,13 @@ import { CONTRACT_dNFT } from "../consts/contract";
 import Button from "./Button";
 import dNFT from "../abi/dNFT.json";
 import { TOTAL_SUPPLY, MIN_DEPOSIT, MIN_DEPOSIT_USD } from "../consts/consts";
-import useBlockchain from "../hooks/useBlockchain";
 import LoadingInplace from "./LoadingInplace";
 import useBalanceOfNft from "../hooks/useBalanceOfNfts";
 import useTotalNftSupply from "../hooks/useTotalNftSupply";
+import { addressSummary } from "../utils/address";
 
 export default function Claim() {
-  const { ensName, address } = useBlockchain();
+  const { address } = useAccount();
 
   const { refetch: refetchBalance, nftBalance } = useBalanceOfNft();
   const { refetch: refetchTotalSupply, totalNftSupply } = useTotalNftSupply();
@@ -48,7 +49,7 @@ export default function Claim() {
             />
           </div>
           <div className="ml-2 p-2">
-            <div>Hi, {ensName} 👋</div>
+            <div>Hi, {addressSummary(address)} 👋</div>
             {nftBalance === 0 ? (
               <div>Please mint your dNFT to play</div>
             ) : (

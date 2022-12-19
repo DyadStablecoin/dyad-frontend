@@ -5,9 +5,9 @@ import useAverage from "../hooks/useAverage";
 import useBalanceOfNft from "../hooks/useBalanceOfNfts";
 
 export default function NFTs() {
-  const { nfts } = useNfts();
-  const { xps } = useXP(nfts);
-  const { average } = useAverage(xps);
+  // const { nfts } = useNfts();
+  // const { xps } = useXP(nfts);
+  // const { average } = useAverage(xps);
   const { nftBalance } = useBalanceOfNft();
 
   return (
@@ -17,7 +17,7 @@ export default function NFTs() {
           <div className="mb-2">Your dNFTs</div>
           <div className="flex flex-col gap-2">
             {[...Array(nftBalance).keys()].map((i) => {
-              return <NFT xps={xps} xpsAverage={average} index={i} />;
+              return <NFT index={i} />;
             })}
           </div>
         </div>

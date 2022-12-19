@@ -7,7 +7,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageNotFound from "./components/PageNotFound";
 import Footer from "./components/Footer";
 import Leaderboard from "./components/Leaderboard";
-import useBlockchain from "./hooks/useBlockchain";
 import { CURRENT_NETWORK } from "./consts/consts";
 import Button from "./components/Button";
 import { useAccount, useNetwork, useSwitchNetwork } from "wagmi";

@@ -5,7 +5,6 @@ import { useState } from "react";
 import TextInput from "./TextInput";
 import { parseEther, round, normalize, floor } from "../utils/currency";
 import PopupContent from "./PopupContent";
-import { useBalances } from "../hooks/useBalances";
 import useApprove from "../hooks/useApprove";
 import useIsApproved from "../hooks/useIsApproved";
 import MaxButton from "./MaxButton";
@@ -13,7 +12,6 @@ import MaxButton from "./MaxButton";
 export default function Deposit({ nft, onClose, setTxHash }) {
   const { address } = useAccount();
   const [dyad, setDyad] = useState("");
-  const { balances } = useBalances();
   const { isApproved, refetch: refetchIsApproved } = useIsApproved(
     address,
     CONTRACT_dNFT,

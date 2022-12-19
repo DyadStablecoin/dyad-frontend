@@ -3,10 +3,8 @@ import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_POOL } from "../consts/contract";
 import PopupContent from "./PopupContent";
 import useGasCost from "../hooks/useGasCost";
-import useNftSyncSimulation from "../hooks/useNftSyncSimulation";
 import { DOCS_URL } from "../consts/consts";
 import SyncLastEthPrice from "./SyncLastEthPrice";
-import SyncXp from "./SyncXp";
 
 export default function Sync({ onClose, setTxHash, nft }) {
   const { config } = usePrepareContractWrite({

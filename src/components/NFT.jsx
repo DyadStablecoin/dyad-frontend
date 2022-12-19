@@ -30,9 +30,8 @@ export default function NFT({ index, xps, xpsAverage }) {
   const [txHash, setTxHash] = useState();
   const { tokenId } = useTokenOfOwnerByIndex(index);
   const { refetch, nft, isLoading, isFetching } = useNft(tokenId);
-  const { rank } = useRank(xps, nft.xp);
+  // const { rank } = useRank(xps, nft.xp);
   const { isSafetyModeActivated } = useSafetyModeActivated();
-  useBalances([nft]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -113,13 +112,13 @@ export default function NFT({ index, xps, xpsAverage }) {
           <div className="flex gap-4 justify-between w-full">
             <div className="md:w-[8rem]">
               <div className="w-[107px]">
-                <img src={RANDOM_IMAGES[rank % RANDOM_IMAGES.length]} alt="" />
+                {/* <img src={RANDOM_IMAGES[rank % RANDOM_IMAGES.length]} alt="" /> */}
               </div>
             </div>
             <div className="w-full">
               <div className="flex justify-between items-center">
                 <div className={HEADER}>Rank</div>
-                {xps && <div className="">#{rank}</div>}
+                {/* {xps && <div className="">#{rank}</div>} */}
               </div>
               <div className="flex justify-between items-center">
                 <div className={HEADER}>Value</div>
@@ -149,7 +148,7 @@ export default function NFT({ index, xps, xpsAverage }) {
                       dNFT_PRICE,
                       dNFT_AVERAGE_PRICE,
                       nft.xp,
-                      xpsAverage
+                      0 // xpsAverage
                     ),
                     3
                   )}
@@ -160,7 +159,7 @@ export default function NFT({ index, xps, xpsAverage }) {
                         dNFT_PRICE,
                         dNFT_AVERAGE_PRICE,
                         nft.xp,
-                        xpsAverage
+                        0 // xpsAverage
                       ),
                     3
                   )}

@@ -1,8 +1,10 @@
 import { SwapRightOutlined } from "@ant-design/icons";
-import useNftSyncSimulation from "../hooks/useNftSyncSimulation";
+// import useNftSyncSimulation from "../hooks/useNftSyncSimulation";
 
 export default function SyncXp({ nft }) {
-  const { nftAfterSimulation } = useNftSyncSimulation(nft.id);
+  // const { nftAfterSimulation } = useNftSyncSimulation(nft.id);
+  //
+  return <div></div>;
 
   return (
     <>

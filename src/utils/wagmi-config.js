@@ -16,14 +16,14 @@ export const { chains, provider, webSocketProvider } = configureChains(
   [alchemyProvider({ apiKey: process.env.REACT_APP_ALCHEMY_KEY })]
 );
 
-const { connectors } = getDefaultWallets({
-  appName: "My RainbowKit App",
-  chains,
-});
+// const { connectors } = getDefaultWallets({
+//   appName: "My RainbowKit App",
+//   chains,
+// });
 
 export const client = createClient({
   autoConnect: true,
-  connectors,
+  // connectors,
   provider,
   webSocketProvider,
 });
