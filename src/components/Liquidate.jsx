@@ -10,7 +10,6 @@ import useEthBalance from "../hooks/useEthBalance";
 import useNfts from "../hooks/useNfts";
 
 export default function Liquidate({ nft, tokenId, onClose, setTxHash }) {
-  console.log("id", tokenId);
   const [wETH, setWETH] = useState("");
   const { address } = useAccount();
   const { ethBalance } = useEthBalance();

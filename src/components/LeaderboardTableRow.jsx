@@ -46,16 +46,18 @@ export default function LeaderboardTableRow({ id, rank, refetch }) {
           </td>
           <td className="hidden md:table-cell">
             {nft.deposit < 0 && (
-              <Button onClick={onOpen} style="w-[6rem]" tokenId={nft.id}>
+              <Button onClick={onOpen} tokenId={nft.id}>
                 Liquidate
               </Button>
             )}
           </td>
-          {nft.deposit < 0}
           <td className="hidden md:table-cell">
             {depositRatio(parseFloat(nft.withdrawn), parseFloat(nft.deposit))}%
           </td>
-          <td>{nft.ensName || addressSummary(nft.owner)}</td>
+          <td>
+            {nft.ensName ||
+              addressSummary("0xEd6715D2172BFd50C2DBF608615c2AB497904803")}
+          </td>
         </tr>
       )}
       <Popup isOpen={isOpen} onClose={onClose}>
