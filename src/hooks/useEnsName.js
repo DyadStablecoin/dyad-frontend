@@ -34,7 +34,7 @@ export default function useEnsName(address) {
     enabled: false,
     onSuccess: (data) => {
       setEnsName(data[0]);
-      setCookie(`ENS_NAME_${address}`, data[0], 4);
+      setCookie(`ENS_NAME_${address}`, data[0], 7);
     },
   });
 
