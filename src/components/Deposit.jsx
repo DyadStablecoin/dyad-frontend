@@ -5,20 +5,22 @@ import { useState } from "react";
 import TextInput from "./TextInput";
 import { parseEther, round, normalize, floor } from "../utils/currency";
 import PopupContent from "./PopupContent";
-import { useBalances } from "../hooks/useBalances";
 import useApprove from "../hooks/useApprove";
 import useIsApproved from "../hooks/useIsApproved";
 import MaxButton from "./MaxButton";
+import useMaxDeposit from "../hooks/useMaxDeposit";
+import useDyadBalance from "../hooks/useDyadBalance";
 
 export default function Deposit({ nft, onClose, setTxHash }) {
   const { address } = useAccount();
   const [dyad, setDyad] = useState("");
-  const { balances } = useBalances();
   const { isApproved, refetch: refetchIsApproved } = useIsApproved(
     address,
     CONTRACT_dNFT,
     dyad
   );
+  const { dyadBalance } = useDyadBalance(address);
+  const { maxDeposit } = useMaxDeposit(nft, dyadBalance);
 
   const { config: configDeposit, refetch: refetchPrepareDeposit } =
     usePrepareContractWrite({
@@ -47,9 +49,25 @@ export default function Deposit({ nft, onClose, setTxHash }) {
   return (
     <PopupContent
       title="Deposit DYAD"
-      btnText={isApproved ? "Deposit" : "Approve"}
+      btnText={
+        dyad === "" || dyad === "0"
+          ? "Enter an amount"
+          : normalize(maxDeposit) < dyad
+          ? dyad > normalize(dyadBalance)
+            ? "Insufficient DYAD balance"
+            : "Insufficient dNFT balance"
+          : isApproved
+          ? "Deposit"
+          : "Approve"
+      }
       isDisabled={
-        isApproved ? !writeDeposit : !writeApprove || isFetchingApproval
+        dyad === "" || dyad === "0"
+          ? true
+          : normalize(maxDeposit) < dyad
+          ? true
+          : isApproved
+          ? !writeDeposit
+          : !writeApprove
       }
       onClick={() => {
         isApproved ? writeDeposit?.() : writeApprove?.();
@@ -80,7 +98,7 @@ export default function Deposit({ nft, onClose, setTxHash }) {
               Balance:{round(normalize(nft.withdrawn), 2)}
             </div>
             <MaxButton
-              onClick={() => setDyad(floor(normalize(nft.withdrawn), 2))}
+              onClick={() => setDyad(floor(normalize(maxDeposit), 2))}
             />
           </div>
         </div>
