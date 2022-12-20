@@ -7,28 +7,33 @@ import useNftBalance from "./useNftBalance";
 export default function useIDsByOwner(owner) {
   const [tokenIds, setTokenIds] = useState([]);
   const { nftBalance } = useNftBalance(owner);
-
-  let calls = [];
-  for (let i = 0; i < nftBalance; i++) {
-    calls.push({
-      addressOrName: CONTRACT_dNFT,
-      contractInterface: dNFTABI["abi"],
-      functionName: "tokenOfOwnerByIndex",
-      args: [owner, i],
-    });
-  }
+  const [calls, setCalls] = useState();
 
   const { refetch } = useContractReads({
     contracts: calls,
+    enabled: false,
     onSuccess: (data) => {
-      console.log("useIDsByOwner: Fetching ids for", owner);
+      console.log("useIDsByOwner: Fetching ids for", owner, data);
       setTokenIds(data);
     },
   });
 
   useEffect(() => {
-    refetch();
-  }, [nftBalance, owner]);
+    let _calls = [];
+    for (let i = 0; i < nftBalance; i++) {
+      _calls.push({
+        addressOrName: CONTRACT_dNFT,
+        contractInterface: dNFTABI["abi"],
+        functionName: "tokenOfOwnerByIndex",
+        args: [owner, i],
+      });
+    }
+    setCalls(_calls);
+  }, [nftBalance]);
+
+  useEffect(() => {
+    calls && calls.length > 0 && refetch();
+  }, [calls]);
 
   return { tokenIds };
 }

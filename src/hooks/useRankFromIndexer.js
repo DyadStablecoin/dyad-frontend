@@ -12,6 +12,9 @@ export default function useRankFromIndexer(tokenId) {
       })
       .then((data) => {
         setRank(data.data);
+      })
+      .catch((error) => {
+        console.log("useRankFromIndexer:", error);
       });
   }, [tokenId]);
 

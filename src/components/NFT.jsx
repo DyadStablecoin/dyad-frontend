@@ -25,6 +25,8 @@ import useRankFromIndexer from "../hooks/useRankFromIndexer";
 const HEADER = "text-gray-500 text-sm";
 
 export default function NFT({ tokenId }) {
+  console.log("NFT: Rendering NFT", tokenId);
+
   const [txHash, setTxHash] = useState();
   const { refetch, nft, isLoading, isFetching } = useNft(tokenId);
   const { rank } = useRankFromIndexer(tokenId);
