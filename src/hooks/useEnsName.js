@@ -16,6 +16,8 @@ const RESOLVER_ABI = [
 
 const RESOLVER_ADDRESS = "0x3671aE578E63FdF66ad4F3E12CC0c0d71Ac7510C";
 
+const NO_ENS_NAME_FOUND = "undefined";
+
 /**
  * Thin wrapper around the wagmi useAccount and useNetwork hook, with the only
  * difference being that we return the corresponding ENS name if it exists.
@@ -36,7 +38,7 @@ export default function useEnsName(address) {
         setEnsName(data[0]);
         setCookie(`ENS_NAME_${address}`, data[0], 7);
       } else {
-        setCookie(`ENS_NAME_${address}`, "", 7);
+        setCookie(`ENS_NAME_${address}`, NO_ENS_NAME_FOUND, 7);
       }
     },
   });
@@ -44,15 +46,22 @@ export default function useEnsName(address) {
   useEffect(() => {
     const _ensName = getCookie(`ENS_NAME_${address}`);
 
-    /*
-     * Only fetch the ENS name if it's not already in the cookie.
-     */
-    if (_ensName && _ensName !== "") {
+    if (_ensName && _ensName !== NO_ENS_NAME_FOUND) {
+      /**
+       * We found a cached ENS name, so we set it and we're done
+       */
       setEnsName(_ensName);
-    } else if (_ensName === "") {
-      setEnsName(undefined);
+    } else if (_ensName === NO_ENS_NAME_FOUND) {
+      /**
+       * That means we already tried to fetch the ENS name
+       * before but there is none.
+       */
+      setEnsName("");
     } else {
-      console.log("Fetching ENS name");
+      /**
+       * If we encounter a new never seen before address,
+       * we fetch the ENS name.
+       */
       refetch();
     }
   }, [address]);
