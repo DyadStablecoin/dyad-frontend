@@ -95,7 +95,7 @@ export default function Deposit({ nft, onClose, setTxHash }) {
           </div>
           <div className="flex gap-2 items-center justify-center">
             <div className="text-[#737E76]">
-              Balance:{round(normalize(nft.withdrawn), 2)}
+              Balance:{round(normalize(maxDeposit), 2)}
             </div>
             <MaxButton
               onClick={() => setDyad(floor(normalize(maxDeposit), 2))}
