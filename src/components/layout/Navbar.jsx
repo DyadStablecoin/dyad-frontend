@@ -5,7 +5,6 @@ import logo from "../../static/dyad-logo.svg";
 import WalletOutlined from "@ant-design/icons/lib/icons/WalletOutlined";
 import { dNFT_PRICE } from "../../consts/consts";
 import { WarningFilled } from "@ant-design/icons";
-import useBlockchain from "../../hooks/useBlockchain";
 import { useBalances } from "../../hooks/useBalances";
 import useCR from "../../hooks/useCR";
 import Menu from "../Menu";
@@ -18,8 +17,7 @@ import { addressSummary } from "../../utils/address";
 export default function NavBar() {
   const { disconnect } = useDisconnect();
   const { connect, connectors } = useConnect();
-  const { isConnected } = useBlockchain();
-  const { address } = useAccount();
+  const { address, isConnected } = useAccount();
   const { ensName } = useEnsName(address);
   const { balances } = useBalances();
   const { cr } = useCR();

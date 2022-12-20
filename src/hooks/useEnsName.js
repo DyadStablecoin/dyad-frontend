@@ -62,6 +62,7 @@ export default function useEnsName(address) {
        * If we encounter a new never seen before address,
        * we fetch the ENS name.
        */
+      console.log("Fetching ENS name for", address);
       refetch();
     }
   }, [address]);
