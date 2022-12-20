@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import useNftBalance from "./useNftBalance";
 
 export default function useIDsByOwner(owner) {
-  const [ids, setIds] = useState([]);
+  const [tokenIds, setTokenIds] = useState([]);
   const { nftBalance } = useNftBalance(owner);
 
   let calls = [];
@@ -22,7 +22,7 @@ export default function useIDsByOwner(owner) {
     contracts: calls,
     onSuccess: (data) => {
       console.log("useIDsByOwner: Fetching ids for", owner);
-      setIds(data);
+      setTokenIds(data);
     },
   });
 
@@ -30,5 +30,5 @@ export default function useIDsByOwner(owner) {
     refetch();
   }, [nftBalance, owner]);
 
-  return { ids };
+  return { tokenIds };
 }
