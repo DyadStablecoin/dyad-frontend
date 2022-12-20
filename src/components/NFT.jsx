@@ -26,10 +26,9 @@ import useSafetyModeActivated from "../hooks/useSafetyMode";
 
 const HEADER = "text-gray-500 text-sm";
 
-export default function NFT({ index, xps, xpsAverage }) {
+export default function NFT({ id, xps, xpsAverage }) {
   const [txHash, setTxHash] = useState();
-  const { tokenId } = useTokenOfOwnerByIndex(index);
-  const { refetch, nft, isLoading, isFetching } = useNft(tokenId);
+  const { refetch, nft, isLoading, isFetching } = useNft(id);
   const { rank } = useRank(xps, nft.xp);
   const { isSafetyModeActivated } = useSafetyModeActivated();
   useBalances([nft]);
