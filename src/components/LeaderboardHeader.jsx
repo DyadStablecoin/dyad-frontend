@@ -1,5 +1,4 @@
 import { ReloadOutlined } from "@ant-design/icons";
-import useNfts from "../hooks/useNfts";
 
 export default function LeaderboardHeader({ refetch }) {
   return (
