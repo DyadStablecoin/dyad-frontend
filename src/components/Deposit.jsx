@@ -48,9 +48,23 @@ export default function Deposit({ nft, onClose, setTxHash }) {
   return (
     <PopupContent
       title="Deposit DYAD"
-      btnText={isApproved ? "Deposit" : "Approve"}
+      btnText={
+        dyad === "" || dyad === "0"
+          ? "Enter an amount"
+          : normalize(maxDeposit) < dyad
+          ? "Insufficient DYAD balance"
+          : isApproved
+          ? "Deposit"
+          : "Approve"
+      }
       isDisabled={
-        isApproved ? !writeDeposit : !writeApprove || isFetchingApproval
+        dyad === "" || dyad === "0"
+          ? true
+          : normalize(maxDeposit) < dyad
+          ? true
+          : isApproved
+          ? !writeDeposit
+          : !writeApprove
       }
       onClick={() => {
         isApproved ? writeDeposit?.() : writeApprove?.();
