@@ -19,7 +19,13 @@ export default function NFTs() {
           <div className="mb-2">Your dNFTs</div>
           <div className="flex flex-col gap-2">
             {ids.map((id) => {
-              return <NFT xps={xps} xpsAverage={average} id={id} />;
+              return (
+                <NFT
+                  xps={xps}
+                  xpsAverage={average}
+                  tokenId={parseInt(id._hex)}
+                />
+              );
             })}
           </div>
         </div>

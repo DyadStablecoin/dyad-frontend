@@ -15,21 +15,20 @@ import Withdraw from "./Withdraw";
 import useNft from "../hooks/useNft";
 import ProgressBar from "./ProgressBar";
 import Skeleton from "./Skeletion";
-import useTokenOfOwnerByIndex from "../hooks/useTokenOfOwnerByIndex";
 import LoadingInplace from "./LoadingInplace";
 import { useEffect, useState } from "react";
 import { useWaitForTransaction } from "wagmi";
 import { useBalances } from "../hooks/useBalances";
 import Redeem from "./Redeem";
-import useRank from "../hooks/useRank";
 import useSafetyModeActivated from "../hooks/useSafetyMode";
+import useRankFromIndexer from "../hooks/useRankFromIndexer";
 
 const HEADER = "text-gray-500 text-sm";
 
-export default function NFT({ id, xps, xpsAverage }) {
+export default function NFT({ tokenId, xps, xpsAverage }) {
   const [txHash, setTxHash] = useState();
-  const { refetch, nft, isLoading, isFetching } = useNft(id);
-  const { rank } = useRank(xps, nft.xp);
+  const { refetch, nft, isLoading, isFetching } = useNft(tokenId);
+  const { rank } = useRankFromIndexer(tokenId);
   const { isSafetyModeActivated } = useSafetyModeActivated();
   useBalances([nft]);
 
