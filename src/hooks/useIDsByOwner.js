@@ -7,7 +7,7 @@ import useNftBalance from "./useNftBalance";
 export default function useIDsByOwner(owner) {
   const [tokenIds, setTokenIds] = useState([]);
   const { nftBalance } = useNftBalance(owner);
-  const [calls, setCalls] = useState();
+  const [calls, setCalls] = useState([]);
 
   const { refetch } = useContractReads({
     contracts: calls,
@@ -32,7 +32,7 @@ export default function useIDsByOwner(owner) {
   }, [nftBalance]);
 
   useEffect(() => {
-    calls && calls.length > 0 && refetch();
+    calls.length > 0 ? refetch() : setTokenIds([]);
   }, [calls]);
 
   return { tokenIds };
