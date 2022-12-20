@@ -1,22 +1,24 @@
-import { useConnect, useDisconnect } from "wagmi";
+import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { formatUSD, round } from "../../utils/currency";
 import Button from "../Button";
 import logo from "../../static/dyad-logo.svg";
 import WalletOutlined from "@ant-design/icons/lib/icons/WalletOutlined";
 import { dNFT_PRICE } from "../../consts/consts";
 import { WarningFilled } from "@ant-design/icons";
-import useBlockchain from "../../hooks/useBlockchain";
 import { useBalances } from "../../hooks/useBalances";
 import useCR from "../../hooks/useCR";
 import Menu from "../Menu";
 import { useNavigate } from "react-router-dom";
 import { COLORS } from "../../consts/colors";
 import useSafetyModeActivated from "../../hooks/useSafetyMode";
+import useEnsName from "../../hooks/useEnsName";
+import { addressSummary } from "../../utils/address";
 
 export default function NavBar() {
   const { disconnect } = useDisconnect();
   const { connect, connectors } = useConnect();
-  const { ensName, address, isConnected } = useBlockchain();
+  const { address, isConnected } = useAccount();
+  const { ensName } = useEnsName(address);
   const { balances } = useBalances();
   const { cr } = useCR();
   const { isSafetyModeActivated } = useSafetyModeActivated();
@@ -78,7 +80,7 @@ export default function NavBar() {
               >
                 <div className="flex items-center gap-2">
                   <a className="cursor-pointer">Disconnect</a>
-                  <div>{ensName}</div>
+                  <div>{ensName || addressSummary(address)}</div>
                 </div>
               </Button>
             ) : (
