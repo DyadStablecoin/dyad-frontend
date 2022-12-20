@@ -8,7 +8,6 @@ import { CONTRACT_dNFT } from "../consts/contract";
 import Button from "./Button";
 import dNFT from "../abi/dNFT.json";
 import { TOTAL_SUPPLY, MIN_DEPOSIT, MIN_DEPOSIT_USD } from "../consts/consts";
-import useNfts from "../hooks/useNfts";
 import { useBalances } from "../hooks/useBalances";
 import LoadingInplace from "./LoadingInplace";
 import { addressSummary } from "../utils/address";
@@ -18,7 +17,6 @@ export default function Claim() {
   const { address } = useAccount();
   const { ensName } = useEnsName(address);
   const { refetch, balances } = useBalances();
-  useNfts([balances]);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
