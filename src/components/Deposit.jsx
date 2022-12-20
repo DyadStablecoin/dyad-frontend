@@ -5,20 +5,21 @@ import { useState } from "react";
 import TextInput from "./TextInput";
 import { parseEther, round, normalize, floor } from "../utils/currency";
 import PopupContent from "./PopupContent";
-import { useBalances } from "../hooks/useBalances";
 import useApprove from "../hooks/useApprove";
 import useIsApproved from "../hooks/useIsApproved";
 import MaxButton from "./MaxButton";
+import useMaxDeposit from "../hooks/useMaxDeposit";
 
 export default function Deposit({ nft, onClose, setTxHash }) {
   const { address } = useAccount();
   const [dyad, setDyad] = useState("");
-  const { balances } = useBalances();
   const { isApproved, refetch: refetchIsApproved } = useIsApproved(
     address,
     CONTRACT_dNFT,
     dyad
   );
+  const { maxDeposit } = useMaxDeposit(nft);
+  console.log("maxDeposit: ", maxDeposit);
 
   const { config: configDeposit, refetch: refetchPrepareDeposit } =
     usePrepareContractWrite({
@@ -80,7 +81,7 @@ export default function Deposit({ nft, onClose, setTxHash }) {
               Balance:{round(normalize(nft.withdrawn), 2)}
             </div>
             <MaxButton
-              onClick={() => setDyad(floor(normalize(nft.withdrawn), 2))}
+              onClick={() => setDyad(floor(normalize(maxDeposit), 2))}
             />
           </div>
         </div>
