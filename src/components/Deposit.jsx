@@ -50,7 +50,7 @@ export default function Deposit({ nft, onClose, setTxHash }) {
     <PopupContent
       title="Deposit DYAD"
       btnText={
-        dyad === "" || dyad === "0"
+        dyad === "" || parseFloat(dyad) === 0
           ? "Enter an amount"
           : normalize(maxDeposit) < dyad
           ? dyad > normalize(dyadBalance)
@@ -61,7 +61,7 @@ export default function Deposit({ nft, onClose, setTxHash }) {
           : "Approve"
       }
       isDisabled={
-        dyad === "" || dyad === "0"
+        dyad === "" || parseFloat(dyad) === 0
           ? true
           : normalize(maxDeposit) < dyad
           ? true

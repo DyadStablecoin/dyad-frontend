@@ -53,7 +53,7 @@ export default function Redeem({ nft, onClose, setTxHash }) {
     <PopupContent
       title="Redeem"
       btnText={
-        dyad === "" || dyad === "0"
+        dyad === "" || parseFloat(dyad) === 0
           ? "Enter an amount"
           : normalize(maxDeposit) < dyad
           ? dyad > normalize(dyadBalance)
@@ -70,7 +70,7 @@ export default function Redeem({ nft, onClose, setTxHash }) {
         }
       }}
       isDisabled={
-        dyad === "" || dyad === "0"
+        dyad === "" || parseFloat(dyad) === 0
           ? true
           : normalize(maxDeposit) < dyad
           ? true
