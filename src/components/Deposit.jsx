@@ -9,6 +9,7 @@ import useApprove from "../hooks/useApprove";
 import useIsApproved from "../hooks/useIsApproved";
 import MaxButton from "./MaxButton";
 import useMaxDeposit from "../hooks/useMaxDeposit";
+import useDyadBalance from "../hooks/useDyadBalance";
 
 export default function Deposit({ nft, onClose, setTxHash }) {
   const { address } = useAccount();
@@ -18,8 +19,8 @@ export default function Deposit({ nft, onClose, setTxHash }) {
     CONTRACT_dNFT,
     dyad
   );
-  const { maxDeposit } = useMaxDeposit(nft);
-  console.log("maxDeposit: ", maxDeposit);
+  const { dyadBalance } = useDyadBalance(address);
+  const { maxDeposit } = useMaxDeposit(nft, dyadBalance);
 
   const { config: configDeposit, refetch: refetchPrepareDeposit } =
     usePrepareContractWrite({
@@ -52,7 +53,9 @@ export default function Deposit({ nft, onClose, setTxHash }) {
         dyad === "" || dyad === "0"
           ? "Enter an amount"
           : normalize(maxDeposit) < dyad
-          ? "Insufficient DYAD balance"
+          ? dyad > normalize(dyadBalance)
+            ? "Insufficient DYAD balance"
+            : "Insufficient dNFT balance"
           : isApproved
           ? "Deposit"
           : "Approve"
