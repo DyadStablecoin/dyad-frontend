@@ -3,7 +3,6 @@ import dNFTABI from "../abi/dNFT.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
 import { parseEther } from "../utils/currency";
-import { useBalances } from "../hooks/useBalances";
 import PopupContent from "./PopupContent";
 import { ArrowDownOutlined } from "@ant-design/icons";
 import useEthPrice from "../hooks/useEthPrice";
@@ -12,9 +11,10 @@ import useApprove from "../hooks/useApprove";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import MaxButton from "./MaxButton";
+import useMaxDeposit from "../hooks/useMaxDeposit";
+import useDyadBalance from "../hooks/useDyadBalance";
 
 export default function Redeem({ nft, onClose, setTxHash }) {
-  const { balances } = useBalances();
   const [dyad, setDyad] = useState("");
   const { ethPrice } = useEthPrice();
   const { address } = useAccount();
@@ -23,6 +23,8 @@ export default function Redeem({ nft, onClose, setTxHash }) {
     CONTRACT_dNFT,
     dyad
   );
+  const { dyadBalance } = useDyadBalance(address);
+  const { maxDeposit } = useMaxDeposit(nft, dyadBalance);
 
   const { config, refetch: refetchPrepareRedeem } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -50,7 +52,17 @@ export default function Redeem({ nft, onClose, setTxHash }) {
   return (
     <PopupContent
       title="Redeem"
-      btnText={isApproved ? "REDEEM" : "Approve"}
+      btnText={
+        dyad === "" || dyad === "0"
+          ? "Enter an amount"
+          : normalize(maxDeposit) < dyad
+          ? dyad > normalize(dyadBalance)
+            ? "Insufficient DYAD balance"
+            : "Insufficient dNFT balance"
+          : isApproved
+          ? "Redeem"
+          : "Approve"
+      }
       onClick={() => {
         isApproved ? writeRedeem?.() : writeApprove?.();
         if (isApproved) {
@@ -58,7 +70,13 @@ export default function Redeem({ nft, onClose, setTxHash }) {
         }
       }}
       isDisabled={
-        isApproved ? !writeRedeem : !writeApprove || isFetchingApproval
+        dyad === "" || dyad === "0"
+          ? true
+          : normalize(maxDeposit) < dyad
+          ? true
+          : isApproved
+          ? !writeRedeem
+          : !writeApprove
       }
       isLoading={isFetchingApproval}
     >
@@ -79,10 +97,10 @@ export default function Redeem({ nft, onClose, setTxHash }) {
             </div>
             <div className="flex gap-2 items-center justify-center">
               <div className="text-[#737E76]">
-                Balance:{round(normalize(nft.withdrawn), 2)}
+                Balance:{round(normalize(maxDeposit), 2)}
               </div>
               <MaxButton
-                onClick={() => setDyad(floor(normalize(nft.withdrawn), 2))}
+                onClick={() => setDyad(floor(normalize(maxDeposit), 2))}
               />
             </div>
           </div>
