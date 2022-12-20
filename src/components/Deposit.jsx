@@ -1,6 +1,6 @@
 import { useContractWrite, usePrepareContractWrite, useAccount } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
-import dNFTabi from "../consts/abi/dNFTABI.json";
+import dNFTABI from "../abi/dNFT.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
 import { parseEther, round, normalize, floor } from "../utils/currency";
@@ -25,7 +25,7 @@ export default function Deposit({ nft, onClose, setTxHash }) {
   const { config: configDeposit, refetch: refetchPrepareDeposit } =
     usePrepareContractWrite({
       addressOrName: CONTRACT_dNFT,
-      contractInterface: dNFTabi,
+      contractInterface: dNFTABI["abi"],
       functionName: "deposit",
       args: [nft.id, parseEther(dyad)],
     });
