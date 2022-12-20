@@ -1,13 +1,12 @@
-import { useAccount, useContractReads } from "wagmi";
+import { useContractReads } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import dNFTABI from "../abi/dNFT.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useNftBalance from "./useNftBalance";
 
 export default function useIDsByOwner(owner) {
   const [ids, setIds] = useState([]);
-
-  const { nftBalance } = useNftBalance();
+  const { nftBalance } = useNftBalance(owner);
 
   let calls = [];
   for (let i = 0; i < nftBalance; i++) {
@@ -19,14 +18,17 @@ export default function useIDsByOwner(owner) {
     });
   }
 
-  useContractReads({
+  const { refetch } = useContractReads({
     contracts: calls,
     onSuccess: (data) => {
-      console.log(data);
+      console.log("useIDsByOwner: Fetching ids for", owner);
       setIds(data);
-      // setTokenId(parseInt(data[0]._hex));
     },
   });
+
+  useEffect(() => {
+    refetch();
+  }, [nftBalance, owner]);
 
   return { ids };
 }
