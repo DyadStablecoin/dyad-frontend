@@ -32,6 +32,10 @@ export default function useIDsByOwner(owner) {
   }, [nftBalance]);
 
   useEffect(() => {
+    /**
+     * If there are no calls to be made, we automatically know that there are
+     * not any token ids to be fetched.
+     */
     calls.length > 0 ? refetch() : setTokenIds([]);
   }, [calls]);
 
