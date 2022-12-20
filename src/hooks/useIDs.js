@@ -21,6 +21,7 @@ export default function useIDs() {
   useContractReads({
     contracts: calls,
     onSuccess: (data) => {
+      console.log("useIDs: Fetched tokenIDs", data);
       setIds(data);
     },
   });

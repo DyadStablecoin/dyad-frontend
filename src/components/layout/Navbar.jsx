@@ -5,7 +5,6 @@ import logo from "../../static/dyad-logo.svg";
 import WalletOutlined from "@ant-design/icons/lib/icons/WalletOutlined";
 import { dNFT_PRICE } from "../../consts/consts";
 import { WarningFilled } from "@ant-design/icons";
-import { useBalances } from "../../hooks/useBalances";
 import useCR from "../../hooks/useCR";
 import Menu from "../Menu";
 import { useNavigate } from "react-router-dom";
@@ -13,15 +12,16 @@ import { COLORS } from "../../consts/colors";
 import useSafetyModeActivated from "../../hooks/useSafetyMode";
 import useEnsName from "../../hooks/useEnsName";
 import { addressSummary } from "../../utils/address";
+import usePoolBalance from "../../hooks/usePoolBalance";
 
 export default function NavBar() {
   const { disconnect } = useDisconnect();
   const { connect, connectors } = useConnect();
   const { address, isConnected } = useAccount();
   const { ensName } = useEnsName(address);
-  const { balances } = useBalances();
+  const { poolBalance } = usePoolBalance();
   const { cr } = useCR();
-  const { isSafetyModeActivated } = useSafetyModeActivated();
+  const { isSafetyModeActivated } = useSafetyModeActivated(cr);
   let navigate = useNavigate();
 
   return (
@@ -53,7 +53,7 @@ export default function NavBar() {
               <>
                 <div className="flex gap-4">
                   <div>TVL</div>
-                  <div>{formatUSD(balances.poolBalanceOfDyad / 10 ** 18)}</div>
+                  <div>{formatUSD(poolBalance / 10 ** 18)}</div>
                 </div>
                 <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
               </>

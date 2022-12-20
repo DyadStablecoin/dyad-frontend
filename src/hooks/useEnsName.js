@@ -34,6 +34,7 @@ export default function useEnsName(address) {
     staleTime: Infinity,
     enabled: false,
     onSuccess: (data) => {
+      console.log("useEnsName: Fetched ENS name for", address);
       if (data[0]) {
         setEnsName(data[0]);
         setCookie(`ENS_NAME_${address}`, data[0], 7);
@@ -62,7 +63,6 @@ export default function useEnsName(address) {
        * If we encounter a new never seen before address,
        * we fetch the ENS name.
        */
-      console.log("Fetching ENS name for", address);
       refetch();
     }
   }, [address]);
