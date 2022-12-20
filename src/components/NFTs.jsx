@@ -4,6 +4,7 @@ import { useAccount } from "wagmi";
 
 export default function NFTs() {
   console.log("NFTs: Rendering");
+
   const { address } = useAccount();
   const { tokenIds } = useIDsByOwner(address);
 

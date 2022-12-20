@@ -21,6 +21,7 @@ import { useWaitForTransaction } from "wagmi";
 import Redeem from "./Redeem";
 import useSafetyModeActivated from "../hooks/useSafetyMode";
 import useRankFromIndexer from "../hooks/useRankFromIndexer";
+import useCR from "../hooks/useCR";
 
 const HEADER = "text-gray-500 text-sm";
 
@@ -30,7 +31,8 @@ export default function NFT({ tokenId }) {
   const [txHash, setTxHash] = useState();
   const { refetch, nft, isLoading, isFetching } = useNft(tokenId);
   const { rank } = useRankFromIndexer(tokenId);
-  const { isSafetyModeActivated } = useSafetyModeActivated();
+  const { cr } = useCR();
+  const { isSafetyModeActivated } = useSafetyModeActivated(cr);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {

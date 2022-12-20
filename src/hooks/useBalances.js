@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAccount, useBalance, useContractReads } from "wagmi";
+import { useAccount, useContractReads } from "wagmi";
 import {
   CONTRACT_dNFT,
   CONTRACT_DYAD,

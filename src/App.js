@@ -13,6 +13,7 @@ import { useAccount, useNetwork, useSwitchNetwork } from "wagmi";
 
 export default function App() {
   console.log("App: Rendering");
+
   const { isConnected } = useAccount();
   const { chain } = useNetwork();
   const { switchNetwork } = useSwitchNetwork();
