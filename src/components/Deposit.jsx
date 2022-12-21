@@ -31,7 +31,6 @@ export default function Deposit({ nft, onClose, setTxHash }) {
     });
 
   const { write: writeApprove, isFetching: isFetchingApproval } = useApprove(
-    parseEther(dyad),
     () => {
       refetchIsApproved();
       refetchPrepareDeposit();

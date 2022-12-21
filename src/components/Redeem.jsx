@@ -34,7 +34,6 @@ export default function Redeem({ nft, onClose, setTxHash }) {
   });
 
   const { write: writeApprove, isFetching: isFetchingApproval } = useApprove(
-    parseEther(dyad),
     () => {
       refetchIsApproved();
       refetchPrepareRedeem();
