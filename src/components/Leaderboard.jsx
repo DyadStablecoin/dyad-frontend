@@ -35,7 +35,7 @@ export default function Leaderboard() {
         {nfts && (
           <div>
             <table className="leaderboard">
-              <LeaderboardTableHeader />
+              {nfts.length > 0 && <LeaderboardTableHeader />}
               {nfts.map((nft, i) => {
                 return (
                   <LeaderboardTableRow
@@ -47,14 +47,16 @@ export default function Leaderboard() {
                 );
               })}
             </table>
-            <div className="mb-4 mt-8 flex justify-center">
-              <Pagination
-                totalRows={count}
-                rowsPerPage={ROWS_PER_PAGE}
-                range={range}
-                setRange={setRange}
-              />
-            </div>
+            {count > ROWS_PER_PAGE && (
+              <div className="mb-4 mt-8 flex justify-center">
+                <Pagination
+                  totalRows={count}
+                  rowsPerPage={ROWS_PER_PAGE}
+                  range={range}
+                  setRange={setRange}
+                />
+              </div>
+            )}
           </div>
         )}
       </div>

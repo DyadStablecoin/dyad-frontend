@@ -8,6 +8,7 @@ export default function TextInput({
   type,
   min,
   isDisabled,
+  specificKeyFunction = () => {},
 }) {
   return (
     <div className="flex flex-col gap-1">
@@ -22,6 +23,9 @@ export default function TextInput({
         onMouseOut={(_) => onBlur && onBlur()}
         min={min && min}
         disabled={isDisabled && isDisabled}
+        onKeyDown={(e) => {
+          specificKeyFunction(e.key);
+        }}
       />
       {error && <span className="text-sm text-red-500">{error}</span>}
     </div>

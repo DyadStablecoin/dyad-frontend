@@ -9,6 +9,9 @@ export default function LeaderboardSearch({ owner, setOwner, refetch }) {
         placeholder="Filter by Owner..."
         value={owner}
         onChange={(v) => setOwner(v)}
+        specificKeyFunction={(key) => {
+          if (key === "Enter") refetch();
+        }}
       />
       <Icon onClick={refetch}>
         <SearchOutlined style={{ color: "#584BAA", fontSize: "1.5rem" }} />
