@@ -12,7 +12,10 @@ export default function useApprove(onSuccess) {
     addressOrName: CONTRACT_DYAD,
     contractInterface: dyadABI["abi"],
     functionName: "approve",
-    args: [CONTRACT_dNFT, parseInt(ethers.constants.MaxUint256._hex)],
+    args: [CONTRACT_dNFT, ethers.constants.MaxUint256._hex],
+    onError: (error) => {
+      console.log("useApprove: Error", error);
+    },
   });
 
   const { write, data } = useContractWrite({
