@@ -40,6 +40,7 @@ export default function Leaderboard() {
                 return (
                   <LeaderboardTableRow
                     id={nft.id}
+                    ensName={nft.ensName}
                     ownerAddress={nft.owner}
                     rank={range.start + i}
                     refetch={refetch}

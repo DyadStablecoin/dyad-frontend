@@ -6,7 +6,7 @@ export default function LeaderboardSearch({ owner, setOwner, refetch }) {
   return (
     <div className="flex justify-end w-[80rem] items-center gap-4">
       <TextInput
-        placeholder="Filter by Owner..."
+        placeholder="Filter by Address..."
         value={owner}
         onChange={(v) => setOwner(v)}
         specificKeyFunction={(key) => {

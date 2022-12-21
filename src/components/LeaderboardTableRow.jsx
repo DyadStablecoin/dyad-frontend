@@ -16,6 +16,7 @@ export default function LeaderboardTableRow({
   ownerAddress,
   rank,
   refetch,
+  ensName,
 }) {
   const [txHash, setTxHash] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -59,7 +60,7 @@ export default function LeaderboardTableRow({
           <td className="hidden md:table-cell">
             {depositRatio(parseFloat(nft.withdrawn), parseFloat(nft.deposit))}%
           </td>
-          <td>{addressSummary(ownerAddress)}</td>
+          <td>{ensName || addressSummary(ownerAddress)}</td>
         </tr>
       )}
       <Popup isOpen={isOpen} onClose={onClose}>

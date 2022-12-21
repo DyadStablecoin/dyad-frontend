@@ -9,7 +9,7 @@ export default function LeaderboardTableHeader() {
       <th className="hidden md:table-cell">Deposited</th>
       <th className="hidden md:table-cell">Liquidate</th>
       <th className="hidden md:table-cell">Deposit Ratio</th>
-      <th>Owner</th>
+      <th>Address</th>
     </tr>
   );
 }
