@@ -92,7 +92,7 @@ export default function NFT({ tokenId }) {
               <Redeem nft={nft} onClose={onCloseRedeem} setTxHash={setTxHash} />
             </Popup>
             <Popup isOpen={isOpenSync} onClose={onCloseSync}>
-              <Sync onClose={onCloseSync} setTxHash={setTxHash} nft={nft} />
+              <Sync onClose={onCloseSync} setTxHash={setTxHash} />
             </Popup>
           </>
         )}

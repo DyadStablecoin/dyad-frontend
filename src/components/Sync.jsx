@@ -3,13 +3,11 @@ import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_POOL } from "../consts/contract";
 import PopupContent from "./PopupContent";
 import useGasCost from "../hooks/useGasCost";
-import useNftSyncSimulation from "../hooks/useNftSyncSimulation";
 import { DOCS_URL } from "../consts/consts";
 import SyncLastEthPrice from "./SyncLastEthPrice";
-import SyncXp from "./SyncXp";
 
-export default function Sync({ onClose, setTxHash, nft }) {
-  const { config } = usePrepareContractWrite({
+export default function Sync({ onClose, setTxHash }) {
+  const { isLoading, config } = usePrepareContractWrite({
     addressOrName: CONTRACT_POOL,
     contractInterface: PoolABI["abi"],
     functionName: "sync",
@@ -24,7 +22,6 @@ export default function Sync({ onClose, setTxHash, nft }) {
   });
 
   const { gasCost } = useGasCost(config);
-  // const { isLoading } = useNftSyncSimulation(nft.id);
 
   return (
     <PopupContent
@@ -35,7 +32,7 @@ export default function Sync({ onClose, setTxHash, nft }) {
         write?.();
       }}
       isDisabled={!write}
-      // isLoading={isLoading}
+      isLoading={isLoading}
       infoOnClick={() => window.open(DOCS_URL + "/pool#sync")}
     >
       <div className="flex flex-col gap-4">
