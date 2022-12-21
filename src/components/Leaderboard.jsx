@@ -19,25 +19,21 @@ export default function Leaderboard() {
   });
   const [owner, setOwner] = useState("");
 
-  const { count } = useNftsCountFromIndexer();
   const { nfts, isLoading, refetch } = useNftsFromIndexer(range, owner);
+  const { count } = useNftsCountFromIndexer(owner, [nfts]);
 
   return (
     <div className="flex items-center justify-center flex-col">
       <div className="md:w-[80rem]">
         <LoadingGlobal isLoading={isLoading} />
         <LeaderboardHeader refetch={refetch} />
-        <LeaderboardSearch filter={owner} setFilter={setOwner} />
+        <LeaderboardSearch
+          owner={owner}
+          setOwner={setOwner}
+          refetch={refetch}
+        />
         {nfts && (
           <div>
-            <div className="mb-4 mt-8 flex justify-center">
-              <Pagination
-                totalRows={count}
-                rowsPerPage={ROWS_PER_PAGE}
-                range={range}
-                setRange={setRange}
-              />
-            </div>
             <table className="leaderboard">
               <LeaderboardTableHeader />
               {nfts.map((nft, i) => {
@@ -51,6 +47,14 @@ export default function Leaderboard() {
                 );
               })}
             </table>
+            <div className="mb-4 mt-8 flex justify-center">
+              <Pagination
+                totalRows={count}
+                rowsPerPage={ROWS_PER_PAGE}
+                range={range}
+                setRange={setRange}
+              />
+            </div>
           </div>
         )}
       </div>

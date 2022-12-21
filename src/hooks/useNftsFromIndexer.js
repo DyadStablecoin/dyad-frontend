@@ -20,7 +20,7 @@ export function useNftsFromIndexer(range, owner = "") {
       .from("nfts")
       .select("*")
       .eq("contractAddress", CONTRACT_dNFT)
-      .ilike("owner", `%${owner}%`)
+      .ilike("owner", `%${owner}%`) // filter by owner
       .order("xp", { ascending: false })
       .range(range.start, range.end)
       .then((res) => {
@@ -36,7 +36,7 @@ export function useNftsFromIndexer(range, owner = "") {
 }
 
 // return the number of nfts in the nfts table
-export function useNftsCountFromIndexer() {
+export function useNftsCountFromIndexer(owner = "", dependencies) {
   const [count, setCount] = useState();
 
   useEffect(() => {
@@ -44,10 +44,11 @@ export function useNftsCountFromIndexer() {
       .from("nfts")
       .select("*", { count: "exact", head: true })
       .eq("contractAddress", CONTRACT_dNFT)
+      .ilike("owner", `%${owner}%`) // filter by owner
       .then((res) => {
         setCount(res.count);
       });
-  }, []);
+  }, dependencies);
 
   return { count };
 }
