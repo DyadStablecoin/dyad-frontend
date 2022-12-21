@@ -1,6 +1,6 @@
 export const dNFT_PRICE = 10000;
 export const dNFT_AVERAGE_PRICE = 10000;
-export const TOTAL_SUPPLY = 500;
+export const TOTAL_SUPPLY = 888;
 export const MIN_DEPOSIT = 1000000000000000;
 export const MIN_DEPOSIT_USD = 1;
 export const SAFETY_MODE_THRESHOLD = 150;
