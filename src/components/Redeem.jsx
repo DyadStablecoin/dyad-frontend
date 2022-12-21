@@ -70,7 +70,7 @@ export default function Redeem({ nft, onClose, setTxHash }) {
         }
       }}
       isDisabled={
-        dyad === "" || parseFloat(dyad) === 0
+        dyad === "" || parseFloat(dyad) === 0 || isFetchingApproval
           ? true
           : normalize(maxDeposit) < dyad
           ? true

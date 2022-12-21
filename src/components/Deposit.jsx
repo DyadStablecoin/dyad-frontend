@@ -61,7 +61,7 @@ export default function Deposit({ nft, onClose, setTxHash }) {
           : "Approve"
       }
       isDisabled={
-        dyad === "" || parseFloat(dyad) === 0
+        dyad === "" || parseFloat(dyad) === 0 || isFetchingApproval
           ? true
           : normalize(maxDeposit) < dyad
           ? true
