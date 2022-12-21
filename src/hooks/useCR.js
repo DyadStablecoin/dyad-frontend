@@ -11,14 +11,17 @@ export default function useCR() {
   const { totalDyadSupply } = useTotalDyadSupply();
 
   useEffect(() => {
-    let totalWithdrawn = totalDyadSupply - poolBalance;
+    if (poolBalance && totalDyadSupply) {
+      let totalWithdrawn = totalDyadSupply - poolBalance;
 
-    if (totalWithdrawn === 0) {
-      totalWithdrawn = 1;
+      if (totalWithdrawn === 0) {
+        totalWithdrawn = 1;
+      }
+      console.log("useCR: Fetching CR", cr);
+
+      const _cr = (poolBalance / totalWithdrawn) * 100;
+      setCR(isNaN(_cr) ? 0 : _cr);
     }
-
-    const _cr = (poolBalance / totalWithdrawn) * 100;
-    setCR(isNaN(_cr) ? 0 : _cr);
   }, [poolBalance, totalDyadSupply]);
 
   return { cr, refetch };
