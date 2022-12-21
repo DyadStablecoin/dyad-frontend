@@ -34,6 +34,7 @@
 // goerli v0.3: First Testnet Launch
 //    fixes:
 //    - xp burn limit
+//    - 300 dnfts
 // export const CONTRACT_dNFT = "0x2544bA4Bc4A1d4Eb834a2770Fd5B52bAfa500B44";
 // export const CONTRACT_DYAD = "0xb9a5a09B5a58c56bBC0fE1890DbB035994028035";
 // export const CONTRACT_POOL = "0xC98D30Cf8837dE6ae019D37084f1893751D47C4E";
@@ -41,6 +42,15 @@
 // goerli v0.4: Second Testnet Launch
 //    fixes:
 //    - fix liquidation bug where the amount to deposit was not calculated correctly
-export const CONTRACT_dNFT = "0x9346eF7e251E6D8CBee4297e30E8b02fb4FC5309";
-export const CONTRACT_DYAD = "0xFd4Db9769F87Bd148700aFd2686D139256A3ffb9";
-export const CONTRACT_POOL = "0x87b32b90ff9e3ec0DE0D3287F570841e9C2f634d";
+//    - 500 dnfts
+// export const CONTRACT_dNFT = "0x9346eF7e251E6D8CBee4297e30E8b02fb4FC5309";
+// export const CONTRACT_DYAD = "0xFd4Db9769F87Bd148700aFd2686D139256A3ffb9";
+// export const CONTRACT_POOL = "0x87b32b90ff9e3ec0DE0D3287F570841e9C2f634d";
+
+// goerli v0.5: Third Testnet Launch
+//    fixes:
+//    - fix cr calculation
+//    - 888 dnfts
+export const CONTRACT_dNFT = "0xFEb1247DF4360C0F16a64b1De37d97E0FD5BE81d";
+export const CONTRACT_DYAD = "0xaa0a5b538410A0d62b06168b0bfF537C356f8DFE";
+export const CONTRACT_POOL = "0x906ad164Bd7B717B57a975898A0bD1FF767005dC";
