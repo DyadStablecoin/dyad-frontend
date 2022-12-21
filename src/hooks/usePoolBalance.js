@@ -6,7 +6,7 @@ import { useState } from "react";
 export default function usePoolBalance() {
   const [poolBalance, setPoolBalance] = useState(0);
 
-  useContractRead({
+  const { refetch } = useContractRead({
     addressOrName: CONTRACT_DYAD,
     contractInterface: dyadABI["abi"],
     functionName: "balanceOf",
@@ -17,5 +17,5 @@ export default function usePoolBalance() {
     },
   });
 
-  return { poolBalance };
+  return { poolBalance, refetch };
 }

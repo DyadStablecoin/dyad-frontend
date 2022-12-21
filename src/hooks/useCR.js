@@ -7,7 +7,7 @@ import { SAFETY_MODE_THRESHOLD } from "../consts/consts";
 export default function useCR() {
   const [cr, setCR] = useState(SAFETY_MODE_THRESHOLD);
 
-  const { poolBalance } = usePoolBalance();
+  const { poolBalance, refetch } = usePoolBalance();
   const { totalDyadSupply } = useTotalDyadSupply();
 
   useEffect(() => {
@@ -21,5 +21,5 @@ export default function useCR() {
     setCR(isNaN(_cr) ? 0 : _cr);
   }, [poolBalance, totalDyadSupply]);
 
-  return { cr };
+  return { cr, refetch };
 }

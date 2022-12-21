@@ -29,9 +29,9 @@ export default function NFT({ tokenId }) {
   console.log("NFT: Rendering NFT", tokenId);
 
   const [txHash, setTxHash] = useState();
-  const { refetch, nft, isLoading, isFetching } = useNft(tokenId);
+  const { refetch: refetchNft, nft, isLoading, isFetching } = useNft(tokenId);
   const { rank } = useRankFromIndexer(tokenId);
-  const { cr } = useCR();
+  const { cr, refetch: refetchCR } = useCR();
   const { isSafetyModeActivated } = useSafetyModeActivated(cr);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -62,7 +62,8 @@ export default function NFT({ tokenId }) {
     useWaitForTransaction({
       hash: txHash,
       onSuccess: () => {
-        refetch();
+        refetchNft();
+        refetchCR();
       },
     });
 
