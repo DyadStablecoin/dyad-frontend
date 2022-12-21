@@ -7,7 +7,7 @@ import useIsOneNftLiquidatable from "./useIsOneNftLiquidatable";
 /**
  * return the nfts from the indexer, sorted by xp in descending order
  */
-export function useNftsFromIndexer(range) {
+export function useNftsFromIndexer(range, owner = "") {
   const [nfts, setNfts] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const { isOneLiquidatable } = useIsOneNftLiquidatable(nfts);
@@ -20,6 +20,7 @@ export function useNftsFromIndexer(range) {
       .from("nfts")
       .select("*")
       .eq("contractAddress", CONTRACT_dNFT)
+      .ilike("owner", `%${owner}%`) // filter by owner
       .order("xp", { ascending: false })
       .range(range.start, range.end)
       .then((res) => {
@@ -35,7 +36,7 @@ export function useNftsFromIndexer(range) {
 }
 
 // return the number of nfts in the nfts table
-export function useNftsCountFromIndexer() {
+export function useNftsCountFromIndexer(owner = "", dependencies) {
   const [count, setCount] = useState();
 
   useEffect(() => {
@@ -43,10 +44,11 @@ export function useNftsCountFromIndexer() {
       .from("nfts")
       .select("*", { count: "exact", head: true })
       .eq("contractAddress", CONTRACT_dNFT)
+      .ilike("owner", `%${owner}%`) // filter by owner
       .then((res) => {
         setCount(res.count);
       });
-  }, []);
+  }, dependencies);
 
   return { count };
 }

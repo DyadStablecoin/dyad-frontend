@@ -8,6 +8,7 @@ import {
   useNftsFromIndexer,
 } from "../hooks/useNftsFromIndexer";
 import Pagination from "./Pagination";
+import LeaderboardSearch from "./LeaderboardSearch";
 
 const ROWS_PER_PAGE = 20;
 
@@ -16,26 +17,25 @@ export default function Leaderboard() {
     start: 0,
     end: ROWS_PER_PAGE,
   });
-  const { count } = useNftsCountFromIndexer();
-  const { nfts, isLoading, refetch } = useNftsFromIndexer(range);
+  const [owner, setOwner] = useState("");
+
+  const { nfts, isLoading, refetch } = useNftsFromIndexer(range, owner);
+  const { count } = useNftsCountFromIndexer(owner, [nfts]);
 
   return (
     <div className="flex items-center justify-center flex-col">
       <div className="md:w-[80rem]">
         <LoadingGlobal isLoading={isLoading} />
         <LeaderboardHeader refetch={refetch} />
+        <LeaderboardSearch
+          owner={owner}
+          setOwner={setOwner}
+          refetch={refetch}
+        />
         {nfts && (
           <div>
-            <div className="mb-4 mt-4 flex justify-center">
-              <Pagination
-                totalRows={count}
-                rowsPerPage={ROWS_PER_PAGE}
-                range={range}
-                setRange={setRange}
-              />
-            </div>
             <table className="leaderboard">
-              <LeaderboardTableHeader />
+              {nfts.length > 0 && <LeaderboardTableHeader />}
               {nfts.map((nft, i) => {
                 return (
                   <LeaderboardTableRow
@@ -47,6 +47,16 @@ export default function Leaderboard() {
                 );
               })}
             </table>
+            {count > ROWS_PER_PAGE && (
+              <div className="mb-4 mt-8 flex justify-center">
+                <Pagination
+                  totalRows={count}
+                  rowsPerPage={ROWS_PER_PAGE}
+                  range={range}
+                  setRange={setRange}
+                />
+              </div>
+            )}
           </div>
         )}
       </div>

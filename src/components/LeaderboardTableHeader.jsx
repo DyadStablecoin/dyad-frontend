@@ -1,4 +1,4 @@
-export default function LeaderboardTableHeader({ isOneLiquidatable }) {
+export default function LeaderboardTableHeader() {
   return (
     <tr className="text-[#737E76]">
       <th></th>
@@ -9,7 +9,7 @@ export default function LeaderboardTableHeader({ isOneLiquidatable }) {
       <th className="hidden md:table-cell">Deposited</th>
       <th className="hidden md:table-cell">Liquidate</th>
       <th className="hidden md:table-cell">Deposit Ratio</th>
-      <th>Address</th>
+      <th>Owner</th>
     </tr>
   );
 }
