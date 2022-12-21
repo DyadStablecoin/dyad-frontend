@@ -7,7 +7,7 @@ import useIsOneNftLiquidatable from "./useIsOneNftLiquidatable";
 /**
  * return the nfts from the indexer, sorted by xp in descending order
  */
-export function useNftsFromIndexer(range) {
+export function useNftsFromIndexer(range, owner = "") {
   const [nfts, setNfts] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const { isOneLiquidatable } = useIsOneNftLiquidatable(nfts);
@@ -20,6 +20,7 @@ export function useNftsFromIndexer(range) {
       .from("nfts")
       .select("*")
       .eq("contractAddress", CONTRACT_dNFT)
+      .ilike("owner", `%${owner}%`)
       .order("xp", { ascending: false })
       .range(range.start, range.end)
       .then((res) => {
