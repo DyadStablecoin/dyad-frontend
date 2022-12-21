@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import usePoolBalance from "./usePoolBalance";
 import useTotalDyadSupply from "./useTotalDyadSupply";
+import { SAFETY_MODE_THRESHOLD } from "../consts/consts";
 
 // return the current collatorization ration of the protocol
 export default function useCR() {
-  const [cr, setCR] = useState(0);
+  const [cr, setCR] = useState(SAFETY_MODE_THRESHOLD);
 
   const { poolBalance } = usePoolBalance();
   const { totalDyadSupply } = useTotalDyadSupply();

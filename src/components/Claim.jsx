@@ -8,7 +8,6 @@ import { CONTRACT_dNFT } from "../consts/contract";
 import Button from "./Button";
 import dNFT from "../abi/dNFT.json";
 import { TOTAL_SUPPLY, MIN_DEPOSIT, MIN_DEPOSIT_USD } from "../consts/consts";
-import { useBalances } from "../hooks/useBalances";
 import LoadingInplace from "./LoadingInplace";
 import { addressSummary } from "../utils/address";
 import useEnsName from "../hooks/useEnsName";
