@@ -6,12 +6,12 @@ export default function useLastSyncVersion() {
 
   useEffect(() => {
     supabase
-      .from("nfts")
+      .from("versions")
       .select("version")
-      .limit(1)
       .order("version", {
         ascending: false,
       })
+      .limit(1)
       .then((res) => {
         setLastSyncVersion(res.data[0].version);
       });
