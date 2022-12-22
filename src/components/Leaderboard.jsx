@@ -10,6 +10,7 @@ import {
 import Pagination from "./Pagination";
 import LeaderboardSearch from "./LeaderboardSearch";
 import { ROWS_PER_LEADERBOARD_PAGE } from "../consts/consts";
+import LeaderboardFilter from "./LeaderboardFilter";
 
 export default function Leaderboard() {
   const [range, setRange] = useState({
@@ -17,6 +18,7 @@ export default function Leaderboard() {
     end: ROWS_PER_LEADERBOARD_PAGE,
   });
   const [owner, setOwner] = useState("");
+  const [option, setOption] = useState("Leaderboard");
 
   const { nfts, isLoading, refetch } = useNftsFromIndexer(range, owner);
   const { count } = useNftsCountFromIndexer(owner, [nfts]);
@@ -26,11 +28,14 @@ export default function Leaderboard() {
       <div className="md:w-[80rem]">
         <LoadingGlobal isLoading={isLoading} />
         <LeaderboardHeader refetch={refetch} />
-        <LeaderboardSearch
-          owner={owner}
-          setOwner={setOwner}
-          refetch={refetch}
-        />
+        <div className="flex justify-between">
+          <LeaderboardFilter />
+          <LeaderboardSearch
+            owner={owner}
+            setOwner={setOwner}
+            refetch={refetch}
+          />
+        </div>
         {nfts && (
           <div>
             <table className="leaderboard">
