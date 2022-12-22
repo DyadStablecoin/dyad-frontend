@@ -24,7 +24,7 @@ function setFilters(option, owner, address, range) {
     _range = resetRange();
   }
 
-  let _deposit = Number.MAX_SAFE_INTEGER;
+  let _deposit = 9000;
   if (option === LIQUIDATABLE_OPTION) {
     _deposit = 0;
     _range = resetRange();
@@ -61,7 +61,7 @@ export function useNftsFromIndexer(range, owner = "", option = "Leaderboard") {
         .eq("contractAddress", CONTRACT_dNFT)
         .eq("version", lastSyncVersion)
         .ilike("owner", `%${_owner}%`) // filter by owner
-        .lt("deposit", _deposit)
+        // .lt("deposit", _deposit)
         .order("xp", { ascending: false })
         .range(_range.start, _range.end)
         .then((res) => {
@@ -97,7 +97,7 @@ export function useNftsCountFromIndexer(
         .eq("contractAddress", CONTRACT_dNFT)
         .eq("version", lastSyncVersion)
         .ilike("owner", `%${_owner}%`) // filter by owner
-        .lt("deposit", _deposit)
+        // .lt("deposit", _deposit)
         .then((res) => {
           setCount(res.count);
         });
