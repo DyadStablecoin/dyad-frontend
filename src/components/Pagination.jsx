@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
+import { getIndices } from "../utils/paginationUtils";
 
-export default function CustomPagination({
-  totalRows,
-  rowsPerPage,
-  range,
-  setRange,
-}) {
+export default function CustomPagination({ totalRows, rowsPerPage, setRange }) {
   const [numberOfPages, setNumberOfPages] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     setNumberOfPages(parseInt(Math.ceil(totalRows / rowsPerPage)));
@@ -16,9 +13,10 @@ export default function CustomPagination({
     return (
       <div
         className="border-[1px] border-white pl-1 pr-1 hover:cursor-pointer"
-        style={{ color: range.start === i * rowsPerPage ? "white" : "gray" }}
+        style={{ color: currentPage === i ? "white" : "gray" }}
         onClick={() => {
-          setRange({ start: i * rowsPerPage, end: (i + 1) * rowsPerPage });
+          setRange({ start: (i - 1) * rowsPerPage, end: i * rowsPerPage });
+          setCurrentPage(i);
         }}
       >
         {i}
@@ -29,7 +27,7 @@ export default function CustomPagination({
   return (
     <div className="flex gap-4">
       {numberOfPages &&
-        [...Array(numberOfPages).keys()].map((i) => {
+        getIndices(numberOfPages, currentPage).map((i) => {
           return renderPage(i);
         })}
     </div>
