@@ -53,7 +53,6 @@ export default function Leaderboard() {
                 <Pagination
                   totalRows={count}
                   rowsPerPage={ROWS_PER_PAGE}
-                  range={range}
                   setRange={setRange}
                 />
               </div>
