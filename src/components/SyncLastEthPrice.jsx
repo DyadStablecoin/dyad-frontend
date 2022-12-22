@@ -1,10 +1,10 @@
 import { SwapRightOutlined } from "@ant-design/icons";
-import useEthPrice from "../hooks/useEthPrice";
 import useLastEthPrice from "../hooks/useLastEthPrice";
-import { round } from "../utils/currency";
+import useOraclePrice from "../hooks/useOraclePrice";
+import { round, normalize } from "../utils/currency";
 
 export default function SyncLastEthPrice() {
-  const { ethPrice } = useEthPrice();
+  const { oraclePrice } = useOraclePrice();
   const { lastEthPrice } = useLastEthPrice();
 
   return (
@@ -17,17 +17,17 @@ export default function SyncLastEthPrice() {
         <SwapRightOutlined />
       </div>
       <div className="flex gap-6 items-center justify-center">
-        {ethPrice}
+        {normalize(oraclePrice, 8)}
         <div className="flex gap-1 items-center">
           <div className="text-sm ">
-            {lastEthPrice - ethPrice < 0 ? (
+            {lastEthPrice - normalize(oraclePrice, 8) <= 0 ? (
               <span className="text-green-300">+</span>
             ) : (
               <span className="text-red-300">-</span>
             )}
           </div>
           <div className="text-sm">
-            {Math.abs(round(lastEthPrice - ethPrice, 2))}
+            {Math.abs(round(lastEthPrice - normalize(oraclePrice, 8), 2))}
           </div>
         </div>
       </div>
