@@ -6,20 +6,31 @@ import useIsOneNftLiquidatable from "./useIsOneNftLiquidatable";
 import useLastSyncVersion from "./useLastSyncVersion";
 import { useAccount } from "wagmi";
 import { LIQUIDATABLE_OPTION, MY_DNFTS_OPTION } from "../consts/leaderboard";
+import { ROWS_PER_LEADERBOARD_PAGE } from "../consts/consts";
 
-function setFilters(option, owner, address) {
+function resetRange() {
+  return {
+    start: 0,
+    end: ROWS_PER_LEADERBOARD_PAGE,
+  };
+}
+
+function setFilters(option, owner, address, range) {
+  let _range = range;
+
   let _owner = owner;
   if (option === MY_DNFTS_OPTION) {
     _owner = address;
-  } else {
+    _range = resetRange();
   }
 
-  let deposit = Number.MAX_SAFE_INTEGER;
+  let _deposit = Number.MAX_SAFE_INTEGER;
   if (option === LIQUIDATABLE_OPTION) {
-    deposit = 0;
+    _deposit = 0;
+    _range = resetRange();
   }
 
-  return { _owner, deposit };
+  return { _owner, _deposit, _range };
 }
 
 /**
@@ -35,7 +46,12 @@ export function useNftsFromIndexer(range, owner = "", option = "Leaderboard") {
   const { refetch, trigger } = useRefetch();
 
   useEffect(() => {
-    let { _owner, deposit } = setFilters(option, owner, address);
+    let { _owner, _deposit, _range } = setFilters(
+      option,
+      owner,
+      address,
+      range
+    );
 
     if (lastSyncVersion) {
       setIsLoading(true);
@@ -45,9 +61,9 @@ export function useNftsFromIndexer(range, owner = "", option = "Leaderboard") {
         .eq("contractAddress", CONTRACT_dNFT)
         .eq("version", lastSyncVersion)
         .ilike("owner", `%${_owner}%`) // filter by owner
-        .lt("deposit", deposit)
+        .lt("deposit", _deposit)
         .order("xp", { ascending: false })
-        .range(range.start, range.end)
+        .range(_range.start, _range.end)
         .then((res) => {
           setNfts(res.data);
           setIsLoading(false);
@@ -72,7 +88,7 @@ export function useNftsCountFromIndexer(
   const { address } = useAccount();
 
   useEffect(() => {
-    let { _owner, deposit } = setFilters(option, owner, address);
+    let { _owner, _deposit } = setFilters(option, owner, address);
 
     if (lastSyncVersion) {
       supabase
@@ -81,7 +97,7 @@ export function useNftsCountFromIndexer(
         .eq("contractAddress", CONTRACT_dNFT)
         .eq("version", lastSyncVersion)
         .ilike("owner", `%${_owner}%`) // filter by owner
-        .lt("deposit", deposit)
+        .lt("deposit", _deposit)
         .then((res) => {
           setCount(res.count);
         });
