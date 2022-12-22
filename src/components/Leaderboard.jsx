@@ -38,9 +38,14 @@ export default function Leaderboard() {
         </div>
         {nfts && (
           <div>
+            {nfts.length === 0 && (
+              <div className="flex justify-center text-gray-600 text-xl mt-[8rem]">
+                Wow, such empty...
+              </div>
+            )}
             <table className="leaderboard">
               {nfts.length > 0 && <LeaderboardTableHeader />}
-              {nfts.map((nft, i) => {
+              {nfts.map((nft) => {
                 return (
                   <LeaderboardTableRow
                     id={nft.id}
