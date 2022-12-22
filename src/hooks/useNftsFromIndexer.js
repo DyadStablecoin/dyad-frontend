@@ -7,6 +7,21 @@ import useLastSyncVersion from "./useLastSyncVersion";
 import { useAccount } from "wagmi";
 import { LIQUIDATABLE_OPTION, MY_DNFTS_OPTION } from "../consts/leaderboard";
 
+function setFilters(option, owner, address) {
+  let _owner = owner;
+  if (option === MY_DNFTS_OPTION) {
+    _owner = address;
+  } else {
+  }
+
+  let deposit = Number.MAX_SAFE_INTEGER;
+  if (option === LIQUIDATABLE_OPTION) {
+    deposit = 0;
+  }
+
+  return { _owner, deposit };
+}
+
 /**
  * return the nfts from the indexer, sorted by xp in descending order
  */
@@ -20,14 +35,7 @@ export function useNftsFromIndexer(range, owner = "", option = "Leaderboard") {
   const { refetch, trigger } = useRefetch();
 
   useEffect(() => {
-    if (option === MY_DNFTS_OPTION) {
-      owner = address;
-    }
-
-    let deposit = Number.MAX_SAFE_INTEGER;
-    if (option === LIQUIDATABLE_OPTION) {
-      deposit = 0;
-    }
+    let { _owner, deposit } = setFilters(option, owner, address);
 
     if (lastSyncVersion) {
       setIsLoading(true);
@@ -36,7 +44,7 @@ export function useNftsFromIndexer(range, owner = "", option = "Leaderboard") {
         .select("*")
         .eq("contractAddress", CONTRACT_dNFT)
         .eq("version", lastSyncVersion)
-        .ilike("owner", `%${owner}%`) // filter by owner
+        .ilike("owner", `%${_owner}%`) // filter by owner
         .lt("deposit", deposit)
         .order("xp", { ascending: false })
         .range(range.start, range.end)
@@ -64,14 +72,7 @@ export function useNftsCountFromIndexer(
   const { address } = useAccount();
 
   useEffect(() => {
-    if (option === MY_DNFTS_OPTION) {
-      owner = address;
-    }
-
-    let deposit = Number.MAX_SAFE_INTEGER;
-    if (option === LIQUIDATABLE_OPTION) {
-      deposit = 0;
-    }
+    let { _owner, deposit } = setFilters(option, owner, address);
 
     if (lastSyncVersion) {
       supabase
@@ -79,7 +80,7 @@ export function useNftsCountFromIndexer(
         .select("*", { count: "exact", head: true })
         .eq("contractAddress", CONTRACT_dNFT)
         .eq("version", lastSyncVersion)
-        .ilike("owner", `%${owner}%`) // filter by owner
+        .ilike("owner", `%${_owner}%`) // filter by owner
         .lt("deposit", deposit)
         .then((res) => {
           setCount(res.count);
