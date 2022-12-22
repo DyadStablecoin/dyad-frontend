@@ -13,7 +13,6 @@ export function useNftsFromIndexer(range, owner = "") {
   const [isLoading, setIsLoading] = useState(true);
   const { isOneLiquidatable } = useIsOneNftLiquidatable(nfts);
   const { lastSyncVersion } = useLastSyncVersion();
-  console.log("lastSyncVersion", lastSyncVersion);
 
   const { refetch, trigger } = useRefetch();
 
