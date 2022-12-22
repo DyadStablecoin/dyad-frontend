@@ -20,8 +20,8 @@ export default function Leaderboard() {
   const [owner, setOwner] = useState("");
   const [option, setOption] = useState("Leaderboard");
 
-  const { nfts, isLoading, refetch } = useNftsFromIndexer(range, owner);
-  const { count } = useNftsCountFromIndexer(owner, [nfts]);
+  const { nfts, isLoading, refetch } = useNftsFromIndexer(range, owner, option);
+  const { count } = useNftsCountFromIndexer(owner, option, [nfts, option]);
 
   return (
     <div className="flex items-center justify-center flex-col">
@@ -29,7 +29,7 @@ export default function Leaderboard() {
         <LoadingGlobal isLoading={isLoading} />
         <LeaderboardHeader refetch={refetch} />
         <div className="flex justify-between">
-          <LeaderboardFilter />
+          <LeaderboardFilter setOption={setOption} refetch={refetch} />
           <LeaderboardSearch
             owner={owner}
             setOwner={setOwner}
