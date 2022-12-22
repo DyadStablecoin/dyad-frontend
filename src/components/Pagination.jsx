@@ -12,11 +12,16 @@ export default function CustomPagination({ totalRows, rowsPerPage, setRange }) {
   function renderPage(i) {
     return (
       <div
-        className="border-[1px] border-white pl-1 pr-1 hover:cursor-pointer"
+        className={`${
+          i !== "..." &&
+          "border-[1px] border-white pl-1 pr-1 hover:cursor-pointer"
+        }`}
         style={{ color: currentPage === i ? "white" : "gray" }}
         onClick={() => {
-          setRange({ start: (i - 1) * rowsPerPage, end: i * rowsPerPage });
-          setCurrentPage(i);
+          if (i !== "...") {
+            setRange({ start: (i - 1) * rowsPerPage, end: i * rowsPerPage });
+            setCurrentPage(i);
+          }
         }}
       >
         {i}
