@@ -18,7 +18,7 @@ export default function Leaderboard() {
     end: ROWS_PER_LEADERBOARD_PAGE,
   });
   const [owner, setOwner] = useState("");
-  const [option, setOption] = useState("Leaderboard");
+  const [option, setOption] = useState();
 
   const { nfts, isLoading, refetch } = useNftsFromIndexer(range, owner, option);
   const { count } = useNftsCountFromIndexer(owner, option, [nfts, option]);

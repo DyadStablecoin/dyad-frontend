@@ -5,6 +5,7 @@ import useRefetch from "./useRefetch";
 import useIsOneNftLiquidatable from "./useIsOneNftLiquidatable";
 import useLastSyncVersion from "./useLastSyncVersion";
 import { useAccount } from "wagmi";
+import { LIQUIDATABLE_OPTION, MY_DNFTS_OPTION } from "../consts/leaderboard";
 
 /**
  * return the nfts from the indexer, sorted by xp in descending order
@@ -19,11 +20,12 @@ export function useNftsFromIndexer(range, owner = "", option = "Leaderboard") {
   const { refetch, trigger } = useRefetch();
 
   useEffect(() => {
-    if (option === "My dNFTs") {
+    if (option === MY_DNFTS_OPTION) {
       owner = address;
     }
+
     let deposit = Number.MAX_SAFE_INTEGER;
-    if (option === "Liquidatable dNFTs") {
+    if (option === LIQUIDATABLE_OPTION) {
       deposit = 0;
     }
 
@@ -62,12 +64,12 @@ export function useNftsCountFromIndexer(
   const { address } = useAccount();
 
   useEffect(() => {
-    if (option === "My dNFTs") {
+    if (option === MY_DNFTS_OPTION) {
       owner = address;
     }
 
     let deposit = Number.MAX_SAFE_INTEGER;
-    if (option === "Liquidatable dNFTs") {
+    if (option === LIQUIDATABLE_OPTION) {
       deposit = 0;
     }
 

@@ -1,12 +1,10 @@
+import { LEADERBOARD_FILTER_OPTIONS } from "../consts/leaderboard";
 import Dropdown from "./Dropdown";
 
-export default function LeaderboardFilter({ setOption, refetch }) {
+export default function LeaderboardFilter({ setOption }) {
   return (
     <div className="w-[20rem]">
-      <Dropdown
-        options={["Leaderboard", "My dNFTs", "Liquidatable dNFTs"]}
-        onChange={setOption}
-      />
+      <Dropdown options={LEADERBOARD_FILTER_OPTIONS} onChange={setOption} />
     </div>
   );
 }
