@@ -46,7 +46,6 @@ export default function Leaderboard() {
                     id={nft.id}
                     ensName={nft.ensName}
                     ownerAddress={nft.owner}
-                    rank={range.start + i + 1}
                     refetch={refetch}
                   />
                 );

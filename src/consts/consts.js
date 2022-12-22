@@ -5,7 +5,7 @@ export const MIN_DEPOSIT = 1000000000000000;
 export const MIN_DEPOSIT_USD = 1;
 export const SAFETY_MODE_THRESHOLD = 150;
 
-export const ROWS_PER_LEADERBOARD_PAGE = 19; // 0 indexed
+export const ROWS_PER_LEADERBOARD_PAGE = 9; // 0 indexed
 
 export const DOCS_URL = "https://docs-psi-six.vercel.app";
 
