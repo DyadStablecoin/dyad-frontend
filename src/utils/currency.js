@@ -20,9 +20,9 @@ export function floor(value, decimals) {
   return Math.floor(parseFloat(value) * 10 ** decimals) / 10 ** decimals;
 }
 
-export function normalize(value) {
+export function normalize(value, decimals = 18) {
   if (value) {
-    return parseFloat(value) / 10 ** 18;
+    return parseFloat(value) / 10 ** decimals;
   }
   return 0;
 }

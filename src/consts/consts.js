@@ -11,10 +11,12 @@ export const NETWORKS = {
   Mainnet: {
     id: 1,
     name: "Mainnet",
+    oracleAddress: "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",
   },
   Goerli: {
     id: 5,
     name: "Goerli",
+    oracleAddress: "0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e",
   },
 };
 
