@@ -9,13 +9,12 @@ import {
 } from "../hooks/useNftsFromIndexer";
 import Pagination from "./Pagination";
 import LeaderboardSearch from "./LeaderboardSearch";
-
-const ROWS_PER_PAGE = 20;
+import { ROWS_PER_LEADERBOARD_PAGE } from "../consts/consts";
 
 export default function Leaderboard() {
   const [range, setRange] = useState({
     start: 0,
-    end: ROWS_PER_PAGE,
+    end: ROWS_PER_LEADERBOARD_PAGE,
   });
   const [owner, setOwner] = useState("");
 
@@ -42,17 +41,17 @@ export default function Leaderboard() {
                     id={nft.id}
                     ensName={nft.ensName}
                     ownerAddress={nft.owner}
-                    rank={range.start + i}
+                    rank={range.start + i + 1}
                     refetch={refetch}
                   />
                 );
               })}
             </table>
-            {count > ROWS_PER_PAGE && (
+            {count > ROWS_PER_LEADERBOARD_PAGE && (
               <div className="mb-4 mt-8 flex justify-center">
                 <Pagination
                   totalRows={count}
-                  rowsPerPage={ROWS_PER_PAGE}
+                  rowsPerPage={ROWS_PER_LEADERBOARD_PAGE}
                   setRange={setRange}
                 />
               </div>
