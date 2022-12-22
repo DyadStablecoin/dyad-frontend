@@ -22,7 +22,6 @@ export default function Leaderboard() {
 
   const { nfts, isLoading, refetch } = useNftsFromIndexer(range, owner, option);
   const { count } = useNftsCountFromIndexer(owner, option, [nfts, option]);
-  console.log("Leaderboard: nfts", count);
 
   return (
     <div className="flex items-center justify-center flex-col">
