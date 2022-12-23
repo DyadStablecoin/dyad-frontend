@@ -4,7 +4,13 @@ import {
   RANDOM_IMAGES,
 } from "../consts/consts";
 import { formatUSD, round } from "../utils/currency";
-import { dyadMultiplier, xpCurve } from "../utils/stats";
+import {
+  accrueXP,
+  dyadBurnLiability,
+  dyadMintAllocation,
+  dyadMultiplier,
+  xpCurve,
+} from "../utils/stats";
 import Mint from "./Mint";
 import Popup from "./Popup";
 import { useDisclosure } from "@chakra-ui/react";
@@ -22,6 +28,7 @@ import Redeem from "./Redeem";
 import useSafetyModeActivated from "../hooks/useSafetyMode";
 import useRankFromIndexer from "../hooks/useRankFromIndexer";
 import useCR from "../hooks/useCR";
+import useMintAllocation from "../hooks/useMintAllocation";
 
 const HEADER = "text-gray-500 text-sm";
 
@@ -33,6 +40,9 @@ export default function NFT({ tokenId }) {
   const { rank } = useRankFromIndexer(tokenId);
   const { cr, refetch: refetchCR } = useCR();
   const { isSafetyModeActivated } = useSafetyModeActivated(cr);
+
+  const { mintAllocation } = useMintAllocation(nft.xp);
+  console.log("NFT: mintAllocation", mintAllocation);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -145,25 +155,12 @@ export default function NFT({ tokenId }) {
               <div className={HEADER}>Performance</div>
               <div className="flex flex-col items-start text-s text-[#519C58]">
                 <div className="">
-                  {round(
-                    dyadMultiplier(dNFT_PRICE, dNFT_AVERAGE_PRICE, nft.xp, 500),
-                    3
-                  )}
+                  {round(dyadMintAllocation(mintAllocation, nft), 3)}
                   x/
-                  {round(
-                    1 /
-                      dyadMultiplier(
-                        dNFT_PRICE,
-                        dNFT_AVERAGE_PRICE,
-                        nft.xp,
-                        500
-                      ),
-                    3
-                  )}
-                  x
+                  {round(dyadBurnLiability(mintAllocation), 3)}x
                 </div>
                 <div className="w-[5rem] text-white">
-                  {round(xpCurve(1), 4)}x XP
+                  {round(accrueXP(mintAllocation), 3)}x XP
                 </div>
               </div>
             </div>
