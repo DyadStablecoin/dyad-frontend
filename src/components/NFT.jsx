@@ -1,15 +1,9 @@
-import {
-  dNFT_AVERAGE_PRICE,
-  dNFT_PRICE,
-  RANDOM_IMAGES,
-} from "../consts/consts";
+import { dNFT_PRICE, RANDOM_IMAGES } from "../consts/consts";
 import { formatUSD, round } from "../utils/currency";
 import {
   accrueXP,
   dyadBurnLiability,
   dyadMintAllocation,
-  dyadMultiplier,
-  xpCurve,
 } from "../utils/stats";
 import Mint from "./Mint";
 import Popup from "./Popup";
@@ -181,6 +175,7 @@ export default function NFT({ tokenId }) {
                 <div className={HEADER}>Minted DYAD</div>
                 <div className="md:flex">
                   <div className="md:mr-2 mb-2 md:mb-0">
+                    {" "}
                     {round((nft.deposit + nft.withdrawn) / 10 ** 18, 2)}
                   </div>
                   <Button
