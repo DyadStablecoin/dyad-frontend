@@ -5,7 +5,7 @@ import useRefetch from "./useRefetch";
 import useIsOneNftLiquidatable from "./useIsOneNftLiquidatable";
 import useLastSyncVersion from "./useLastSyncVersion";
 import { useAccount } from "wagmi";
-import { LIQUIDATABLE_OPTION, MY_DNFTS_OPTION } from "../consts/leaderboard";
+import { MY_DNFTS_OPTION } from "../consts/leaderboard";
 import { ROWS_PER_LEADERBOARD_PAGE } from "../consts/consts";
 
 function resetRange() {
@@ -31,7 +31,6 @@ function setFilters(option, owner, address, range) {
  * return the nfts from the indexer, sorted by xp in descending order
  */
 export function useNftsFromIndexer(range, owner = "", option = "Leaderboard") {
-  console.log("useNftsFromIndexer", range, owner, option);
   const [nfts, setNfts] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const { isOneLiquidatable } = useIsOneNftLiquidatable(nfts);
