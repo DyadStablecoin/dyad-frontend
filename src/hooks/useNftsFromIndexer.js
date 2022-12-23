@@ -24,19 +24,14 @@ function setFilters(option, owner, address, range) {
     _range = resetRange();
   }
 
-  let _deposit = 9000;
-  if (option === LIQUIDATABLE_OPTION) {
-    _deposit = 0;
-    _range = resetRange();
-  }
-
-  return { _owner, _deposit, _range };
+  return { _owner, _range };
 }
 
 /**
  * return the nfts from the indexer, sorted by xp in descending order
  */
 export function useNftsFromIndexer(range, owner = "", option = "Leaderboard") {
+  console.log("useNftsFromIndexer", range, owner, option);
   const [nfts, setNfts] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const { isOneLiquidatable } = useIsOneNftLiquidatable(nfts);
@@ -46,12 +41,7 @@ export function useNftsFromIndexer(range, owner = "", option = "Leaderboard") {
   const { refetch, trigger } = useRefetch();
 
   useEffect(() => {
-    let { _owner, _deposit, _range } = setFilters(
-      option,
-      owner,
-      address,
-      range
-    );
+    let { _owner, _range } = setFilters(option, owner, address, range);
 
     if (lastSyncVersion) {
       setIsLoading(true);
@@ -61,7 +51,6 @@ export function useNftsFromIndexer(range, owner = "", option = "Leaderboard") {
         .eq("contractAddress", CONTRACT_dNFT)
         .eq("version", lastSyncVersion)
         .ilike("owner", `%${_owner}%`) // filter by owner
-        // .lt("deposit", _deposit)
         .order("xp", { ascending: false })
         .range(_range.start, _range.end)
         .then((res) => {
@@ -88,7 +77,7 @@ export function useNftsCountFromIndexer(
   const { address } = useAccount();
 
   useEffect(() => {
-    let { _owner, _deposit } = setFilters(option, owner, address);
+    let { _owner } = setFilters(option, owner, address);
 
     if (lastSyncVersion) {
       supabase
@@ -97,7 +86,6 @@ export function useNftsCountFromIndexer(
         .eq("contractAddress", CONTRACT_dNFT)
         .eq("version", lastSyncVersion)
         .ilike("owner", `%${_owner}%`) // filter by owner
-        // .lt("deposit", _deposit)
         .then((res) => {
           setCount(res.count);
         });
