@@ -15,7 +15,7 @@ import LeaderboardFilter from "./LeaderboardFilter";
 export default function Leaderboard() {
   const [range, setRange] = useState({
     start: 0,
-    end: ROWS_PER_LEADERBOARD_PAGE,
+    end: ROWS_PER_LEADERBOARD_PAGE - 1,
   });
   const [owner, setOwner] = useState("");
   const [option, setOption] = useState();

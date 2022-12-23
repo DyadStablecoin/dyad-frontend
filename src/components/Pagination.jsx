@@ -19,7 +19,10 @@ export default function CustomPagination({ totalRows, rowsPerPage, setRange }) {
         style={{ color: currentPage === i ? "white" : "gray" }}
         onClick={() => {
           if (i !== "...") {
-            setRange({ start: (i - 1) * rowsPerPage, end: i * rowsPerPage });
+            setRange({
+              start: (i - 1) * rowsPerPage,
+              end: i * rowsPerPage - 1,
+            });
             setCurrentPage(i);
           }
         }}
