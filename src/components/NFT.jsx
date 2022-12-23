@@ -34,9 +34,7 @@ export default function NFT({ tokenId }) {
   const { rank } = useRankFromIndexer(tokenId);
   const { cr, refetch: refetchCR } = useCR();
   const { isSafetyModeActivated } = useSafetyModeActivated(cr);
-
   const { mintAllocation } = useMintAllocation(nft.xp);
-  console.log("NFT: mintAllocation", mintAllocation);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
