@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabase";
 
 export default function useRankFromIndexer(tokenId) {
-  const [rank, setRank] = useState("Syncing...");
+  const [rank, setRank] = useState(0);
 
   useEffect(() => {
     console.log("useRankFromIndexer: Fetching rank for", tokenId);

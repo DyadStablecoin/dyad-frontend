@@ -10,17 +10,18 @@ import LoadingInplace from "./LoadingInplace";
 import Popup from "./Popup";
 import { useState } from "react";
 import useNft from "../hooks/useNft";
+import useRankFromIndexer from "../hooks/useRankFromIndexer";
 
 export default function LeaderboardTableRow({
   id,
   ownerAddress,
-  rank,
   refetch,
   ensName,
 }) {
   const [txHash, setTxHash] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { nft } = useNft(id);
+  const { rank } = useRankFromIndexer(id);
 
   const { isLoading: isLoadingTx } = useWaitForTransaction({
     hash: txHash,
