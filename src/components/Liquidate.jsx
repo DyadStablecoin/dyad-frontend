@@ -1,7 +1,7 @@
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
-import { CONTRACT_POOL } from "../consts/contract";
+import { CONTRACT_dNFT } from "../consts/contract";
 import { round } from "../utils/currency";
-import PoolABI from "../abi/Pool.json";
+import dNFTABI from "../abi/dNFT.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
 import { parseEther } from "../utils/currency";
@@ -14,8 +14,8 @@ export default function Liquidate({ tokenId, onClose, setTxHash }) {
   const { ethBalance } = useEthBalance();
 
   const { config } = usePrepareContractWrite({
-    addressOrName: CONTRACT_POOL,
-    contractInterface: PoolABI["abi"],
+    addressOrName: CONTRACT_dNFT,
+    contractInterface: dNFTABI["abi"],
     functionName: "claim",
     args: [tokenId, address],
     overrides: {

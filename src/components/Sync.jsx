@@ -1,6 +1,6 @@
-import PoolABI from "../abi/Pool.json";
+import dNFTABI from "../abi/dNFT.json";
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
-import { CONTRACT_POOL } from "../consts/contract";
+import { CONTRACT_dNFT } from "../consts/contract";
 import PopupContent from "./PopupContent";
 import useGasCost from "../hooks/useGasCost";
 import { DOCS_URL } from "../consts/consts";
@@ -8,8 +8,8 @@ import SyncLastEthPrice from "./SyncLastEthPrice";
 
 export default function Sync({ nft, onClose, setTxHash }) {
   const { isLoading, config } = usePrepareContractWrite({
-    addressOrName: CONTRACT_POOL,
-    contractInterface: PoolABI["abi"],
+    addressOrName: CONTRACT_dNFT,
+    contractInterface: dNFTABI["abi"],
     functionName: "sync",
     args: [nft.id],
   });
