@@ -6,11 +6,12 @@ import useGasCost from "../hooks/useGasCost";
 import { DOCS_URL } from "../consts/consts";
 import SyncLastEthPrice from "./SyncLastEthPrice";
 
-export default function Sync({ onClose, setTxHash }) {
+export default function Sync({ nft, onClose, setTxHash }) {
   const { isLoading, config } = usePrepareContractWrite({
     addressOrName: CONTRACT_POOL,
     contractInterface: PoolABI["abi"],
     functionName: "sync",
+    args: [nft.id],
   });
 
   const { write } = useContractWrite({
