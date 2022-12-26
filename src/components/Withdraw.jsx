@@ -1,6 +1,6 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
-import abi from "../consts/abi/dNFTABI.json";
+import dNFTABI from "../abi/dNFT.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
 import { parseEther } from "../utils/currency";
@@ -13,7 +13,7 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
-    contractInterface: abi,
+    contractInterface: dNFTABI["abi"],
     functionName: "withdraw",
     args: [nft.id, parseEther(dyad)],
   });

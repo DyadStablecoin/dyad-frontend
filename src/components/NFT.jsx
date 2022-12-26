@@ -30,7 +30,7 @@ export default function NFT({ tokenId }) {
   console.log("NFT: Rendering NFT", tokenId);
 
   const [txHash, setTxHash] = useState();
-  const { refetch: refetchNft, nft, isLoading, isFetching } = useNft(tokenId);
+  const { nft, refetch: refetchNft, isLoading, isFetching } = useNft(tokenId);
   const { rank } = useRankFromIndexer(tokenId);
   const { cr, refetch: refetchCR } = useCR();
   const { isSafetyModeActivated } = useSafetyModeActivated(cr);
@@ -95,7 +95,7 @@ export default function NFT({ tokenId }) {
               <Redeem nft={nft} onClose={onCloseRedeem} setTxHash={setTxHash} />
             </Popup>
             <Popup isOpen={isOpenSync} onClose={onCloseSync}>
-              <Sync onClose={onCloseSync} setTxHash={setTxHash} />
+              <Sync nft={nft} onClose={onCloseSync} setTxHash={setTxHash} />
             </Popup>
           </>
         )}
@@ -122,7 +122,7 @@ export default function NFT({ tokenId }) {
             <div className="w-full">
               <div className="flex justify-between items-center">
                 <div className={HEADER}>Rank</div>
-                <div className="">#{rank}</div>
+                <div className="">{rank ? "#" + rank : "Syncing"}</div>
               </div>
               <div className="flex justify-between items-center">
                 <div className={HEADER}>Value</div>

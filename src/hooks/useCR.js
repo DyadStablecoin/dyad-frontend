@@ -7,8 +7,14 @@ import { SAFETY_MODE_THRESHOLD } from "../consts/consts";
 export default function useCR() {
   const [cr, setCR] = useState(SAFETY_MODE_THRESHOLD);
 
-  const { poolBalance, refetch } = usePoolBalance();
-  const { totalDyadSupply } = useTotalDyadSupply();
+  const { poolBalance, refetch: refetchPoolBalance } = usePoolBalance();
+  const { totalDyadSupply, refetch: refetchTotalDyadSupply } =
+    useTotalDyadSupply();
+
+  function refetch() {
+    refetchPoolBalance();
+    refetchTotalDyadSupply();
+  }
 
   useEffect(() => {
     if (poolBalance && totalDyadSupply) {
@@ -17,9 +23,9 @@ export default function useCR() {
       if (totalWithdrawn === 0) {
         totalWithdrawn = 1;
       }
-      console.log("useCR: Fetching CR", cr);
 
       const _cr = (poolBalance / totalWithdrawn) * 100;
+      console.log("useCR: Fetching CR", _cr);
       setCR(isNaN(_cr) ? 0 : _cr);
     }
   }, [poolBalance, totalDyadSupply]);
