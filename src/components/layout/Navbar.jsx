@@ -64,8 +64,8 @@ export default function NavBar() {
             </div>
             <div className="hidden md:block w-[2px] h-[2rem] bg-[#737E76]"></div>
             {isConnected && (
-              <div className="hidden md:block">
-                <div className="flex gap-2 items-center justify-center">
+              <div className="hidden md:flex">
+                <div className="flex gap-2 items-center justify-center mr-8">
                   <div>CR</div>
                   {cr && <div>{round(cr, 0)}%</div>}
                 </div>
