@@ -6,7 +6,7 @@ import { useState } from "react";
 export default function useTotalDyadSupply() {
   const [totalDyadSupply, setTotalDyadSupply] = useState(0);
 
-  useContractRead({
+  const { refetch } = useContractRead({
     addressOrName: CONTRACT_DYAD,
     contractInterface: dyadABI["abi"],
     functionName: "totalSupply",
@@ -16,5 +16,5 @@ export default function useTotalDyadSupply() {
     },
   });
 
-  return { totalDyadSupply };
+  return { totalDyadSupply, refetch };
 }

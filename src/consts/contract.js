@@ -51,6 +51,21 @@
 //    fixes:
 //    - fix cr calculation
 //    - 888 dnfts
-export const CONTRACT_dNFT = "0xFEb1247DF4360C0F16a64b1De37d97E0FD5BE81d";
-export const CONTRACT_DYAD = "0xaa0a5b538410A0d62b06168b0bfF537C356f8DFE";
-export const CONTRACT_POOL = "0x906ad164Bd7B717B57a975898A0bD1FF767005dC";
+// export const CONTRACT_dNFT = "0xFEb1247DF4360C0F16a64b1De37d97E0FD5BE81d";
+// export const CONTRACT_DYAD = "0xaa0a5b538410A0d62b06168b0bfF537C356f8DFE";
+// export const CONTRACT_POOL = "0x906ad164Bd7B717B57a975898A0bD1FF767005dC";
+
+// goerli v0.6: 4th Testnet Launch
+//   changes:
+//    - dNFT quantity back to 500.
+//    - dNFTs can transfer and receive deposited DYAD to and from any other dNFT
+//    directly between their balance sheets, without removing DYAD from the
+//    damping vault.
+//    - maximum TVL/500 withdrawal limit for all dNFTs. This is in addition to
+//    the 150% minimum protocol-wide CR. It will prevent the formation of
+//    too-powerful dNFTs that could break the game.
+//    - 1.15x DYAD accrual bonus for calling sync on a positive delta (ETH up).
+//    - major refactoring of the contracts which reduced the sync gas costs by
+//    30%. Still a lot of room for gas efficiency improvement here.
+export const CONTRACT_DYAD = "0x240B5c699C002173c8c76dE5427f864ACAb097E1";
+export const CONTRACT_dNFT = "0x29E94B4E3Cc978C232909c4a78836AC52d6A610e";
