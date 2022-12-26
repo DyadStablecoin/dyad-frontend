@@ -16,7 +16,7 @@ export default function Liquidate({ tokenId, onClose, setTxHash }) {
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
-    functionName: "claim",
+    functionName: "liquidate",
     args: [tokenId, address],
     overrides: {
       value: parseEther(wETH),
