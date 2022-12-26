@@ -122,7 +122,7 @@ export default function NFT({ tokenId }) {
             <div className="w-full">
               <div className="flex justify-between items-center">
                 <div className={HEADER}>Rank</div>
-                <div className="">#{rank}</div>
+                <div className="">{rank ? "#" + rank : "Syncing"}</div>
               </div>
               <div className="flex justify-between items-center">
                 <div className={HEADER}>Value</div>
