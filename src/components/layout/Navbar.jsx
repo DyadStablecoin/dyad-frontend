@@ -48,7 +48,7 @@ export default function NavBar() {
           )}
         </div>
         <div className="flex gap- tems-center justify-center">
-          <div className="gap-8 items-center justify-center hidden md:flex  mr-8">
+          <div className="gap-8 items-center justify-center flex mr-8">
             {isConnected && (
               <>
                 <div className="flex gap-4">
@@ -58,19 +58,19 @@ export default function NavBar() {
                 <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
               </>
             )}
-            <div className="flex gap-4">
+            <div className="flex gap-4 hidden md:flex">
               <div>dNFT Floor</div>
               <div>{formatUSD(dNFT_PRICE)}</div>
             </div>
-            <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
+            <div className="hidden md:block w-[2px] h-[2rem] bg-[#737E76]"></div>
             {isConnected && (
-              <>
+              <div className="hidden md:block">
                 <div className="flex gap-2 items-center justify-center">
                   <div>CR</div>
                   {cr && <div>{round(cr, 0)}%</div>}
                 </div>
                 <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
-              </>
+              </div>
             )}
             {address ? (
               <Button
