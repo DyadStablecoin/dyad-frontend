@@ -21,13 +21,14 @@ function setFilters(option, owner, address, range) {
   let _owner = owner;
   if (option === MY_DNFTS_OPTION) {
     _owner = address;
-    _range = resetRange();
   }
 
   let _isLiquidatable = [false, true];
   if (option === LIQUIDATABLE_OPTION) {
     _isLiquidatable = [true];
   }
+
+  _range = resetRange();
 
   return { _owner, _range, _isLiquidatable };
 }
@@ -60,7 +61,7 @@ export function useNftsFromIndexer(range, owner = "", option = "Leaderboard") {
         .eq("contractAddress", CONTRACT_dNFT)
         .eq("version", lastSyncVersion)
         .in("isLiquidatable", _isLiquidatable)
-        .ilike("owner", `%${_owner}%`) // filter by owner
+        .or(`owner.match.${_owner},ensName.match.${_owner}`)
         .order("xp", { ascending: false })
         .range(_range.start, _range.end)
         .then((res) => {
@@ -96,7 +97,7 @@ export function useNftsCountFromIndexer(
         .eq("contractAddress", CONTRACT_dNFT)
         .eq("version", lastSyncVersion)
         .in("isLiquidatable", _isLiquidatable)
-        .ilike("owner", `%${_owner}%`) // filter by owner
+        .or(`owner.match.${_owner},ensName.match.${_owner}`)
         .then((res) => {
           setCount(res.count);
         });
