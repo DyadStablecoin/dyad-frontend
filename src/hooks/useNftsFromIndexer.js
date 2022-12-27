@@ -8,7 +8,7 @@ import { useAccount } from "wagmi";
 import { LIQUIDATABLE_OPTION, MY_DNFTS_OPTION } from "../consts/leaderboard";
 import { ROWS_PER_LEADERBOARD_PAGE } from "../consts/consts";
 
-function resetRange() {
+export function resetRange() {
   return {
     start: 0,
     end: ROWS_PER_LEADERBOARD_PAGE,
@@ -27,6 +27,7 @@ function setFilters(option, owner, address, range) {
   let _isLiquidatable = [false, true];
   if (option === LIQUIDATABLE_OPTION) {
     _isLiquidatable = [true];
+    _range = resetRange();
   }
 
   return { _owner, _range, _isLiquidatable };

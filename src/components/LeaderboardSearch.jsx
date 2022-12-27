@@ -1,8 +1,14 @@
 import { SearchOutlined } from "@ant-design/icons";
+import { resetRange } from "../hooks/useNftsFromIndexer";
 import Icon from "./Icon";
 import TextInput from "./TextInput";
 
-export default function LeaderboardSearch({ owner, setOwner, refetch }) {
+export default function LeaderboardSearch({
+  owner,
+  setOwner,
+  refetch,
+  setRange,
+}) {
   return (
     <div className="flex justify-end w-[80rem] items-center gap-4">
       <TextInput
@@ -10,7 +16,10 @@ export default function LeaderboardSearch({ owner, setOwner, refetch }) {
         value={owner}
         onChange={(v) => setOwner(v)}
         specificKeyFunction={(key) => {
-          if (key === "Enter") refetch();
+          if (key === "Enter") {
+            setRange(resetRange());
+            refetch();
+          }
         }}
       />
       <Icon onClick={refetch}>

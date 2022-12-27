@@ -34,6 +34,7 @@ export default function Leaderboard() {
             owner={owner}
             setOwner={setOwner}
             refetch={refetch}
+            setRange={setRange}
           />
         </div>
         {nfts && (
