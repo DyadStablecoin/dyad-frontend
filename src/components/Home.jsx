@@ -1,3 +1,4 @@
+import useAvgMintedFromIndexer from "../hooks/useAvgMintedFromIndexer";
 import Claim from "./Claim";
 import NFTs from "./NFTs";
 
