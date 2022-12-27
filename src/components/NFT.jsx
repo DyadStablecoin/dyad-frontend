@@ -26,7 +26,7 @@ import useMintAllocation from "../hooks/useMintAllocation";
 
 const HEADER = "text-gray-500 text-sm";
 
-export default function NFT({ tokenId }) {
+export default function NFT({ tokenId, avgMinted }) {
   console.log("NFT: Rendering NFT", tokenId);
 
   const [txHash, setTxHash] = useState();
@@ -149,7 +149,7 @@ export default function NFT({ tokenId }) {
                 <div className="">
                   {round(dyadMintAllocation(mintAllocation, nft), 3)}
                   x/
-                  {round(dyadBurnLiability(mintAllocation), 3)}x
+                  {round(dyadBurnLiability(mintAllocation, nft, avgMinted), 3)}x
                 </div>
                 <div className="w-[5rem] text-white">
                   {round(accrueXP(mintAllocation), 3)}x XP

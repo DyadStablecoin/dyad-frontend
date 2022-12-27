@@ -17,9 +17,9 @@ export function dyadMintAllocation(mintAllocation, nft) {
   return mintAllocation * (nft.deposit / (nft.deposit + nft.withdrawn));
 }
 
-export function dyadBurnLiability(mintAllocation) {
+export function dyadBurnLiability(mintAllocation, nft, avgMinted) {
   // TODO: should divide by minted / avgMinted
-  return (3.0 - mintAllocation) * 1;
+  return (3.0 - mintAllocation) * ((nft.deposit + nft.withdrawn) / avgMinted);
 }
 
 export function accrueXP(mintAllocation) {
