@@ -21,14 +21,13 @@ function setFilters(option, owner, address, range) {
   let _owner = owner;
   if (option === MY_DNFTS_OPTION) {
     _owner = address;
+    _range = resetRange();
   }
 
   let _isLiquidatable = [false, true];
   if (option === LIQUIDATABLE_OPTION) {
     _isLiquidatable = [true];
   }
-
-  _range = resetRange();
 
   return { _owner, _range, _isLiquidatable };
 }
