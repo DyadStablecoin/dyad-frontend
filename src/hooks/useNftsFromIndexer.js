@@ -5,7 +5,7 @@ import useRefetch from "./useRefetch";
 import useIsOneNftLiquidatable from "./useIsOneNftLiquidatable";
 import useLastSyncVersion from "./useLastSyncVersion";
 import { useAccount } from "wagmi";
-import { MY_DNFTS_OPTION } from "../consts/leaderboard";
+import { LIQUIDATABLE_OPTION, MY_DNFTS_OPTION } from "../consts/leaderboard";
 import { ROWS_PER_LEADERBOARD_PAGE } from "../consts/consts";
 
 function resetRange() {
@@ -24,7 +24,12 @@ function setFilters(option, owner, address, range) {
     _range = resetRange();
   }
 
-  return { _owner, _range };
+  let _isLiquidatable = [false, true];
+  if (option === LIQUIDATABLE_OPTION) {
+    _isLiquidatable = [true];
+  }
+
+  return { _owner, _range, _isLiquidatable };
 }
 
 /**
@@ -40,7 +45,12 @@ export function useNftsFromIndexer(range, owner = "", option = "Leaderboard") {
   const { refetch, trigger } = useRefetch();
 
   useEffect(() => {
-    let { _owner, _range } = setFilters(option, owner, address, range);
+    let { _owner, _range, _isLiquidatable } = setFilters(
+      option,
+      owner,
+      address,
+      range
+    );
 
     if (lastSyncVersion) {
       setIsLoading(true);
@@ -49,6 +59,7 @@ export function useNftsFromIndexer(range, owner = "", option = "Leaderboard") {
         .select("*")
         .eq("contractAddress", CONTRACT_dNFT)
         .eq("version", lastSyncVersion)
+        .in("isLiquidatable", _isLiquidatable)
         .ilike("owner", `%${_owner}%`) // filter by owner
         .order("xp", { ascending: false })
         .range(_range.start, _range.end)
@@ -76,7 +87,7 @@ export function useNftsCountFromIndexer(
   const { address } = useAccount();
 
   useEffect(() => {
-    let { _owner } = setFilters(option, owner, address);
+    let { _owner, _isLiquidatable } = setFilters(option, owner, address);
 
     if (lastSyncVersion) {
       supabase
@@ -84,6 +95,7 @@ export function useNftsCountFromIndexer(
         .select("*", { count: "exact", head: true })
         .eq("contractAddress", CONTRACT_dNFT)
         .eq("version", lastSyncVersion)
+        .in("isLiquidatable", _isLiquidatable)
         .ilike("owner", `%${_owner}%`) // filter by owner
         .then((res) => {
           setCount(res.count);
