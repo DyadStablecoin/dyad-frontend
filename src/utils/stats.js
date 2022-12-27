@@ -18,7 +18,6 @@ export function dyadMintAllocation(mintAllocation, nft) {
 }
 
 export function dyadBurnLiability(mintAllocation, nft, avgMinted) {
-  // TODO: should divide by minted / avgMinted
   return (3.0 - mintAllocation) * ((nft.deposit + nft.withdrawn) / avgMinted);
 }
 
