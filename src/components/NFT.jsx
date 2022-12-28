@@ -110,7 +110,7 @@ export default function NFT({ tokenId, avgMinted }) {
       ) : (
         <div
           style={{ border: "1px solid #800101" }}
-          className="p-4 md:flex md:gap-[5rem]"
+          className="p-4 md:flex md:gap-[5rem] shadow-lg shadow-[#800101]"
         >
           <LoadingInplace isLoading={isLoadingTx || isFetching} />
           <div className="flex gap-4 justify-between w-full">

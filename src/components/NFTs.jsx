@@ -15,7 +15,7 @@ export default function NFTs() {
       {tokenIds.length > 0 ? (
         <div>
           <div className="mb-2">Your dNFTs</div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-4">
             {tokenIds.map((tokenId) => {
               return (
                 <NFT tokenId={parseInt(tokenId._hex)} avgMinted={avgMinted} />
