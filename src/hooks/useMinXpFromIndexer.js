@@ -13,7 +13,6 @@ export default function useXpMinFromIndexer() {
       })
       .limit(1)
       .then((res) => {
-        console.log("min", res);
         setMinXp(res.data[0].xp);
       });
   }, []);

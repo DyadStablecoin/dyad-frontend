@@ -19,7 +19,6 @@ export default function useXpMaxFromIndexer() {
         })
         .limit(1)
         .then((res) => {
-          console.log("max", res);
           setMaxXp(res.data[0].xp);
         });
     }

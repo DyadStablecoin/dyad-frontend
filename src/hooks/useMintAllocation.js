@@ -10,9 +10,7 @@ export default function useMintAllocation(xp) {
 
   useEffect(() => {
     let _xp = (xp - minXp) / (maxXp - minXp);
-    console.log("_xp", _xp);
     let _mintAllocation = 1.5 + Math.tanh(11.0 * (_xp - 0.85));
-    console.log("mintAllocation", _mintAllocation);
     setMintAllocation(_mintAllocation);
   }, [xp, minXp, maxXp]);
 
