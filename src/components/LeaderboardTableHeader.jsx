@@ -21,9 +21,11 @@ export default function LeaderboardTableHeader({ sort, setSort }) {
               })
             }
           />
-          <div className="flex flex-col">
-            {!sort.asc.xp ? <CaretUpOutlined /> : <CaretDownOutlined />}
-          </div>
+          {sort.name === "xp" && (
+            <div className="flex flex-col">
+              {!sort.asc.xp ? <CaretUpOutlined /> : <CaretDownOutlined />}
+            </div>
+          )}
         </div>
       </th>
       <th>value</th>
@@ -39,9 +41,15 @@ export default function LeaderboardTableHeader({ sort, setSort }) {
               })
             }
           />
-          <div className="flex flex-col">
-            {!sort.asc.withdrawn ? <CaretUpOutlined /> : <CaretDownOutlined />}
-          </div>
+          {sort.name === "withdrawn" && (
+            <div className="flex flex-col">
+              {!sort.asc.withdrawn ? (
+                <CaretUpOutlined />
+              ) : (
+                <CaretDownOutlined />
+              )}
+            </div>
+          )}
         </div>
       </th>
       <th>
@@ -56,9 +64,11 @@ export default function LeaderboardTableHeader({ sort, setSort }) {
               })
             }
           />
-          <div className="flex flex-col">
-            {!sort.asc.deposit ? <CaretUpOutlined /> : <CaretDownOutlined />}
-          </div>
+          {sort.name === "deposit" && (
+            <div className="flex flex-col">
+              {!sort.asc.deposit ? <CaretUpOutlined /> : <CaretDownOutlined />}
+            </div>
+          )}
         </div>
       </th>
       <th className="hidden md:table-cell">Liquidate</th>

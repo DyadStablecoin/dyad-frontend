@@ -22,7 +22,7 @@ export default function Leaderboard() {
 
   const [sort, setSort] = useState({
     name: "xp",
-    asc: { xp: false, deposit: false, withdrawn: false },
+    asc: { xp: false, deposit: true, withdrawn: true },
   });
 
   const { nfts, isLoading, refetch } = useNftsFromIndexer(
