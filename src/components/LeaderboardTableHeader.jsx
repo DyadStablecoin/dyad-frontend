@@ -14,10 +14,16 @@ export default function LeaderboardTableHeader({ sort, setSort }) {
           <div>XP</div>
           <SwapOutlined
             rotate={90}
-            onClick={() => setSort({ ...sort, xp: !sort.xp })}
+            onClick={() =>
+              setSort({ name: "xp", asc: { ...sort.asc, xp: !sort.asc.xp } })
+            }
           />
           <div className="flex flex-col">
-            {sort.xp === false ? <CaretUpOutlined /> : <CaretDownOutlined />}
+            {sort.asc[sort.name].xp ? (
+              <CaretUpOutlined />
+            ) : (
+              <CaretDownOutlined />
+            )}
           </div>
         </div>
       </th>
@@ -27,10 +33,15 @@ export default function LeaderboardTableHeader({ sort, setSort }) {
           <div>Withdrawn</div>
           <SwapOutlined
             rotate={90}
-            onClick={() => setSort({ ...sort, withdrawn: !sort.withdrawn })}
+            onClick={() =>
+              setSort({
+                name: "withdrawn",
+                asc: { ...sort.asc, withdrawn: !sort.asc.withdrawn },
+              })
+            }
           />
           <div className="flex flex-col">
-            {sort.withdrawn === false ? (
+            {sort.asc[sort.name].withdrawn === "withdrawn" ? (
               <CaretUpOutlined />
             ) : (
               <CaretDownOutlined />
@@ -43,10 +54,15 @@ export default function LeaderboardTableHeader({ sort, setSort }) {
           <div>Deposited</div>
           <SwapOutlined
             rotate={90}
-            onClick={() => setSort({ ...sort, deposit: !sort.deposit })}
+            onClick={() =>
+              setSort({
+                name: "deposit",
+                asc: { ...sort.asc, deposit: !sort.asc.deposit },
+              })
+            }
           />
           <div className="flex flex-col">
-            {sort.withdrawn === false ? (
+            {sort.asc[sort.name].deposit === "deposit" ? (
               <CaretUpOutlined />
             ) : (
               <CaretDownOutlined />

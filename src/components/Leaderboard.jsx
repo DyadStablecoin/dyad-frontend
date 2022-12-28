@@ -21,9 +21,8 @@ export default function Leaderboard() {
   const [option, setOption] = useState();
 
   const [sort, setSort] = useState({
-    xp: false,
-    withdrawn: false,
-    deposited: false,
+    name: "xp",
+    asc: { xp: false, deposit: false, withdrawn: false },
   });
 
   const { nfts, isLoading, refetch } = useNftsFromIndexer(

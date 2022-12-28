@@ -67,9 +67,7 @@ export function useNftsFromIndexer(
         .eq("version", lastSyncVersion)
         .in("isLiquidatable", _isLiquidatable)
         .or(`owner.match.${_owner},ensName.match.${_owner}`)
-        .order("xp", { ascending: sort.xp })
-        .order("withdrawn", { ascending: sort.withdrawn })
-        .order("deposit", { ascending: sort.deposit })
+        .order(sort.name, { ascending: sort.asc[sort.name] })
         .range(_range.start, _range.end)
         .then((res) => {
           setNfts(res.data);
