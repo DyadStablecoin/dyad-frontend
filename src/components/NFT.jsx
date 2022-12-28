@@ -23,6 +23,7 @@ import useSafetyModeActivated from "../hooks/useSafetyMode";
 import useRankFromIndexer from "../hooks/useRankFromIndexer";
 import useCR from "../hooks/useCR";
 import useMintAllocation from "../hooks/useMintAllocation";
+import useNftStatus, { STATUS } from "../hooks/useNftStatus";
 
 const HEADER = "text-gray-500 text-sm";
 
@@ -35,6 +36,8 @@ export default function NFT({ tokenId, avgMinted }) {
   const { cr, refetch: refetchCR } = useCR();
   const { isSafetyModeActivated } = useSafetyModeActivated(cr);
   const { mintAllocation } = useMintAllocation(nft.xp);
+  const { status } = useNftStatus(nft);
+  console.log("NFT: status", status);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -109,8 +112,13 @@ export default function NFT({ tokenId, avgMinted }) {
         <Skeleton />
       ) : (
         <div
-          style={{ border: "1px solid #800101" }}
-          className="p-4 md:flex md:gap-[5rem] shadow-lg shadow-[#800101]"
+          style={{
+            border: `1px solid ${
+              status === STATUS.RISK_FREE ? "#3A403C" : "#800101"
+            } `,
+          }}
+          className={`p-4 md:flex md:gap-[5rem] 
+          ${status === STATUS.LIQUIDATABLE && "shadow-lg shadow-[#800101]"}`}
         >
           <LoadingInplace isLoading={isLoadingTx || isFetching} />
           <div className="flex gap-4 justify-between w-full">
@@ -218,11 +226,18 @@ export default function NFT({ tokenId, avgMinted }) {
                   </div>
                 </div>
               </div>
-              <div className=" flex justify-end items-end  text-sm  ">
-                <div className="bg-[#800101] text-sm p-1 mt-6">
-                  Liqudation Risk
+              {status !== STATUS.RISK_FREE && (
+                <div className=" flex justify-end items-end  text-sm  ">
+                  <div className="bg-[#800101] text-sm p-1 mt-6">
+                    {status === STATUS.AT_LIQUIDATION_RISK && (
+                      <span>Liqudation Risk</span>
+                    )}
+                    {status === STATUS.LIQUIDATABLE && (
+                      <span>Liquidatable</span>
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
           {renderPopups()}
