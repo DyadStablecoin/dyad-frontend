@@ -36,7 +36,12 @@ function setFilters(option, owner, address, range) {
 /**
  * return the nfts from the indexer, sorted by xp in descending order
  */
-export function useNftsFromIndexer(range, owner = "", option = "Leaderboard") {
+export function useNftsFromIndexer(
+  range,
+  owner = "",
+  option = "Leaderboard",
+  sort
+) {
   const [nfts, setNfts] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const { isOneLiquidatable } = useIsOneNftLiquidatable(nfts);
@@ -62,7 +67,7 @@ export function useNftsFromIndexer(range, owner = "", option = "Leaderboard") {
         .eq("version", lastSyncVersion)
         .in("isLiquidatable", _isLiquidatable)
         .or(`owner.match.${_owner},ensName.match.${_owner}`)
-        .order("xp", { ascending: false })
+        .order(sort.name, { ascending: sort.asc[sort.name] })
         .range(_range.start, _range.end)
         .then((res) => {
           setNfts(res.data);
@@ -72,7 +77,7 @@ export function useNftsFromIndexer(range, owner = "", option = "Leaderboard") {
           setIsLoading(false);
         });
     }
-  }, [range, lastSyncVersion, option, trigger]);
+  }, [range, lastSyncVersion, option, sort, trigger]);
 
   return { nfts, isOneLiquidatable, isLoading, refetch };
 }
