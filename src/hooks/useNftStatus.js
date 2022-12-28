@@ -11,13 +11,13 @@ export default function useNftStatus(nft) {
   const [status, setStatus] = useState(STATUS.RISK_FREE);
 
   useEffect(() => {
-    if (nft.withdrawn === 0) {
-      setStatus(STATUS.RISK_FREE);
+    if (nft.isLiquidatable) {
+      setStatus(STATUS.LIQUIDATABLE);
       return;
     }
 
-    if (nft.isLiquidatable) {
-      setStatus(STATUS.LIQUIDATABLE);
+    if (nft.withdrawn === 0) {
+      setStatus(STATUS.RISK_FREE);
       return;
     }
 

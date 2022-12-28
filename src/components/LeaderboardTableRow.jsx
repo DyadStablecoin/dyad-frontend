@@ -11,6 +11,7 @@ import Popup from "./Popup";
 import { useState } from "react";
 import useNft from "../hooks/useNft";
 import useRankFromIndexer from "../hooks/useRankFromIndexer";
+import useNftStatus, { STATUS } from "../hooks/useNftStatus";
 
 export default function LeaderboardTableRow({
   id,
@@ -22,6 +23,7 @@ export default function LeaderboardTableRow({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { nft } = useNft(id);
   const { rank } = useRankFromIndexer(id);
+  const { status } = useNftStatus(nft);
 
   const { isLoading: isLoadingTx } = useWaitForTransaction({
     hash: txHash,
@@ -52,7 +54,7 @@ export default function LeaderboardTableRow({
             {round(nft.deposit / 10 ** 18, 2)}
           </td>
           <td className="hidden md:table-cell">
-            {nft.deposit < 0 && (
+            {status === STATUS.LIQUIDATABLE && (
               <Button onClick={onOpen} tokenId={nft.id}>
                 Liquidate
               </Button>
