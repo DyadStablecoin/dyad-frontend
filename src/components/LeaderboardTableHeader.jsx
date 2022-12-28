@@ -15,15 +15,14 @@ export default function LeaderboardTableHeader({ sort, setSort }) {
           <SwapOutlined
             rotate={90}
             onClick={() =>
-              setSort({ name: "xp", asc: { ...sort.asc, xp: !sort.asc.xp } })
+              setSort({
+                name: "xp",
+                asc: { ...sort.asc, xp: !sort.asc.xp },
+              })
             }
           />
           <div className="flex flex-col">
-            {sort.asc[sort.name].xp ? (
-              <CaretUpOutlined />
-            ) : (
-              <CaretDownOutlined />
-            )}
+            {!sort.asc.xp ? <CaretUpOutlined /> : <CaretDownOutlined />}
           </div>
         </div>
       </th>
@@ -41,11 +40,7 @@ export default function LeaderboardTableHeader({ sort, setSort }) {
             }
           />
           <div className="flex flex-col">
-            {sort.asc[sort.name].withdrawn === "withdrawn" ? (
-              <CaretUpOutlined />
-            ) : (
-              <CaretDownOutlined />
-            )}
+            {!sort.asc.withdrawn ? <CaretUpOutlined /> : <CaretDownOutlined />}
           </div>
         </div>
       </th>
@@ -62,11 +57,7 @@ export default function LeaderboardTableHeader({ sort, setSort }) {
             }
           />
           <div className="flex flex-col">
-            {sort.asc[sort.name].deposit === "deposit" ? (
-              <CaretUpOutlined />
-            ) : (
-              <CaretDownOutlined />
-            )}
+            {!sort.asc.deposit ? <CaretUpOutlined /> : <CaretDownOutlined />}
           </div>
         </div>
       </th>
