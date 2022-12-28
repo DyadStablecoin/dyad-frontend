@@ -37,7 +37,6 @@ export default function NFT({ tokenId, avgMinted }) {
   const { isSafetyModeActivated } = useSafetyModeActivated(cr);
   const { mintAllocation } = useMintAllocation(nft.xp);
   const { status } = useNftStatus(nft);
-  console.log("NFT: status", status);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
