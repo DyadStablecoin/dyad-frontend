@@ -109,7 +109,7 @@ export default function NFT({ tokenId, avgMinted }) {
         <Skeleton />
       ) : (
         <div
-          style={{ border: "1px solid #3A403C" }}
+          style={{ border: "1px solid #800101" }}
           className="p-4 md:flex md:gap-[5rem]"
         >
           <LoadingInplace isLoading={isLoadingTx || isFetching} />
@@ -193,7 +193,7 @@ export default function NFT({ tokenId, avgMinted }) {
                 Redeem
               </Button>
             </div>
-            <div className="flex flex-col gap-2 ml-4">
+            <div className="flex flex-col gap-2 ml-4 ">
               <div className={HEADER}>Deposited DYAD</div>
               <div className="md:flex md:gap-2">
                 <div className="md:mr-2 mb-2 md:mb-0">
@@ -216,6 +216,11 @@ export default function NFT({ tokenId, avgMinted }) {
                       Withdraw
                     </Button>
                   </div>
+                </div>
+              </div>
+              <div className=" flex justify-end items-end  text-sm  ">
+                <div className="bg-[#800101] text-sm p-1 mt-6">
+                  Liqudation Risk
                 </div>
               </div>
             </div>
