@@ -7,9 +7,11 @@ export default function useMaxWithdrawl(nft) {
   const { averageTVL } = useAverageTVL();
 
   useEffect(() => {
-    normalize(nft.deposit) > averageTVL
+    const deposit = normalize(nft.deposit);
+
+    deposit > averageTVL
       ? setMaxWithdrawl(averageTVL)
-      : setMaxWithdrawl(normalize(nft.deposit));
+      : setMaxWithdrawl(deposit);
   }, [averageTVL, nft.deposit]);
 
   return { maxWithdrawl };
