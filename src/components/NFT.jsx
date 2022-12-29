@@ -27,12 +27,12 @@ import useNftStatus, { STATUS } from "../hooks/useNftStatus";
 
 const HEADER = "text-gray-500 text-sm";
 
-export default function NFT({ tokenId, avgMinted }) {
+export default function NFT({ tokenId, avgMinted, version }) {
   console.log("NFT: Rendering NFT", tokenId);
 
   const [txHash, setTxHash] = useState();
   const { nft, refetch: refetchNft, isLoading, isFetching } = useNft(tokenId);
-  const { rank } = useRankFromIndexer(tokenId);
+  const { rank } = useRankFromIndexer(tokenId, version);
   const { cr, refetch: refetchCR } = useCR();
   const { isSafetyModeActivated } = useSafetyModeActivated(cr);
   const { mintAllocation } = useMintAllocation(nft.xp);

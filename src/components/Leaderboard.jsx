@@ -11,6 +11,7 @@ import Pagination from "./Pagination";
 import LeaderboardSearch from "./LeaderboardSearch";
 import { ROWS_PER_LEADERBOARD_PAGE } from "../consts/consts";
 import LeaderboardFilter from "./LeaderboardFilter";
+import useLastSyncVersion from "../hooks/useLastSyncVersion";
 
 export default function Leaderboard() {
   const [range, setRange] = useState({
@@ -25,6 +26,7 @@ export default function Leaderboard() {
     asc: { xp: false, deposit: true, withdrawn: true },
   });
 
+  const { lastSyncVersion } = useLastSyncVersion();
   const { nfts, isLoading, refetch } = useNftsFromIndexer(
     range,
     owner,
@@ -61,8 +63,9 @@ export default function Leaderboard() {
               {nfts.map((nft) => {
                 return (
                   <LeaderboardTableRow
-                    id={nft.id}
+                    id={nft.tokenId}
                     ensName={nft.ensName}
+                    version={lastSyncVersion}
                     ownerAddress={nft.owner}
                     refetch={refetch}
                   />

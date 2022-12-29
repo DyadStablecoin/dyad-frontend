@@ -12,7 +12,7 @@ export default function useAvgMintedFromIndexer() {
       .from("nfts")
       .select("deposit, withdrawn")
       .eq("contractAddress", CONTRACT_dNFT)
-      .eq("version", lastSyncVersion)
+      .eq("version_id", lastSyncVersion)
       .then((res) => {
         let minted = [];
         res.data.forEach((nft) => {

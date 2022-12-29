@@ -2,6 +2,7 @@ import NFT from "./NFT";
 import useIDsByOwner from "../hooks/useIDsByOwner";
 import { useAccount } from "wagmi";
 import useAvgMintedFromIndexer from "../hooks/useAvgMintedFromIndexer";
+import useLastSyncVersion from "../hooks/useLastSyncVersion";
 
 export default function NFTs() {
   console.log("NFTs: Rendering");
@@ -9,6 +10,7 @@ export default function NFTs() {
   const { address } = useAccount();
   const { tokenIds } = useIDsByOwner(address);
   const { avgMinted } = useAvgMintedFromIndexer();
+  const { lastSyncVersion } = useLastSyncVersion();
 
   return (
     <>
@@ -18,7 +20,11 @@ export default function NFTs() {
           <div className="flex flex-col gap-4">
             {tokenIds.map((tokenId) => {
               return (
-                <NFT tokenId={parseInt(tokenId._hex)} avgMinted={avgMinted} />
+                <NFT
+                  tokenId={parseInt(tokenId._hex)}
+                  avgMinted={avgMinted}
+                  version={lastSyncVersion}
+                />
               );
             })}
           </div>

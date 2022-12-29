@@ -13,7 +13,7 @@ export default function useXpAverageFromIndexer() {
       .from("nfts")
       .select("*")
       .eq("contractAddress", CONTRACT_dNFT)
-      .eq("version", lastSyncVersion)
+      .eq("version_id", lastSyncVersion)
       .then((data) => {
         setXpAverage(data.data[0].xp_average);
       });

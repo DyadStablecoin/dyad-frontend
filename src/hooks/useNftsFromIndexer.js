@@ -64,12 +64,13 @@ export function useNftsFromIndexer(
         .from("nfts")
         .select("*")
         .eq("contractAddress", CONTRACT_dNFT)
-        .eq("version", lastSyncVersion)
+        .eq("version_id", lastSyncVersion)
         .in("isLiquidatable", _isLiquidatable)
         .or(`owner.match.${_owner},ensName.match.${_owner}`)
         .order(sort.name, { ascending: sort.asc[sort.name] })
         .range(_range.start, _range.end)
         .then((res) => {
+          console.log("res", res);
           setNfts(res.data);
           setIsLoading(false);
         })
@@ -100,7 +101,7 @@ export function useNftsCountFromIndexer(
         .from("nfts")
         .select("*", { count: "exact", head: true })
         .eq("contractAddress", CONTRACT_dNFT)
-        .eq("version", lastSyncVersion)
+        .eq("version_id", lastSyncVersion)
         .in("isLiquidatable", _isLiquidatable)
         .or(`owner.match.${_owner},ensName.match.${_owner}`)
         .then((res) => {
