@@ -20,7 +20,6 @@ export default function LeaderboardTableRow({
   ensName,
   version,
 }) {
-  console.log("LeaderboardTableRow: Rendering", id);
   const [txHash, setTxHash] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { nft } = useNft(id);
