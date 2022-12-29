@@ -112,7 +112,7 @@ export default function NFT({
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || isFetching ? (
         <Skeleton />
       ) : (
         <div
