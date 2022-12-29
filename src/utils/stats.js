@@ -20,12 +20,8 @@ export function dyadMintAllocation(mintAllocation, nft) {
 export function dyadBurnLiability(mintAllocation, nft, avgMinted, limit) {
   const mintedOverAvMinted = (nft.deposit + nft.withdrawn) / avgMinted;
   const xpMulti = 3.0 - mintAllocation;
-
-  if (mintedOverAvMinted >= limit) {
-    return xpMulti * limit;
-  } else {
-    return xpMulti * mintedOverAvMinted;
-  }
+  const factor = mintedOverAvMinted >= limit ? limit : mintedOverAvMinted;
+  return xpMulti * factor;
 }
 
 export function accrueXP(mintAllocation) {
