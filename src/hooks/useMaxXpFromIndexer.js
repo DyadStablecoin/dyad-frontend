@@ -13,7 +13,7 @@ export default function useXpMaxFromIndexer() {
         .from("nfts")
         .select("xp")
         .eq("contractAddress", CONTRACT_dNFT)
-        .eq("version", lastSyncVersion)
+        .eq("version_id", lastSyncVersion)
         .order("xp", {
           ascending: false,
         })
