@@ -4,12 +4,14 @@ import dNFTABI from "../abi/dNFT.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
 import { parseEther } from "../utils/currency";
-import { round, floor, normalize } from "../utils/currency";
+import { round, floor } from "../utils/currency";
 import PopupContent from "./PopupContent";
 import MaxButton from "./MaxButton";
+import useMaxWithdrawl from "../hooks/useMaxWithdrawl";
 
 export default function Withdraw({ nft, onClose, setTxHash }) {
   const [dyad, setDyad] = useState("");
+  const { maxWithdrawl } = useMaxWithdrawl(nft);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -52,11 +54,9 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
           </div>
           <div className="flex gap-2 items-center justify-center">
             <div className="text-[#737E76]">
-              Balance:{round(normalize(nft.deposit), 2)}
+              Balance:{round(maxWithdrawl, 2)}
             </div>
-            <MaxButton
-              onClick={() => setDyad(floor(normalize(nft.deposit), 2))}
-            />
+            <MaxButton onClick={() => setDyad(floor(maxWithdrawl, 2))} />
           </div>
         </div>
       </div>
