@@ -156,7 +156,7 @@ export default function NFT({ tokenId, avgMinted, version }) {
                 <div className="">
                   {round(dyadMintAllocation(mintAllocation, nft), 3)}
                   x/
-                  {round(dyadBurnLiability(mintAllocation, nft, avgMinted), 3)}x
+                  {round(dyadBurnLiability(mintAllocation, nft, avgMinted, 2.0), 3)}x
                 </div>
                 <div className="w-[5rem] text-white">
                   {round(accrueXP(mintAllocation), 3)}x XP
