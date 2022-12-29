@@ -71,7 +71,6 @@ export default function LeaderboardTableHeader({ sort, setSort }) {
           )}
         </div>
       </th>
-      <th className="hidden md:table-cell">Liquidate</th>
       <th className="hidden md:table-cell">Deposit Ratio</th>
       <th>Address</th>
     </tr>
