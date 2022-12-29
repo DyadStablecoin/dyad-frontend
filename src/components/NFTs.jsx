@@ -25,7 +25,7 @@ export default function NFTs() {
                 <NFT
                   tokenId={parseInt(tokenId._hex)}
                   avgMinted={avgMinted}
-                  version={lastSyncVersion}
+                  lastSyncVersion={lastSyncVersion}
                   dyadBalance={dyadBalance}
                 />
               );
