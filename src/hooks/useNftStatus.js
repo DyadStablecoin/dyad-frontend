@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SAFETY_MODE_THRESHOLD } from "../consts/consts";
+import { LIQUIDATION_RISK_THRESHOLD } from "../consts/consts";
 
 export const STATUS = {
   RISK_FREE: "RISK_FREE",
@@ -21,7 +21,10 @@ export default function useNftStatus(nft) {
       return;
     }
 
-    if (nft.deposit / nft.withdrawn < SAFETY_MODE_THRESHOLD) {
+    if (
+      nft.deposit / (nft.deposit + nft.withdrawn) <
+      LIQUIDATION_RISK_THRESHOLD
+    ) {
       setStatus(STATUS.AT_LIQUIDATION_RISK);
       return;
     }
