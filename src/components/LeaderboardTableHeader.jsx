@@ -29,7 +29,7 @@ export default function LeaderboardTableHeader({ sort, setSort }) {
         </div>
       </th>
       <th>value</th>
-      <th>
+      <th className="hidden md:table-cell">
         <div className="flex items-center justify-center gap-1">
           <div>Withdrawn</div>
           <SwapOutlined
@@ -52,7 +52,7 @@ export default function LeaderboardTableHeader({ sort, setSort }) {
           )}
         </div>
       </th>
-      <th>
+      <th className="hidden md:table-cell">
         <div className="flex items-center justify-center gap-1">
           <div>Deposited</div>
           <SwapOutlined
@@ -71,7 +71,6 @@ export default function LeaderboardTableHeader({ sort, setSort }) {
           )}
         </div>
       </th>
-      <th className="hidden md:table-cell">Liquidate</th>
       <th className="hidden md:table-cell">Deposit Ratio</th>
       <th>Address</th>
     </tr>
