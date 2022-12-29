@@ -3,11 +3,13 @@ import useIDsByOwner from "../hooks/useIDsByOwner";
 import { useAccount } from "wagmi";
 import useAvgMintedFromIndexer from "../hooks/useAvgMintedFromIndexer";
 import useLastSyncVersion from "../hooks/useLastSyncVersion";
+import useDyadBalance from "../hooks/useDyadBalance";
 
 export default function NFTs() {
   console.log("NFTs: Rendering");
 
   const { address } = useAccount();
+  const { dyadBalance } = useDyadBalance(address);
   const { tokenIds } = useIDsByOwner(address);
   const { avgMinted } = useAvgMintedFromIndexer();
   const { lastSyncVersion } = useLastSyncVersion();
@@ -24,6 +26,7 @@ export default function NFTs() {
                   tokenId={parseInt(tokenId._hex)}
                   avgMinted={avgMinted}
                   version={lastSyncVersion}
+                  dyadBalance={dyadBalance}
                 />
               );
             })}

@@ -27,7 +27,7 @@ import useNftStatus, { STATUS } from "../hooks/useNftStatus";
 
 const HEADER = "text-gray-500 text-sm";
 
-export default function NFT({ tokenId, avgMinted, version }) {
+export default function NFT({ tokenId, avgMinted, version, dyadBalance }) {
   console.log("NFT: Rendering NFT", tokenId);
 
   const [txHash, setTxHash] = useState();
@@ -191,14 +191,16 @@ export default function NFT({ tokenId, avgMinted, version }) {
                   </Button>
                 </div>
               </div>
-              <Button
-                onClick={onOpenRedeem}
-                borderColor="#463D81"
-                bgColor="#0F0D1B"
-                isDisabled={isFetching || isFetchingTx}
-              >
-                Redeem
-              </Button>
+              {dyadBalance > 0 && (
+                <Button
+                  onClick={onOpenRedeem}
+                  borderColor="#463D81"
+                  bgColor="#0F0D1B"
+                  isDisabled={isFetching || isFetchingTx}
+                >
+                  Redeem
+                </Button>
+              )}
             </div>
             <div className="flex flex-col gap-2 ml-4 ">
               <div className={HEADER}>Deposited DYAD</div>
@@ -208,12 +210,14 @@ export default function NFT({ tokenId, avgMinted, version }) {
                 </div>
                 <div className="">
                   <div className="flex gap-2">
-                    <Button
-                      onClick={onOpenDeposit}
-                      isDisabled={isFetching || isFetchingTx}
-                    >
-                      Deposit
-                    </Button>
+                    {dyadBalance > 0 && (
+                      <Button
+                        onClick={onOpenDeposit}
+                        isDisabled={isFetching || isFetchingTx}
+                      >
+                        Deposit
+                      </Button>
+                    )}
                     <Button
                       onClick={onOpenWithdraw}
                       isDisabled={
