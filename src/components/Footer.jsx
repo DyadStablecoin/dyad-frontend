@@ -2,6 +2,7 @@ import TwitterOutlined from "@ant-design/icons/lib/icons/TwitterOutlined";
 import MediumOutlined from "@ant-design/icons/lib/icons/MediumOutlined";
 import { SiDiscord } from "react-icons/si";
 import Icon from "./Icon";
+import { COLORS } from "../consts/colors";
 
 export default function Footer() {
   return (
@@ -10,6 +11,7 @@ export default function Footer() {
         <div>Privacy Policy</div>
         <div>Disclaimer</div>
       </div>
+      <div style={{ color: COLORS.Beige }}>v0.6</div>
       <div className="flex gap-3 items-center ">
         <Icon onClick={() => window.open("https://twitter.com/DYADstable")}>
           <TwitterOutlined />
