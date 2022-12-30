@@ -57,10 +57,10 @@ export default function LeaderboardTableRow({
           <td>{nft.xp}</td>
           <td>{formatUSD(dNFT_PRICE)}</td>
           <td className="hidden md:table-cell">
-            {round(nft.withdrawn / 10 ** 18, 2)}
+            {round(nft.deposit / 10 ** 18, 2)}
           </td>
           <td className="hidden md:table-cell">
-            {round(nft.deposit / 10 ** 18, 2)}
+            {round(nft.withdrawn / 10 ** 18, 2)}
           </td>
           <td className="hidden md:table-cell">
             {depositRatio(parseFloat(nft.withdrawn), parseFloat(nft.deposit))}%
