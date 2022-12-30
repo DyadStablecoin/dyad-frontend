@@ -9,13 +9,13 @@ import {
 } from "../hooks/useNftsFromIndexer";
 import Pagination from "./Pagination";
 import LeaderboardSearch from "./LeaderboardSearch";
-import { ROWS_PER_LEADERBOARD_PAGE } from "../consts/consts";
+import { DEFAULT_ROWS_PER_PAGE } from "../consts/consts";
 import LeaderboardFilter from "./LeaderboardFilter";
 import useLastSyncVersion from "../hooks/useLastSyncVersion";
 import Dropdown from "./Dropdown";
 
 export default function Leaderboard() {
-  const [rowsPerPage, setRowsPerPage] = useState(ROWS_PER_LEADERBOARD_PAGE);
+  const [rowsPerPage, setRowsPerPage] = useState(DEFAULT_ROWS_PER_PAGE);
   const [range, setRange] = useState({
     start: 0,
     end: rowsPerPage - 1,
@@ -37,18 +37,25 @@ export default function Leaderboard() {
   );
   const { count } = useNftsCountFromIndexer(owner, option, [nfts, option]);
 
+  function resetRange() {
+    setRange({
+      start: 0,
+      end: rowsPerPage - 1,
+    });
+  }
+
   return (
     <div className="flex items-center justify-center flex-col">
       <div className="md:w-[80rem]">
         <LoadingGlobal isLoading={isLoading} />
         <LeaderboardHeader refetch={refetch} />
         <div className="flex justify-between">
-          <LeaderboardFilter setOption={setOption} refetch={refetch} />
+          <LeaderboardFilter setOption={setOption} resetRange={resetRange} />
           <LeaderboardSearch
             owner={owner}
             setOwner={setOwner}
             refetch={refetch}
-            setRange={setRange}
+            resetRange={resetRange}
           />
         </div>
         {nfts && (
@@ -74,17 +81,17 @@ export default function Leaderboard() {
                 );
               })}
             </table>
-            <div className="flex justify-between items-center">
-              <div className="w-[8rem]">
-                <Dropdown
-                  options={[10, 20, 40]}
-                  onChange={(v) => {
-                    setRowsPerPage(v);
-                    setRange({ start: 0, end: v - 1 });
-                  }}
-                />
-              </div>
-              {count > ROWS_PER_LEADERBOARD_PAGE && (
+            {count > DEFAULT_ROWS_PER_PAGE && (
+              <div className="flex justify-between items-center">
+                <div className="w-[8rem]">
+                  <Dropdown
+                    options={[10, 20, 40]}
+                    onChange={(v) => {
+                      setRowsPerPage(v);
+                      setRange({ start: 0, end: v - 1 });
+                    }}
+                  />
+                </div>
                 <div className="mb-4 mt-8 flex justify-center">
                   <Pagination
                     totalRows={count}
@@ -92,8 +99,8 @@ export default function Leaderboard() {
                     setRange={setRange}
                   />
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         )}
       </div>
