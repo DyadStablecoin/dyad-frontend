@@ -21,7 +21,7 @@ export default function Leaderboard() {
   const [owner, setOwner] = useState("");
   const [option, setOption] = useState();
 
-  const [sort, setSort] = useState({
+  const [sortBy, setSortBy] = useState({
     name: "xp",
     asc: { xp: false, deposit: true, withdrawn: true },
   });
@@ -31,7 +31,7 @@ export default function Leaderboard() {
     range,
     owner,
     option,
-    sort
+    sortBy
   );
   const { count } = useNftsCountFromIndexer(owner, option, [nfts, option]);
 
@@ -58,7 +58,7 @@ export default function Leaderboard() {
             )}
             <table className="leaderboard">
               {nfts.length > 0 && (
-                <LeaderboardTableHeader sort={sort} setSort={setSort} />
+                <LeaderboardTableHeader sortBy={sortBy} setSortBy={setSortBy} />
               )}
               {nfts.map((nft) => {
                 return (

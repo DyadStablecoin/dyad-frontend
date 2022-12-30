@@ -37,7 +37,7 @@ export default function LeaderboardTableRow({
           className="leaderboard-row"
           style={{
             border: `1px solid ${
-              status === STATUS.RISK_FREE ? "#3A403C" : COLORS.Red
+              status === STATUS.LIQUIDATABLE ? COLORS.Red : "#3A403C"
             }`,
           }}
         >

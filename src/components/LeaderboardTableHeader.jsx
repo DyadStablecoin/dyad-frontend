@@ -4,7 +4,7 @@ import {
   SwapOutlined,
 } from "@ant-design/icons";
 
-export default function LeaderboardTableHeader({ sort, setSort }) {
+export default function LeaderboardTableHeader({ sortBy, setSortBy }) {
   return (
     <tr className="text-[#737E76]">
       <th></th>
@@ -15,15 +15,15 @@ export default function LeaderboardTableHeader({ sort, setSort }) {
           <SwapOutlined
             rotate={90}
             onClick={() =>
-              setSort({
+              setSortBy({
                 name: "xp",
-                asc: { ...sort.asc, xp: !sort.asc.xp },
+                asc: { ...sortBy.asc, xp: !sortBy.asc.xp },
               })
             }
           />
-          {sort.name === "xp" && (
+          {sortBy.name === "xp" && (
             <div className="flex flex-col">
-              {!sort.asc.xp ? <CaretUpOutlined /> : <CaretDownOutlined />}
+              {!sortBy.asc.xp ? <CaretUpOutlined /> : <CaretDownOutlined />}
             </div>
           )}
         </div>
@@ -35,15 +35,19 @@ export default function LeaderboardTableHeader({ sort, setSort }) {
           <SwapOutlined
             rotate={90}
             onClick={() =>
-              setSort({
+              setSortBy({
                 name: "deposit",
-                asc: { ...sort.asc, deposit: !sort.asc.deposit },
+                asc: { ...sortBy.asc, deposit: !sortBy.asc.deposit },
               })
             }
           />
-          {sort.name === "deposit" && (
+          {sortBy.name === "deposit" && (
             <div className="flex flex-col">
-              {!sort.asc.deposit ? <CaretUpOutlined /> : <CaretDownOutlined />}
+              {!sortBy.asc.deposit ? (
+                <CaretUpOutlined />
+              ) : (
+                <CaretDownOutlined />
+              )}
             </div>
           )}
         </div>
@@ -54,15 +58,15 @@ export default function LeaderboardTableHeader({ sort, setSort }) {
           <SwapOutlined
             rotate={90}
             onClick={() =>
-              setSort({
+              setSortBy({
                 name: "withdrawn",
-                asc: { ...sort.asc, withdrawn: !sort.asc.withdrawn },
+                asc: { ...sortBy.asc, withdrawn: !sortBy.asc.withdrawn },
               })
             }
           />
-          {sort.name === "withdrawn" && (
+          {sortBy.name === "withdrawn" && (
             <div className="flex flex-col">
-              {!sort.asc.withdrawn ? (
+              {!sortBy.asc.withdrawn ? (
                 <CaretUpOutlined />
               ) : (
                 <CaretDownOutlined />

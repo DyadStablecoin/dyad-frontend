@@ -28,6 +28,8 @@ export default function useNftStatus(nft) {
       setStatus(STATUS.AT_LIQUIDATION_RISK);
       return;
     }
+
+    setStatus(STATUS.RISK_FREE);
   }, [nft]);
 
   return { status };
