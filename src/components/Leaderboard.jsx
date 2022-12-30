@@ -12,11 +12,13 @@ import LeaderboardSearch from "./LeaderboardSearch";
 import { ROWS_PER_LEADERBOARD_PAGE } from "../consts/consts";
 import LeaderboardFilter from "./LeaderboardFilter";
 import useLastSyncVersion from "../hooks/useLastSyncVersion";
+import Dropdown from "./Dropdown";
 
 export default function Leaderboard() {
+  const [rowsPerPage, setRowsPerPage] = useState(ROWS_PER_LEADERBOARD_PAGE);
   const [range, setRange] = useState({
     start: 0,
-    end: ROWS_PER_LEADERBOARD_PAGE - 1,
+    end: rowsPerPage - 1,
   });
   const [owner, setOwner] = useState("");
   const [option, setOption] = useState();
@@ -72,15 +74,26 @@ export default function Leaderboard() {
                 );
               })}
             </table>
-            {count > ROWS_PER_LEADERBOARD_PAGE && (
-              <div className="mb-4 mt-8 flex justify-center">
-                <Pagination
-                  totalRows={count}
-                  rowsPerPage={ROWS_PER_LEADERBOARD_PAGE}
-                  setRange={setRange}
+            <div className="flex justify-between items-center">
+              <div className="w-[8rem]">
+                <Dropdown
+                  options={[10, 20, 40]}
+                  onChange={(v) => {
+                    setRowsPerPage(v);
+                    setRange({ start: 0, end: v - 1 });
+                  }}
                 />
               </div>
-            )}
+              {count > ROWS_PER_LEADERBOARD_PAGE && (
+                <div className="mb-4 mt-8 flex justify-center">
+                  <Pagination
+                    totalRows={count}
+                    rowsPerPage={rowsPerPage}
+                    setRange={setRange}
+                  />
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
