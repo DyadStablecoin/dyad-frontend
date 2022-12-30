@@ -65,7 +65,7 @@ export default function Leaderboard() {
               {nfts.map((nft) => {
                 return (
                   <LeaderboardTableRow
-                    id={nft.tokenId}
+                    nft={nft}
                     ensName={nft.ensName}
                     version={lastSyncVersion}
                     ownerAddress={nft.owner}
