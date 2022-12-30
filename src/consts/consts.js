@@ -6,7 +6,8 @@ export const MIN_DEPOSIT_USD = 1;
 export const SAFETY_MODE_THRESHOLD = 150;
 export const LIQUIDATION_RISK_THRESHOLD = 0.05; // 5%
 
-export const ROWS_PER_LEADERBOARD_PAGE = 10;
+// Leaderboard Table
+export const DEFAULT_ROWS_PER_PAGE = 10;
 
 export const DOCS_URL = "https://docs-psi-six.vercel.app";
 

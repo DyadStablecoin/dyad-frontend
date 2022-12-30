@@ -5,22 +5,20 @@ import { formatUSD, round } from "../utils/currency";
 import { depositRatio } from "../utils/stats";
 import LoadingInplace from "./LoadingInplace";
 import { useState } from "react";
-import useNft from "../hooks/useNft";
 import useRankFromIndexer from "../hooks/useRankFromIndexer";
 import useNftStatus, { STATUS } from "../hooks/useNftStatus";
 import LeaderboardRowMore from "./LeaderboardRowMore";
 import { COLORS } from "../consts/colors";
 
 export default function LeaderboardTableRow({
-  id,
+  nft,
   ownerAddress,
   refetch,
   ensName,
   version,
 }) {
   const [txHash, setTxHash] = useState();
-  const { nft } = useNft(id);
-  const { rank } = useRankFromIndexer(id, version);
+  const { rank } = useRankFromIndexer(nft.tokenId, version);
   const { status } = useNftStatus(nft);
 
   const { isLoading: isLoadingTx } = useWaitForTransaction({

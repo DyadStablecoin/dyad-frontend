@@ -7,16 +7,17 @@ import {
   useNftsCountFromIndexer,
   useNftsFromIndexer,
 } from "../hooks/useNftsFromIndexer";
-import Pagination from "./Pagination";
 import LeaderboardSearch from "./LeaderboardSearch";
-import { ROWS_PER_LEADERBOARD_PAGE } from "../consts/consts";
+import { DEFAULT_ROWS_PER_PAGE } from "../consts/consts";
 import LeaderboardFilter from "./LeaderboardFilter";
 import useLastSyncVersion from "../hooks/useLastSyncVersion";
+import LeaderboardTableFooter from "./LeaderboardTableFooter";
 
 export default function Leaderboard() {
+  const [rowsPerPage, setRowsPerPage] = useState(DEFAULT_ROWS_PER_PAGE);
   const [range, setRange] = useState({
     start: 0,
-    end: ROWS_PER_LEADERBOARD_PAGE - 1,
+    end: rowsPerPage - 1,
   });
   const [owner, setOwner] = useState("");
   const [option, setOption] = useState();
@@ -35,18 +36,25 @@ export default function Leaderboard() {
   );
   const { count } = useNftsCountFromIndexer(owner, option, [nfts, option]);
 
+  function resetRange() {
+    setRange({
+      start: 0,
+      end: rowsPerPage - 1,
+    });
+  }
+
   return (
     <div className="flex items-center justify-center flex-col">
       <div className="md:w-[80rem]">
         <LoadingGlobal isLoading={isLoading} />
         <LeaderboardHeader refetch={refetch} />
         <div className="flex justify-between">
-          <LeaderboardFilter setOption={setOption} refetch={refetch} />
+          <LeaderboardFilter setOption={setOption} resetRange={resetRange} />
           <LeaderboardSearch
             owner={owner}
             setOwner={setOwner}
             refetch={refetch}
-            setRange={setRange}
+            resetRange={resetRange}
           />
         </div>
         {nfts && (
@@ -63,7 +71,7 @@ export default function Leaderboard() {
               {nfts.map((nft) => {
                 return (
                   <LeaderboardTableRow
-                    id={nft.tokenId}
+                    nft={nft}
                     ensName={nft.ensName}
                     version={lastSyncVersion}
                     ownerAddress={nft.owner}
@@ -72,14 +80,13 @@ export default function Leaderboard() {
                 );
               })}
             </table>
-            {count > ROWS_PER_LEADERBOARD_PAGE && (
-              <div className="mb-4 mt-8 flex justify-center">
-                <Pagination
-                  totalRows={count}
-                  rowsPerPage={ROWS_PER_LEADERBOARD_PAGE}
-                  setRange={setRange}
-                />
-              </div>
+            {count > DEFAULT_ROWS_PER_PAGE && (
+              <LeaderboardTableFooter
+                rowsPerPage={rowsPerPage}
+                setRowsPerPage={setRowsPerPage}
+                setRange={setRange}
+                count={count}
+              />
             )}
           </div>
         )}
