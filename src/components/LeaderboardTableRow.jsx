@@ -1,12 +1,9 @@
-import { useDisclosure } from "@chakra-ui/react";
 import { useWaitForTransaction } from "wagmi";
 import { dNFT_PRICE, RANDOM_IMAGES } from "../consts/consts";
 import { addressSummary } from "../utils/address";
 import { formatUSD, round } from "../utils/currency";
 import { depositRatio } from "../utils/stats";
-import Liquidate from "./Liquidate";
 import LoadingInplace from "./LoadingInplace";
-import Popup from "./Popup";
 import { useState } from "react";
 import useNft from "../hooks/useNft";
 import useRankFromIndexer from "../hooks/useRankFromIndexer";
@@ -22,7 +19,6 @@ export default function LeaderboardTableRow({
   version,
 }) {
   const [txHash, setTxHash] = useState();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const { nft } = useNft(id);
   const { rank } = useRankFromIndexer(id, version);
   const { status } = useNftStatus(nft);
@@ -67,13 +63,10 @@ export default function LeaderboardTableRow({
           </td>
           <td>{ensName || addressSummary(ownerAddress)}</td>
           <td>
-            <LeaderboardRowMore nft={nft} onOpen={onOpen} />
+            <LeaderboardRowMore nft={nft} setTxHash={setTxHash} />
           </td>
         </tr>
       )}
-      <Popup isOpen={isOpen} onClose={onClose}>
-        <Liquidate tokenId={nft.id} onClose={onClose} setTxHash={setTxHash} />
-      </Popup>
     </>
   );
 }
