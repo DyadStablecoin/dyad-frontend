@@ -31,6 +31,25 @@ export default function LeaderboardTableHeader({ sort, setSort }) {
       <th>value</th>
       <th className="hidden md:table-cell">
         <div className="flex items-center justify-center gap-1">
+          <div>Deposited</div>
+          <SwapOutlined
+            rotate={90}
+            onClick={() =>
+              setSort({
+                name: "deposit",
+                asc: { ...sort.asc, deposit: !sort.asc.deposit },
+              })
+            }
+          />
+          {sort.name === "deposit" && (
+            <div className="flex flex-col">
+              {!sort.asc.deposit ? <CaretUpOutlined /> : <CaretDownOutlined />}
+            </div>
+          )}
+        </div>
+      </th>
+      <th className="hidden md:table-cell">
+        <div className="flex items-center justify-center gap-1">
           <div>Withdrawn</div>
           <SwapOutlined
             rotate={90}
@@ -48,25 +67,6 @@ export default function LeaderboardTableHeader({ sort, setSort }) {
               ) : (
                 <CaretDownOutlined />
               )}
-            </div>
-          )}
-        </div>
-      </th>
-      <th className="hidden md:table-cell">
-        <div className="flex items-center justify-center gap-1">
-          <div>Deposited</div>
-          <SwapOutlined
-            rotate={90}
-            onClick={() =>
-              setSort({
-                name: "deposit",
-                asc: { ...sort.asc, deposit: !sort.asc.deposit },
-              })
-            }
-          />
-          {sort.name === "deposit" && (
-            <div className="flex flex-col">
-              {!sort.asc.deposit ? <CaretUpOutlined /> : <CaretDownOutlined />}
             </div>
           )}
         </div>
