@@ -7,12 +7,11 @@ import {
   useNftsCountFromIndexer,
   useNftsFromIndexer,
 } from "../hooks/useNftsFromIndexer";
-import Pagination from "./Pagination";
 import LeaderboardSearch from "./LeaderboardSearch";
 import { DEFAULT_ROWS_PER_PAGE } from "../consts/consts";
 import LeaderboardFilter from "./LeaderboardFilter";
 import useLastSyncVersion from "../hooks/useLastSyncVersion";
-import Dropdown from "./Dropdown";
+import LeaderboardTableFooter from "./LeaderboardTableFooter";
 
 export default function Leaderboard() {
   const [rowsPerPage, setRowsPerPage] = useState(DEFAULT_ROWS_PER_PAGE);
@@ -82,24 +81,12 @@ export default function Leaderboard() {
               })}
             </table>
             {count > DEFAULT_ROWS_PER_PAGE && (
-              <div className="flex justify-between items-center">
-                <div className="w-[8rem]">
-                  <Dropdown
-                    options={[10, 20, 40]}
-                    onChange={(v) => {
-                      setRowsPerPage(v);
-                      setRange({ start: 0, end: v - 1 });
-                    }}
-                  />
-                </div>
-                <div className="mb-4 mt-8 flex justify-center">
-                  <Pagination
-                    totalRows={count}
-                    rowsPerPage={rowsPerPage}
-                    setRange={setRange}
-                  />
-                </div>
-              </div>
+              <LeaderboardTableFooter
+                rowsPerPage={rowsPerPage}
+                setRowsPerPage={setRowsPerPage}
+                setRange={setRange}
+                count={count}
+              />
             )}
           </div>
         )}
