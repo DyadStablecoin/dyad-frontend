@@ -11,7 +11,7 @@ export default function LeaderboardTableFooter({
     <div className="flex justify-between items-center">
       <div className="w-[8rem]">
         <Dropdown
-          options={[10, 20, 40]}
+          options={[10, 20, 50]}
           onChange={(v) => {
             setRowsPerPage(v);
             setRange({ start: 0, end: v - 1 });
