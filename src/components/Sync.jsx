@@ -5,6 +5,7 @@ import PopupContent from "./PopupContent";
 import useGasCost from "../hooks/useGasCost";
 import { DOCS_URL } from "../consts/consts";
 import SyncLastEthPrice from "./SyncLastEthPrice";
+import PopupRow from "./PopupRow";
 
 export default function Sync({ nft, onClose, setTxHash }) {
   const { isLoading, config } = usePrepareContractWrite({
@@ -38,12 +39,11 @@ export default function Sync({ nft, onClose, setTxHash }) {
     >
       <div className="flex flex-col gap-4">
         <>
-          <div className="flex justify-between">
+          <PopupRow>
             <div className="text-sm">Before</div>
             <div className="text-sm">After</div>
-          </div>
+          </PopupRow>
           <SyncLastEthPrice />
-          {/* <SyncXp nft={nft} /> */}
           <div className="bg-[#3A403C] h-[1px] w-full"></div>
         </>
         <div>+ help sync ALL DYAD NFT's for all players!</div>
