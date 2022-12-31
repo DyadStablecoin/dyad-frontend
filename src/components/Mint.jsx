@@ -1,6 +1,6 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
-import { round, addUnits } from "../utils/currency";
+import { round, addUnits, normalize } from "../utils/currency";
 import dNFTABI from "../abi/dNFT.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
@@ -49,8 +49,14 @@ export default function Mint({ nft, onClose, setTxHash }) {
     >
       <div className="flex flex-col gap-2">
         <PopupRow>
-          <div>CR</div>
+          <div>DYAD CR</div>
           <div className="text-sm">{round(newCR, 2)} %</div>
+        </PopupRow>
+        <PopupRow>
+          <div>dNFT Deposit</div>
+          <div className="text-sm">
+            {round(normalize(nft.deposit) + wETH * ethPrice, 2)} DYAD
+          </div>
         </PopupRow>
         <PopupDivider />
         <div className="flex flex-col gap-2 items-center mt-4">
