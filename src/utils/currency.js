@@ -35,3 +35,7 @@ export function parseEther(eth) {
     return 0;
   }
 }
+
+export function addUnits(value, decimals = 18) {
+  return value * 10 ** decimals;
+}

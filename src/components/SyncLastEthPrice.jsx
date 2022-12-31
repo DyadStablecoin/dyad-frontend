@@ -10,7 +10,7 @@ export default function SyncLastEthPrice() {
   return (
     <PopupRow>
       <div>
-        <div className="text-[#737E76]">Price</div>
+        <div className="text-[#737E76]">ETH Price</div>
         <div>{lastEthPrice}</div>
       </div>
       <div className="flex gap-2 items-center justify-center">

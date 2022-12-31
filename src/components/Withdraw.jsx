@@ -17,7 +17,7 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
   const [dyad, setDyad] = useState("");
   const { maxWithdrawl } = useMaxWithdrawl(nft);
   const { averageTVL } = useAverageTVL();
-  const { cr } = useCR(nft);
+  const { cr } = useCR();
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
