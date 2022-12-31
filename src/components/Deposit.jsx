@@ -10,6 +10,8 @@ import useIsApproved from "../hooks/useIsApproved";
 import MaxButton from "./MaxButton";
 import useMaxDeposit from "../hooks/useMaxDeposit";
 import useDyadBalance from "../hooks/useDyadBalance";
+import PopupRow from "./PopupRow";
+import PopupDivider from "./PopupDivider";
 
 export default function Deposit({ nft, onClose, setTxHash }) {
   const { address } = useAccount();
@@ -76,29 +78,36 @@ export default function Deposit({ nft, onClose, setTxHash }) {
       }}
       isLoading={isFetchingApproval}
     >
-      <div className="flex gap-2 items-center">
-        <div>
-          <TextInput
-            value={dyad}
-            onChange={(v) => {
-              setDyad(v);
-            }}
-            type="number"
-            placeholder={0}
-          />
-        </div>
-        <div className="flex flex-col items-end">
-          <div className="flex">
-            <div className="rhombus" />
-            <div>DYAD</div>
-          </div>
-          <div className="flex gap-2 items-center justify-center">
-            <div className="text-[#737E76]">
-              Balance:{round(normalize(maxDeposit), 2)}
-            </div>
-            <MaxButton
-              onClick={() => setDyad(floor(normalize(maxDeposit), 2))}
+      <div className="flex flex-col gap-2">
+        <PopupRow>
+          <div>dNFT Withdrawls</div>
+          <div>{round(normalize(nft.withdrawn), 2)} DYAD</div>
+        </PopupRow>
+        <PopupDivider />
+        <div className="flex gap-2 items-center mt-4">
+          <div>
+            <TextInput
+              value={dyad}
+              onChange={(v) => {
+                setDyad(v);
+              }}
+              type="number"
+              placeholder={0}
             />
+          </div>
+          <div className="flex flex-col items-end">
+            <div className="flex">
+              <div className="rhombus" />
+              <div>DYAD</div>
+            </div>
+            <div className="flex gap-2 items-center justify-center">
+              <div className="text-[#737E76]">
+                Balance:{round(normalize(maxDeposit), 2)}
+              </div>
+              <MaxButton
+                onClick={() => setDyad(floor(normalize(maxDeposit), 2))}
+              />
+            </div>
           </div>
         </div>
       </div>

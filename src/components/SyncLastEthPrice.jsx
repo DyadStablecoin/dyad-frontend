@@ -1,22 +1,19 @@
-import { SwapRightOutlined } from "@ant-design/icons";
 import useLastEthPrice from "../hooks/useLastEthPrice";
 import useOraclePrice from "../hooks/useOraclePrice";
 import { round, normalize } from "../utils/currency";
+import PopupRow from "./PopupRow";
 
 export default function SyncLastEthPrice() {
   const { oraclePrice } = useOraclePrice();
   const { lastEthPrice } = useLastEthPrice();
 
   return (
-    <div className="flex justify-between items-center">
+    <PopupRow>
       <div>
         <div className="text-[#737E76]">Price</div>
         <div>{lastEthPrice}</div>
       </div>
-      <div>
-        <SwapRightOutlined />
-      </div>
-      <div className="flex gap-6 items-center justify-center">
+      <div className="flex gap-2 items-center justify-center">
         {normalize(oraclePrice, 8)}
         <div className="flex gap-1 items-center">
           <div className="text-sm ">
@@ -31,6 +28,6 @@ export default function SyncLastEthPrice() {
           </div>
         </div>
       </div>
-    </div>
+    </PopupRow>
   );
 }
