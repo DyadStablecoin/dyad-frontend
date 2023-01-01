@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import useTotalNftSupply from "./useTotalNftSupply";
 import useTVL from "./useTVL";
 
-export default function useAverageTVL() {
+export default function useAverageTVL(newAmountAddedToPool = 0) {
   const [averageTVL, setAverageTVL] = useState(1);
-  const { tvl } = useTVL();
+  const { tvl } = useTVL(newAmountAddedToPool);
   const { totalNftSupply } = useTotalNftSupply();
 
   useEffect(() => {
