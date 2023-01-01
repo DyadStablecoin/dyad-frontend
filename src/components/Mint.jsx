@@ -9,14 +9,16 @@ import PopupContent from "./PopupContent";
 import { ArrowDownOutlined } from "@ant-design/icons";
 import useEthPrice from "../hooks/useEthPrice";
 import useEthBalance from "../hooks/useEthBalance";
-import PopupRow from "./PopupRow";
 import useCR from "../hooks/useCR";
-import PopupDivider from "./PopupDivider";
+import Divider from "./PopupDivider";
+import Table from "./PopupTable";
+import Row from "./PopupTableRow";
 
 export default function Mint({ nft, onClose, setTxHash }) {
   const [wETH, setWETH] = useState("");
   const { ethPrice } = useEthPrice();
   const { ethBalance } = useEthBalance();
+  const { cr: oldCR } = useCR();
   const { cr: newCR } = useCR(addUnits(wETH * ethPrice, 18));
 
   const { config } = usePrepareContractWrite({
@@ -48,17 +50,21 @@ export default function Mint({ nft, onClose, setTxHash }) {
       isDisabled={!write}
     >
       <div className="flex flex-col gap-2">
-        <PopupRow>
-          <div>DYAD CR</div>
-          <div className="text-sm">{round(newCR, 2)} %</div>
-        </PopupRow>
-        <PopupRow>
-          <div>dNFT Deposit</div>
-          <div className="text-sm">
-            {round(normalize(nft.deposit) + wETH * ethPrice, 2)} DYAD
-          </div>
-        </PopupRow>
-        <PopupDivider />
+        <Table>
+          <Row
+            label="DYAD CR"
+            unit="%"
+            _old={round(oldCR, 2)}
+            _new={round(newCR, 2)}
+          />
+          <Row
+            label="dNFT Deposit"
+            unit="DYAD"
+            _old={round(normalize(nft.deposit), 2)}
+            _new={round(normalize(nft.deposit) + wETH * ethPrice, 2)}
+          />
+        </Table>
+        <Divider />
         <div className="flex flex-col gap-2 items-center mt-4">
           <div className="flex gap-4 justify-between items-between w-full">
             <TextInput

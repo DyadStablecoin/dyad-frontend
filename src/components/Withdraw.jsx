@@ -56,17 +56,20 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
       <div className="flex flex-col gap-2">
         <Table>
           <Row
-            label={`Protocol CR (min. ${SAFETY_MODE_THRESHOLD}%)`}
+            label={`Protocol CR`}
+            unit="%"
             _old={round(oldCR, 2)}
             _new={round(newCR, 2)}
           />
           <Row
             label="Average dNFT TVL"
+            unit="DYAD"
             _old={round(oldAvgTVL, 2)}
             _new={round(newAvgTVL, 2)}
           />
           <Row
             label="Average dNFT TVL"
+            unit="DYAD"
             _old={round(normalize(nft.deposit), 2)}
             _new={round(normalize(nft.deposit) - dyad, 2)}
           />

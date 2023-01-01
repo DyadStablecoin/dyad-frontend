@@ -83,6 +83,7 @@ export default function Deposit({ nft, onClose, setTxHash }) {
         <Table>
           <Row
             label="dNFT Withdrawls"
+            unit="DYAD"
             _old={round(normalize(nft.withdrawn), 2)}
             _new={round(normalize(nft.withdrawn) - parseFloat(dyad), 2)}
           />
