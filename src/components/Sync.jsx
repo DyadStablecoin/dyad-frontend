@@ -4,8 +4,12 @@ import { CONTRACT_dNFT } from "../consts/contract";
 import PopupContent from "./PopupContent";
 import useGasCost from "../hooks/useGasCost";
 import { DOCS_URL } from "../consts/consts";
-import SyncLastEthPrice from "./SyncLastEthPrice";
-import PopupRow from "./PopupRow";
+import Table from "./PopupTable";
+import Row from "./PopupTableRow";
+import Divider from "./PopupDivider";
+import useLastEthPrice from "../hooks/useLastEthPrice";
+import useOraclePrice from "../hooks/useOraclePrice";
+import { round, normalize } from "../utils/currency";
 
 export default function Sync({ nft, onClose, setTxHash }) {
   const { isLoading, config } = usePrepareContractWrite({
@@ -24,6 +28,8 @@ export default function Sync({ nft, onClose, setTxHash }) {
   });
 
   const { gasCost } = useGasCost(config);
+  const { oraclePrice } = useOraclePrice();
+  const { lastEthPrice } = useLastEthPrice();
 
   return (
     <PopupContent
@@ -38,14 +44,15 @@ export default function Sync({ nft, onClose, setTxHash }) {
       infoOnClick={() => window.open(DOCS_URL + "/pool#sync")}
     >
       <div className="flex flex-col gap-4">
-        <>
-          <PopupRow>
-            <div className="text-sm">Before</div>
-            <div className="text-sm">After</div>
-          </PopupRow>
-          <SyncLastEthPrice />
-          <div className="bg-[#3A403C] h-[1px] w-full"></div>
-        </>
+        <Table>
+          <Row
+            label="ETH Price"
+            unit="$"
+            _old={round(lastEthPrice, 2)}
+            _new={round(normalize(oraclePrice, 8), 2)}
+          />
+        </Table>
+        <Divider />
         <div>+ help sync ALL DYAD NFT's for all players!</div>
         <div className="bg-[#3A403C] h-[1px] w-full"></div>
         <div className="flex justify-between">
