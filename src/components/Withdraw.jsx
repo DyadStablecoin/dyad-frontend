@@ -21,7 +21,8 @@ import { SAFETY_MODE_THRESHOLD } from "../consts/consts";
 export default function Withdraw({ nft, onClose, setTxHash }) {
   const [dyad, setDyad] = useState("");
   const { maxWithdrawl } = useMaxWithdrawl(nft);
-  const { averageTVL } = useAverageTVL(dyad);
+  const { averageTVL: oldAvgTVL } = useAverageTVL();
+  const { averageTVL: newAvgTVL } = useAverageTVL(-1 * dyad);
   const { cr: oldCR } = useCR();
   const { cr: newCR } = useCR(-1 * addUnits(dyad, 18));
 
@@ -56,19 +57,19 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
           <th>Before</th>
           <th>After</th>
           <tr>
-            <td className="text-left">
+            <td className="text-left text-sm">
               Protocol CR (min. {SAFETY_MODE_THRESHOLD}%)
             </td>
-            <td>{round(oldCR, 2)} %</td>
-            <td>{round(newCR, 2)} %</td>
+            <td>{round(oldCR, 2)}</td>
+            <td>{round(newCR, 2)}</td>
           </tr>
           <tr>
-            <td className="text-left">Average dNFT TVL</td>
-            <td>{round(averageTVL, 2)}</td>
-            <td>{round(averageTVL, 2)}</td>
+            <td className="text-left text-sm">Average dNFT TVL</td>
+            <td>{round(oldAvgTVL, 2)}</td>
+            <td>{round(newAvgTVL, 2)}</td>
           </tr>
           <tr>
-            <td className="text-left">dNFT Deposit</td>
+            <td className="text-left text-sm">dNFT Deposit</td>
             <td>{round(normalize(nft.deposit), 2)}</td>
             <td>{round(normalize(nft.deposit) - dyad, 2)}</td>
           </tr>
