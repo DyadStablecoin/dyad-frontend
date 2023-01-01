@@ -3,11 +3,16 @@ import { CONTRACT_dNFT } from "../consts/contract";
 import dNFTABI from "../abi/dNFT.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
-import { round, floor, normalize, parseEther } from "../utils/currency";
+import {
+  round,
+  floor,
+  normalize,
+  parseEther,
+  addUnits,
+} from "../utils/currency";
 import PopupContent from "./PopupContent";
 import MaxButton from "./MaxButton";
 import useMaxWithdrawl from "../hooks/useMaxWithdrawl";
-import PopupRow from "./PopupRow";
 import PopupDivider from "./PopupDivider";
 import useAverageTVL from "../hooks/useAverageTVL";
 import useCR from "../hooks/useCR";
@@ -16,8 +21,9 @@ import { SAFETY_MODE_THRESHOLD } from "../consts/consts";
 export default function Withdraw({ nft, onClose, setTxHash }) {
   const [dyad, setDyad] = useState("");
   const { maxWithdrawl } = useMaxWithdrawl(nft);
-  const { averageTVL } = useAverageTVL();
-  const { cr } = useCR();
+  const { averageTVL } = useAverageTVL(dyad);
+  const { cr: oldCR } = useCR();
+  const { cr: newCR } = useCR(-1 * addUnits(dyad, 18));
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -45,22 +51,30 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
       isDisabled={!write}
     >
       <div className="flex flex-col gap-2">
-        <PopupRow>
-          <div className="text-sm">
-            Protocol CR (min. {SAFETY_MODE_THRESHOLD}%)
-          </div>
-          <div className="text-sm">{round(cr, 2)} %</div>
-        </PopupRow>
-        <PopupRow>
-          <div className="text-sm">Average dNFT TVL</div>
-          <div className="text-sm">{round(averageTVL, 2)} DYAD</div>
-        </PopupRow>
-        <PopupRow>
-          <div className="text-sm">dNFT Deposit</div>
-          <div className="text-sm">{round(normalize(nft.deposit), 2)} DYAD</div>
-        </PopupRow>
+        <table>
+          <th></th>
+          <th>Before</th>
+          <th>After</th>
+          <tr>
+            <td className="text-left">
+              Protocol CR (min. {SAFETY_MODE_THRESHOLD}%)
+            </td>
+            <td>{round(oldCR, 2)} %</td>
+            <td>{round(newCR, 2)} %</td>
+          </tr>
+          <tr>
+            <td className="text-left">Average dNFT TVL</td>
+            <td>{round(averageTVL, 2)}</td>
+            <td>{round(averageTVL, 2)}</td>
+          </tr>
+          <tr>
+            <td className="text-left">dNFT Deposit</td>
+            <td>{round(normalize(nft.deposit), 2)}</td>
+            <td>{round(normalize(nft.deposit) - dyad, 2)}</td>
+          </tr>
+        </table>
         <PopupDivider />
-        <div className="flex gap-2 items-center mt-4">
+        <div className="flex gap-2 items-center mt-8">
           <div>
             <TextInput
               value={dyad}
