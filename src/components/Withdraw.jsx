@@ -13,11 +13,11 @@ import {
 import PopupContent from "./PopupContent";
 import MaxButton from "./MaxButton";
 import useMaxWithdrawl from "../hooks/useMaxWithdrawl";
-import PopupDivider from "./PopupDivider";
+import Divider from "./PopupDivider";
 import useAverageTVL from "../hooks/useAverageTVL";
 import useCR from "../hooks/useCR";
-import { SAFETY_MODE_THRESHOLD } from "../consts/consts";
-import { COLORS } from "../consts/colors";
+import Table from "./PopupTable";
+import Row from "./PopupTableRow";
 
 export default function Withdraw({ nft, onClose, setTxHash }) {
   const [dyad, setDyad] = useState("");
@@ -53,29 +53,27 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
       isDisabled={!write}
     >
       <div className="flex flex-col gap-2">
-        <table>
-          <th></th>
-          <th style={{ color: COLORS.Beige }}>Before</th>
-          <th style={{ color: COLORS.Beige }}>After</th>
-          <tr>
-            <td className="text-left text-sm">
-              Protocol CR (min. {SAFETY_MODE_THRESHOLD}%)
-            </td>
-            <td>{round(oldCR, 2)}</td>
-            <td>{round(newCR, 2)}</td>
-          </tr>
-          <tr>
-            <td className="text-left text-sm">Average dNFT TVL</td>
-            <td>{round(oldAvgTVL, 2)}</td>
-            <td>{round(newAvgTVL, 2)}</td>
-          </tr>
-          <tr>
-            <td className="text-left text-sm">dNFT Deposit</td>
-            <td>{round(normalize(nft.deposit), 2)}</td>
-            <td>{round(normalize(nft.deposit) - dyad, 2)}</td>
-          </tr>
-        </table>
-        <PopupDivider />
+        <Table>
+          <Row
+            label={`Protocol CR`}
+            unit="%"
+            _old={round(oldCR, 2)}
+            _new={round(newCR, 2)}
+          />
+          <Row
+            label="Average dNFT TVL"
+            unit="DYAD"
+            _old={round(oldAvgTVL, 2)}
+            _new={round(newAvgTVL, 2)}
+          />
+          <Row
+            label="Average dNFT TVL"
+            unit="DYAD"
+            _old={round(normalize(nft.deposit), 2)}
+            _new={round(normalize(nft.deposit) - dyad, 2)}
+          />
+        </Table>
+        <Divider />
         <div className="flex gap-2 items-center mt-8">
           <div>
             <TextInput
