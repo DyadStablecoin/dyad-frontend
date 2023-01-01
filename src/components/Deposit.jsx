@@ -10,8 +10,8 @@ import useIsApproved from "../hooks/useIsApproved";
 import MaxButton from "./MaxButton";
 import useMaxDeposit from "../hooks/useMaxDeposit";
 import useDyadBalance from "../hooks/useDyadBalance";
-import PopupRow from "./PopupRow";
 import PopupDivider from "./PopupDivider";
+import { COLORS } from "../consts/colors";
 
 export default function Deposit({ nft, onClose, setTxHash }) {
   const { address } = useAccount();
@@ -79,10 +79,16 @@ export default function Deposit({ nft, onClose, setTxHash }) {
       isLoading={isFetchingApproval}
     >
       <div className="flex flex-col gap-2">
-        <PopupRow>
-          <div>dNFT Withdrawls</div>
-          <div>{round(normalize(nft.withdrawn), 2)} DYAD</div>
-        </PopupRow>
+        <table>
+          <th></th>
+          <th style={{ color: COLORS.Beige }}>Before</th>
+          <th style={{ color: COLORS.Beige }}>After</th>
+          <tr>
+            <td className="text-left text-sm">dNFT Withdrawls</td>
+            <td>{round(normalize(nft.withdrawn), 2)}</td>
+            <td>{round(normalize(nft.withdrawn) + parseFloat(dyad), 2)}</td>
+          </tr>
+        </table>
         <PopupDivider />
         <div className="flex gap-2 items-center mt-4">
           <div>
