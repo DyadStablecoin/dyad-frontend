@@ -67,7 +67,7 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
             _new={round(newAvgTVL, 2)}
           />
           <Row
-            label="Average dNFT TVL"
+            label="dNFT Deposit"
             unit="DYAD"
             _old={round(normalize(nft.deposit), 2)}
             _new={round(normalize(nft.deposit) - dyad, 2)}
