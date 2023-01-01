@@ -1,17 +1,17 @@
 import { useState } from "react";
-import LeaderboardHeader from "./LeaderboardHeader";
-import LeaderboardTableRow from "./LeaderboardTableRow";
-import LeaderboardTableHeader from "./LeaderboardTableHeader";
-import LoadingGlobal from "./LoadingGlobal";
+import Header from "./LeaderboardHeader";
+import Row from "./LeaderboardTableRow";
+import TableHeader from "./LeaderboardTableHeader";
+import Loading from "./LoadingGlobal";
 import {
   useNftsCountFromIndexer,
   useNftsFromIndexer,
 } from "../hooks/useNftsFromIndexer";
-import LeaderboardSearch from "./LeaderboardSearch";
+import Search from "./LeaderboardSearch";
 import { DEFAULT_ROWS_PER_PAGE } from "../consts/consts";
-import LeaderboardFilter from "./LeaderboardFilter";
+import Filter from "./LeaderboardFilter";
 import useLastSyncVersion from "../hooks/useLastSyncVersion";
-import LeaderboardTableFooter from "./LeaderboardTableFooter";
+import Footer from "./LeaderboardTableFooter";
 
 export default function Leaderboard() {
   const [rowsPerPage, setRowsPerPage] = useState(DEFAULT_ROWS_PER_PAGE);
@@ -46,11 +46,11 @@ export default function Leaderboard() {
   return (
     <div className="flex items-center justify-center flex-col">
       <div className="md:w-[80rem]">
-        <LoadingGlobal isLoading={isLoading} />
-        <LeaderboardHeader refetch={refetch} />
+        <Loading isLoading={isLoading} />
+        <Header refetch={refetch} />
         <div className="flex justify-between">
-          <LeaderboardFilter setOption={setOption} resetRange={resetRange} />
-          <LeaderboardSearch
+          <Filter setOption={setOption} resetRange={resetRange} />
+          <Search
             owner={owner}
             setOwner={setOwner}
             refetch={refetch}
@@ -66,11 +66,11 @@ export default function Leaderboard() {
             )}
             <table className="leaderboard">
               {nfts.length > 0 && (
-                <LeaderboardTableHeader sortBy={sortBy} setSortBy={setSortBy} />
+                <TableHeader sortBy={sortBy} setSortBy={setSortBy} />
               )}
               {nfts.map((nft) => {
                 return (
-                  <LeaderboardTableRow
+                  <Row
                     nft={nft}
                     ensName={nft.ensName}
                     version={lastSyncVersion}
@@ -81,7 +81,7 @@ export default function Leaderboard() {
               })}
             </table>
             {count > DEFAULT_ROWS_PER_PAGE && (
-              <LeaderboardTableFooter
+              <Footer
                 rowsPerPage={rowsPerPage}
                 setRowsPerPage={setRowsPerPage}
                 setRange={setRange}
