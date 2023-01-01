@@ -13,11 +13,12 @@ import { CONTRACT_dNFT } from "../consts/contract";
 import MaxButton from "./MaxButton";
 import useMaxDeposit from "../hooks/useMaxDeposit";
 import useDyadBalance from "../hooks/useDyadBalance";
-import PopupRow from "./PopupRow";
-import PopupDivider from "./PopupDivider";
+import Divider from "./PopupDivider";
+import Table from "./PopupTable";
+import Row from "./PopupTableRow";
 
 export default function Redeem({ nft, onClose, setTxHash }) {
-  const [dyad, setDyad] = useState("");
+  const [dyad, setDyad] = useState(0);
   const { ethPrice } = useEthPrice();
   const { address } = useAccount();
   const { isApproved, refetch: refetchIsApproved } = useIsApproved(
@@ -82,11 +83,15 @@ export default function Redeem({ nft, onClose, setTxHash }) {
       isLoading={isFetchingApproval}
     >
       <div className="flex flex-col gap-2">
-        <PopupRow>
-          <div>dNFT Withdrawls</div>
-          <div>{round(normalize(nft.withdrawn), 2)} DYAD</div>
-        </PopupRow>
-        <PopupDivider />
+        <Table>
+          <Row
+            label="dNFT Withdrawls"
+            unit="DYAD"
+            _old={round(normalize(nft.withdrawn), 2)}
+            _new={round(normalize(nft.withdrawn) - parseFloat(dyad), 2)}
+          />
+        </Table>
+        <Divider />
         <div className="flex flex-col gap-2 items-center mt-4">
           <div className="flex gap-4 justify-between items-between w-full">
             <TextInput
