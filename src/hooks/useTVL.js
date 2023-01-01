@@ -21,7 +21,6 @@ export default function useTVL(newAmountAddedToPool = 0) {
   });
 
   useEffect(() => {
-    console.log("refetching useTVL");
     refetch();
   }, [newAmountAddedToPool]);
 
