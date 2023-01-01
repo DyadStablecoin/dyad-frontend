@@ -16,7 +16,6 @@ import useMaxWithdrawl from "../hooks/useMaxWithdrawl";
 import Divider from "./PopupDivider";
 import useAverageTVL from "../hooks/useAverageTVL";
 import useCR from "../hooks/useCR";
-import { SAFETY_MODE_THRESHOLD } from "../consts/consts";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
 
