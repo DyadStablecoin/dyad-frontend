@@ -17,6 +17,7 @@ import PopupDivider from "./PopupDivider";
 import useAverageTVL from "../hooks/useAverageTVL";
 import useCR from "../hooks/useCR";
 import { SAFETY_MODE_THRESHOLD } from "../consts/consts";
+import { COLORS } from "../consts/colors";
 
 export default function Withdraw({ nft, onClose, setTxHash }) {
   const [dyad, setDyad] = useState("");
@@ -54,8 +55,8 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
       <div className="flex flex-col gap-2">
         <table>
           <th></th>
-          <th>Before</th>
-          <th>After</th>
+          <th style={{ color: COLORS.Beige }}>Before</th>
+          <th style={{ color: COLORS.Beige }}>After</th>
           <tr>
             <td className="text-left text-sm">
               Protocol CR (min. {SAFETY_MODE_THRESHOLD}%)
