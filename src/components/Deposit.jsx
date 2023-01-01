@@ -15,7 +15,7 @@ import { COLORS } from "../consts/colors";
 
 export default function Deposit({ nft, onClose, setTxHash }) {
   const { address } = useAccount();
-  const [dyad, setDyad] = useState("");
+  const [dyad, setDyad] = useState(0);
   const { isApproved, refetch: refetchIsApproved } = useIsApproved(
     address,
     CONTRACT_dNFT,
@@ -86,7 +86,7 @@ export default function Deposit({ nft, onClose, setTxHash }) {
           <tr>
             <td className="text-left text-sm">dNFT Withdrawls</td>
             <td>{round(normalize(nft.withdrawn), 2)}</td>
-            <td>{round(normalize(nft.withdrawn) + parseFloat(dyad), 2)}</td>
+            <td>{round(normalize(nft.withdrawn) - parseFloat(dyad), 2)}</td>
           </tr>
         </table>
         <PopupDivider />
