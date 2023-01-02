@@ -12,14 +12,16 @@ import { COLORS } from "../../consts/colors";
 import useSafetyModeActivated from "../../hooks/useSafetyMode";
 import useEnsName from "../../hooks/useEnsName";
 import { addressSummary } from "../../utils/address";
-import usePoolBalance from "../../hooks/usePoolBalance";
+import useEthInPool from "../../hooks/useEthInPool";
+import useEthPrice from "../../hooks/useEthPrice";
 
 export default function NavBar() {
   const { disconnect } = useDisconnect();
   const { connect, connectors } = useConnect();
   const { address, isConnected } = useAccount();
   const { ensName } = useEnsName(address);
-  const { poolBalance } = usePoolBalance();
+  const { ethInPool } = useEthInPool();
+  const { ethPrice } = useEthPrice();
   const { cr } = useCR();
   const { isSafetyModeActivated } = useSafetyModeActivated(cr);
   let navigate = useNavigate();
@@ -53,7 +55,7 @@ export default function NavBar() {
               <>
                 <div className="flex gap-4">
                   <div>TVL</div>
-                  <div>{formatUSD(poolBalance / 10 ** 18)}</div>
+                  <div>{formatUSD(ethInPool * ethPrice)}</div>
                 </div>
                 <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
               </>
