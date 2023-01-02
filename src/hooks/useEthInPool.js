@@ -8,7 +8,6 @@ export default function useEthInPool() {
   useBalance({
     addressOrName: CONTRACT_dNFT,
     onSuccess: (data) => {
-      console.log("data", data);
       setEthInPool(parseFloat(data.formatted));
     },
   });

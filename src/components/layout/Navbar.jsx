@@ -12,7 +12,6 @@ import { COLORS } from "../../consts/colors";
 import useSafetyModeActivated from "../../hooks/useSafetyMode";
 import useEnsName from "../../hooks/useEnsName";
 import { addressSummary } from "../../utils/address";
-import usePoolBalance from "../../hooks/usePoolBalance";
 import useEthInPool from "../../hooks/useEthInPool";
 import useEthPrice from "../../hooks/useEthPrice";
 
@@ -23,7 +22,6 @@ export default function NavBar() {
   const { ensName } = useEnsName(address);
   const { ethInPool } = useEthInPool();
   const { ethPrice } = useEthPrice();
-  console.log("ethInPool", ethInPool);
   const { cr } = useCR();
   const { isSafetyModeActivated } = useSafetyModeActivated(cr);
   let navigate = useNavigate();
