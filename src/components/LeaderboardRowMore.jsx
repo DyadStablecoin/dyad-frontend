@@ -53,7 +53,7 @@ export default function LeaderboardRowMore({ nft, setTxHash }) {
       </Menu>
       <Popup isOpen={isOpenLiquidate} onClose={onCloseLiquidate}>
         <Liquidate
-          tokenId={nft.id}
+          tokenId={nft.tokenId}
           onClose={onCloseLiquidate}
           setTxHash={setTxHash}
         />
