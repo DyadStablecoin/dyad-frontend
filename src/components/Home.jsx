@@ -6,7 +6,7 @@ export default function Home() {
 
   return (
     <>
-      {/* <Claim /> */}
+      <Claim />
       <div className="mt-[1rem] flex justify-center items-center w-full">
         <NFTs />
       </div>
