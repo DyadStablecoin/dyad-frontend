@@ -10,13 +10,13 @@ import dNFT from "../abi/dNFT.json";
 import { TOTAL_SUPPLY, MIN_DEPOSIT, MIN_DEPOSIT_USD } from "../consts/consts";
 import LoadingInplace from "./LoadingInplace";
 import { addressSummary } from "../utils/address";
-import useEnsName from "../hooks/useEnsName";
 import useNftBalance from "../hooks/useNftBalance";
 import useTotalNftSupply from "../hooks/useTotalNftSupply";
+import useEnsNameFromIndexer from "../hooks/useEnsNameFromIndexer";
 
 export default function Claim() {
   const { address } = useAccount();
-  const { ensName } = useEnsName(address);
+  const { ensName } = useEnsNameFromIndexer(address);
 
   const { nftBalance, refetch: refetchBalance } = useNftBalance(address);
   const { totalNftSupply, refetch: refetchTotalSupply } = useTotalNftSupply();
