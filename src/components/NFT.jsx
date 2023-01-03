@@ -1,4 +1,4 @@
-import { dNFT_PRICE, RANDOM_IMAGES } from "../consts/consts";
+import { dNFT_PRICE } from "../consts/consts";
 import { formatUSD, round } from "../utils/currency";
 import {
   accrueXP,
@@ -24,6 +24,7 @@ import useRankFromIndexer from "../hooks/useRankFromIndexer";
 import useCR from "../hooks/useCR";
 import useMintAllocation from "../hooks/useMintAllocation";
 import useNftStatus, { STATUS } from "../hooks/useNftStatus";
+import useNftImage from "../hooks/useNftImage";
 
 const HEADER = "text-gray-500 text-sm";
 
@@ -42,6 +43,7 @@ export default function NFT({
   const { isSafetyModeActivated } = useSafetyModeActivated(cr);
   const { mintAllocation } = useMintAllocation(nft.xp);
   const { status } = useNftStatus(nft);
+  const { nftImage } = useNftImage(nft);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -128,7 +130,7 @@ export default function NFT({
           <div className="flex gap-4 justify-between w-full">
             <div className="md:w-[8rem]">
               <div className="w-[107px]">
-                <img src={RANDOM_IMAGES[rank % RANDOM_IMAGES.length]} alt="" />
+                <img src={nftImage} alt="" />
               </div>
             </div>
             <div className="w-full">
