@@ -11,7 +11,7 @@ export default function useEnsNameFromIndexer(address) {
       .eq("address", address)
       .then(({ data, error }) => {
         console.log("useEns", data, error);
-        if (error) {
+        if (error || data.length === 0) {
           return;
         }
         setEnsName(data[0].ens);
