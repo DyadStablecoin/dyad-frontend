@@ -10,16 +10,16 @@ import Menu from "../Menu";
 import { useNavigate } from "react-router-dom";
 import { COLORS } from "../../consts/colors";
 import useSafetyModeActivated from "../../hooks/useSafetyMode";
-import useEnsName from "../../hooks/useEnsName";
 import { addressSummary } from "../../utils/address";
 import useEthInPool from "../../hooks/useEthInPool";
 import useEthPrice from "../../hooks/useEthPrice";
+import useEnsNameFromIndexer from "../../hooks/useEnsNameFromIndexer";
 
 export default function NavBar() {
   const { disconnect } = useDisconnect();
   const { connect, connectors } = useConnect();
   const { address, isConnected } = useAccount();
-  const { ensName } = useEnsName(address);
+  const { ensName } = useEnsNameFromIndexer(address);
   const { ethInPool } = useEthInPool();
   const { ethPrice } = useEthPrice();
   const { cr } = useCR();
