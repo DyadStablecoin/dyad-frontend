@@ -13,6 +13,7 @@ import useDyadBalance from "../hooks/useDyadBalance";
 import Divider from "./PopupDivider";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
+import useNftImage from "../hooks/useNftImage";
 
 export default function Deposit({ nft, onClose, setTxHash }) {
   const { address } = useAccount();
@@ -24,6 +25,7 @@ export default function Deposit({ nft, onClose, setTxHash }) {
   );
   const { dyadBalance } = useDyadBalance(address);
   const { maxDeposit } = useMaxDeposit(nft, dyadBalance);
+  const { nftImage } = useNftImage(nft);
 
   const { config: configDeposit, refetch: refetchPrepareDeposit } =
     usePrepareContractWrite({
@@ -51,6 +53,7 @@ export default function Deposit({ nft, onClose, setTxHash }) {
   return (
     <PopupContent
       title="Deposit DYAD"
+      image={nftImage}
       btnText={
         dyad === "" || parseFloat(dyad) === 0
           ? "Enter an amount"

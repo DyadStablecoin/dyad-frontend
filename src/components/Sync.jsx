@@ -10,6 +10,7 @@ import Divider from "./PopupDivider";
 import useLastEthPrice from "../hooks/useLastEthPrice";
 import useOraclePrice from "../hooks/useOraclePrice";
 import { round, normalize } from "../utils/currency";
+import useNftImage from "../hooks/useNftImage";
 
 export default function Sync({ nft, onClose, setTxHash }) {
   const { isLoading, config } = usePrepareContractWrite({
@@ -30,10 +31,12 @@ export default function Sync({ nft, onClose, setTxHash }) {
   const { gasCost } = useGasCost(config);
   const { oraclePrice } = useOraclePrice();
   const { lastEthPrice } = useLastEthPrice();
+  const { nftImage } = useNftImage(nft);
 
   return (
     <PopupContent
       title="Sync"
+      image={nftImage}
       btnText="Sync"
       onClick={() => {
         onClose();

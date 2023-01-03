@@ -11,19 +11,23 @@ export default function PopupContent({
   isDisabled,
   isLoading,
   infoOnClick,
-  image
+  image,
 }) {
   return (
     <div
-      className="flex flex-col gap-4 items-center"
+      className="flex flex-col gap-4 items-center pt-2"
       style={{
         boxShadow: "0 0 40px #413E6a",
       }}
     >
-      {image && <div className="border w-28 h-28 -mt-14" style={{ borderColor: COLORS.Purple }}>
-        <img src={image} alt="" />
-      </div>}
-      <div className="bg-[#3A403C] h-[1px] w-full"></div>
+      {image && (
+        <div
+          className="border w-28 h-28 -mt-14"
+          style={{ borderColor: COLORS.Purple }}
+        >
+          <img src={image} alt="" />
+        </div>
+      )}
       <div className="pr-5 pl-5 text-2xl flex gap-4">
         <div>{title}</div>
         {infoOnClick && (
