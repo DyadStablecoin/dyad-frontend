@@ -10,7 +10,6 @@ export default function useEnsNameFromIndexer(address) {
       .select("ens")
       .eq("address", address)
       .then(({ data, error }) => {
-        console.log("useEns", data, error);
         if (error || data.length === 0) {
           return;
         }
