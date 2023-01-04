@@ -1,8 +1,10 @@
+import Label from "./Label";
+
 export default function NavbarStat({ name, value }) {
   return (
     <div className="flex gap-4">
-      <div>{name}</div>
-      <div>{value}</div>
+      <Label>{name}</Label>
+      <Label>{value}</Label>
     </div>
   );
 }

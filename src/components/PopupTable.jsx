@@ -1,11 +1,15 @@
-import { COLORS } from "../consts/colors";
+import Label from "./Label";
 
 export default function PopupTable({ children }) {
   return (
     <table>
       <th></th>
-      <th style={{ color: COLORS.Beige }}>Before</th>
-      <th style={{ color: COLORS.Beige }}>After</th>
+      <th>
+        <Label>Before</Label>
+      </th>
+      <th>
+        <Label>After</Label>
+      </th>
       {children}
     </table>
   );
