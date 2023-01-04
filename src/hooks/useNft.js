@@ -3,12 +3,12 @@ import { CONTRACT_dNFT } from "../consts/contract";
 import dNFTABI from "../abi/dNFT.json";
 import { useContractRead } from "wagmi";
 
-export default function useNft(id) {
+export default function useNft(tokenId) {
   const [nft, setNft] = useState({
     withdrawn: 0,
     deposit: 0,
     xp: 0,
-    id: id,
+    tokenId: tokenId,
     isLiquidatable: false,
   });
 
@@ -16,14 +16,14 @@ export default function useNft(id) {
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
     functionName: "idToNft",
-    args: [String(id)],
+    args: [String(tokenId)],
     onSuccess: (data) => {
       setNft({
         withdrawn: parseInt(data[0]._hex),
         deposit: parseInt(data[1]._hex),
         xp: parseInt(data[2]._hex),
         isLiquidatable: data[3],
-        id: id,
+        tokenId: tokenId,
       });
     },
   });

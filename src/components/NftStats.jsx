@@ -6,7 +6,7 @@ import Label from "./Label";
 
 export default function NftStats({ nft }) {
   const { lastSyncVersion } = useLastSyncVersion();
-  const { rank } = useRank(nft.id, lastSyncVersion);
+  const { rank } = useRank(nft.tokenId, lastSyncVersion);
 
   return (
     <>

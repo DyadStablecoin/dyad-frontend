@@ -27,7 +27,7 @@ export default function Mint({ nft, onClose, setTxHash }) {
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
     functionName: "mintDyad",
-    args: [nft.id],
+    args: [nft.tokenId],
     overrides: {
       value: parseEther(wETH),
     },

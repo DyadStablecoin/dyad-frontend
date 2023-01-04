@@ -19,7 +19,7 @@ export default function MoveDeposit({ nft, onClose, setTxHash }) {
     contractInterface: dNFTABI["abi"],
     functionName: "moveDeposit",
     // TODO: get from nft
-    args: [nft.id, nft.id, parseEther(dyad)],
+    args: [nft.tokenId, nft.tokenId, parseEther(dyad)],
   });
 
   const { write } = useContractWrite({

@@ -33,7 +33,7 @@ export default function Redeem({ nft, onClose, setTxHash }) {
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
     functionName: "redeem",
-    args: [nft.id, parseEther(dyad)],
+    args: [nft.tokenId, parseEther(dyad)],
   });
 
   const { write: writeApprove, isFetching: isFetchingApproval } = useApprove(
