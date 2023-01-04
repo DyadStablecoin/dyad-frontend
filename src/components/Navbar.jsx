@@ -1,8 +1,6 @@
-import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { useAccount } from "wagmi";
 import { formatUSD, round } from "../utils/currency";
-import Button from "./Button";
 import logo from "../static/dyad-logo.svg";
-import WalletOutlined from "@ant-design/icons/lib/icons/WalletOutlined";
 import { dNFT_PRICE } from "../consts/consts";
 import { WarningFilled } from "@ant-design/icons";
 import useCR from "../hooks/useCR";
@@ -10,21 +8,17 @@ import Menu from "./Menu";
 import { useNavigate } from "react-router-dom";
 import { COLORS } from "../consts/colors";
 import useSafetyModeActivated from "../hooks/useSafetyMode";
-import { addressSummary } from "../utils/address";
 import useEthInPool from "../hooks/useEthInPool";
 import useEthPrice from "../hooks/useEthPrice";
-import useEnsNameFromIndexer from "../hooks/useEnsNameFromIndexer";
 import useEthDelta from "../hooks/useEthDelta";
 import Stat from "./NavbarStat";
 import Divider from "./NavbarDivider";
+import Wallet from "./Wallet";
 
 export default function NavBar() {
   let navigate = useNavigate();
 
-  const { disconnect } = useDisconnect();
-  const { connect, connectors } = useConnect();
-  const { address, isConnected } = useAccount();
-  const { ensName } = useEnsNameFromIndexer(address);
+  const { isConnected } = useAccount();
   const { ethInPool } = useEthInPool();
   const { ethPrice } = useEthPrice();
   const { cr } = useCR();
@@ -68,31 +62,7 @@ export default function NavBar() {
                 <Divider />
               </>
             )}
-            {address ? (
-              <Button
-                onClick={() => disconnect()}
-                borderColor="#463D81"
-                bgColor="#0F0D1B"
-              >
-                <div className="flex items-center gap-2">
-                  <a className="cursor-pointer">Disconnect</a>
-                  <div>{ensName || addressSummary(address)}</div>
-                </div>
-              </Button>
-            ) : (
-              <Button
-                borderColor="#463D81"
-                bgColor="#0F0D1B"
-                onClick={() => {
-                  connect({ connector: connectors[4] }); // 4 is for metamask
-                }}
-              >
-                <div className="flex gap-2 items-center justify-center">
-                  <WalletOutlined />
-                  <div>Connect</div>
-                </div>
-              </Button>
-            )}
+            <Wallet />
           </div>
           <div className="mr-2">
             <Menu />
