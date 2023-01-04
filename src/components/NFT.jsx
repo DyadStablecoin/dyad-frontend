@@ -21,8 +21,10 @@ import NftStats from "./NftStats";
 import NftStatus from "./NftStatus";
 import Label from "./Label";
 import Performance from "./NftPerformance";
+import useDyadBalance from "../hooks/useDyadBalance";
+import { useAccount } from "wagmi";
 
-export default function NFT({ tokenId, dyadBalance }) {
+export default function NFT({ tokenId }) {
   console.log("NFT: Rendering NFT", tokenId);
 
   const [txHash, setTxHash] = useState();
@@ -30,7 +32,9 @@ export default function NFT({ tokenId, dyadBalance }) {
   const { cr, refetch: refetchCR } = useCR();
   const { isSafetyModeActivated } = useSafetyModeActivated(cr);
   const { status } = useNftStatus(nft);
-  const { nftImage } = useNftImage(nft);
+  const { nftImage: image } = useNftImage(nft);
+  const { address } = useAccount();
+  const { dyadBalance } = useDyadBalance(address);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -117,7 +121,7 @@ export default function NFT({ tokenId, dyadBalance }) {
           <div className="flex gap-4 justify-between w-full">
             <div className="md:w-[8rem]">
               <div className="w-[107px]">
-                <img src={nftImage} alt="" />
+                <img src={image} alt="" />
               </div>
             </div>
             <div className="w-full">
