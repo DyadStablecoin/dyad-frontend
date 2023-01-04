@@ -1,10 +1,4 @@
-import { dNFT_PRICE } from "../consts/consts";
-import { formatUSD, round } from "../utils/currency";
-import {
-  accrueXP,
-  dyadBurnLiability,
-  dyadMintAllocation,
-} from "../utils/stats";
+import { round } from "../utils/currency";
 import Mint from "./Mint";
 import Popup from "./Popup";
 import { useDisclosure } from "@chakra-ui/react";
@@ -20,30 +14,27 @@ import { useEffect, useState } from "react";
 import { useWaitForTransaction } from "wagmi";
 import Redeem from "./Redeem";
 import useSafetyModeActivated from "../hooks/useSafetyMode";
-import useRankFromIndexer from "../hooks/useRankFromIndexer";
 import useCR from "../hooks/useCR";
-import useMintAllocation from "../hooks/useMintAllocation";
 import useNftStatus, { STATUS } from "../hooks/useNftStatus";
 import useNftImage from "../hooks/useNftImage";
+import NftStats from "./NftStats";
+import NftStatus from "./NftStatus";
+import Label from "./Label";
+import Performance from "./NftPerformance";
+import useDyadBalance from "../hooks/useDyadBalance";
+import { useAccount } from "wagmi";
 
-const HEADER = "text-gray-500 text-sm";
-
-export default function NFT({
-  tokenId,
-  avgMinted,
-  lastSyncVersion,
-  dyadBalance,
-}) {
+export default function NFT({ tokenId }) {
   console.log("NFT: Rendering NFT", tokenId);
 
   const [txHash, setTxHash] = useState();
   const { nft, refetch: refetchNft, isLoading, isFetching } = useNft(tokenId);
-  const { rank } = useRankFromIndexer(tokenId, lastSyncVersion);
   const { cr, refetch: refetchCR } = useCR();
   const { isSafetyModeActivated } = useSafetyModeActivated(cr);
-  const { mintAllocation } = useMintAllocation(nft.xp);
   const { status } = useNftStatus(nft);
-  const { nftImage } = useNftImage(nft);
+  const { nftImage: image } = useNftImage(nft);
+  const { address } = useAccount();
+  const { dyadBalance } = useDyadBalance(address);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -130,22 +121,11 @@ export default function NFT({
           <div className="flex gap-4 justify-between w-full">
             <div className="md:w-[8rem]">
               <div className="w-[107px]">
-                <img src={nftImage} alt="" />
+                <img src={image} alt="" />
               </div>
             </div>
             <div className="w-full">
-              <div className="flex justify-between items-center">
-                <div className={HEADER}>Rank</div>
-                <div className="">{rank ? "#" + rank : "Syncing"}</div>
-              </div>
-              <div className="flex justify-between items-center">
-                <div className={HEADER}>Value</div>
-                <div className="">{formatUSD(dNFT_PRICE)}</div>
-              </div>
-              <div className="flex justify-between items-center">
-                <div className={HEADER}>XP</div>
-                <div className="">{nft.xp}</div>
-              </div>
+              <NftStats nft={nft} />
               <div className="mt-2">
                 <Button
                   borderColor="#463D81"
@@ -157,22 +137,10 @@ export default function NFT({
                 </Button>
               </div>
             </div>
-            <div className="flex flex-col items-start md:ml-4">
-              <div className={HEADER}>Performance</div>
-              <div className="flex flex-col items-start text-s text-[#519C58]">
-                <div className="">
-                  {round(dyadMintAllocation(mintAllocation, nft), 3)}
-                  x/
-                  {round(dyadBurnLiability(mintAllocation, nft, avgMinted), 3)}x
-                </div>
-                <div className="w-[5rem] text-white">
-                  {round(accrueXP(mintAllocation), 3)}x XP
-                </div>
-              </div>
-            </div>
+            <Performance nft={nft} />
           </div>
           <div className="hidden md:block md:w-full">
-            <div className={HEADER}>Deposit Ratio</div>
+            <Label>Deposit Ratio</Label>
             <div className="mt-3">
               <ProgressBar
                 percent={parseInt(
@@ -184,10 +152,9 @@ export default function NFT({
           <div className="flex gap-4 mt-4 md:mt-0">
             <div className="flex flex-col gap-2">
               <div className="flex flex-col gap-2 ">
-                <div className={HEADER}>Minted DYAD</div>
+                <Label>Minted DYAD</Label>
                 <div className="md:flex">
                   <div className="md:mr-2 mb-2 md:mb-0">
-                    {" "}
                     {round((nft.deposit + nft.withdrawn) / 10 ** 18, 2)}
                   </div>
                   <Button
@@ -210,7 +177,7 @@ export default function NFT({
               )}
             </div>
             <div className="flex flex-col gap-2 ml-4 ">
-              <div className={HEADER}>Deposited DYAD</div>
+              <Label>Deposited DYAD</Label>
               <div className="md:flex md:gap-2">
                 <div className="md:mr-2 mb-2 md:mb-0">
                   {Math.round((nft.deposit / 10 ** 18) * 100) / 100}
@@ -236,18 +203,7 @@ export default function NFT({
                   </div>
                 </div>
               </div>
-              {status !== STATUS.RISK_FREE && (
-                <div className=" flex justify-end items-end  text-sm  ">
-                  <div className="bg-[#800101] text-sm p-1 -mb-4 -mr-4 mt-9">
-                    {status === STATUS.AT_LIQUIDATION_RISK && (
-                      <span>Liqudation Risk</span>
-                    )}
-                    {status === STATUS.LIQUIDATABLE && (
-                      <span>Liquidatable</span>
-                    )}
-                  </div>
-                </div>
-              )}
+              <NftStatus nft={nft} />
             </div>
           </div>
           {renderPopups()}
