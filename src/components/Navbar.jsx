@@ -32,16 +32,16 @@ export default function NavBar() {
         <Logo />
         {isSafetyModeActivated && <SafetyModeWarning />}
       </div>
-      <div className="gap-8 items-center justify-center lg:flex hidden">
+      <div className="gap-2 flex items-center justify-center">
         {isConnected && (
-          <>
+          <div className="hidden lg:flex gap-8 items-center justify-center mr-6">
             <Stat name="TVL" value={formatUSD(ethInPool * ethPrice)} />
             <Divider />
             <Stat name="ETH Price Δ" value={formatUSD(ethDelta)} />
             <Divider />
             <Stat name="CR" value={`${round(cr, 0)}%`} />
             <Divider />
-          </>
+          </div>
         )}
         <Wallet />
         <Menu />
