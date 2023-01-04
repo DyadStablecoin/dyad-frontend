@@ -14,8 +14,11 @@ import { addressSummary } from "../../utils/address";
 import useEthInPool from "../../hooks/useEthInPool";
 import useEthPrice from "../../hooks/useEthPrice";
 import useEnsNameFromIndexer from "../../hooks/useEnsNameFromIndexer";
+import useEthDelta from "../../hooks/useEthDelta";
 
 export default function NavBar() {
+  let navigate = useNavigate();
+
   const { disconnect } = useDisconnect();
   const { connect, connectors } = useConnect();
   const { address, isConnected } = useAccount();
@@ -23,8 +26,8 @@ export default function NavBar() {
   const { ethInPool } = useEthInPool();
   const { ethPrice } = useEthPrice();
   const { cr } = useCR();
+  const { ethDelta } = useEthDelta();
   const { isSafetyModeActivated } = useSafetyModeActivated(cr);
-  let navigate = useNavigate();
 
   return (
     <div>
@@ -65,6 +68,15 @@ export default function NavBar() {
               <div>{formatUSD(dNFT_PRICE)}</div>
             </div>
             <div className="hidden md:block w-[2px] h-[2rem] bg-[#737E76]"></div>
+            {isConnected && (
+              <div className="hidden md:flex">
+                <div className="flex gap-2 items-center justify-center mr-8">
+                  <div>ETH Price Δ</div>
+                  <div>${round(ethDelta, 3)}</div>
+                </div>
+                <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
+              </div>
+            )}
             {isConnected && (
               <div className="hidden md:flex">
                 <div className="flex gap-2 items-center justify-center mr-8">
