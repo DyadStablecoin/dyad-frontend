@@ -14,7 +14,7 @@ export default function MenuCustom() {
   return (
     <Menu>
       <MenuButton as={Button} style={{ backgroundColor: "black" }}>
-        <MenuOutlined />
+        <MenuOutlined style={{ height: "1.5rem" }} />
       </MenuButton>
       <MenuList style={{ backgroundColor: "black" }}>
         <MenuItem style={MENU_ITEM_STYLE} onClick={() => navigate("/")}>
