@@ -17,7 +17,7 @@ export default function Sync({ nft, onClose, setTxHash }) {
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
     functionName: "sync",
-    args: [nft.id],
+    args: [nft.tokenId],
   });
 
   const { write } = useContractWrite({

@@ -32,7 +32,7 @@ export default function Deposit({ nft, onClose, setTxHash }) {
       addressOrName: CONTRACT_dNFT,
       contractInterface: dNFTABI["abi"],
       functionName: "deposit",
-      args: [nft.id, parseEther(dyad)],
+      args: [nft.tokenId, parseEther(dyad)],
     });
 
   const { write: writeApprove, isFetching: isFetchingApproval } = useApprove(
