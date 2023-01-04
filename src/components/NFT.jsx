@@ -20,25 +20,19 @@ import { useEffect, useState } from "react";
 import { useWaitForTransaction } from "wagmi";
 import Redeem from "./Redeem";
 import useSafetyModeActivated from "../hooks/useSafetyMode";
-import useRankFromIndexer from "../hooks/useRankFromIndexer";
 import useCR from "../hooks/useCR";
 import useMintAllocation from "../hooks/useMintAllocation";
 import useNftStatus, { STATUS } from "../hooks/useNftStatus";
 import useNftImage from "../hooks/useNftImage";
+import NftStats from "./NftStats";
 
 const HEADER = "text-gray-500 text-sm";
 
-export default function NFT({
-  tokenId,
-  avgMinted,
-  lastSyncVersion,
-  dyadBalance,
-}) {
+export default function NFT({ tokenId, avgMinted, dyadBalance }) {
   console.log("NFT: Rendering NFT", tokenId);
 
   const [txHash, setTxHash] = useState();
   const { nft, refetch: refetchNft, isLoading, isFetching } = useNft(tokenId);
-  const { rank } = useRankFromIndexer(tokenId, lastSyncVersion);
   const { cr, refetch: refetchCR } = useCR();
   const { isSafetyModeActivated } = useSafetyModeActivated(cr);
   const { mintAllocation } = useMintAllocation(nft.xp);
@@ -134,18 +128,7 @@ export default function NFT({
               </div>
             </div>
             <div className="w-full">
-              <div className="flex justify-between items-center">
-                <div className={HEADER}>Rank</div>
-                <div className="">{rank ? "#" + rank : "Syncing"}</div>
-              </div>
-              <div className="flex justify-between items-center">
-                <div className={HEADER}>Value</div>
-                <div className="">{formatUSD(dNFT_PRICE)}</div>
-              </div>
-              <div className="flex justify-between items-center">
-                <div className={HEADER}>XP</div>
-                <div className="">{nft.xp}</div>
-              </div>
+              <NftStats nft={nft} />
               <div className="mt-2">
                 <Button
                   borderColor="#463D81"
