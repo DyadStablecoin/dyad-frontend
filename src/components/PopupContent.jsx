@@ -15,7 +15,7 @@ export default function PopupContent({
 }) {
   return (
     <div
-      className="flex flex-col gap-4 items-center pt-2"
+      className="flex flex-col gap-4 items-center"
       style={{
         boxShadow: "0 0 40px #413E6a",
       }}
@@ -38,7 +38,6 @@ export default function PopupContent({
           </Icon>
         )}
       </div>
-      <div className="bg-[#3A403C] h-[1px] w-full"></div>
       <div className="mt-2 mb-2">{children}</div>
       <PopupButton
         onClick={onClick}

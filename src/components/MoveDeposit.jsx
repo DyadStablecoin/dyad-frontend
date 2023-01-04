@@ -10,9 +10,11 @@ import MaxButton from "./MaxButton";
 import Divider from "./PopupDivider";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
+import useNftImage from "../hooks/useNftImage";
 
 export default function MoveDeposit({ nft, onClose, setTxHash }) {
   const [dyad, setDyad] = useState(0);
+  const { nftImage } = useNftImage(nft);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -39,6 +41,7 @@ export default function MoveDeposit({ nft, onClose, setTxHash }) {
         onClose();
       }}
       isDisabled={!write}
+      image={nftImage}
     >
       <div className="flex flex-col gap-2">
         <Table>
