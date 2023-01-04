@@ -1,20 +1,22 @@
 import { useAccount, useConnect, useDisconnect } from "wagmi";
-import { formatUSD, round } from "../../utils/currency";
-import Button from "../Button";
-import logo from "../../static/dyad-logo.svg";
+import { formatUSD, round } from "../utils/currency";
+import Button from "./Button";
+import logo from "../static/dyad-logo.svg";
 import WalletOutlined from "@ant-design/icons/lib/icons/WalletOutlined";
-import { dNFT_PRICE } from "../../consts/consts";
+import { dNFT_PRICE } from "../consts/consts";
 import { WarningFilled } from "@ant-design/icons";
-import useCR from "../../hooks/useCR";
-import Menu from "../Menu";
+import useCR from "../hooks/useCR";
+import Menu from "./Menu";
 import { useNavigate } from "react-router-dom";
-import { COLORS } from "../../consts/colors";
-import useSafetyModeActivated from "../../hooks/useSafetyMode";
-import { addressSummary } from "../../utils/address";
-import useEthInPool from "../../hooks/useEthInPool";
-import useEthPrice from "../../hooks/useEthPrice";
-import useEnsNameFromIndexer from "../../hooks/useEnsNameFromIndexer";
-import useEthDelta from "../../hooks/useEthDelta";
+import { COLORS } from "../consts/colors";
+import useSafetyModeActivated from "../hooks/useSafetyMode";
+import { addressSummary } from "../utils/address";
+import useEthInPool from "../hooks/useEthInPool";
+import useEthPrice from "../hooks/useEthPrice";
+import useEnsNameFromIndexer from "../hooks/useEnsNameFromIndexer";
+import useEthDelta from "../hooks/useEthDelta";
+import Stat from "./NavbarStat";
+import Divider from "./NavbarDivider";
 
 export default function NavBar() {
   let navigate = useNavigate();
@@ -56,35 +58,15 @@ export default function NavBar() {
           <div className="gap-8 items-center justify-center flex mr-8">
             {isConnected && (
               <>
-                <div className="flex gap-4">
-                  <div>TVL</div>
-                  <div>{formatUSD(ethInPool * ethPrice)}</div>
-                </div>
-                <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
+                <Stat name="TVL" value={formatUSD(ethInPool * ethPrice)} />
+                <Divider />
+                <Stat name="dNFT Floor" value={formatUSD(dNFT_PRICE)} />
+                <Divider />
+                <Stat name="ETH Price Δ" value={formatUSD(ethDelta)} />
+                <Divider />
+                <Stat name="CR" value={`${round(cr, 0)}%`} />
+                <Divider />
               </>
-            )}
-            <div className="flex gap-4 hidden md:flex">
-              <div>dNFT Floor</div>
-              <div>{formatUSD(dNFT_PRICE)}</div>
-            </div>
-            <div className="hidden md:block w-[2px] h-[2rem] bg-[#737E76]"></div>
-            {isConnected && (
-              <div className="hidden md:flex">
-                <div className="flex gap-2 items-center justify-center mr-8">
-                  <div>ETH Price Δ</div>
-                  <div>${round(ethDelta, 3)}</div>
-                </div>
-                <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
-              </div>
-            )}
-            {isConnected && (
-              <div className="hidden md:flex">
-                <div className="flex gap-2 items-center justify-center mr-8">
-                  <div>CR</div>
-                  {cr && <div>{round(cr, 0)}%</div>}
-                </div>
-                <div className="w-[2px] h-[2rem] bg-[#737E76]"></div>
-              </div>
             )}
             {address ? (
               <Button

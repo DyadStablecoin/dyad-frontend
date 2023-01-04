@@ -1,7 +1,7 @@
 import "./App.css";
 import "./index.css";
 import Home from "./components/Home";
-import NavBar from "./components/layout/Navbar";
+import NavBar from "./components/Navbar";
 import "@rainbow-me/rainbowkit/styles.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageNotFound from "./components/PageNotFound";

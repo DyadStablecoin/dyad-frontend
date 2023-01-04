@@ -5,7 +5,7 @@ import useOraclePrice from "./useOraclePrice";
 
 // usd delta between the last eth price from the last sync and the current oracle price
 export default function useEthDelta() {
-  const [ethDelta, setEthDelta] = useState();
+  const [ethDelta, setEthDelta] = useState(0);
 
   const { lastEthPrice } = useLastEthPrice();
   const { oraclePrice } = useOraclePrice();
