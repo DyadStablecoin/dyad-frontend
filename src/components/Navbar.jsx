@@ -49,7 +49,7 @@ export default function NavBar() {
           )}
         </div>
         <div className="flex gap- tems-center justify-center">
-          <div className="gap-8 items-center justify-center flex mr-8">
+          <div className="gap-8 items-center justify-center lg:flex mr-8 hidden">
             {isConnected && (
               <>
                 <Stat name="TVL" value={formatUSD(ethInPool * ethPrice)} />
