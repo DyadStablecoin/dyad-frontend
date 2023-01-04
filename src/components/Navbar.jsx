@@ -40,10 +40,9 @@ export default function NavBar() {
             <Stat name="ETH Price Δ" value={formatUSD(ethDelta)} />
             <Divider />
             <Stat name="CR" value={`${round(cr, 0)}%`} />
+            <Divider />
           </>
         )}
-      </div>
-      <div className="flex items-center justify-center">
         <Wallet />
         <Menu />
       </div>
