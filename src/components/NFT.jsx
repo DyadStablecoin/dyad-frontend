@@ -1,5 +1,4 @@
-import { dNFT_PRICE } from "../consts/consts";
-import { formatUSD, round } from "../utils/currency";
+import { round } from "../utils/currency";
 import {
   accrueXP,
   dyadBurnLiability,
@@ -25,8 +24,8 @@ import useMintAllocation from "../hooks/useMintAllocation";
 import useNftStatus, { STATUS } from "../hooks/useNftStatus";
 import useNftImage from "../hooks/useNftImage";
 import NftStats from "./NftStats";
-
-const HEADER = "text-gray-500 text-sm";
+import NftStatus from "./NftStatus";
+import Label from "./Label";
 
 export default function NFT({ tokenId, avgMinted, dyadBalance }) {
   console.log("NFT: Rendering NFT", tokenId);
@@ -141,7 +140,7 @@ export default function NFT({ tokenId, avgMinted, dyadBalance }) {
               </div>
             </div>
             <div className="flex flex-col items-start md:ml-4">
-              <div className={HEADER}>Performance</div>
+              <Label>Performance</Label>
               <div className="flex flex-col items-start text-s text-[#519C58]">
                 <div className="">
                   {round(dyadMintAllocation(mintAllocation, nft), 3)}
@@ -155,7 +154,7 @@ export default function NFT({ tokenId, avgMinted, dyadBalance }) {
             </div>
           </div>
           <div className="hidden md:block md:w-full">
-            <div className={HEADER}>Deposit Ratio</div>
+            <Label>Deposit Ratio</Label>
             <div className="mt-3">
               <ProgressBar
                 percent={parseInt(
@@ -167,10 +166,9 @@ export default function NFT({ tokenId, avgMinted, dyadBalance }) {
           <div className="flex gap-4 mt-4 md:mt-0">
             <div className="flex flex-col gap-2">
               <div className="flex flex-col gap-2 ">
-                <div className={HEADER}>Minted DYAD</div>
+                <Label>Minted DYAD</Label>
                 <div className="md:flex">
                   <div className="md:mr-2 mb-2 md:mb-0">
-                    {" "}
                     {round((nft.deposit + nft.withdrawn) / 10 ** 18, 2)}
                   </div>
                   <Button
@@ -193,7 +191,7 @@ export default function NFT({ tokenId, avgMinted, dyadBalance }) {
               )}
             </div>
             <div className="flex flex-col gap-2 ml-4 ">
-              <div className={HEADER}>Deposited DYAD</div>
+              <Label>Deposited DYAD</Label>
               <div className="md:flex md:gap-2">
                 <div className="md:mr-2 mb-2 md:mb-0">
                   {Math.round((nft.deposit / 10 ** 18) * 100) / 100}
@@ -219,18 +217,7 @@ export default function NFT({ tokenId, avgMinted, dyadBalance }) {
                   </div>
                 </div>
               </div>
-              {status !== STATUS.RISK_FREE && (
-                <div className=" flex justify-end items-end  text-sm  ">
-                  <div className="bg-[#800101] text-sm p-1 -mb-4 -mr-4 mt-9">
-                    {status === STATUS.AT_LIQUIDATION_RISK && (
-                      <span>Liqudation Risk</span>
-                    )}
-                    {status === STATUS.LIQUIDATABLE && (
-                      <span>Liquidatable</span>
-                    )}
-                  </div>
-                </div>
-              )}
+              <NftStatus nft={nft} />
             </div>
           </div>
           {renderPopups()}

@@ -2,8 +2,7 @@ import { dNFT_PRICE } from "../consts/consts";
 import useLastSyncVersion from "../hooks/useLastSyncVersion";
 import useRank from "../hooks/useRankFromIndexer";
 import { formatUSD } from "../utils/currency";
-
-const HEADER = "text-gray-500 text-sm";
+import Label from "./Label";
 
 export default function NftStats({ nft }) {
   const { lastSyncVersion } = useLastSyncVersion();
@@ -12,15 +11,15 @@ export default function NftStats({ nft }) {
   return (
     <>
       <div className="flex justify-between items-center">
-        <div className={HEADER}>Rank</div>
+        <Label>Rank</Label>
         <div className="">{rank ? "#" + rank : "Syncing"}</div>
       </div>
       <div className="flex justify-between items-center">
-        <div className={HEADER}>Value</div>
+        <Label>Value</Label>
         <div className="">{formatUSD(dNFT_PRICE)}</div>
       </div>
       <div className="flex justify-between items-center">
-        <div className={HEADER}>XP</div>
+        <Label>XP</Label>
         <div className="">{nft.xp}</div>
       </div>
     </>
