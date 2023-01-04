@@ -1,9 +1,4 @@
 import { round } from "../utils/currency";
-import {
-  accrueXP,
-  dyadBurnLiability,
-  dyadMintAllocation,
-} from "../utils/stats";
 import Mint from "./Mint";
 import Popup from "./Popup";
 import { useDisclosure } from "@chakra-ui/react";
@@ -20,21 +15,20 @@ import { useWaitForTransaction } from "wagmi";
 import Redeem from "./Redeem";
 import useSafetyModeActivated from "../hooks/useSafetyMode";
 import useCR from "../hooks/useCR";
-import useMintAllocation from "../hooks/useMintAllocation";
 import useNftStatus, { STATUS } from "../hooks/useNftStatus";
 import useNftImage from "../hooks/useNftImage";
 import NftStats from "./NftStats";
 import NftStatus from "./NftStatus";
 import Label from "./Label";
+import Performance from "./NftPerformance";
 
-export default function NFT({ tokenId, avgMinted, dyadBalance }) {
+export default function NFT({ tokenId, dyadBalance }) {
   console.log("NFT: Rendering NFT", tokenId);
 
   const [txHash, setTxHash] = useState();
   const { nft, refetch: refetchNft, isLoading, isFetching } = useNft(tokenId);
   const { cr, refetch: refetchCR } = useCR();
   const { isSafetyModeActivated } = useSafetyModeActivated(cr);
-  const { mintAllocation } = useMintAllocation(nft.xp);
   const { status } = useNftStatus(nft);
   const { nftImage } = useNftImage(nft);
 
@@ -139,19 +133,7 @@ export default function NFT({ tokenId, avgMinted, dyadBalance }) {
                 </Button>
               </div>
             </div>
-            <div className="flex flex-col items-start md:ml-4">
-              <Label>Performance</Label>
-              <div className="flex flex-col items-start text-s text-[#519C58]">
-                <div className="">
-                  {round(dyadMintAllocation(mintAllocation, nft), 3)}
-                  x/
-                  {round(dyadBurnLiability(mintAllocation, nft, avgMinted), 3)}x
-                </div>
-                <div className="w-[5rem] text-white">
-                  {round(accrueXP(mintAllocation), 3)}x XP
-                </div>
-              </div>
-            </div>
+            <Performance nft={nft} />
           </div>
           <div className="hidden md:block md:w-full">
             <Label>Deposit Ratio</Label>

@@ -1,7 +1,6 @@
 import NFT from "./NFT";
 import useIDsByOwner from "../hooks/useIDsByOwner";
 import { useAccount } from "wagmi";
-import useAvgMinted from "../hooks/useAvgMintedFromIndexer";
 import useDyadBalance from "../hooks/useDyadBalance";
 
 export default function NFTs() {
@@ -10,7 +9,6 @@ export default function NFTs() {
   const { address } = useAccount();
   const { dyadBalance } = useDyadBalance(address);
   const { tokenIds } = useIDsByOwner(address);
-  const { avgMinted } = useAvgMinted();
 
   return (
     <>
@@ -22,7 +20,6 @@ export default function NFTs() {
               return (
                 <NFT
                   tokenId={parseInt(tokenId._hex)}
-                  avgMinted={avgMinted}
                   dyadBalance={dyadBalance}
                 />
               );
