@@ -1,4 +1,4 @@
-import { DownOutlined } from "@ant-design/icons";
+import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import Icon from "./Icon";
 
 export default function NftExpand({ setExpanded, expanded }) {
@@ -9,7 +9,7 @@ export default function NftExpand({ setExpanded, expanded }) {
           className="bg-black pr-1 pl-1"
           style={{ border: "1px solid #3A403C" }}
         >
-          <DownOutlined />
+          {expanded ? <UpOutlined /> : <DownOutlined />}
         </div>
       </Icon>
     </div>
