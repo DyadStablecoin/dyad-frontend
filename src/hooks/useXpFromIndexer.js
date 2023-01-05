@@ -11,8 +11,7 @@ export default function useXpFromIndexer(nft) {
     supabase
       .from("nfts")
       .select("xp, created_at")
-      // .eq("tokenId", nft.tokenId)
-      .eq("tokenId", 30)
+      .eq("tokenId", nft.tokenId)
       .order("created_at", { ascending: true })
       .limit(30)
       .then(({ data, error }) => {

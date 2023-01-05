@@ -23,9 +23,12 @@ import Label from "./Label";
 import Performance from "./NftPerformance";
 import useDyadBalance from "../hooks/useDyadBalance";
 import { useAccount } from "wagmi";
+import XpChart from "./NftXpChart";
+import Expand from "./NftExpand";
 
 export default function NFT({ tokenId }) {
   console.log("NFT: Rendering NFT", tokenId);
+  const [expanded, setExpanded] = useState(false);
 
   const [txHash, setTxHash] = useState();
   const { nft, refetch: refetchNft, isLoading, isFetching } = useNft(tokenId);
@@ -209,6 +212,8 @@ export default function NFT({ tokenId }) {
           {renderPopups()}
         </div>
       )}
+      <Expand setExpanded={setExpanded} expanded={expanded} />
+      {expanded && <XpChart nft={nft} />}
     </>
   );
 }
