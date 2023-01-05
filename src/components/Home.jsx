@@ -1,10 +1,8 @@
 import Claim from "./Claim";
 import NFTs from "./NFTs";
 
-
 export default function Home() {
   console.log("Home: Rendering");
-
 
   return (
     <>
