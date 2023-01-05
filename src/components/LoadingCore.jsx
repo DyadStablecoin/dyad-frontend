@@ -1,7 +1,9 @@
+import { COLORS } from "../consts/colors";
+
 export default function LoadingCore({
   isLoading,
   style,
-  color = "rgb(37 99 235)",
+  color = COLORS.Purple,
 }) {
   return (
     <>
