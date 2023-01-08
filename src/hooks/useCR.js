@@ -25,15 +25,18 @@ export default function useCR(newAmountAddedToPool = 0) {
   }
 
   useEffect(() => {
-    let totalWithdrawn = totalDyadSupply - (poolBalance + newAmountAddedToPool);
-    let collatVault = ethInPool * ethPrice;
+    if (poolBalance && totalDyadSupply) {
+      let totalWithdrawn =
+        totalDyadSupply - (poolBalance + newAmountAddedToPool);
+      let collatVault = ethInPool * ethPrice;
 
-    if (totalWithdrawn === 0) {
-      totalWithdrawn = 1;
+      if (totalWithdrawn === 0) {
+        totalWithdrawn = 1;
+      }
+
+      const _cr = (collatVault / normalize(totalWithdrawn, 18)) * 100;
+      setCR(isNaN(_cr) ? 0 : _cr);
     }
-
-    const _cr = (collatVault / normalize(totalWithdrawn, 18)) * 100;
-    setCR(isNaN(_cr) ? 0 : _cr);
   }, [poolBalance, totalDyadSupply, newAmountAddedToPool]);
 
   return { cr, refetch };
