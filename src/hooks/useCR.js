@@ -11,6 +11,7 @@ import { normalize } from "../utils/currency";
 // `newAmountAddedToPool`: sometimes we want so simulate how CR changes when a
 // new amount is added to the pool.
 export default function useCR(newAmountAddedToPool = 0) {
+  console.log("useCR", newAmountAddedToPool);
   const [cr, setCR] = useState(SAFETY_MODE_THRESHOLD);
 
   const { ethInPool } = useEthInPool();
@@ -26,9 +27,8 @@ export default function useCR(newAmountAddedToPool = 0) {
 
   useEffect(() => {
     if (poolBalance && totalDyadSupply) {
-      let totalWithdrawn =
-        totalDyadSupply - (poolBalance + newAmountAddedToPool);
-      let collatVault = ethInPool * ethPrice;
+      let totalWithdrawn = totalDyadSupply - poolBalance;
+      let collatVault = ethInPool * ethPrice + newAmountAddedToPool;
 
       if (totalWithdrawn === 0) {
         totalWithdrawn = 1;

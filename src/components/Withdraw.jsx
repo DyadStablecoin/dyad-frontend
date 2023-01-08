@@ -3,13 +3,7 @@ import { CONTRACT_dNFT } from "../consts/contract";
 import dNFTABI from "../abi/dNFT.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
-import {
-  round,
-  floor,
-  normalize,
-  parseEther,
-  addUnits,
-} from "../utils/currency";
+import { round, floor, normalize, parseEther } from "../utils/currency";
 import PopupContent from "./PopupContent";
 import MaxButton from "./MaxButton";
 import useMaxWithdrawl from "../hooks/useMaxWithdrawl";
@@ -26,7 +20,7 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
   const { averageTVL: oldAvgTVL } = useAverageTVL();
   const { averageTVL: newAvgTVL } = useAverageTVL(-1 * dyad);
   const { cr: oldCR } = useCR();
-  const { cr: newCR } = useCR(-1 * addUnits(dyad, 18));
+  const { cr: newCR } = useCR(-1 * dyad);
   const { nftImage } = useNftImage(nft);
 
   const { config } = usePrepareContractWrite({
