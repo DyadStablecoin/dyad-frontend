@@ -26,9 +26,8 @@ export default function useCR(newAmountAddedToPool = 0) {
 
   useEffect(() => {
     if (poolBalance && totalDyadSupply) {
-      let totalWithdrawn =
-        totalDyadSupply - (poolBalance + newAmountAddedToPool);
-      let collatVault = ethInPool * ethPrice;
+      let totalWithdrawn = totalDyadSupply - poolBalance;
+      let collatVault = ethInPool * ethPrice + newAmountAddedToPool;
 
       if (totalWithdrawn === 0) {
         totalWithdrawn = 1;

@@ -1,6 +1,6 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
-import { round, addUnits, normalize } from "../utils/currency";
+import { round, normalize } from "../utils/currency";
 import dNFTABI from "../abi/dNFT.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
@@ -20,7 +20,7 @@ export default function Mint({ nft, onClose, setTxHash }) {
   const { ethPrice } = useEthPrice();
   const { ethBalance } = useEthBalance();
   const { cr: oldCR } = useCR();
-  const { cr: newCR } = useCR(addUnits(wETH * ethPrice, 18));
+  const { cr: newCR } = useCR(wETH * ethPrice, 18);
   const { nftImage } = useNftImage(nft);
 
   const { config } = usePrepareContractWrite({
