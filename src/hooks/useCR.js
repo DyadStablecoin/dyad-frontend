@@ -11,7 +11,6 @@ import { normalize } from "../utils/currency";
 // `newAmountAddedToPool`: sometimes we want so simulate how CR changes when a
 // new amount is added to the pool.
 export default function useCR(newAmountAddedToPool = 0) {
-  console.log("useCR", newAmountAddedToPool);
   const [cr, setCR] = useState(SAFETY_MODE_THRESHOLD);
 
   const { ethInPool } = useEthInPool();
