@@ -1,7 +1,7 @@
 import "./App.css";
 import "./index.css";
 import Home from "./components/Home";
-import NavBar from "./components/Navbar";
+import Navbar from "./components/Navbar";
 import "@rainbow-me/rainbowkit/styles.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageNotFound from "./components/PageNotFound";
@@ -21,7 +21,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="page-container content-wrap font-serif font-bold text-white">
-        <NavBar />
+        <Navbar />
         {isConnected ? (
           <>
             {chain.id === CURRENT_NETWORK.id ? (

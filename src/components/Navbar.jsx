@@ -12,7 +12,7 @@ import Wallet from "./Wallet";
 import Logo from "./NavbarLogo";
 import SafetyModeWarning from "./SafetyModeWarning";
 
-export default function NavBar() {
+export default function Navbar() {
   const { isConnected } = useAccount();
   const { ethInPool } = useEthInPool();
   const { ethPrice } = useEthPrice();

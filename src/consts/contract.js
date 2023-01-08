@@ -67,5 +67,9 @@
 //    - 1.15x DYAD accrual bonus for calling sync on a positive delta (ETH up).
 //    - major refactoring of the contracts which reduced the sync gas costs by
 //    30%. Still a lot of room for gas efficiency improvement here.
-export const CONTRACT_DYAD = "0x240B5c699C002173c8c76dE5427f864ACAb097E1";
-export const CONTRACT_dNFT = "0x29E94B4E3Cc978C232909c4a78836AC52d6A610e";
+// export const CONTRACT_DYAD = "0x240B5c699C002173c8c76dE5427f864ACAb097E1";
+// export const CONTRACT_dNFT = "0x29E94B4E3Cc978C232909c4a78836AC52d6A610e";
+
+// goerli v0.7: 5th Testnet Launch
+export const CONTRACT_DYAD = "0x874ED83CFf2857b39B6F5583eb33E7763a68Fb95";
+export const CONTRACT_dNFT = "0x8Dc0Cb544367ac0425686e05f1b7E19688A1c5b3";
