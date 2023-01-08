@@ -81,18 +81,20 @@ export default function Claim() {
               </div>
             </div>
           </div>
-          <div className="mt-2 md:border-l-2 border-gray-800 md:p-4 md:flex md:items-center md:justify-center">
-            <Button
-              isDisabled={!write || isLoading}
-              onClick={() => {
-                write?.();
-              }}
-              bgColor="#0E190F"
-              borderColor="#1F4F23"
-            >
-              Mint
-            </Button>
-          </div>
+          {write && (
+            <div className="mt-2 md:border-l-2 border-gray-800 md:p-4 md:flex md:items-center md:justify-center">
+              <Button
+                isDisabled={!write || isLoading}
+                onClick={() => {
+                  write?.();
+                }}
+                bgColor="#0E190F"
+                borderColor="#1F4F23"
+              >
+                Mint
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>
