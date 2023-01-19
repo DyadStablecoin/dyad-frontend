@@ -3,6 +3,7 @@ import Mint from "./Mint";
 import Popup from "./Popup";
 import { useDisclosure } from "@chakra-ui/react";
 import Button from "./Button";
+import Activation from "./Activation";
 import Sync from "./Sync";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
@@ -42,6 +43,7 @@ export default function NFT({ tokenId }) {
     onOpen: onOpenSync,
     onClose: onCloseSync,
   } = useDisclosure();
+
   const {
     isOpen: isOpenDeposit,
     onOpen: onOpenDeposit,
@@ -56,6 +58,11 @@ export default function NFT({ tokenId }) {
     isOpen: isOpenRedeem,
     onOpen: onOpenRedeem,
     onClose: onCloseRedeem,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenActivation,
+    onOpen: onOpenActivation,
+    onClose: onCloseActivation,
   } = useDisclosure();
 
   useEffect(() => {}, [txHash]);
@@ -94,6 +101,13 @@ export default function NFT({ tokenId }) {
             <Popup isOpen={isOpenRedeem} onClose={onCloseRedeem}>
               <Redeem nft={nft} onClose={onCloseRedeem} setTxHash={setTxHash} />
             </Popup>
+            <Popup isOpen={isOpenActivation} onClose={onCloseActivation}>
+              <Activation
+                nft={nft}
+                onClose={onCloseActivation}
+                setTxHash={setTxHash}
+              />
+            </Popup>
             <Popup isOpen={isOpenSync} onClose={onCloseSync}>
               <Sync nft={nft} onClose={onCloseSync} setTxHash={setTxHash} />
             </Popup>
@@ -126,7 +140,15 @@ export default function NFT({ tokenId }) {
             </div>
             <div className="w-full">
               <NftStats nft={nft} />
-              <div className="mt-2">
+              <div className="mt-2 gap-4">
+                <Button
+                  borderColor="#463D81"
+                  bgColor="#0F0D1B"
+                  onClick={onOpenActivation}
+                  isDisabled={isFetching || isFetchingTx}
+                >
+                  Activate
+                </Button>
                 <Button
                   borderColor="#463D81"
                   bgColor="#0F0D1B"
