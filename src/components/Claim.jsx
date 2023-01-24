@@ -24,7 +24,7 @@ export default function Claim() {
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFT["abi"],
-    functionName: "mintNft",
+    functionName: "mint",
     args: [address],
     overrides: { value: String(MIN_DEPOSIT) },
   });
