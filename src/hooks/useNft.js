@@ -22,9 +22,8 @@ export default function useNft(tokenId) {
       setNft({
         xp: parseInt(data[0]._hex),
         deposit: parseInt(data[1]._hex),
-        xp: parseInt(data[2]._hex),
+        withdrawn: parseInt(data[2]._hex),
         isActive: data[4],
-        isLiquidatable: data[3],
         tokenId: tokenId,
       });
     },
