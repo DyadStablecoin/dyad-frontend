@@ -19,10 +19,10 @@ export default function useNft(tokenId) {
     args: [String(tokenId)],
     onSuccess: (data) => {
       setNft({
-        withdrawn: parseInt(data[0]._hex),
+        xp: parseInt(data[0]._hex),
         deposit: parseInt(data[1]._hex),
-        xp: parseInt(data[2]._hex),
-        isLiquidatable: data[3],
+        withdrawn: parseInt(data[2]._hex),
+        // isActive: data[4],
         tokenId: tokenId,
       });
     },

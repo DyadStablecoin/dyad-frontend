@@ -1,4 +1,4 @@
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import { useContractWrite, usePrepareContractWrite, useAccount } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import dNFTABI from "../abi/dNFT.json";
 import { useState } from "react";
@@ -16,6 +16,7 @@ import useNftImage from "../hooks/useNftImage";
 
 export default function Withdraw({ nft, onClose, setTxHash }) {
   const [dyad, setDyad] = useState("");
+  const { address } = useAccount();
   const { maxWithdrawl } = useMaxWithdrawl(nft);
   const { averageTVL: oldAvgTVL } = useAverageTVL();
   const { averageTVL: newAvgTVL } = useAverageTVL(-1 * dyad);
@@ -27,7 +28,7 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
     functionName: "withdraw",
-    args: [nft.tokenId, parseEther(dyad)],
+    args: [nft.tokenId, address, parseEther(dyad)],
   });
 
   const { write } = useContractWrite({
