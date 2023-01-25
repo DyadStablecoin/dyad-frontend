@@ -9,6 +9,7 @@ export default function useNft(tokenId) {
     deposit: 0,
     xp: 0,
     tokenId: tokenId,
+    isActive: false,
     isLiquidatable: false,
   });
 
@@ -21,8 +22,9 @@ export default function useNft(tokenId) {
       setNft({
         xp: parseInt(data[0]._hex),
         deposit: parseInt(data[1]._hex),
-        withdrawn: parseInt(data[2]._hex),
-        // isActive: data[4],
+        xp: parseInt(data[2]._hex),
+        isActive: data[4],
+        isLiquidatable: data[3],
         tokenId: tokenId,
       });
     },

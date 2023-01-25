@@ -2,30 +2,12 @@ import dNFTABI from "../abi/dNFT.json";
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import PopupContent from "./PopupContent";
-import useGasCost from "../hooks/useGasCost";
 import { DOCS_URL } from "../consts/consts";
 import Divider from "./PopupDivider";
 import useNftImage from "../hooks/useNftImage";
 import classNames from "classnames";
-
-const StatPair = ({ title, value }) => {
-  return (
-    <div className="flex flex-col items-center">
-      <h2 className="text-sm text-secondary">{title}</h2>
-      <p
-        className={classNames(
-          value > 0
-            ? "text-[#519C58]"
-            : value < 0
-            ? "text-red-500"
-            : "text-white"
-        )}
-      >
-        {value}
-      </p>
-    </div>
-  );
-};
+import Table from "./PopupTable";
+import Row from "./PopupTableRow";
 
 // dD is deposited dyad
 //
@@ -48,6 +30,7 @@ export default function ClaimModal({ nft, onClose, setTxHash }) {
 
   const { nftImage } = useNftImage(nft);
 
+  // TODO this logic + dD/bD / xP earned lost etc
   const wasLastSyncPositive = true;
 
   return (
@@ -66,14 +49,13 @@ export default function ClaimModal({ nft, onClose, setTxHash }) {
     >
       <div className="flex flex-col gap-4">
         <Divider />
-        <div
-          className={classNames(
-            "flex flex-row items-center",
-            true ? "justify-center" : "justify-between"
-          )}
-        >
-          <StatPair title={"dD"} value={0} />
-          {!wasLastSyncPositive && <StatPair title={"xP"} value={0} />}
+        <div className="w-full px-4 pt-2">
+          <Table>
+            <Row label="dD Earned" unit="DYAD" _old={0} _new={1} />
+            {wasLastSyncPositive && (
+              <Row label="xP" unit={"XP"} _old={0} _new={1} />
+            )}
+          </Table>
         </div>
         <Divider />
         <div className="text-center text-secondary">
