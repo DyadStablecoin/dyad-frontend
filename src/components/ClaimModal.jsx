@@ -5,12 +5,8 @@ import PopupContent from "./PopupContent";
 import { DOCS_URL } from "../consts/consts";
 import Divider from "./PopupDivider";
 import useNftImage from "../hooks/useNftImage";
-import classNames from "classnames";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
-
-// dD is deposited dyad
-//
 
 export default function ClaimModal({ nft, onClose, setTxHash }) {
   const { isLoading, config } = usePrepareContractWrite({
