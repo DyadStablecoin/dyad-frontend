@@ -46,7 +46,7 @@ export default function Claim() {
           <div className="w-[56px]">
             <LoadingInplace isLoading={isLoading} style="mt w-[56px]" />
             <img
-              src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
+              src="https://ipfs.pixura.io/ipfs/QmXMFCUUoLjirSZVr8Adca84zqiiu55oek5Bhe13nQjvtE/Punk4892ToyFace-3.jpg"
               alt="claim"
             />
           </div>
