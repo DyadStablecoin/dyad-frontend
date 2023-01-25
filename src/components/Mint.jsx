@@ -26,7 +26,7 @@ export default function Mint({ nft, onClose, setTxHash }) {
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
-    functionName: "mintDyad",
+    functionName: "exchange",
     args: [nft.tokenId],
     overrides: {
       value: parseEther(wETH),
