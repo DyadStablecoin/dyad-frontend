@@ -54,7 +54,7 @@ export function useNftsFromIndexer(
         .from("nfts")
         .select("*")
         .eq("contractAddress", CONTRACT_dNFT)
-        .eq("version_id", lastSyncVersion)
+        // .eq("version_id", lastSyncVersion)
         .in("isLiquidatable", _isLiquidatable)
         .or(`owner.match.${_owner},ensName.match.${_owner}`)
         .order(sort.name, { ascending: sort.asc[sort.name] })
