@@ -4,19 +4,29 @@ import { CONTRACT_dNFT } from "../consts/contract";
 import PopupContent from "./PopupContent";
 import useGasCost from "../hooks/useGasCost";
 import { DOCS_URL } from "../consts/consts";
-import Table from "./PopupTable";
-import Row from "./PopupTableRow";
-import Divider from "./PopupDivider";
-import useLastEthPrice from "../hooks/useLastEthPrice";
-import useOraclePrice from "../hooks/useOraclePrice";
-import { round, normalize } from "../utils/currency";
 import useNftImage from "../hooks/useNftImage";
+// Said the package exists we use it?
+import classNames from "classnames";
 
-export default function Sync({ nft, onClose, setTxHash }) {
+// I'd also add clsx/classNames to toggle dynamic class names without losing any classes to tailwind purges.
+const StatusLabel = ({ isActive }) => {
+  return (
+    <div
+      className={classNames(
+        `rounded px-2 py-1 text-sm text-white font-bold`,
+        isActive === 0 ? "bg-red-500" : "bg-[#519C58]"
+      )}
+    >
+      {isActive ? "Activated" : "Deactivated"}
+    </div>
+  );
+};
+
+export default function Activation({ nft, onClose, setTxHash }) {
   const { isLoading, config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
-    functionName: "sync",
+    functionName: "toggleActivation",
     args: [nft.tokenId],
   });
 
@@ -29,41 +39,30 @@ export default function Sync({ nft, onClose, setTxHash }) {
   });
 
   const { gasCost } = useGasCost(config);
-  const { oraclePrice } = useOraclePrice();
-  const { lastEthPrice } = useLastEthPrice();
   const { nftImage } = useNftImage(nft);
 
   return (
     <PopupContent
-      title="Sync"
+      title="dNFT Activation"
       image={nftImage}
-      btnText="Sync"
+      btnText="dNFTActivation"
       onClick={() => {
         onClose();
         write?.();
       }}
       isDisabled={!write}
       isLoading={isLoading}
-      infoOnClick={() => window.open(DOCS_URL + "/pool#sync")}
+      infoOnClick={() => window.open(DOCS_URL + "/dnft#activation")}
       nft={nft}
     >
-      <Divider />
-      <div className="flex flex-col gap-4 items-center">
-        <div className="w-full px-4 pt-2">
-          <Table>
-            <Row
-              label="ETH Price"
-              unit="$"
-              _old={round(lastEthPrice, 2)}
-              _new={round(normalize(oraclePrice, 8), 2)}
-            />
-          </Table>
+      <div className="flex flex-col gap-4">
+        <div>
+          Your dNFT status: <StatusLabel isActive={nft?.isActive || false} />
         </div>
-        <Divider />
-        <div>+ help sync ALL DYAD NFT's for all players!</div>
         <div className="bg-[#3A403C] h-[1px] w-full"></div>
-        <div className="flex w-full justify-between px-4">
-          <div>Sync Cost</div>
+        <div className="flex justify-between">
+          <div>Gas Cost</div>
+          {/* extend the theme as the green, kept cause why not, no content otherwise. Might look ugly but can't see haha. */}
           <div className="text-[#519C58]">{gasCost} ETH</div>
         </div>
       </div>

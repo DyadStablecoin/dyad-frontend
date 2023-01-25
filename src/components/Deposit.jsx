@@ -54,6 +54,7 @@ export default function Deposit({ nft, onClose, setTxHash }) {
     <PopupContent
       title="Deposit DYAD"
       image={nftImage}
+      nft={nft}
       btnText={
         dyad === "" || parseFloat(dyad) === 0
           ? "Enter an amount"
@@ -82,15 +83,18 @@ export default function Deposit({ nft, onClose, setTxHash }) {
       }}
       isLoading={isFetchingApproval}
     >
+      <Divider />
       <div className="flex flex-col gap-2">
-        <Table>
-          <Row
-            label="dNFT Withdrawls"
-            unit="DYAD"
-            _old={round(normalize(nft.withdrawn), 2)}
-            _new={round(normalize(nft.withdrawn) - parseFloat(dyad), 2)}
-          />
-        </Table>
+        <div className="w-full px-4 pt-2">
+          <Table>
+            <Row
+              label="dNFT Withdrawls"
+              unit="DYAD"
+              _old={round(normalize(nft.withdrawn), 2)}
+              _new={round(normalize(nft.withdrawn) - parseFloat(dyad), 2)}
+            />
+          </Table>
+        </div>
         <Divider />
         <div className="flex gap-2 items-center mt-8">
           <div>

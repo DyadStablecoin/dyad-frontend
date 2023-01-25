@@ -23,6 +23,7 @@ import Label from "./Label";
 import Performance from "./NftPerformance";
 import useDyadBalance from "../hooks/useDyadBalance";
 import { useAccount } from "wagmi";
+import ClaimModal from "./ClaimModal";
 
 export default function NFT({ tokenId }) {
   console.log("NFT: Rendering NFT", tokenId);
@@ -56,6 +57,11 @@ export default function NFT({ tokenId }) {
     isOpen: isOpenRedeem,
     onOpen: onOpenRedeem,
     onClose: onCloseRedeem,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenClaim,
+    onOpen: onOpenClaim,
+    onClose: onCloseClaim,
   } = useDisclosure();
 
   useEffect(() => {}, [txHash]);
@@ -93,6 +99,13 @@ export default function NFT({ tokenId }) {
             </Popup>
             <Popup isOpen={isOpenRedeem} onClose={onCloseRedeem}>
               <Redeem nft={nft} onClose={onCloseRedeem} setTxHash={setTxHash} />
+            </Popup>
+            <Popup isOpen={isOpenClaim} onClose={onCloseClaim}>
+              <ClaimModal
+                nft={nft}
+                onClose={onCloseClaim}
+                setTxHash={setTxHash}
+              />
             </Popup>
             <Popup isOpen={isOpenSync} onClose={onCloseSync}>
               <Sync nft={nft} onClose={onCloseSync} setTxHash={setTxHash} />
@@ -199,6 +212,14 @@ export default function NFT({ tokenId }) {
                       }
                     >
                       Withdraw
+                    </Button>
+                    <Button
+                      onClick={onOpenClaim}
+                      isDisabled={
+                        isFetching || isFetchingTx || isSafetyModeActivated
+                      }
+                    >
+                      Claim
                     </Button>
                   </div>
                 </div>
