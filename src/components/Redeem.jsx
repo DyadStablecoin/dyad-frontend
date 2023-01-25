@@ -81,6 +81,7 @@ export default function Redeem({ nft, onClose, setTxHash }) {
           : !writeApprove
       }
       isLoading={isFetchingApproval}
+      nft={nft}
     >
       <div className="flex flex-col gap-2">
         <Table>

@@ -42,16 +42,20 @@ export default function MoveDeposit({ nft, onClose, setTxHash }) {
       }}
       isDisabled={!write}
       image={nftImage}
+      nft={nft}
     >
-      <div className="flex flex-col gap-2">
-        <Table>
-          <Row
-            label="dNFT Deposit"
-            unit="DYAD"
-            _old={round(normalize(nft.deposit), 2)}
-            _new={round(normalize(nft.deposit) - parseFloat(dyad), 2)}
-          />
-        </Table>
+      <Divider />
+      <div className="flex flex-col items-center gap-2">
+        <div className="w-full px-4 pt-2">
+          <Table>
+            <Row
+              label="dNFT Deposit"
+              unit="DYAD"
+              _old={round(normalize(nft.deposit), 2)}
+              _new={round(normalize(nft.deposit) - parseFloat(dyad), 2)}
+            />
+          </Table>
+        </div>
         <Divider />
         <div className="flex gap-2 items-center">
           <div>

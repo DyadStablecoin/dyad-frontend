@@ -45,20 +45,24 @@ export default function Sync({ nft, onClose, setTxHash }) {
       isDisabled={!write}
       isLoading={isLoading}
       infoOnClick={() => window.open(DOCS_URL + "/pool#sync")}
+      nft={nft}
     >
-      <div className="flex flex-col gap-4">
-        <Table>
-          <Row
-            label="ETH Price"
-            unit="$"
-            _old={round(lastEthPrice, 2)}
-            _new={round(normalize(oraclePrice, 8), 2)}
-          />
-        </Table>
+      <Divider />
+      <div className="flex flex-col gap-4 items-center">
+        <div className="w-full px-4 pt-2">
+          <Table>
+            <Row
+              label="ETH Price"
+              unit="$"
+              _old={round(lastEthPrice, 2)}
+              _new={round(normalize(oraclePrice, 8), 2)}
+            />
+          </Table>
+        </div>
         <Divider />
         <div>+ help sync ALL DYAD NFT's for all players!</div>
         <div className="bg-[#3A403C] h-[1px] w-full"></div>
-        <div className="flex justify-between">
+        <div className="flex w-full justify-between px-4">
           <div>Sync Cost</div>
           <div className="text-[#519C58]">{gasCost} ETH</div>
         </div>

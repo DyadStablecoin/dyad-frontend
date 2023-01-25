@@ -17,7 +17,7 @@ export default function useXpAverageFromIndexer() {
       .then((data) => {
         setXpAverage(data.data[0].xp_average);
       });
-  }, [tokenId]);
+  }, []);
 
   return { xpAverage };
 }

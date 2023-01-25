@@ -51,22 +51,26 @@ export default function Mint({ nft, onClose, setTxHash }) {
         write?.();
       }}
       isDisabled={!write}
+      nft={nft}
     >
-      <div className="flex flex-col gap-2">
-        <Table>
-          <Row
-            label="DYAD CR"
-            unit="%"
-            _old={round(oldCR, 2)}
-            _new={round(newCR, 2)}
-          />
-          <Row
-            label="dNFT Deposit"
-            unit="DYAD"
-            _old={round(normalize(nft.deposit), 2)}
-            _new={round(normalize(nft.deposit) + wETH * ethPrice, 2)}
-          />
-        </Table>
+      <Divider />
+      <div className="flex flex-col items-center gap-2">
+        <div className="w-full px-4 pt-2">
+          <Table>
+            <Row
+              label="DYAD CR"
+              unit="%"
+              _old={round(oldCR, 2)}
+              _new={round(newCR, 2)}
+            />
+            <Row
+              label="dNFT Deposit"
+              unit="DYAD"
+              _old={round(normalize(nft.deposit), 2)}
+              _new={round(normalize(nft.deposit) + wETH * ethPrice, 2)}
+            />
+          </Table>
+        </div>
         <Divider />
         <div className="flex flex-col gap-2 items-center mt-4">
           <div className="flex gap-4 justify-between items-between w-full">

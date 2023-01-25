@@ -23,6 +23,7 @@ import Label from "./Label";
 import Performance from "./NftPerformance";
 import useDyadBalance from "../hooks/useDyadBalance";
 import { useAccount } from "wagmi";
+import ClaimModal from "./ClaimModal";
 
 export default function NFT({ tokenId }) {
   console.log("NFT: Rendering NFT", tokenId);
@@ -56,6 +57,11 @@ export default function NFT({ tokenId }) {
     isOpen: isOpenRedeem,
     onOpen: onOpenRedeem,
     onClose: onCloseRedeem,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenClaim,
+    onOpen: onOpenClaim,
+    onClose: onCloseClaim,
   } = useDisclosure();
 
   useEffect(() => {}, [txHash]);
@@ -93,6 +99,13 @@ export default function NFT({ tokenId }) {
             </Popup>
             <Popup isOpen={isOpenRedeem} onClose={onCloseRedeem}>
               <Redeem nft={nft} onClose={onCloseRedeem} setTxHash={setTxHash} />
+            </Popup>
+            <Popup isOpen={isOpenClaim} onClose={onCloseClaim}>
+              <ClaimModal
+                nft={nft}
+                onClose={onCloseClaim}
+                setTxHash={setTxHash}
+              />
             </Popup>
             <Popup isOpen={isOpenSync} onClose={onCloseSync}>
               <Sync nft={nft} onClose={onCloseSync} setTxHash={setTxHash} />
@@ -178,11 +191,11 @@ export default function NFT({ tokenId }) {
             </div>
             <div className="flex flex-col gap-2 ml-4 ">
               <Label>Deposited DYAD</Label>
-              <div className="md:flex md:gap-2">
-                <div className="md:mr-2 mb-2 md:mb-0">
-                  {Math.round((nft.deposit / 10 ** 18) * 100) / 100}
-                </div>
-                <div className="">
+              <div className="flex flex-col gap-2">
+                <div className="md:flex md:gap-2">
+                  <div className="md:mr-2 mb-2 md:mb-0">
+                    {Math.round((nft.deposit / 10 ** 18) * 100) / 100}
+                  </div>
                   <div className="flex gap-2">
                     {dyadBalance > 0 && (
                       <Button
@@ -202,7 +215,18 @@ export default function NFT({ tokenId }) {
                     </Button>
                   </div>
                 </div>
+                <div className="flex gap-2">
+                  <Button
+                    onClick={onOpenClaim}
+                    isDisabled={
+                      isFetching || isFetchingTx || isSafetyModeActivated
+                    }
+                  >
+                    Claim
+                  </Button>
+                </div>
               </div>
+
               <NftStatus nft={nft} />
             </div>
           </div>
