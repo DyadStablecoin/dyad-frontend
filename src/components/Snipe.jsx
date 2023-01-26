@@ -8,11 +8,11 @@ import useNftImage from "../hooks/useNftImage";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
 
-export default function ClaimModal({ nft, onClose, setTxHash }) {
+export default function Snipe({ nft, onClose, setTxHash }) {
   const { isLoading, config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
-    functionName: "claim",
+    functionName: "snipe",
     args: [nft.tokenId],
   });
 
@@ -31,26 +31,24 @@ export default function ClaimModal({ nft, onClose, setTxHash }) {
 
   return (
     <PopupContent
-      title="Claim"
+      title="Snipe"
       image={nftImage}
-      btnText="Claim"
+      btnText="Snipe"
       onClick={() => {
         onClose();
         write?.();
       }}
       isDisabled={!write}
       isLoading={isLoading}
-      infoOnClick={() => window.open(DOCS_URL + "/dnft#claim")}
+      infoOnClick={() => window.open(DOCS_URL + "/dnft#snipe")}
       nft={nft}
     >
+      <Divider />
       <div className="flex flex-col gap-4">
-        <Divider />
         <div className="w-full px-4 pt-2">
           <Table>
-            <Row label="dD Earned" unit="DYAD" _old={0} _new={1} />
-            {wasLastSyncPositive && (
-              <Row label="xP" unit={"XP"} _old={0} _new={1} />
-            )}
+            <Row label="dD" unit="DYAD" _old={0} _new={1} />
+            <Row label="xP" unit={"XP"} _old={0} _new={1} />
           </Table>
         </div>
         <Divider />

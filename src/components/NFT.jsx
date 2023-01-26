@@ -23,7 +23,7 @@ import Label from "./Label";
 import Performance from "./NftPerformance";
 import useDyadBalance from "../hooks/useDyadBalance";
 import { useAccount } from "wagmi";
-import ClaimModal from "./ClaimModal";
+import Claim from "./Claim";
 
 export default function NFT({ tokenId }) {
   console.log("NFT: Rendering NFT", tokenId);
@@ -101,11 +101,7 @@ export default function NFT({ tokenId }) {
               <Redeem nft={nft} onClose={onCloseRedeem} setTxHash={setTxHash} />
             </Popup>
             <Popup isOpen={isOpenClaim} onClose={onCloseClaim}>
-              <ClaimModal
-                nft={nft}
-                onClose={onCloseClaim}
-                setTxHash={setTxHash}
-              />
+              <Claim nft={nft} onClose={onCloseClaim} setTxHash={setTxHash} />
             </Popup>
             <Popup isOpen={isOpenSync} onClose={onCloseSync}>
               <Sync nft={nft} onClose={onCloseSync} setTxHash={setTxHash} />

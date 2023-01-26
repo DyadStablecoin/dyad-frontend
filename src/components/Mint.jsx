@@ -1,121 +1,102 @@
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import {
+  useAccount,
+  useContractWrite,
+  usePrepareContractWrite,
+  useWaitForTransaction,
+} from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
-import { round, normalize } from "../utils/currency";
-import dNFTABI from "../abi/dNFT.json";
-import { useState } from "react";
-import TextInput from "./TextInput";
-import { parseEther } from "../utils/currency";
-import PopupContent from "./PopupContent";
-import { ArrowDownOutlined } from "@ant-design/icons";
-import useEthPrice from "../hooks/useEthPrice";
-import useEthBalance from "../hooks/useEthBalance";
-import useCR from "../hooks/useCR";
-import Divider from "./PopupDivider";
-import Table from "./PopupTable";
-import Row from "./PopupTableRow";
-import useNftImage from "../hooks/useNftImage";
+import Button from "./Button";
+import dNFT from "../abi/dNFT.json";
+import { TOTAL_SUPPLY, MIN_DEPOSIT, MIN_DEPOSIT_USD } from "../consts/consts";
+import LoadingInplace from "./LoadingInplace";
+import { addressSummary } from "../utils/address";
+import useNftBalance from "../hooks/useNftBalance";
+import useTotalNftSupply from "../hooks/useTotalNftSupply";
+import useEnsNameFromIndexer from "../hooks/useEnsNameFromIndexer";
 
-export default function Mint({ nft, onClose, setTxHash }) {
-  const [wETH, setWETH] = useState("");
-  const { ethPrice } = useEthPrice();
-  const { ethBalance } = useEthBalance();
-  const { cr: oldCR } = useCR();
-  const { cr: newCR } = useCR(wETH * ethPrice, 18);
-  const { nftImage } = useNftImage(nft);
+export default function Claim() {
+  const { address } = useAccount();
+  const { ensName } = useEnsNameFromIndexer(address);
+
+  const { nftBalance, refetch: refetchBalance } = useNftBalance(address);
+  const { totalNftSupply, refetch: refetchTotalSupply } = useTotalNftSupply();
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
-    contractInterface: dNFTABI["abi"],
-    functionName: "exchange",
-    args: [nft.tokenId],
-    overrides: {
-      value: parseEther(wETH),
-    },
+    contractInterface: dNFT["abi"],
+    functionName: "mint",
+    args: [address],
+    overrides: { value: String(MIN_DEPOSIT) },
   });
 
-  const { write } = useContractWrite({
-    ...config,
-    onSuccess: (data) => {
-      onClose();
-      setTxHash(data?.hash);
+  const { data, write } = useContractWrite(config);
+
+  const { isLoading } = useWaitForTransaction({
+    hash: data?.hash,
+    onSuccess: () => {
+      refetchBalance();
+      refetchTotalSupply();
     },
   });
 
   return (
-    <PopupContent
-      title="Mint DYAD"
-      image={nftImage}
-      btnText="MINT"
-      onClick={() => {
-        onClose();
-        write?.();
-      }}
-      isDisabled={!write}
-      nft={nft}
-    >
-      <Divider />
-      <div className="flex flex-col items-center gap-2">
-        <div className="w-full px-4 pt-2">
-          <Table>
-            <Row
-              label="DYAD CR"
-              unit="%"
-              _old={round(oldCR, 2)}
-              _new={round(newCR, 2)}
+    <div>
+      <div className="p-4 md:flex md:items-center md:border-b border-gray-800 gap-4 md:justify-between">
+        <div className="flex items-center justify-center ">
+          <div className="w-[56px]">
+            <LoadingInplace isLoading={isLoading} style="mt w-[56px]" />
+            <img
+              src="https://ipfs.pixura.io/ipfs/QmXMFCUUoLjirSZVr8Adca84zqiiu55oek5Bhe13nQjvtE/Punk4892ToyFace-3.jpg"
+              alt="claim"
             />
-            <Row
-              label="dNFT Deposit"
-              unit="DYAD"
-              _old={round(normalize(nft.deposit), 2)}
-              _new={round(normalize(nft.deposit) + wETH * ethPrice, 2)}
-            />
-          </Table>
+          </div>
+          <div className="ml-2 p-2">
+            <div>Hi, {ensName || addressSummary(address)} 👋</div>
+            {nftBalance === 0 ? (
+              <div>Please mint your dNFT to play</div>
+            ) : (
+              <div>Access your dNFT(s) and play below</div>
+            )}
+          </div>
         </div>
-        <Divider />
-        <div className="flex flex-col gap-2 items-center mt-4">
-          <div className="flex gap-4 justify-between items-between w-full">
-            <TextInput
-              value={wETH}
-              onChange={(v) => {
-                setWETH(v);
-              }}
-              placeholder={0}
-              type="number"
-            />
-            <div className="items-end flex flex-col">
-              <div className="flex items-center justify-center gap-1">
+        <div className="md:flex">
+          <div className="flex justify-around items-center p-4">
+            <div className="md:border-l-2 border-gray-800 md:p-4">
+              <div>dNFT Remaining</div>
+              <div className="flex gap-1 items-center">
+                <div className="rhombus"></div>
                 <div>
-                  <img
-                    className="w-4"
-                    src="https://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/1024/Ethereum-ETH-icon.png"
-                    alt=""
-                  />
+                  {TOTAL_SUPPLY - totalNftSupply}/{TOTAL_SUPPLY}
                 </div>
-                <div>ETH</div>
-              </div>
-              <div className="text-[#737E76]">
-                Balance:{round(ethBalance, 2)}
               </div>
             </div>
-          </div>
-          <div>
-            <ArrowDownOutlined />
-          </div>
-          <div className="flex gap-4 justify-between items-between w-full">
-            <div>
-              <TextInput
-                value={round(wETH * ethPrice, 2)}
-                type="number"
-                isDisabled
-              />
-            </div>
-            <div className="items-end flex">
-              <div className="rhombus" />
-              <div>DYAD</div>
+            <div className="w-[2px] h-[85px] bg-[#939393] md:invisible"></div>
+            <div className="flex flex-col justify-center items-center md:border-l-2 border-gray-800 md:p-4">
+              <div>
+                <div>Minimum Deposit</div>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-green-400 rounded"></div>
+                <div>${MIN_DEPOSIT_USD}</div>
+              </div>
             </div>
           </div>
+          {write && (
+            <div className="mt-2 md:border-l-2 border-gray-800 md:p-4 md:flex md:items-center md:justify-center">
+              <Button
+                isDisabled={!write || isLoading}
+                onClick={() => {
+                  write?.();
+                }}
+                bgColor="#0E190F"
+                borderColor="#1F4F23"
+              >
+                Mint
+              </Button>
+            </div>
+          )}
         </div>
       </div>
-    </PopupContent>
+    </div>
   );
 }
