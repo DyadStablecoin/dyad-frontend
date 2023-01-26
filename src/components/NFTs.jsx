@@ -1,9 +1,6 @@
 import NFT from "./NFT";
 import useIDsByOwner from "../hooks/useIDsByOwner";
 import { useAccount } from "wagmi";
-import NftView from "./NftView";
-import NftSelector from "./NftSelector";
-import { useState } from "react";
 
 export default function NFTs() {
   console.log("NFTs: Rendering");
@@ -11,23 +8,16 @@ export default function NFTs() {
   const { address } = useAccount();
   const { tokenIds } = useIDsByOwner(address);
 
-  const [selectedTokenId, setSelectedTokenId] = useState(null);
-
   return (
     <>
       {tokenIds.length > 0 ? (
         <div>
           <div className="mb-2">Your dNFTs</div>
           <div className="flex flex-col gap-4">
-            {/* {tokenIds.map((tokenId) => { */}
-            {/*   return <NFT tokenId={parseInt(tokenId._hex)} />; */}
-            {/* })} */}
+            {tokenIds.map((tokenId) => {
+              return <NFT tokenId={parseInt(tokenId._hex)} />;
+            })}
           </div>
-          <div>{selectedTokenId}</div>
-          <NftSelector
-            tokenIds={tokenIds}
-            setSelectedTokenId={setSelectedTokenId}
-          />
         </div>
       ) : (
         <div className="text-gray-600 text-xl mt-[8rem]">
