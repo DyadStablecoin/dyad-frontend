@@ -6,7 +6,7 @@ import { COLORS } from "../consts/colors";
 import useNftStatus, { STATUS } from "../hooks/useNftStatus";
 import Liquidate from "./Liquidate";
 import Popup from "./Popup";
-import MoveDeposit from "./MoveDeposit";
+import Move from "./Move";
 import Snipe from "./Snipe";
 
 const MENU_ITEM_STYLE = {
@@ -69,7 +69,7 @@ export default function LeaderboardRowMore({ nft, setTxHash }) {
         <Liquidate nft={nft} onClose={onCloseLiquidate} setTxHash={setTxHash} />
       </Popup>
       <Popup isOpen={isOpenMoveDeposit} onClose={onCloseMoveDeposit}>
-        <MoveDeposit
+        <Move
           nft={nft}
           onClose={onCloseMoveDeposit}
           setTxHash={setTxHash}

@@ -14,7 +14,7 @@ import useNftImage from "../hooks/useNftImage";
 import NftSelector from "./NftSelector";
 import useNft from "../hooks/useNft";
 
-export default function MoveDeposit({ nft, onClose, setTxHash }) {
+export default function Move({ nft, onClose, setTxHash }) {
   const [dyad, setDyad] = useState(0);
   const [selectedNFT, setSelectedNFT] = useState(null);
 
