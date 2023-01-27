@@ -1,4 +1,4 @@
-import Claim from "./Claim";
+import Mint from "./Mint";
 import NFTs from "./NFTs";
 
 export default function Home() {
@@ -6,7 +6,7 @@ export default function Home() {
 
   return (
     <>
-      <Claim />
+      <Mint />
       <div className="mt-[1rem] flex justify-center items-center w-full">
         <NFTs />
       </div>

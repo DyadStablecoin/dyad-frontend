@@ -8,7 +8,10 @@ export default function NftView({ tokenId, setSelectedTokenId }) {
   const { nftImage: image } = useNftImage(nft);
 
   return (
-    <tr onClick={() => setSelectedTokenId(tokenId)}>
+    <tr
+      onClick={() => setSelectedTokenId(tokenId)}
+      className={"hover:bg-white/20 bg-black cursor-pointer"}
+    >
       <td className="w-[50px]">
         <img src={image} alt="" />
       </td>
