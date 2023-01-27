@@ -1,4 +1,4 @@
-import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
+import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import dNFTABI from "../abi/dNFT.json";
 import { useState } from "react";
@@ -11,29 +11,15 @@ import Divider from "./PopupDivider";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
 import useNftImage from "../hooks/useNftImage";
-import { animated, useSpring } from "react-spring";
-import NftView from "./NftView";
-import Label from "./Label";
 import NftSelector from "./NftSelector";
-import useIDsByOwner from "../hooks/useIDsByOwner";
 import useNft from "../hooks/useNft";
 
 export default function MoveDeposit({ nft, onClose, setTxHash }) {
   const [dyad, setDyad] = useState(0);
   const [selectedNFT, setSelectedNFT] = useState(null);
-  const [isShowingNFTs, setIsShowingNFTs] = useState(true);
 
-  const { address } = useAccount();
-  const { tokenIds } = useIDsByOwner(address);
   const { nftImage } = useNftImage(nft);
   const { nft: selected } = useNft(selectedNFT);
-
-  const { selectorHeight } = useSpring({
-    from: {
-      selectorHeight: 0,
-    },
-    selectorHeight: isShowingNFTs ? 8 : 0,
-  });
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -81,63 +67,11 @@ export default function MoveDeposit({ nft, onClose, setTxHash }) {
             />
           </Table>
         </div>
-        <div className={"w-full"}>
-          <>
-            <Divider />
-            <div className="flex justify-center py-2">
-              <a onClick={() => setIsShowingNFTs(!isShowingNFTs)}>
-                <Label>{selectedNFT ? "Your dNFT" : "Select your dNFT"}</Label>
-              </a>
-            </div>
-          </>
-          {selectedNFT && (
-            <>
-              <table>
-                <tr className="border-[#3A403C] border-t border-b">
-                  <th></th>
-                  <th>
-                    <Label>Rank</Label>
-                  </th>
-                  <th>
-                    <Label>XP</Label>
-                  </th>
-                  <th>
-                    <Label>Value</Label>
-                  </th>
-                </tr>
-                <NftView
-                  tokenId={selectedNFT}
-                  setSelectedTokenId={console.log}
-                />
-              </table>
-              <div className={"w-full justify-end flex px-2"}>
-                <a
-                  className={"cursor-pointer"}
-                  onClick={() => setIsShowingNFTs(true)}
-                >
-                  <Label>Select Different dNFT</Label>
-                </a>
-              </div>
-            </>
-          )}
-
-          {isShowingNFTs && (
-            <animated.div
-              className={"absolute bg-black z-10 w-full"}
-              style={{
-                height: selectorHeight.to((height) => `${height}rem`),
-              }}
-            >
-              <NftSelector
-                tokenIds={tokenIds}
-                setSelectedTokenId={(nft) => {
-                  setSelectedNFT(nft);
-                  setIsShowingNFTs(!isShowingNFTs);
-                }}
-              />
-            </animated.div>
-          )}
-        </div>
+        <NftSelector
+          dropSize={8}
+          selectedNFT={selectedNFT}
+          setSelectedNFT={setSelectedNFT}
+        />
         <div className="flex gap-2 items-center">
           <div>
             <TextInput
