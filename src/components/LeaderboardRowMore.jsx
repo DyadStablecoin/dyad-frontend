@@ -7,6 +7,7 @@ import useNftStatus, { STATUS } from "../hooks/useNftStatus";
 import Liquidate from "./Liquidate";
 import Popup from "./Popup";
 import MoveDeposit from "./MoveDeposit";
+import Snipe from "./Snipe";
 
 const MENU_ITEM_STYLE = {
   backgroundColor: "black",
@@ -24,6 +25,11 @@ export default function LeaderboardRowMore({ nft, setTxHash }) {
     isOpen: isOpenMoveDeposit,
     onOpen: onOpenMoveDeposit,
     onClose: onCloseMoveDeposit,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenSnipe,
+    onOpen: onOpenSnipe,
+    onClose: onCloseSnipe,
   } = useDisclosure();
 
   return (
@@ -49,6 +55,14 @@ export default function LeaderboardRowMore({ nft, setTxHash }) {
               </div>
             </MenuItem>
           )}
+          <MenuItem style={MENU_ITEM_STYLE} onClick={onOpenSnipe}>
+            <div
+              className={`text-[${COLORS.Red}] flex items-center justify-center gap-4`}
+            >
+              <LogoutOutlined />
+              <span>Snipe</span>
+            </div>
+          </MenuItem>
         </MenuList>
       </Menu>
       <Popup isOpen={isOpenLiquidate} onClose={onCloseLiquidate}>
@@ -60,6 +74,9 @@ export default function LeaderboardRowMore({ nft, setTxHash }) {
           onClose={onCloseMoveDeposit}
           setTxHash={setTxHash}
         />
+      </Popup>
+      <Popup isOpen={isOpenSnipe} onClose={onCloseSnipe}>
+        <Snipe nft={nft} onClose={onCloseSnipe} setTxHash={setTxHash} />
       </Popup>
     </>
   );
