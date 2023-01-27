@@ -5,8 +5,6 @@ import { useState } from "react";
 import TextInput from "./TextInput";
 import { parseEther, round, normalize, floor } from "../utils/currency";
 import PopupContent from "./PopupContent";
-import useApprove from "../hooks/useApprove";
-import useIsApproved from "../hooks/useIsApproved";
 import MaxButton from "./MaxButton";
 import useMaxDeposit from "../hooks/useMaxDeposit";
 import useDyadBalance from "../hooks/useDyadBalance";
@@ -18,29 +16,19 @@ import useNftImage from "../hooks/useNftImage";
 export default function Deposit({ nft, onClose, setTxHash }) {
   const { address } = useAccount();
   const [dyad, setDyad] = useState(0);
-  const { isApproved, refetch: refetchIsApproved } = useIsApproved(
-    address,
-    CONTRACT_dNFT,
-    dyad
-  );
   const { dyadBalance } = useDyadBalance(address);
   const { maxDeposit } = useMaxDeposit(nft, dyadBalance);
   const { nftImage } = useNftImage(nft);
 
-  const { config: configDeposit, refetch: refetchPrepareDeposit } =
-    usePrepareContractWrite({
-      addressOrName: CONTRACT_dNFT,
-      contractInterface: dNFTABI["abi"],
-      functionName: "deposit",
-      args: [nft.tokenId, parseEther(dyad)],
-    });
-
-  const { write: writeApprove, isFetching: isFetchingApproval } = useApprove(
-    () => {
-      refetchIsApproved();
-      refetchPrepareDeposit();
-    }
-  );
+  const { config: configDeposit } = usePrepareContractWrite({
+    addressOrName: CONTRACT_dNFT,
+    contractInterface: dNFTABI["abi"],
+    functionName: "deposit",
+    args: [nft.tokenId, parseEther(dyad)],
+    onError: (error) => {
+      console.log("error", error);
+    },
+  });
 
   const { write: writeDeposit } = useContractWrite({
     ...configDeposit,
@@ -62,26 +50,18 @@ export default function Deposit({ nft, onClose, setTxHash }) {
           ? dyad > normalize(dyadBalance)
             ? "Insufficient DYAD balance"
             : "Insufficient dNFT balance"
-          : isApproved
-          ? "Deposit"
-          : "Approve"
+          : "Deposit"
       }
       isDisabled={
-        dyad === "" || parseFloat(dyad) === 0 || isFetchingApproval
+        dyad === "" || parseFloat(dyad) === 0
           ? true
-          : normalize(maxDeposit) < dyad
+          : dyad > normalize(maxDeposit)
           ? true
-          : isApproved
-          ? !writeDeposit
-          : !writeApprove
+          : !writeDeposit
       }
       onClick={() => {
-        isApproved ? writeDeposit?.() : writeApprove?.();
-        if (isApproved) {
-          onClose();
-        }
+        writeDeposit?.();
       }}
-      isLoading={isFetchingApproval}
     >
       <Divider />
       <div className="flex flex-col items-center gap-2">
@@ -92,6 +72,12 @@ export default function Deposit({ nft, onClose, setTxHash }) {
               unit="DYAD"
               _old={round(normalize(nft.withdrawn), 2)}
               _new={round(normalize(nft.withdrawn) - parseFloat(dyad), 2)}
+            />
+            <Row
+              label="DYAD Balance"
+              unit="DYAD"
+              _old={round(normalize(dyadBalance), 2)}
+              _new={round(normalize(dyadBalance) - parseFloat(dyad), 2)}
             />
           </Table>
         </div>

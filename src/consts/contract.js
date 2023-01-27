@@ -75,5 +75,11 @@
 // export const CONTRACT_dNFT = "0x8Dc0Cb544367ac0425686e05f1b7E19688A1c5b3";
 
 // first v2 deployment
-export const CONTRACT_DYAD = "0xdbb17e0c3970A1A477CAe6FBeE8fd83Bd501421a";
-export const CONTRACT_dNFT = "0xe08613072099dC5b83669bBef104Ac49271e3BF9";
+// export const CONTRACT_DYAD = "0xdbb17e0c3970A1A477CAe6FBeE8fd83Bd501421a";
+// export const CONTRACT_dNFT = "0xe08613072099dC5b83669bBef104Ac49271e3BF9";
+
+// second v2 deployment
+//    - added deposit as a term in mint/burn equations
+//    - removed transferFrom from deposit
+export const CONTRACT_DYAD = "0x85293BaDA293ed4Fbc8297221Bd121C110Be0E38";
+export const CONTRACT_dNFT = "0x225B3C1D7104b0614707DAAFC5D45FBDF5f4a3Ca";
