@@ -47,12 +47,14 @@ export default function NftSelector({ selectedNFT, dropSize, setSelectedNFT }) {
             <NftView tokenId={selectedNFT} setSelectedTokenId={console.log} />
           </table>
           <div className={"w-full justify-end flex px-2"}>
-            <a
-              className={"cursor-pointer"}
-              onClick={() => setIsShowingNFTs(true)}
-            >
-              <Label>Select Different dNFT</Label>
-            </a>
+            {tokenIds.length > 1 && (
+              <a
+                className={"cursor-pointer"}
+                onClick={() => setIsShowingNFTs(true)}
+              >
+                <Label>Select Different dNFT</Label>
+              </a>
+            )}
           </div>
         </>
       )}
