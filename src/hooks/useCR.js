@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import usePoolBalance from "./usePoolBalance";
 import useTotalDyadSupply from "./useTotalDyadSupply";
 import { SAFETY_MODE_THRESHOLD } from "../consts/consts";
 import useEthInPool from "./useEthInPool";
@@ -15,18 +14,16 @@ export default function useCR(newAmountAddedToPool = 0) {
 
   const { ethInPool } = useEthInPool();
   const { ethPrice } = useEthPrice();
-  const { poolBalance, refetch: refetchPoolBalance } = usePoolBalance();
   const { totalDyadSupply, refetch: refetchTotalDyadSupply } =
     useTotalDyadSupply();
 
   function refetch() {
-    refetchPoolBalance();
     refetchTotalDyadSupply();
   }
 
   useEffect(() => {
-    if (poolBalance && totalDyadSupply) {
-      let totalWithdrawn = totalDyadSupply - poolBalance;
+    if (totalDyadSupply) {
+      let totalWithdrawn = totalDyadSupply;
       let collatVault = ethInPool * ethPrice + newAmountAddedToPool;
 
       if (totalWithdrawn === 0) {
@@ -36,7 +33,7 @@ export default function useCR(newAmountAddedToPool = 0) {
       const _cr = (collatVault / normalize(totalWithdrawn, 18)) * 100;
       setCR(isNaN(_cr) ? 0 : _cr);
     }
-  }, [poolBalance, totalDyadSupply, newAmountAddedToPool]);
+  }, [totalDyadSupply, newAmountAddedToPool]);
 
   return { cr, refetch };
 }

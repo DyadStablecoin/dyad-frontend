@@ -84,7 +84,7 @@ export default function Deposit({ nft, onClose, setTxHash }) {
       isLoading={isFetchingApproval}
     >
       <Divider />
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col items-center gap-2">
         <div className="w-full px-4 pt-2">
           <Table>
             <Row
