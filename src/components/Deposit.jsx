@@ -25,9 +25,6 @@ export default function Deposit({ nft, onClose, setTxHash }) {
     contractInterface: dNFTABI["abi"],
     functionName: "deposit",
     args: [nft.tokenId, parseEther(dyad)],
-    onError: (error) => {
-      console.log("error", error);
-    },
   });
 
   const { write: writeDeposit } = useContractWrite({
