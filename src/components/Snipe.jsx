@@ -71,7 +71,15 @@ export default function Snipe({ nft, onClose, setTxHash }) {
           </Table>
         </div>
         <div>
-          {selectedNFT ? (
+          <>
+            <Divider />
+            <div className="flex justify-center text-sm text-secondary py-2">
+              <a onClick={() => setIsShowingNFTs(!isShowingNFTs)}>
+                {selectedNFT ? "Your dNFT" : "Select your dNFT"}
+              </a>
+            </div>
+          </>
+          {selectedNFT && (
             <>
               <table>
                 <tr className="border-[#3A403C] border-t border-b">
@@ -91,15 +99,6 @@ export default function Snipe({ nft, onClose, setTxHash }) {
                   onClick={() => setIsShowingNFTs(true)}
                 >
                   Select Different dNFT
-                </a>
-              </div>
-            </>
-          ) : (
-            <>
-              <Divider />
-              <div className="flex justify-center text-sm text-secondary pt-4 pb-4">
-                <a onClick={() => setIsShowingNFTs(!isShowingNFTs)}>
-                  Select your dNFT
                 </a>
               </div>
             </>
