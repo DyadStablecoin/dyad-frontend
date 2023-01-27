@@ -1,5 +1,5 @@
 import { round } from "../utils/currency";
-import Mint from "./Mint";
+import Exchange from "./Exchange";
 import Popup from "./Popup";
 import { useDisclosure } from "@chakra-ui/react";
 import Button from "./Button";
@@ -81,7 +81,7 @@ export default function NFT({ tokenId }) {
         {nft && (
           <>
             <Popup isOpen={isOpen} onClose={onClose}>
-              <Mint nft={nft} onClose={onClose} setTxHash={setTxHash} />
+              <Exchange nft={nft} onClose={onClose} setTxHash={setTxHash} />
             </Popup>
             <Popup isOpen={isOpenDeposit} onClose={onCloseDeposit}>
               <Deposit

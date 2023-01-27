@@ -11,17 +11,22 @@ import Divider from "./PopupDivider";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
 import useNftImage from "../hooks/useNftImage";
+import NftSelector from "./NftSelector";
+import useNft from "../hooks/useNft";
 
 export default function MoveDeposit({ nft, onClose, setTxHash }) {
   const [dyad, setDyad] = useState(0);
+  const [selectedNFT, setSelectedNFT] = useState(null);
+
   const { nftImage } = useNftImage(nft);
+  const { nft: selected } = useNft(selectedNFT);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
-    functionName: "moveDeposit",
+    functionName: "move",
     // TODO: get from nft
-    args: [nft.tokenId, nft.tokenId, parseEther(dyad)],
+    args: [selectedNFT, nft.tokenId, parseEther(dyad)],
   });
 
   const { write } = useContractWrite({
@@ -40,7 +45,7 @@ export default function MoveDeposit({ nft, onClose, setTxHash }) {
         write?.();
         onClose();
       }}
-      isDisabled={!write}
+      isDisabled={!write || !selectedNFT}
       image={nftImage}
       nft={nft}
     >
@@ -49,14 +54,24 @@ export default function MoveDeposit({ nft, onClose, setTxHash }) {
         <div className="w-full px-4 pt-2">
           <Table>
             <Row
-              label="dNFT Deposit"
+              label="This dNFT Balance"
               unit="DYAD"
               _old={round(normalize(nft.deposit), 2)}
-              _new={round(normalize(nft.deposit) - parseFloat(dyad), 2)}
+              _new={round(normalize(nft.deposit) + parseFloat(dyad), 2)}
+            />
+            <Row
+              label="My dNFT Balance"
+              unit="DYAD"
+              _old={round(normalize(selected.deposit), 2)}
+              _new={round(normalize(selected.deposit) - parseFloat(dyad), 2)}
             />
           </Table>
         </div>
-        <Divider />
+        <NftSelector
+          dropSize={8}
+          selectedNFT={selectedNFT}
+          setSelectedNFT={setSelectedNFT}
+        />
         <div className="flex gap-2 items-center">
           <div>
             <TextInput
