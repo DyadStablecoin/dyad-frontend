@@ -64,7 +64,7 @@ export default function Snipe({ nft, onClose, setTxHash }) {
     >
       <Divider />
       <div className="flex flex-col gap-4">
-        <div className="w-full pt-2">
+        <div className="w-full px-4 pt-2">
           <Table>
             <Row label="dD" unit="DYAD" _old={0} _new={1} />
             <Row label="xP" unit={"XP"} _old={0} _new={1} />
@@ -72,15 +72,28 @@ export default function Snipe({ nft, onClose, setTxHash }) {
         </div>
         <div>
           {selectedNFT ? (
-            <table>
-              <tr className="border-[#3A403C] border-t border-b">
-                <th></th>
-                <th className="text-sm text-secondary">Rank</th>
-                <th className="text-sm text-secondary">XP</th>
-                <th className="text-sm text-secondary">Value</th>
-              </tr>
-              <NftView tokenId={selectedNFT} setSelectedTokenId={console.log} />
-            </table>
+            <>
+              <table>
+                <tr className="border-[#3A403C] border-t border-b">
+                  <th></th>
+                  <th className="text-sm text-secondary">Rank</th>
+                  <th className="text-sm text-secondary">XP</th>
+                  <th className="text-sm text-secondary">Value</th>
+                </tr>
+                <NftView
+                  tokenId={selectedNFT}
+                  setSelectedTokenId={console.log}
+                />
+              </table>
+              <div className={"w-full justify-end flex px-2"}>
+                <a
+                  className={"text-sm text-secondary cursor-pointer"}
+                  onClick={() => setIsShowingNFTs(true)}
+                >
+                  Select Different dNFT
+                </a>
+              </div>
+            </>
           ) : (
             <>
               <Divider />
@@ -94,7 +107,7 @@ export default function Snipe({ nft, onClose, setTxHash }) {
 
           {isShowingNFTs && (
             <animated.div
-              className={"relative z-10 w-full"}
+              className={"absolute bg-black z-10 w-full"}
               style={{
                 height: selectorHeight.to((height) => `${height}rem`),
               }}
