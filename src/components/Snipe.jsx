@@ -11,7 +11,6 @@ import { useState } from "react";
 import NftSelector from "./NftSelector";
 import useIDsByOwner from "../hooks/useIDsByOwner";
 import { animated, useSpring } from "react-spring";
-import useNft from "../hooks/useNft";
 import NftView from "./NftView";
 import Label from "./Label";
 
