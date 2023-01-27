@@ -13,6 +13,7 @@ import useIDsByOwner from "../hooks/useIDsByOwner";
 import { animated, useSpring } from "react-spring";
 import useNft from "../hooks/useNft";
 import NftView from "./NftView";
+import Label from "./Label";
 
 export default function Snipe({ nft, onClose, setTxHash }) {
   const [selectedNFT, setSelectedNFT] = useState(null);
@@ -73,9 +74,9 @@ export default function Snipe({ nft, onClose, setTxHash }) {
         <div>
           <>
             <Divider />
-            <div className="flex justify-center text-sm text-secondary py-2">
+            <div className="flex justify-center py-2">
               <a onClick={() => setIsShowingNFTs(!isShowingNFTs)}>
-                {selectedNFT ? "Your dNFT" : "Select your dNFT"}
+                <Label>{selectedNFT ? "Your dNFT" : "Select your dNFT"}</Label>
               </a>
             </div>
           </>
@@ -84,9 +85,15 @@ export default function Snipe({ nft, onClose, setTxHash }) {
               <table>
                 <tr className="border-[#3A403C] border-t border-b">
                   <th></th>
-                  <th className="text-sm text-secondary">Rank</th>
-                  <th className="text-sm text-secondary">XP</th>
-                  <th className="text-sm text-secondary">Value</th>
+                  <th>
+                    <Label>Rank</Label>
+                  </th>
+                  <th>
+                    <Label>XP</Label>
+                  </th>
+                  <th>
+                    <Label>Value</Label>
+                  </th>
                 </tr>
                 <NftView
                   tokenId={selectedNFT}
@@ -95,10 +102,10 @@ export default function Snipe({ nft, onClose, setTxHash }) {
               </table>
               <div className={"w-full justify-end flex px-2"}>
                 <a
-                  className={"text-sm text-secondary cursor-pointer"}
+                  className={"cursor-pointer"}
                   onClick={() => setIsShowingNFTs(true)}
                 >
-                  Select Different dNFT
+                  <Label>Select Different dNFT</Label>
                 </a>
               </div>
             </>
