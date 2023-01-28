@@ -5,12 +5,12 @@ import { useContractRead } from "wagmi";
 
 export default function useNft(tokenId) {
   const [nft, setNft] = useState({
-    withdrawn: 0,
-    deposit: 0,
     xp: 0,
-    tokenId: tokenId,
+    deposit: 0,
+    withdrawn: 0,
+    lastOwnershipChange: 0,
     isActive: false,
-    isLiquidatable: false,
+    tokenId: tokenId,
   });
 
   const { refetch, isLoading, isFetching } = useContractRead({
@@ -23,6 +23,7 @@ export default function useNft(tokenId) {
         xp: parseInt(data[0]._hex),
         deposit: parseInt(data[1]._hex),
         withdrawn: parseInt(data[2]._hex),
+        lastOwnershipChange: parseInt(data[3]._hex),
         isActive: data[4],
         tokenId: tokenId,
       });
