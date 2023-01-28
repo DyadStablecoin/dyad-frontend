@@ -36,6 +36,7 @@ export default function Sync({ nft, onClose, setTxHash }) {
   return (
     <PopupContent
       title="Sync"
+      explanation="Sync the ETH price and open up a new Claim window for an XP bonus"
       image={nftImage}
       btnText="Sync"
       onClick={() => {

@@ -38,6 +38,7 @@ export default function Deposit({ nft, onClose, setTxHash }) {
   return (
     <PopupContent
       title="Deposit DYAD"
+      explanation="Deposit your withdrawn DYAD ERC-20 token back into your dNFT"
       image={nftImage}
       nft={nft}
       btnText={
@@ -71,10 +72,10 @@ export default function Deposit({ nft, onClose, setTxHash }) {
               _new={round(normalize(nft.withdrawn) - parseFloat(dyad), 2)}
             />
             <Row
-              label="DYAD Balance"
+              label="DYAD Deposit"
               unit="DYAD"
               _old={round(normalize(dyadBalance), 2)}
-              _new={round(normalize(dyadBalance) - parseFloat(dyad), 2)}
+              _new={round(normalize(dyadBalance) + parseFloat(dyad), 2)}
             />
           </Table>
         </div>

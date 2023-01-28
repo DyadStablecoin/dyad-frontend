@@ -40,6 +40,7 @@ export default function Redeem({ nft, onClose, setTxHash }) {
   return (
     <PopupContent
       title="Redeem"
+      explanation="Redeem your DYAD ERC-20 token for ETH"
       btnText={
         dyad === "" || parseFloat(dyad) === 0
           ? "Enter an amount"
