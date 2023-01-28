@@ -176,7 +176,7 @@ tr td:last-child {
 
 @keyframes claimPulse {
   50% {
-    border: 1px solid #463d81;
+    border: 1px solid #E38F41;
     background-color: #0f0d1b;
   }
 }
