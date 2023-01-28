@@ -24,7 +24,7 @@ export default function useNft(tokenId) {
         deposit: parseInt(data[1]._hex),
         withdrawn: parseInt(data[2]._hex),
         lastOwnershipChange: parseInt(data[3]._hex),
-        isActive: data[4],
+        isActive: Boolean(data[4]),
         tokenId: tokenId,
       });
     },
