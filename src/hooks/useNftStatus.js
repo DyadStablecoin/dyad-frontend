@@ -24,6 +24,11 @@ export default function useNftStatus(nft) {
       return;
     }
 
+    if (nft.deposit < 0) {
+      setStatus(STATUS.LIQUIDATABLE);
+      return;
+    }
+
     setStatus(STATUS.RISK_FREE);
   }, [nft]);
 

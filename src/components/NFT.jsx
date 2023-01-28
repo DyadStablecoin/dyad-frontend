@@ -25,6 +25,9 @@ import useDyadBalance from "../hooks/useDyadBalance";
 import { useAccount } from "wagmi";
 import Claim from "./Claim";
 import useIsClaimable from "../hooks/useIsClaimable";
+import ActivationSwitch from "./ActivationSwitch";
+import Activate from "./Activate";
+import Deactivate from "./Deactivate";
 
 export default function NFT({ tokenId }) {
   console.log("NFT: Rendering NFT", tokenId);
@@ -64,6 +67,16 @@ export default function NFT({ tokenId }) {
     isOpen: isOpenClaim,
     onOpen: onOpenClaim,
     onClose: onCloseClaim,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenActivate,
+    onOpen: onOpenActivate,
+    onClose: onCloseActivate,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenDeactivate,
+    onOpen: onOpenDeactivate,
+    onClose: onCloseDeactivate,
   } = useDisclosure();
 
   useEffect(() => {}, [txHash]);
@@ -107,6 +120,20 @@ export default function NFT({ tokenId }) {
             </Popup>
             <Popup isOpen={isOpenSync} onClose={onCloseSync}>
               <Sync nft={nft} onClose={onCloseSync} setTxHash={setTxHash} />
+            </Popup>
+            <Popup isOpen={isOpenActivate} onClose={onCloseActivate}>
+              <Activate
+                nft={nft}
+                onClose={onCloseActivate}
+                setTxHash={setTxHash}
+              />
+            </Popup>
+            <Popup isOpen={isOpenDeactivate} onClose={onCloseDeactivate}>
+              <Deactivate
+                nft={nft}
+                onClose={onCloseDeactivate}
+                setTxHash={setTxHash}
+              />
             </Popup>
           </>
         )}
@@ -226,8 +253,11 @@ export default function NFT({ tokenId }) {
                   </div>
                 )}
               </div>
-
-              <NftStatus nft={nft} />
+              <NftStatus
+                nft={nft}
+                onOpenActivate={onOpenActivate}
+                onOpenDeactivate={onOpenDeactivate}
+              />
             </div>
           </div>
           {renderPopups()}
