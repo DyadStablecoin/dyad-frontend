@@ -92,7 +92,7 @@ export function useNftsCountFromIndexer(
         .select("*", { count: "exact", head: true })
         .eq("contractAddress", CONTRACT_dNFT)
         .eq("version_id", lastSyncVersion)
-        .in("isLiquidatable", _isLiquidatable)
+        // .in("isLiquidatable", _isLiquidatable)
         .or(`owner.match.${_owner},ensName.match.${_owner}`)
         .then((res) => {
           setCount(res.count);

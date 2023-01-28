@@ -7,7 +7,6 @@ import usePrevSyncedBlock from "./usePrevSyncedBlock";
 export default function useIsSnipable(tokenId) {
   const [isSnipable, setIsSnipable] = useState(false);
   const { prevSyncedBlock } = usePrevSyncedBlock();
-  console.log("prevSyncedBlock", prevSyncedBlock);
 
   const { refetch } = useContractRead({
     addressOrName: CONTRACT_dNFT,
@@ -15,7 +14,6 @@ export default function useIsSnipable(tokenId) {
     functionName: "idToClaimed",
     args: [String(tokenId), prevSyncedBlock],
     onSuccess: (data) => {
-      console.log("snipe", data);
       setIsSnipable(!data);
     },
   });
