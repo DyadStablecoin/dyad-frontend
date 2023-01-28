@@ -25,7 +25,6 @@ export default function Move({ nft, onClose, setTxHash }) {
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
     functionName: "move",
-    // TODO: get from nft
     args: [selectedNFT, nft.tokenId, parseEther(dyad)],
   });
 
@@ -45,7 +44,7 @@ export default function Move({ nft, onClose, setTxHash }) {
         write?.();
         onClose();
       }}
-      isDisabled={!write || !selectedNFT}
+      isDisabled={!write || !selectedNFT || selectedNFT == nft.tokenId}
       image={nftImage}
       nft={nft}
     >
@@ -54,16 +53,16 @@ export default function Move({ nft, onClose, setTxHash }) {
         <div className="w-full px-4 pt-2">
           <Table>
             <Row
-              label="This dNFT Balance"
-              unit="DYAD"
-              _old={round(normalize(nft.deposit), 2)}
-              _new={round(normalize(nft.deposit) + parseFloat(dyad), 2)}
-            />
-            <Row
-              label="My dNFT Balance"
+              label="Sender Deposit"
               unit="DYAD"
               _old={round(normalize(selected.deposit), 2)}
               _new={round(normalize(selected.deposit) - parseFloat(dyad), 2)}
+            />
+            <Row
+              label="Recipient Deposit"
+              unit="DYAD"
+              _old={round(normalize(nft.deposit), 2)}
+              _new={round(normalize(nft.deposit) + parseFloat(dyad), 2)}
             />
           </Table>
         </div>
@@ -96,6 +95,10 @@ export default function Move({ nft, onClose, setTxHash }) {
             </div>
           </div>
         </div>
+        {selectedNFT == nft.tokenId && (
+          // cannot send to yourself
+          <div className="mt-2">Cannot send DYAD to yourself.</div>
+        )}
       </div>
     </PopupContent>
   );
