@@ -55,7 +55,11 @@ export default function PopupContent({
           </Icon>
         )}
       </div>
-      {explanation && <Label>{explanation}</Label>}
+      {explanation && (
+        <div className="p-4">
+          <Label>{explanation}</Label>
+        </div>
+      )}
       <div className="mt-2 mb-2 w-full">{children}</div>
       <PopupButton
         onClick={onClick}
