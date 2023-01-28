@@ -240,7 +240,7 @@ export default function NFT({ tokenId }) {
                   </div>
                 </div>
                 {isClaimable && (
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 animate-claimPulse">
                     <Button
                       onClick={onOpenClaim}
                       isDisabled={
