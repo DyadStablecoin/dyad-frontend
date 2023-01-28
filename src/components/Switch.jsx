@@ -34,21 +34,15 @@ export const theme = extendTheme({
   components: { Switch: switchTheme },
 });
 
-export default function ActivationSwitch({
-  nft,
-  onOpenActivate,
-  onOpenDeactivate,
-}) {
+export default function Switch({ label, checked, onChange }) {
   return (
     <div className="flex gap-2">
-      <Label>Active</Label>
+      <Label>{label}</Label>
       <ChakraProvider theme={theme}>
         <Switch
           colorScheme={"purple"}
-          isChecked={nft.isActive}
-          onChange={() => {
-            nft.isActive ? onOpenDeactivate() : onOpenActivate();
-          }}
+          isChecked={checked}
+          onChange={onChange}
         />
       </ChakraProvider>
     </div>
