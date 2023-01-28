@@ -42,6 +42,7 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
   return (
     <PopupContent
       title="Withdraw DYAD"
+      explanation="Withdraw deposited DYAD from your dNFT to your wallet"
       image={nftImage}
       btnText="Withdraw"
       onClick={() => {

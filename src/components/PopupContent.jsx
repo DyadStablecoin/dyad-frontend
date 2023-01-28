@@ -5,10 +5,12 @@ import { COLORS } from "../consts/colors";
 import useLastSyncVersion from "../hooks/useLastSyncVersion";
 import useRank from "../hooks/useRankFromIndexer";
 import Divider from "./PopupDivider";
+import Label from "./Label";
 
 export default function PopupContent({
   children,
   title,
+  explanation,
   btnText,
   onClick,
   isDisabled,
@@ -52,6 +54,7 @@ export default function PopupContent({
           </Icon>
         )}
       </div>
+      {explanation && <Label>{explanation}</Label>}
       <div className="mt-2 mb-2 w-full">{children}</div>
       <PopupButton
         onClick={onClick}

@@ -44,6 +44,7 @@ export default function Mint({ nft, onClose, setTxHash }) {
   return (
     <PopupContent
       title="Mint DYAD"
+      explanation="Mint new deposited DYAD to your dNFT with ETH"
       image={nftImage}
       btnText="MINT"
       onClick={() => {

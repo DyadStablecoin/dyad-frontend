@@ -32,6 +32,7 @@ export default function Claim({ nft, onClose, setTxHash }) {
   return (
     <PopupContent
       title="Claim"
+      explanation="Claim your DYAD deposit for an XP bonus"
       image={nftImage}
       btnText="Claim"
       onClick={() => {
