@@ -11,7 +11,9 @@ export default function NftStatus({ nft, onOpenActivate, onOpenDeactivate }) {
         <Switch
           checked={nft.isActive}
           label={nft.isActive ? "Active" : "Inactive"}
-          onChange={nft.isActive ? onOpenDeactivate() : onOpenActivate()}
+          onChange={() =>
+            nft.isActive ? onOpenDeactivate() : onOpenActivate()
+          }
         />
         {status !== STATUS.RISK_FREE && (
           <div className="bg-[#800101] text-sm ">

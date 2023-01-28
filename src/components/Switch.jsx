@@ -1,6 +1,6 @@
 import {
   ChakraProvider,
-  Switch,
+  Switch as ChakraSwitch,
   createMultiStyleConfigHelpers,
   extendTheme,
 } from "@chakra-ui/react";
@@ -39,10 +39,10 @@ export default function Switch({ label, checked, onChange }) {
     <div className="flex gap-2">
       <Label>{label}</Label>
       <ChakraProvider theme={theme}>
-        <Switch
+        <ChakraSwitch
           colorScheme={"purple"}
           isChecked={checked}
-          onChange={onChange}
+          onChange={() => onChange()}
         />
       </ChakraProvider>
     </div>
