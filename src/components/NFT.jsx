@@ -25,7 +25,6 @@ import useDyadBalance from "../hooks/useDyadBalance";
 import { useAccount } from "wagmi";
 import Claim from "./Claim";
 import useIsClaimable from "../hooks/useIsClaimable";
-import ActivationSwitch from "./ActivationSwitch";
 import Activate from "./Activate";
 import Deactivate from "./Deactivate";
 
