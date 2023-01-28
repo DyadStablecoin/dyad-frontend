@@ -3,12 +3,15 @@ import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import PopupContent from "./PopupContent";
 import { DOCS_URL } from "../consts/consts";
+import { COLORS } from "../consts/colors";
 import Divider from "./PopupDivider";
 import useNftImage from "../hooks/useNftImage";
-import Table from "./PopupTable";
-import Row from "./PopupTableRow";
+import useDyadDelta from "../hooks/useDyadDelta";
 
 export default function Claim({ nft, onClose, setTxHash }) {
+  const { dyadDelta } = useDyadDelta();
+  const { nftImage } = useNftImage(nft);
+
   const { isLoading, config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
@@ -24,15 +27,9 @@ export default function Claim({ nft, onClose, setTxHash }) {
     },
   });
 
-  const { nftImage } = useNftImage(nft);
-
-  // TODO this logic + dD/bD / xP earned lost etc
-  const wasLastSyncPositive = true;
-
   return (
     <PopupContent
       title="Claim"
-      explanation="Claim your DYAD deposit for an XP bonus"
       image={nftImage}
       btnText="Claim"
       onClick={() => {
@@ -46,17 +43,14 @@ export default function Claim({ nft, onClose, setTxHash }) {
     >
       <div className="flex flex-col gap-4">
         <Divider />
-        <div className="w-full px-4 pt-2">
-          <Table>
-            <Row label="dD Earned" unit="DYAD" _old={0} _new={1} />
-            {wasLastSyncPositive && (
-              <Row label="xP" unit={"XP"} _old={0} _new={1} />
-            )}
-          </Table>
-        </div>
-        <Divider />
         <div className="text-center text-secondary">
-          Claim your dD from the last positive sync
+          Claim your DYAD deposit from the last
+          {dyadDelta > 0 ? (
+            <span style={{ color: COLORS.Green }}> positive </span>
+          ) : (
+            <span style={{ color: COLORS.Red }}> negative </span>
+          )}
+          sync
         </div>
       </div>
     </PopupContent>
