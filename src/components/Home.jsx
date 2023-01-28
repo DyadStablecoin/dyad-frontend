@@ -1,7 +1,9 @@
+import useIsSnipable from "../hooks/useIsSnipable";
 import Mint from "./Mint";
 import NFTs from "./NFTs";
 
 export default function Home() {
+  useIsSnipable(2);
   return (
     <>
       <Mint />
