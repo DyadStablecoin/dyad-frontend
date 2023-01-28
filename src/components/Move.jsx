@@ -10,7 +10,6 @@ import MaxButton from "./MaxButton";
 import Divider from "./PopupDivider";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
-import useNftImage from "../hooks/useNftImage";
 import NftSelector from "./NftSelector";
 import useNft from "../hooks/useNft";
 
@@ -18,7 +17,6 @@ export default function Move({ nft, onClose, setTxHash }) {
   const [dyad, setDyad] = useState(0);
   const [selectedNFT, setSelectedNFT] = useState(null);
 
-  const { nftImage } = useNftImage(nft);
   const { nft: selected } = useNft(selectedNFT);
 
   const { config } = usePrepareContractWrite({
@@ -45,8 +43,7 @@ export default function Move({ nft, onClose, setTxHash }) {
         onClose();
       }}
       isDisabled={!write || !selectedNFT || selectedNFT == nft.tokenId}
-      image={nftImage}
-      nft={nft}
+      nft={selected}
     >
       <Divider />
       <div className="flex flex-col items-center gap-2">

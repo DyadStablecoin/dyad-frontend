@@ -13,7 +13,6 @@ import useCR from "../hooks/useCR";
 import Divider from "./PopupDivider";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
-import useNftImage from "../hooks/useNftImage";
 
 export default function Mint({ nft, onClose, setTxHash }) {
   const [wETH, setWETH] = useState("");
@@ -21,7 +20,6 @@ export default function Mint({ nft, onClose, setTxHash }) {
   const { ethBalance } = useEthBalance();
   const { cr: oldCR } = useCR();
   const { cr: newCR } = useCR(wETH * ethPrice, 18);
-  const { nftImage } = useNftImage(nft);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -45,7 +43,6 @@ export default function Mint({ nft, onClose, setTxHash }) {
     <PopupContent
       title="Mint DYAD"
       explanation="Mint new deposited DYAD to your dNFT with ETH"
-      image={nftImage}
       btnText="MINT"
       onClick={() => {
         onClose();

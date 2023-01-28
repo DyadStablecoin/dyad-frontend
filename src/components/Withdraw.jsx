@@ -12,7 +12,6 @@ import useAverageTVL from "../hooks/useAverageTVL";
 import useCR from "../hooks/useCR";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
-import useNftImage from "../hooks/useNftImage";
 
 export default function Withdraw({ nft, onClose, setTxHash }) {
   const [dyad, setDyad] = useState("");
@@ -22,7 +21,6 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
   const { averageTVL: newAvgTVL } = useAverageTVL(-1 * dyad);
   const { cr: oldCR } = useCR();
   const { cr: newCR } = useCR(-1 * dyad);
-  const { nftImage } = useNftImage(nft);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -43,7 +41,6 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
     <PopupContent
       title="Withdraw DYAD"
       explanation="Withdraw deposited DYAD from your dNFT to your wallet"
-      image={nftImage}
       btnText="Withdraw"
       onClick={() => {
         write?.();

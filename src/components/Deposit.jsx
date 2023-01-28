@@ -18,7 +18,6 @@ export default function Deposit({ nft, onClose, setTxHash }) {
   const [dyad, setDyad] = useState(0);
   const { dyadBalance } = useDyadBalance(address);
   const { maxDeposit } = useMaxDeposit(nft, dyadBalance);
-  const { nftImage } = useNftImage(nft);
 
   const { config: configDeposit } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -39,7 +38,6 @@ export default function Deposit({ nft, onClose, setTxHash }) {
     <PopupContent
       title="Deposit DYAD"
       explanation="Deposit your withdrawn DYAD ERC-20 token back into your dNFT"
-      image={nftImage}
       nft={nft}
       btnText={
         dyad === "" || parseFloat(dyad) === 0

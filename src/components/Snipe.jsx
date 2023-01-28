@@ -4,12 +4,10 @@ import { CONTRACT_dNFT } from "../consts/contract";
 import PopupContent from "./PopupContent";
 import { DOCS_URL } from "../consts/consts";
 import Divider from "./PopupDivider";
-import useNftImage from "../hooks/useNftImage";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
 import { useState } from "react";
 import NftSelector from "./NftSelector";
-import Label from "./Label";
 
 export default function Snipe({ nft, onClose, setTxHash }) {
   const [selectedNFT, setSelectedNFT] = useState(null);
@@ -29,15 +27,12 @@ export default function Snipe({ nft, onClose, setTxHash }) {
     },
   });
 
-  const { nftImage } = useNftImage(nft);
-
   // TODO this logic + dD/bD / xP earned lost etc
   const wasLastSyncPositive = true;
 
   return (
     <PopupContent
       title="Snipe"
-      image={nftImage}
       btnText="Snipe"
       onClick={() => {
         onClose();

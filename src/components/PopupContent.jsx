@@ -6,6 +6,7 @@ import useLastSyncVersion from "../hooks/useLastSyncVersion";
 import useRank from "../hooks/useRankFromIndexer";
 import Divider from "./PopupDivider";
 import Label from "./Label";
+import useNftImage from "../hooks/useNftImage";
 
 export default function PopupContent({
   children,
@@ -16,11 +17,11 @@ export default function PopupContent({
   isDisabled,
   isLoading,
   infoOnClick,
-  image,
   nft,
 }) {
   const { lastSyncVersion } = useLastSyncVersion();
   const { rank } = useRank(nft.tokenId, lastSyncVersion);
+  const { nftImage } = useNftImage(nft);
 
   return (
     <div
@@ -29,7 +30,7 @@ export default function PopupContent({
         boxShadow: "0 0 40px #413E6a",
       }}
     >
-      {image && (
+      {nftImage && (
         <div className="w-full flex justify-between items-center">
           <p className="w-1/4 p-4 text-[#F0F0F0]">
             {rank > 0 ? `#${rank}` : ""}
@@ -38,7 +39,7 @@ export default function PopupContent({
             className="border w-28 h-28 -mt-14"
             style={{ borderColor: COLORS.Purple }}
           >
-            <img src={image} alt="" />
+            <img src={nftImage} alt="" />
           </div>
           <p className="w-1/4 p-4 text-[#F0F0F0]">{nft.xp} XP</p>
         </div>
