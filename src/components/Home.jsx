@@ -2,8 +2,6 @@ import Mint from "./Mint";
 import NFTs from "./NFTs";
 
 export default function Home() {
-  console.log("Home: Rendering");
-
   return (
     <>
       <Mint />
