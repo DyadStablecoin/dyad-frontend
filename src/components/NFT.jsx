@@ -24,6 +24,7 @@ import Performance from "./NftPerformance";
 import useDyadBalance from "../hooks/useDyadBalance";
 import { useAccount } from "wagmi";
 import Claim from "./Claim";
+import useIsClaimable from "../hooks/useIsClaimable";
 
 export default function NFT({ tokenId }) {
   console.log("NFT: Rendering NFT", tokenId);
@@ -36,6 +37,7 @@ export default function NFT({ tokenId }) {
   const { nftImage: image } = useNftImage(nft);
   const { address } = useAccount();
   const { dyadBalance } = useDyadBalance(address);
+  const { isClaimable } = useIsClaimable(tokenId);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -211,16 +213,18 @@ export default function NFT({ tokenId }) {
                     </Button>
                   </div>
                 </div>
-                <div className="flex gap-2">
-                  <Button
-                    onClick={onOpenClaim}
-                    isDisabled={
-                      isFetching || isFetchingTx || isSafetyModeActivated
-                    }
-                  >
-                    Claim
-                  </Button>
-                </div>
+                {isClaimable && (
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={onOpenClaim}
+                      isDisabled={
+                        isFetching || isFetchingTx || isSafetyModeActivated
+                      }
+                    >
+                      Claim
+                    </Button>
+                  </div>
+                )}
               </div>
 
               <NftStatus nft={nft} />
