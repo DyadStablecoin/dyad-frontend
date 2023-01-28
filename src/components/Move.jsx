@@ -15,15 +15,15 @@ import useNft from "../hooks/useNft";
 
 export default function Move({ nft, onClose, setTxHash }) {
   const [dyad, setDyad] = useState(0);
-  const [selectedNFT, setSelectedNFT] = useState(null);
+  const [selectedTokenId, setSelectedTokenId] = useState(null);
 
-  const { nft: selected } = useNft(selectedNFT);
+  const { nft: selectedNft } = useNft(selectedTokenId);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
     functionName: "move",
-    args: [selectedNFT, nft.tokenId, parseEther(dyad)],
+    args: [selectedTokenId, nft.tokenId, parseEther(dyad)],
   });
 
   const { write } = useContractWrite({
@@ -42,8 +42,8 @@ export default function Move({ nft, onClose, setTxHash }) {
         write?.();
         onClose();
       }}
-      isDisabled={!write || !selectedNFT || selectedNFT == nft.tokenId}
-      nft={selected}
+      isDisabled={!write || !selectedTokenId || selectedTokenId == nft.tokenId}
+      nft={selectedNft}
     >
       <Divider />
       <div className="flex flex-col items-center gap-2">
@@ -52,8 +52,8 @@ export default function Move({ nft, onClose, setTxHash }) {
             <Row
               label="Sender Deposit"
               unit="DYAD"
-              _old={round(normalize(selected.deposit), 2)}
-              _new={round(normalize(selected.deposit) - parseFloat(dyad), 2)}
+              _old={round(normalize(selectedNft.deposit), 2)}
+              _new={round(normalize(selectedNft.deposit) - parseFloat(dyad), 2)}
             />
             <Row
               label="Recipient Deposit"
@@ -65,8 +65,8 @@ export default function Move({ nft, onClose, setTxHash }) {
         </div>
         <NftSelector
           dropSize={8}
-          selectedNFT={selectedNFT}
-          setSelectedNFT={setSelectedNFT}
+          selectedNFT={selectedTokenId}
+          setSelectedNFT={setSelectedTokenId}
         />
         <div className="flex gap-2 items-center">
           <div>
@@ -92,7 +92,7 @@ export default function Move({ nft, onClose, setTxHash }) {
             </div>
           </div>
         </div>
-        {selectedNFT == nft.tokenId && (
+        {selectedTokenId == nft.tokenId && (
           // cannot send to yourself
           <div className="mt-2">Cannot send DYAD to yourself.</div>
         )}
