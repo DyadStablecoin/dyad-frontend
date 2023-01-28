@@ -4,21 +4,19 @@ import { CONTRACT_dNFT } from "../consts/contract";
 import PopupContent from "./PopupContent";
 import { DOCS_URL } from "../consts/consts";
 import Divider from "./PopupDivider";
-import useNftImage from "../hooks/useNftImage";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
 import { useState } from "react";
 import NftSelector from "./NftSelector";
-import Label from "./Label";
 
 export default function Snipe({ nft, onClose, setTxHash }) {
-  const [selectedNFT, setSelectedNFT] = useState(null);
+  const [selectedTokenId, setSelectedTokenId] = useState(null);
 
   const { isLoading, config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
     functionName: "snipe",
-    args: [nft.tokenId, selectedNFT],
+    args: [nft.tokenId, selectedTokenId],
   });
 
   const { write } = useContractWrite({
@@ -29,21 +27,15 @@ export default function Snipe({ nft, onClose, setTxHash }) {
     },
   });
 
-  const { nftImage } = useNftImage(nft);
-
-  // TODO this logic + dD/bD / xP earned lost etc
-  const wasLastSyncPositive = true;
-
   return (
     <PopupContent
       title="Snipe"
-      image={nftImage}
       btnText="Snipe"
       onClick={() => {
         onClose();
         write?.();
       }}
-      isDisabled={!write || !selectedNFT}
+      isDisabled={!write || !selectedTokenId}
       isLoading={isLoading}
       infoOnClick={() => window.open(DOCS_URL + "/dnft#snipe")}
       nft={nft}
@@ -57,9 +49,9 @@ export default function Snipe({ nft, onClose, setTxHash }) {
           </Table>
         </div>
         <NftSelector
-          selectedNFT={selectedNFT}
+          selectedNFT={selectedTokenId}
           dropSize={12}
-          setSelectedNFT={setSelectedNFT}
+          setSelectedNFT={setSelectedTokenId}
         />
         <Divider />
         <div className="w-full px-4 pt-2">

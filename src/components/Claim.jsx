@@ -5,12 +5,10 @@ import PopupContent from "./PopupContent";
 import { DOCS_URL } from "../consts/consts";
 import { COLORS } from "../consts/colors";
 import Divider from "./PopupDivider";
-import useNftImage from "../hooks/useNftImage";
 import useDyadDelta from "../hooks/useDyadDelta";
 
 export default function Claim({ nft, onClose, setTxHash }) {
   const { dyadDelta } = useDyadDelta();
-  const { nftImage } = useNftImage(nft);
 
   const { isLoading, config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -30,7 +28,6 @@ export default function Claim({ nft, onClose, setTxHash }) {
   return (
     <PopupContent
       title="Claim"
-      image={nftImage}
       btnText="Claim"
       onClick={() => {
         onClose();

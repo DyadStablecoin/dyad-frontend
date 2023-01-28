@@ -11,14 +11,12 @@ import Divider from "./PopupDivider";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
 import useOraclePrice from "../hooks/useOraclePrice";
-import useNftImage from "../hooks/useNftImage";
 
 export default function Liquidate({ nft, onClose, setTxHash }) {
   const [wETH, setWETH] = useState("");
   const { address } = useAccount();
   const { ethBalance } = useEthBalance();
   const { oraclePrice } = useOraclePrice();
-  const { nftImage } = useNftImage(nft);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -47,7 +45,6 @@ export default function Liquidate({ nft, onClose, setTxHash }) {
         write?.();
       }}
       isDisabled={!write}
-      image={nftImage}
       nft={nft}
     >
       <Divider />
