@@ -81,5 +81,11 @@
 // second v2 deployment
 //    - added deposit as a term in mint/burn equations
 //    - removed transferFrom from deposit
-export const CONTRACT_DYAD = "0x85293BaDA293ed4Fbc8297221Bd121C110Be0E38";
-export const CONTRACT_dNFT = "0x225B3C1D7104b0614707DAAFC5D45FBDF5f4a3Ca";
+// export const CONTRACT_DYAD = "0x85293BaDA293ed4Fbc8297221Bd121C110Be0E38";
+// export const CONTRACT_dNFT = "0x225B3C1D7104b0614707DAAFC5D45FBDF5f4a3Ca";
+
+// third v2 deployment
+//    - fixed totalDeposit
+//    - sync can only run on price change and time change
+export const CONTRACT_DYAD = "0x943F21320709087189141a3E29F23F524757fB1A";
+export const CONTRACT_dNFT = "0xD5351689Dcd8AC2F10B5DEe0649410038ccaE6Ae";
