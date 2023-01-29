@@ -11,7 +11,7 @@ import useDyadBalance from "../hooks/useDyadBalance";
 import Divider from "./PopupDivider";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
-import useNftImage from "../hooks/useNftImage";
+import { toNumber } from "lodash";
 
 export default function Deposit({ nft, onClose, setTxHash }) {
   const { address } = useAccount();
@@ -67,13 +67,13 @@ export default function Deposit({ nft, onClose, setTxHash }) {
               label="dNFT Withdrawls"
               unit="DYAD"
               _old={round(normalize(nft.withdrawn), 2)}
-              _new={round(normalize(nft.withdrawn) - parseFloat(dyad), 2)}
+              _new={round(normalize(nft.withdrawn) - toNumber(dyad), 2)}
             />
             <Row
               label="DYAD Deposit"
               unit="DYAD"
               _old={round(normalize(dyadBalance), 2)}
-              _new={round(normalize(dyadBalance) + parseFloat(dyad), 2)}
+              _new={round(normalize(dyadBalance) + toNumber(dyad), 2)}
             />
           </Table>
         </div>
