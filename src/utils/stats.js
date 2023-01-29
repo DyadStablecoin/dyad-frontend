@@ -1,13 +1,15 @@
 import { round } from "./currency";
+import { toNumber } from "lodash";
 
 export function calcdNFTAvg() {
   return 0;
 }
 
 // the higher the better
-export function depositRatio(withdrawn, deposit) {
-  if (deposit === 0) return 100;
-  return round((withdrawn / deposit) * 100, 2);
+export function depositRatio(nft) {
+  if (toNumber(nft.deposit) === 0) return 100;
+  if (toNumber(nft.withdrawn) === 0) return 0;
+  return round((nft.withdrawn / nft.deposit) * 100, 2);
 }
 
 export function dyadMintAllocation(mintAllocation, nft) {

@@ -56,9 +56,7 @@ export default function LeaderboardTableRow({
           <td className="hidden md:table-cell">
             {round(nft.withdrawn / 10 ** 18, 2)}
           </td>
-          <td className="hidden md:table-cell">
-            {depositRatio(parseFloat(nft.withdrawn), parseFloat(nft.deposit))}%
-          </td>
+          <td className="hidden md:table-cell">{depositRatio(nft)}%</td>
           <td>{ensName || addressSummary(ownerAddress)}</td>
           <td>
             <LeaderboardRowMore nft={nft} setTxHash={setTxHash} />
