@@ -163,16 +163,18 @@ export default function NFT({ tokenId }) {
             </div>
             <div className="w-full">
               <NftStats nft={nft} />
-              <div className="mt-2">
-                <Button
-                  borderColor="#463D81"
-                  bgColor="#0F0D1B"
-                  onClick={onOpenSync}
-                  isDisabled={isFetching || isFetchingTx}
-                >
-                  Sync
-                </Button>
-              </div>
+              {nft.isActive && (
+                <div className="mt-2">
+                  <Button
+                    borderColor="#463D81"
+                    bgColor="#0F0D1B"
+                    onClick={onOpenSync}
+                    isDisabled={isFetching || isFetchingTx}
+                  >
+                    Sync
+                  </Button>
+                </div>
+              )}
             </div>
             <Performance nft={nft} />
           </div>
@@ -196,7 +198,7 @@ export default function NFT({ tokenId }) {
                   </div>
                   <Button
                     onClick={onOpen}
-                    isDisabled={isFetching || isFetchingTx}
+                    isDisabled={isFetching || isFetchingTx || !nft.isActive}
                   >
                     Mint
                   </Button>
@@ -207,7 +209,7 @@ export default function NFT({ tokenId }) {
                   onClick={onOpenRedeem}
                   borderColor="#463D81"
                   bgColor="#0F0D1B"
-                  isDisabled={isFetching || isFetchingTx}
+                  isDisabled={isFetching || isFetchingTx || !nft.isActive}
                 >
                   Redeem
                 </Button>
@@ -224,7 +226,7 @@ export default function NFT({ tokenId }) {
                     {dyadBalance > 0 && (
                       <Button
                         onClick={onOpenDeposit}
-                        isDisabled={isFetching || isFetchingTx}
+                        isDisabled={isFetching || isFetchingTx || !nft.isActive}
                       >
                         Deposit
                       </Button>
@@ -232,14 +234,17 @@ export default function NFT({ tokenId }) {
                     <Button
                       onClick={onOpenWithdraw}
                       isDisabled={
-                        isFetching || isFetchingTx || isSafetyModeActivated
+                        isFetching ||
+                        isFetchingTx ||
+                        isSafetyModeActivated ||
+                        !nft.isActive
                       }
                     >
                       Withdraw
                     </Button>
                   </div>
                 </div>
-                {isClaimable && (
+                {isClaimable && nft.isActive && (
                   <div className="flex gap-2 animate-claimPulse">
                     <Button
                       onClick={onOpenClaim}
