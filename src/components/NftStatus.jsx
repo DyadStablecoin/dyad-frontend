@@ -10,7 +10,11 @@ export default function NftStatus({ nft, onOpenActivate, onOpenDeactivate }) {
         <Switch
           checked={nft.isActive}
           label={
-            nft.isActive ? "Active" : <span className="blink">Inactive</span>
+            nft.isActive ? (
+              "Active"
+            ) : (
+              <span className="blink text-red-600">Inactive</span>
+            )
           }
           onChange={() =>
             nft.isActive ? onOpenDeactivate() : onOpenActivate()
