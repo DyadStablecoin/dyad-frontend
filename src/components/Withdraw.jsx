@@ -13,7 +13,7 @@ import useCR from "../hooks/useCR";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
 import { toNumber } from "lodash";
-import { SAFETY_MODE_THRESHOLD } from "../consts/consts";
+import WithdrawExplanation from "./WithdrawExplanation";
 
 export default function Withdraw({ nft, onClose, setTxHash }) {
   const [dyad, setDyad] = useState(0);
@@ -42,27 +42,7 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
   return (
     <PopupContent
       title="Withdraw DYAD"
-      explanation={
-        <div>
-          <b>Withdraw deposited DYAD from your dNFT to your wallet</b>
-          <div className="mt-6">
-            <div className="flex flex-col gap-2">
-              <div>
-                1) The Amount to withdraw cannot be smaller than the dNFT
-                deposit
-              </div>
-              <div>
-                2) The Collateralization Ratio cannot be smaller than{" "}
-                {SAFETY_MODE_THRESHOLD}% after the withdrawal
-              </div>
-              <div>
-                3) The dNFT withdrawal cannot be smaller than the average TVL
-                after the withdrawal
-              </div>
-            </div>
-          </div>
-        </div>
-      }
+      explanation={<WithdrawExplanation />}
       btnText="Withdraw"
       onClick={() => {
         write?.();
