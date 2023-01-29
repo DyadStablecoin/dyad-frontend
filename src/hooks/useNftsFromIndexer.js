@@ -15,12 +15,12 @@ function setFilters(option, owner, address, range) {
     _owner = address;
   }
 
-  let _isLiquidatable = [false, true];
+  let _deposit = "100000000000000000000000000000000"; // anything very large
   if (option === LIQUIDATABLE_OPTION) {
-    _isLiquidatable = [true];
+    _deposit = 0;
   }
 
-  return { _owner, _range, _isLiquidatable };
+  return { _owner, _range, _deposit };
 }
 
 /**
@@ -41,7 +41,7 @@ export function useNftsFromIndexer(
   const { refetch, trigger } = useRefetch();
 
   useEffect(() => {
-    let { _owner, _range, _isLiquidatable } = setFilters(
+    let { _owner, _range, _deposit } = setFilters(
       option,
       owner,
       address,
@@ -54,7 +54,8 @@ export function useNftsFromIndexer(
         .from("nfts")
         .select("*")
         .eq("contractAddress", CONTRACT_dNFT)
-        // .eq("version_id", lastSyncVersion)
+        .eq("version_id", lastSyncVersion)
+        .lt("deposit", _deposit)
         .or(`owner.match.${_owner},ensName.match.${_owner}`)
         .order(sort.name, { ascending: sort.asc[sort.name] })
         .range(_range.start, _range.end)
@@ -83,12 +84,13 @@ export function useNftsCountFromIndexer(
   const { address } = useAccount();
 
   useEffect(() => {
-    let { _owner, _isLiquidatable } = setFilters(option, owner, address);
+    let { _owner, _deposit } = setFilters(option, owner, address);
 
     if (lastSyncVersion) {
       supabase
         .from("nfts")
         .select("*", { count: "exact", head: true })
+        .lt("deposit", _deposit)
         .eq("contractAddress", CONTRACT_dNFT)
         .eq("version_id", lastSyncVersion)
         .or(`owner.match.${_owner},ensName.match.${_owner}`)
