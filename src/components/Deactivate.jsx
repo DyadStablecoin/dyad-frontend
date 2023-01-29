@@ -37,7 +37,7 @@ export default function Deactivate({ nft, onClose, setTxHash }) {
           <Row
             label="dNFT Withdrawls"
             unit="DYAD"
-            _new={round(normalize(nft.withdrawn), 2)}
+            _new={round(normalize(nft.withdrawn), 2).toString()}
           />
           <Row
             label="DYAD Deposit"
