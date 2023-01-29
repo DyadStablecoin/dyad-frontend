@@ -1,5 +1,4 @@
 import useNftStatus, { STATUS } from "../hooks/useNftStatus";
-import NFT from "./NFT";
 import Switch from "./Switch";
 
 export default function NftStatus({ nft, onOpenActivate, onOpenDeactivate }) {
@@ -10,7 +9,9 @@ export default function NftStatus({ nft, onOpenActivate, onOpenDeactivate }) {
       <div className="flex gap-2 p-1 -mb-4 -mr-4 mt-9">
         <Switch
           checked={nft.isActive}
-          label={nft.isActive ? "Active" : "Inactive"}
+          label={
+            nft.isActive ? "Active" : <span className="blink">Inactive</span>
+          }
           onChange={() =>
             nft.isActive ? onOpenDeactivate() : onOpenActivate()
           }
