@@ -87,5 +87,10 @@
 // third v2 deployment
 //    - fixed totalDeposit
 //    - sync can only run on price change and time change
-export const CONTRACT_DYAD = "0x943F21320709087189141a3E29F23F524757fB1A";
-export const CONTRACT_dNFT = "0xD5351689Dcd8AC2F10B5DEe0649410038ccaE6Ae";
+// export const CONTRACT_DYAD = "0x943F21320709087189141a3E29F23F524757fB1A";
+// export const CONTRACT_dNFT = "0xD5351689Dcd8AC2F10B5DEe0649410038ccaE6Ae";
+
+// forth v2 deployment
+//    - new events
+export const CONTRACT_DYAD = "0x12AF5401ab00Ee632E7d520c9686371E70C7F99F";
+export const CONTRACT_dNFT = "0xAcC54Ce3Eb4fE8a6680666fB118E4b7d2bC3775F";

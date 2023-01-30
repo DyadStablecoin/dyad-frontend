@@ -9,7 +9,7 @@ export default function useLastEthPrice() {
   const { refetch } = useContractRead({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
-    functionName: "lastEthPrice",
+    functionName: "ethPrice",
     onSuccess: (data) => {
       setLastEthPrice(parseInt(data._hex) / 10 ** 8);
     },
