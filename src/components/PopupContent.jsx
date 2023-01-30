@@ -30,10 +30,11 @@ export default function PopupContent({
   const [style, animate] = useSpring(() => ({ height: "0px" }), []);
 
   useEffect(() => {
-    animate({
-      height: (isShowingExplanation ? ref.current.offsetHeight : 0) + "px",
-    });
-  }, [animate, ref, isShowingExplanation]);
+    if (explanation)
+      animate({
+        height: (isShowingExplanation ? ref.current.offsetHeight : 0) + "px",
+      });
+  }, [animate, ref, isShowingExplanation, explanation]);
 
   return (
     <div
@@ -96,12 +97,12 @@ export default function PopupContent({
       </div>
       {explanation && (
         <animated.div
-          className="p-4 overflow-hidden"
+          className="overflow-hidden"
           style={{
             ...style,
           }}
         >
-          <div ref={ref}>
+          <div ref={ref} className={"p-4"}>
             <Label>{explanation}</Label>
           </div>
         </animated.div>
