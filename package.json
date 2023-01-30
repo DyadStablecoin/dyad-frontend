@@ -25,6 +25,7 @@
     "react-scripts": "5.0.1",
     "react-spring": "^9.6.1",
     "react-tooltip": "^4.5.1",
+    "react-use-measure": "^2.1.1",
     "wagmi": "^0.6.4",
     "web-vitals": "^2.1.4"
   },
