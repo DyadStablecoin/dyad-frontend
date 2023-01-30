@@ -15,8 +15,8 @@ export default function NftView({ tokenId, setSelectedTokenId }) {
       <td className="w-[50px]">
         <img src={image} alt="" />
       </td>
+      <td>#Syncing</td>
       <td>{nft.xp}</td>
-      <td>#5</td>
       <td>{formatUSD(dNFT_PRICE)}</td>
     </tr>
   );
