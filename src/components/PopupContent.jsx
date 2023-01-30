@@ -7,6 +7,8 @@ import useRank from "../hooks/useRankFromIndexer";
 import Divider from "./PopupDivider";
 import Label from "./Label";
 import useNftImage from "../hooks/useNftImage";
+import { useState } from "react";
+import { animated, useSpring } from "react-spring";
 
 export default function PopupContent({
   children,
@@ -22,6 +24,14 @@ export default function PopupContent({
   const { lastSyncVersion } = useLastSyncVersion();
   const { rank } = useRank(nft.tokenId, lastSyncVersion);
   const { nftImage } = useNftImage(nft);
+  const [isShowingExplanation, setIsShowingExplanation] = useState(true);
+
+  const { selectorHeight } = useSpring({
+    from: {
+      selectorHeight: "100%",
+    },
+    selectorHeight: isShowingExplanation ? "100%" : "0",
+  });
 
   return (
     <div
@@ -46,7 +56,15 @@ export default function PopupContent({
       )}
       <Divider />
       <div className="pr-5 pl-5 text-2xl flex gap-4">
-        <div>{title}</div>
+        <a
+          onClick={() => {
+            if (explanation) {
+              setIsShowingExplanation(!isShowingExplanation);
+            }
+          }}
+        >
+          {title}
+        </a>
         {infoOnClick && (
           <Icon onClick={infoOnClick}>
             <InfoCircleOutlined
@@ -56,9 +74,14 @@ export default function PopupContent({
         )}
       </div>
       {explanation && (
-        <div className="p-4">
+        <animated.div
+          className="p-4 overflow-hidden"
+          style={{
+            height: selectorHeight.to((height) => `${height}`),
+          }}
+        >
           <Label>{explanation}</Label>
-        </div>
+        </animated.div>
       )}
       <div className="mt-2 mb-2 w-full">{children}</div>
       <PopupButton
