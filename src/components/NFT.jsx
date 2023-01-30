@@ -39,7 +39,7 @@ export default function NFT({ tokenId }) {
   const { nftImage: image } = useNftImage(nft);
   const { address } = useAccount();
   const { dyadBalance } = useDyadBalance(address);
-  const { isClaimable } = useIsClaimable(tokenId);
+  const { isClaimable, refetch: refetchIsClaimable } = useIsClaimable(tokenId);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -86,6 +86,7 @@ export default function NFT({ tokenId }) {
       onSuccess: () => {
         refetchNft();
         refetchCR();
+        refetchIsClaimable();
       },
     });
 

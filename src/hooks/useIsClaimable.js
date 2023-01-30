@@ -22,5 +22,5 @@ export default function useIsClaimable(tokenId) {
     refetch();
   }, [syncedBlock]);
 
-  return { isClaimable };
+  return { isClaimable, refetch };
 }
