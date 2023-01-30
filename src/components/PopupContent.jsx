@@ -7,7 +7,7 @@ import useRank from "../hooks/useRankFromIndexer";
 import Divider from "./PopupDivider";
 import Label from "./Label";
 import useNftImage from "../hooks/useNftImage";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { animated, useSpring } from "react-spring";
 import classNames from "classnames";
 
@@ -26,23 +26,24 @@ export default function PopupContent({
   const { rank } = useRank(nft.tokenId, lastSyncVersion);
   const { nftImage } = useNftImage(nft);
   const [isShowingExplanation, setIsShowingExplanation] = useState(true);
+  const ref = useRef(null);
+  const [style, animate] = useSpring(() => ({ height: "0px" }), []);
 
-  const { selectorHeight } = useSpring({
-    from: {
-      selectorHeight: "100%",
-    },
-    selectorHeight: isShowingExplanation ? "100%" : "0",
-  });
+  useEffect(() => {
+    animate({
+      height: (isShowingExplanation ? ref.current.offsetHeight : 0) + "px",
+    });
+  }, [animate, ref, isShowingExplanation]);
 
   return (
     <div
-      className="flex flex-col gap-4 items-center"
+      className="flex flex-col items-center gap-4"
       style={{
         boxShadow: "0 0 40px #413E6a",
       }}
     >
       {nftImage && (
-        <div className="w-full flex justify-between items-center">
+        <div className="flex items-center justify-between w-full">
           <p className="w-1/4 p-4 text-[#F0F0F0]">
             {rank > 0 ? `#${rank}` : ""}
           </p>
@@ -56,7 +57,7 @@ export default function PopupContent({
         </div>
       )}
       <Divider />
-      <div className="pr-5 pl-5 text-2xl flex gap-4 items-center">
+      <div className="flex items-center gap-4 pl-5 pr-5 text-2xl">
         <a
           className={classNames(
             explanation ? "cursor-pointer" : "cursor-default"
@@ -97,13 +98,15 @@ export default function PopupContent({
         <animated.div
           className="p-4 overflow-hidden"
           style={{
-            height: selectorHeight.to((height) => `${height}`),
+            ...style,
           }}
         >
-          <Label>{explanation}</Label>
+          <div ref={ref}>
+            <Label>{explanation}</Label>
+          </div>
         </animated.div>
       )}
-      <div className="mt-2 mb-2 w-full">{children}</div>
+      <div className="w-full mt-2 mb-2">{children}</div>
       <PopupButton
         onClick={onClick}
         isDisabled={isDisabled}
