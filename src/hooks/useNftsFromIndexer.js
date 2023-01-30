@@ -60,7 +60,6 @@ export function useNftsFromIndexer(
         .order(sort.name, { ascending: sort.asc[sort.name] })
         .range(_range.start, _range.end)
         .then((res) => {
-          console.log("res", res);
           setNfts(res.data);
           setIsLoading(false);
         })
