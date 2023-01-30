@@ -84,13 +84,18 @@
 // export const CONTRACT_DYAD = "0x85293BaDA293ed4Fbc8297221Bd121C110Be0E38";
 // export const CONTRACT_dNFT = "0x225B3C1D7104b0614707DAAFC5D45FBDF5f4a3Ca";
 
-// third v2 deployment
+// 3rd v2 deployment
 //    - fixed totalDeposit
 //    - sync can only run on price change and time change
 // export const CONTRACT_DYAD = "0x943F21320709087189141a3E29F23F524757fB1A";
 // export const CONTRACT_dNFT = "0xD5351689Dcd8AC2F10B5DEe0649410038ccaE6Ae";
 
-// forth v2 deployment
+// 4th v2 deployment
 //    - new events
-export const CONTRACT_DYAD = "0x12AF5401ab00Ee632E7d520c9686371E70C7F99F";
-export const CONTRACT_dNFT = "0xAcC54Ce3Eb4fE8a6680666fB118E4b7d2bC3775F";
+// export const CONTRACT_DYAD = "0x12AF5401ab00Ee632E7d520c9686371E70C7F99F";
+// export const CONTRACT_dNFT = "0xAcC54Ce3Eb4fE8a6680666fB118E4b7d2bC3775F";
+
+// 5th v2 deployment
+//    - more XP
+export const CONTRACT_DYAD = "0x25466e50825b17ACB70Eef591559a571e097baF2";
+export const CONTRACT_dNFT = "0x458C79002e94331f7f77568Cc2C3925556BA63be";
