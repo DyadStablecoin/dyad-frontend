@@ -21,7 +21,7 @@ const ABI = [
 export default function useOraclePrice() {
   const [oraclePrice, setOraclePrice] = useState(0);
 
-  useContractRead({
+  const { refetch } = useContractRead({
     addressOrName: CURRENT_NETWORK.oracleAddress,
     contractInterface: ABI,
     functionName: "latestRoundData()",
@@ -30,5 +30,5 @@ export default function useOraclePrice() {
     },
   });
 
-  return { oraclePrice };
+  return { oraclePrice, refetch };
 }

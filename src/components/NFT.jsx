@@ -27,6 +27,7 @@ import Claim from "./Claim";
 import useIsClaimable from "../hooks/useIsClaimable";
 import Activate from "./Activate";
 import Deactivate from "./Deactivate";
+import useOraclePrice from "../hooks/useOraclePrice";
 
 export default function NFT({ tokenId }) {
   console.log("NFT: Rendering NFT", tokenId);
@@ -40,6 +41,7 @@ export default function NFT({ tokenId }) {
   const { address } = useAccount();
   const { dyadBalance } = useDyadBalance(address);
   const { isClaimable, refetch: refetchIsClaimable } = useIsClaimable(tokenId);
+  const { refetch: refetchOraclePrice } = useOraclePrice();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -87,6 +89,7 @@ export default function NFT({ tokenId }) {
         refetchNft();
         refetchCR();
         refetchIsClaimable();
+        refetchOraclePrice();
       },
     });
 
