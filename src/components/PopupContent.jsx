@@ -1,4 +1,4 @@
-import { InfoCircleOutlined } from "@ant-design/icons";
+import { InfoCircleOutlined, DownOutlined } from "@ant-design/icons";
 import PopupButton from "./PopupButton";
 import Icon from "./Icon";
 import { COLORS } from "../consts/colors";
@@ -9,6 +9,7 @@ import Label from "./Label";
 import useNftImage from "../hooks/useNftImage";
 import { useState } from "react";
 import { animated, useSpring } from "react-spring";
+import classNames from "classnames";
 
 export default function PopupContent({
   children,
@@ -55,8 +56,11 @@ export default function PopupContent({
         </div>
       )}
       <Divider />
-      <div className="pr-5 pl-5 text-2xl flex gap-4">
+      <div className="pr-5 pl-5 text-2xl flex gap-4 items-center">
         <a
+          className={classNames(
+            explanation ? "cursor-pointer" : "cursor-default"
+          )}
           onClick={() => {
             if (explanation) {
               setIsShowingExplanation(!isShowingExplanation);
@@ -65,6 +69,22 @@ export default function PopupContent({
         >
           {title}
         </a>
+        {explanation && (
+          <div
+            className={classNames(
+              "duration-100 w-min h-min",
+              isShowingExplanation ? "rotate-0" : "rotate-180"
+            )}
+          >
+            <Icon
+              onClick={() => setIsShowingExplanation(!isShowingExplanation)}
+            >
+              <DownOutlined
+                style={{ fontSize: "0.9rem", color: COLORS.Purple }}
+              />
+            </Icon>
+          </div>
+        )}
         {infoOnClick && (
           <Icon onClick={infoOnClick}>
             <InfoCircleOutlined
