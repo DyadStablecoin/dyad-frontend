@@ -1,4 +1,4 @@
-export const VERSION = "0.5";
+export const VERSION = "0.6";
 
 export const dNFT_PRICE = 10000;
 export const dNFT_AVERAGE_PRICE = 10000;
