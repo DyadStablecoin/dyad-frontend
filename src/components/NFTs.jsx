@@ -11,7 +11,7 @@ export default function NFTs() {
   return (
     <>
       {tokenIds.length > 0 ? (
-        <div>
+        <div className="w-full p-6 md:p-0 md:w-max">
           <div className="mb-2">Your dNFTs</div>
           <div className="flex flex-col gap-4">
             {tokenIds.map((tokenId) => {

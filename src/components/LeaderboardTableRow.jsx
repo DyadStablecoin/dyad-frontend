@@ -32,7 +32,7 @@ export default function LeaderboardTableRow({
     <>
       {nft && (
         <tr
-          className="leaderboard-row"
+          className="transition-all leaderboard-row hover:scale-[1.01] text-sm md:text-base"
           style={{
             border: `1px solid ${
               status === STATUS.LIQUIDATABLE ? COLORS.Red : "#3A403C"

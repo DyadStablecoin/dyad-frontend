@@ -35,10 +35,10 @@ export default function LeaderboardRowMore({ nft, setTxHash }) {
   return (
     <>
       <Menu>
-        <MenuButton as={Button} style={{ backgroundColor: "black" }}>
+        <MenuButton as={Button} style={{ backgroundColor: "black", zIndex: 0 }}>
           <MoreOutlined rotate={90} />
         </MenuButton>
-        <MenuList style={{ backgroundColor: "black" }}>
+        <MenuList style={{ backgroundColor: "black", zIndex: 1 }}>
           <MenuItem style={MENU_ITEM_STYLE} onClick={onOpenMoveDeposit}>
             <div className={`flex items-center justify-center gap-4`}>
               <MailOutlined />
@@ -69,11 +69,7 @@ export default function LeaderboardRowMore({ nft, setTxHash }) {
         <Liquidate nft={nft} onClose={onCloseLiquidate} setTxHash={setTxHash} />
       </Popup>
       <Popup isOpen={isOpenMoveDeposit} onClose={onCloseMoveDeposit}>
-        <Move
-          nft={nft}
-          onClose={onCloseMoveDeposit}
-          setTxHash={setTxHash}
-        />
+        <Move nft={nft} onClose={onCloseMoveDeposit} setTxHash={setTxHash} />
       </Popup>
       <Popup isOpen={isOpenSnipe} onClose={onCloseSnipe}>
         <Snipe nft={nft} onClose={onCloseSnipe} setTxHash={setTxHash} />

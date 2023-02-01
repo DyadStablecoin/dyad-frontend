@@ -3,15 +3,17 @@ import {
   CaretUpOutlined,
   SwapOutlined,
 } from "@ant-design/icons";
+import cn from "classnames";
 
 export default function LeaderboardTableHeaderSortable({
   header,
   sortBy,
   setSortBy,
+  extraClasses,
 }) {
   return (
-    <th>
-      <div className="flex items-center justify-center gap-1">
+    <th className={cn(extraClasses ? extraClasses : "")}>
+      <div className={"flex items-center justify-center gap-1"}>
         <div>{header}</div>
         <SwapOutlined
           rotate={90}
