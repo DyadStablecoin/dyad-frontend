@@ -44,11 +44,11 @@ export default function Leaderboard() {
   }
 
   return (
-    <div className="flex items-center justify-center flex-col">
-      <div className="md:w-[80rem]">
+    <div className="flex flex-col items-center justify-center">
+      <div className="w-full md:w-[80rem] md:p-0 p-2">
         <Loading isLoading={isLoading} />
         <Header refetch={refetch} />
-        <div className="flex justify-between">
+        <div className="flex items-center justify-between">
           <Filter setOption={setOption} resetRange={resetRange} />
           <Search
             owner={owner}

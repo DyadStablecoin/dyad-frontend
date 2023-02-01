@@ -159,28 +159,42 @@ export default function NFT({ tokenId }) {
           ${status === STATUS.LIQUIDATABLE && "shadow-lg shadow-[#800101]"}`}
         >
           <LoadingInplace isLoading={isLoadingTx || isFetching} />
-          <div className="flex gap-4 justify-between w-full">
-            <div className="md:w-[8rem]">
-              <div className="w-[107px]">
-                <img src={image} alt="" />
+          <div className="flex flex-col justify-between w-full gap-4 md:flex-row">
+            <div className="flex flex-row gap-4 md:w-full">
+              <div className="md:w-[8rem]">
+                <div className="w-[107px]">
+                  <img src={image} alt="" />
+                </div>
+              </div>
+              <div className="w-full">
+                <NftStats nft={nft} />
+                {nft.isActive && (
+                  <div className="mt-2">
+                    <Button
+                      borderColor="#463D81"
+                      bgColor="#0F0D1B"
+                      onClick={onOpenSync}
+                      isDisabled={isFetching || isFetchingTx}
+                    >
+                      Sync
+                    </Button>
+                  </div>
+                )}
               </div>
             </div>
-            <div className="w-full">
-              <NftStats nft={nft} />
-              {nft.isActive && (
-                <div className="mt-2">
-                  <Button
-                    borderColor="#463D81"
-                    bgColor="#0F0D1B"
-                    onClick={onOpenSync}
-                    isDisabled={isFetching || isFetchingTx}
-                  >
-                    Sync
-                  </Button>
+            <div className="flex flex-row w-full gap-8 md:w-min">
+              <Performance nft={nft} />
+              <div className="block w-full md:w-[0px] md:hidden">
+                <Label>Deposit Ratio</Label>
+                <div className="mt-3">
+                  <ProgressBar
+                    percent={parseInt(
+                      (nft.deposit / (nft.deposit + nft.withdrawn)) * 100
+                    )}
+                  />
                 </div>
-              )}
+              </div>
             </div>
-            <Performance nft={nft} />
           </div>
           <div className="hidden md:block md:w-full">
             <Label>Deposit Ratio</Label>
@@ -192,12 +206,12 @@ export default function NFT({ tokenId }) {
               />
             </div>
           </div>
-          <div className="flex gap-4 mt-4 md:mt-0">
+          <div className="flex justify-between gap-4 mt-4 md:justify-start md:mt-0">
             <div className="flex flex-col gap-2">
               <div className="flex flex-col gap-2 ">
                 <Label>Minted DYAD</Label>
                 <div className="md:flex">
-                  <div className="md:mr-2 mb-2 md:mb-0">
+                  <div className="mb-2 md:mr-2 md:mb-0">
                     {round((nft.deposit + nft.withdrawn) / 10 ** 18, 2)}
                   </div>
                   <Button
@@ -221,9 +235,9 @@ export default function NFT({ tokenId }) {
             </div>
             <div className="flex flex-col gap-2 ml-4 ">
               <Label>Deposited DYAD</Label>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-row gap-2 md:flex-col">
                 <div className="md:flex md:gap-2">
-                  <div className="md:mr-2 mb-2 md:mb-0">
+                  <div className="mb-2 md:mr-2 md:mb-0">
                     {Math.round((nft.deposit / 10 ** 18) * 100) / 100}
                   </div>
                   <div className="flex gap-2">
@@ -246,10 +260,22 @@ export default function NFT({ tokenId }) {
                     >
                       Withdraw
                     </Button>
+                    {isClaimable && nft.isActive && (
+                      <div className="flex md:hidden animate-claimPulse">
+                        <Button
+                          onClick={onOpenClaim}
+                          isDisabled={
+                            isFetching || isFetchingTx || isSafetyModeActivated
+                          }
+                        >
+                          Claim
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 </div>
                 {isClaimable && nft.isActive && (
-                  <div className="flex gap-2 animate-claimPulse">
+                  <div className="hidden md:flex animate-claimPulse">
                     <Button
                       onClick={onOpenClaim}
                       isDisabled={
