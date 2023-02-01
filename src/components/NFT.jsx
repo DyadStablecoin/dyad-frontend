@@ -235,7 +235,7 @@ export default function NFT({ tokenId }) {
             </div>
             <div className="flex flex-col gap-2 ml-4 ">
               <Label>Deposited DYAD</Label>
-              <div className="flex flex-row gap-2 md:flex-col">
+              <div className="flex flex-col gap-2">
                 <div className="md:flex md:gap-2">
                   <div className="mb-2 md:mr-2 md:mb-0">
                     {Math.round((nft.deposit / 10 ** 18) * 100) / 100}
@@ -260,22 +260,10 @@ export default function NFT({ tokenId }) {
                     >
                       Withdraw
                     </Button>
-                    {isClaimable && nft.isActive && (
-                      <div className="flex md:hidden animate-claimPulse">
-                        <Button
-                          onClick={onOpenClaim}
-                          isDisabled={
-                            isFetching || isFetchingTx || isSafetyModeActivated
-                          }
-                        >
-                          Claim
-                        </Button>
-                      </div>
-                    )}
                   </div>
                 </div>
                 {isClaimable && nft.isActive && (
-                  <div className="hidden md:flex animate-claimPulse">
+                  <div className="flex animate-claimPulse">
                     <Button
                       onClick={onOpenClaim}
                       isDisabled={
