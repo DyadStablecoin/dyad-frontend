@@ -74,7 +74,7 @@ export default function PopupContent({
         {explanation && (
           <div
             className={classNames(
-              "duration-100 w-min h-min",
+              "transition-all duration-150 w-min h-min",
               isShowingExplanation ? "rotate-0" : "rotate-180"
             )}
           >
