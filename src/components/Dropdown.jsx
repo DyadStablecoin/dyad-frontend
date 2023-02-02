@@ -44,7 +44,7 @@ export default function Dropdown({ options, onChange }) {
 
       {isShowingOptions && (
         <animated.div
-          className="absolute overflow-hidden min-w-[6.5rem] bg-black border border-white w-max"
+          className="absolute overflow-hidden min-w-[6.5rem] z-50 bg-black border border-white w-max"
           style={{
             ...style,
           }}
