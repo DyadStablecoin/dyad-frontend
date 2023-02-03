@@ -75,32 +75,5 @@
 // export const CONTRACT_dNFT = "0x8Dc0Cb544367ac0425686e05f1b7E19688A1c5b3";
 
 // first v2 deployment
-// export const CONTRACT_DYAD = "0xdbb17e0c3970A1A477CAe6FBeE8fd83Bd501421a";
-// export const CONTRACT_dNFT = "0xe08613072099dC5b83669bBef104Ac49271e3BF9";
-
-// second v2 deployment
-//    - added deposit as a term in mint/burn equations
-//    - removed transferFrom from deposit
-// export const CONTRACT_DYAD = "0x85293BaDA293ed4Fbc8297221Bd121C110Be0E38";
-// export const CONTRACT_dNFT = "0x225B3C1D7104b0614707DAAFC5D45FBDF5f4a3Ca";
-
-// 3rd v2 deployment
-//    - fixed totalDeposit
-//    - sync can only run on price change and time change
-// export const CONTRACT_DYAD = "0x943F21320709087189141a3E29F23F524757fB1A";
-// export const CONTRACT_dNFT = "0xD5351689Dcd8AC2F10B5DEe0649410038ccaE6Ae";
-
-// 4th v2 deployment
-//    - new events
-// export const CONTRACT_DYAD = "0x12AF5401ab00Ee632E7d520c9686371E70C7F99F";
-// export const CONTRACT_dNFT = "0xAcC54Ce3Eb4fE8a6680666fB118E4b7d2bC3775F";
-
-// 5th v2 deployment
-//    - more XP
-// export const CONTRACT_DYAD = "0x25466e50825b17ACB70Eef591559a571e097baF2";
-// export const CONTRACT_dNFT = "0x458C79002e94331f7f77568Cc2C3925556BA63be";
-
-// 6th v2 deployment
-//    - xp reward based on deposited dyad
-export const CONTRACT_DYAD = "0x3a2Be54400D7FaC29f6500E0130c00Af960a48fd";
-export const CONTRACT_dNFT = "0xeC182DefC3Bb9d3D87A635375F23111080DFfeDb";
+export const CONTRACT_DYAD = "0xC352C1EC02c374dB0cd51539cB4289Eaf09b9F6a";
+export const CONTRACT_dNFT = "0x4F3b5c4a8b6E0970Ade3152D08700d4868cc16ea";

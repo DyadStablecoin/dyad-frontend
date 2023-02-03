@@ -1,0 +1,10 @@
+# .graphclientrc.yml
+sources:
+  - name: dyad-goerli
+    handler:
+      graphql:
+        endpoint: https://api.thegraph.com/subgraphs/name/0xtarc/dyad-subgraph-goerli
+
+documents:
+  - ./src/hooks/useGraphNfts.js
+

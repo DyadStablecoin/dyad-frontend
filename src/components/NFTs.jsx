@@ -7,6 +7,7 @@ export default function NFTs() {
 
   const { address } = useAccount();
   const { tokenIds } = useIDsByOwner(address);
+  console.log('tokenIds', tokenIds)
 
   return (
     <>

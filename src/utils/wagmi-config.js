@@ -1,3 +1,4 @@
+/*
 import {
   WagmiConfig,
   createClient,
@@ -13,7 +14,7 @@ import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 export const { chains, provider, webSocketProvider } = configureChains(
   // [chain.mainnet, chain.polygon, chain.rinkeby, chain.goerli],
   [chain.mainnet, chain.goerli],
-  [infuraProvider({ apiKey: process.env.REACT_APP_INFURA_KEY })]
+  [infuraProvider({ apiKey: import.meta.env.VITE_INFURA_KEY })]
 );
 
 const { connectors } = getDefaultWallets({
@@ -27,3 +28,28 @@ export const client = createClient({
   provider,
   webSocketProvider,
 });
+*/
+
+import { getDefaultWallets } from '@rainbow-me/rainbowkit'
+import { configureChains, createClient } from 'wagmi'
+import { goerli, mainnet } from 'wagmi/chains'
+import { infuraProvider } from 'wagmi/providers/infura'
+
+const { chains, provider, webSocketProvider } = configureChains(
+  [mainnet, goerli],
+  [infuraProvider({ apiKey: import.meta.env.VITE_INFURA_KEY })]
+)
+
+const { connectors } = getDefaultWallets({
+  appName: 'My wagmi + RainbowKit App',
+  chains,
+})
+
+export const client = createClient({
+  autoConnect: true,
+  connectors,
+  provider,
+  webSocketProvider,
+})
+
+export { chains }
