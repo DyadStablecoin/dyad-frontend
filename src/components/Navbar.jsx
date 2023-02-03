@@ -32,29 +32,14 @@ export default function Navbar() {
         <Logo />
         {isSafetyModeActivated && <SafetyModeWarning />}
       </div>
-      <div
-        className="flex items-center justify-center gap-2"
-        suppressHydrationWarning
-      >
+      <div className="flex items-center justify-center gap-2">
         {isConnected && (
           <div className="items-center justify-center hidden gap-8 mr-6 lg:flex">
-            <Stat
-              name="TVL"
-              value={formatUSD(ethInPool * ethPrice)}
-              suppressHydrationWarning
-            />
+            <Stat name="TVL" value={formatUSD(ethInPool * ethPrice)} />
             <Divider />
-            <Stat
-              name="ETH Price Δ"
-              value={formatUSD(ethDelta)}
-              suppressHydrationWarning
-            />
+            <Stat name="ETH Price Δ" value={formatUSD(ethDelta)} />
             <Divider />
-            <Stat
-              name="CR"
-              value={`${round(cr, 0)}%`}
-              suppressHydrationWarning
-            />
+            <Stat name="CR" value={`${round(cr, 0)}%`} />
             <Divider />
           </div>
         )}
