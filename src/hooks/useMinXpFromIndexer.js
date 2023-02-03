@@ -18,7 +18,7 @@ export default function useXpMinFromIndexer() {
       })
       .limit(1)
       .then((res) => {
-        setMinXp(res.data[0].xp);
+        setMinXp(res?.data?.[0]?.xp);
       });
   }, [lastSyncVersion]);
 

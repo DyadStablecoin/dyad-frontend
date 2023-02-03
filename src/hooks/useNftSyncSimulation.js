@@ -7,11 +7,11 @@ import dnftABI from "../abi/dNFT.json";
 import { CONTRACT_POOL, CONTRACT_dNFT } from "../consts/contract";
 import { useAccount } from "wagmi";
 
-const TENDERLY_FORK_API = `https://api.tenderly.co/api/v1/account/${process.env.REACT_APP_TENDERLY_USER}/project/${process.env.REACT_APP_TENDERLY_PROJECT}/fork`;
+const TENDERLY_FORK_API = `https://api.tenderly.co/api/v1/account/${process.env.NEXT_PUBLIC_TENDERLY_USER}/project/${process.env.NEXT_PUBLIC_TENDERLY_PROJECT}/fork`;
 
 const opts = {
   headers: {
-    "X-Access-Key": process.env.REACT_APP_TENDERLY_ACCESS_KEY,
+    "X-Access-Key": process.env.NEXT_PUBLIC_TENDERLY_ACCESS_KEY,
   },
 };
 
@@ -27,7 +27,7 @@ export default function useNftSyncSimulation(tokenId) {
 
       setIsLoading(true);
       const gp = new ethers.providers.JsonRpcProvider(
-        `https://${CURRENT_NETWORK}.infura.io/v3/${process.env.REACT_APP_INFURA_KEY}`
+        `https://${CURRENT_NETWORK}.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`
       );
       const blockNumber = await gp.getBlockNumber();
       const body = {
@@ -69,7 +69,7 @@ export default function useNftSyncSimulation(tokenId) {
       setNftAfterSimulation(res);
       setIsLoading(false);
 
-      const TENDERLY_FORK_ACCESS_URL = `https://api.tenderly.co/api/v1/account/${process.env.REACT_APP_TENDERLY_USER}/project/${process.env.REACT_APP_TENDERLY_PROJECT}/fork/${forkId}`;
+      const TENDERLY_FORK_ACCESS_URL = `https://api.tenderly.co/api/v1/account/${process.env.NEXT_PUBLIC_TENDERLY_USER}/project/${process.env.NEXT_PUBLIC_TENDERLY_PROJECT}/fork/${forkId}`;
       await axios.delete(TENDERLY_FORK_ACCESS_URL, opts);
     }
     updateXP();

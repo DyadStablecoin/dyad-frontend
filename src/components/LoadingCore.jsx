@@ -8,7 +8,7 @@ export default function LoadingCore({
       {isLoading && (
         <svg
           aria-hidden="true"
-          class={`${
+          className={`${
             style ? style : "mr-2 w-[7rem] mt-3 mb-4 h-20"
           } text-gray-200 animate-spin dark:text-gray-600`}
           viewBox="0 0 100 101"

@@ -15,7 +15,7 @@ export default function useAvgMintedFromIndexer() {
       .eq("version_id", lastSyncVersion)
       .then((res) => {
         let minted = [];
-        res.data.forEach((nft) => {
+        res?.data?.forEach((nft) => {
           minted.push(parseInt(nft.deposit) + parseInt(nft.withdrawn));
         });
         setAvgMinted(minted.reduce((a, b) => a + b, 0) / minted.length);
