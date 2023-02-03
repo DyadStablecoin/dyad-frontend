@@ -37,7 +37,7 @@ export default function Navbar() {
           <div className="hidden lg:flex gap-8 items-center justify-center mr-6">
             <Stat name="TVL" value={formatUSD(ethInPool * ethPrice)} />
             <Divider />
-            <Stat name="ETH Price Δ" value={formatUSD(ethDelta)} />
+            <Stat name="ETH Price Œî" value={formatUSD(ethDelta)} />
             <Divider />
             <Stat name="CR" value={`${round(cr, 0)}%`} />
             <Divider />

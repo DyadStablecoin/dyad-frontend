@@ -1,10 +1,11 @@
-import logo from "../static/dyad-logo.svg";
-import { useNavigate } from "react-router-dom";
+import Link from "next/link";
+import Image from 'next/image'
 
 export default function NavbarLogo() {
-  let navigate = useNavigate();
-
   return (
-    <img src={logo} alt="logo" className="w-14" onClick={() => navigate("/")} />
+    <Link href='/'>
+      <Image src='/dyad-logo.svg' alt='logo' width={56} height={56}/>
+      {/* <img src={logo} alt="logo" className="w-14" onClick={() => navigate("/")} /> */}
+    </Link>
   );
 }
