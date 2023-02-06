@@ -7,10 +7,12 @@ import Popup from "./Popup";
 import Move from "./Move";
 import Snipe from "./Snipe";
 import { animated, useSpring } from "react-spring";
+import cn from "classnames";
 
 export default function LeaderboardRowMore({ nft, setTxHash }) {
   const { status } = useNftStatus(nft);
   const [isShowingMore, setIsShowingMore] = useState(false);
+  const [isGonnaBeOff, setIsGonnaBeOff] = useState(false);
   const [style, animate] = useSpring(
     () => ({ height: "0px", opacity: 0 }, { config: { duration: 50 } }),
     []
@@ -24,6 +26,22 @@ export default function LeaderboardRowMore({ nft, setTxHash }) {
       opacity: isShowingMore ? 100 : 0,
     });
   }, [animate, ref, isShowingMore]);
+
+  useEffect(() => {
+    if (isShowingMore && ref.current) {
+      const popupBounds = ref.current.getBoundingClientRect();
+
+      if (
+        popupBounds.x + ref.current.offsetWidth + ref.current.offsetWidth / 2 >=
+        window.innerWidth
+      ) {
+        // Make appear to left, other keep right
+        setIsGonnaBeOff(true);
+      } else {
+        setIsGonnaBeOff(false);
+      }
+    }
+  }, [isShowingMore, ref]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -54,7 +72,7 @@ export default function LeaderboardRowMore({ nft, setTxHash }) {
   } = useDisclosure();
 
   return (
-    <div ref={fragRef}>
+    <div className="relative" ref={fragRef}>
       <a
         className="flex items-center justify-center p-1 rounded cursor-pointer hover:bg-white/10 text-secondary"
         onClick={() => {
@@ -65,7 +83,10 @@ export default function LeaderboardRowMore({ nft, setTxHash }) {
       </a>
       {isShowingMore && (
         <animated.div
-          className="absolute overflow-hidden min-w-[8.5rem] duration-75 bg-black border border-white w-max z-20"
+          className={cn(
+            "absolute overflow-hidden min-w-[8.5rem] duration-75 bg-black border border-white w-max z-20",
+            isGonnaBeOff ? "right-0" : "left-0"
+          )}
           style={{
             ...style,
           }}
