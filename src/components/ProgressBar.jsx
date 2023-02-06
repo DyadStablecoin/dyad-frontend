@@ -25,7 +25,7 @@ export default function ProgressBar({ percent, fullWidth = false }) {
       {colors && (
         <div
           data-tip={`${round(percent, 2)}%` || "0%"}
-          class={`w-[6rem] border-2 border-[#737E76]  min-w-[${
+          className={`w-[6rem] border-2 border-[#737E76]  min-w-[${
             fullWidth ? "100%" : "6rem"
           }] max-w-[6rem] pr-[2px]`}
           style={{
@@ -38,7 +38,7 @@ export default function ProgressBar({ percent, fullWidth = false }) {
               width: `${isNaN(percent) ? 0 : percent > 100 ? 100 : percent}%`,
               backgroundColor: colors[0],
             }}
-            class={`stripes m-[1px] h-[0.5rem] `}
+            className={`stripes m-[1px] h-[0.5rem] `}
           ></div>
         </div>
       )}

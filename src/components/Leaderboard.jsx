@@ -65,20 +65,25 @@ export default function Leaderboard() {
               </div>
             )}
             <table className="leaderboard">
-              {nfts.length > 0 && (
-                <TableHeader sortBy={sortBy} setSortBy={setSortBy} />
-              )}
-              {nfts.map((nft) => {
-                return (
-                  <Row
-                    nft={nft}
-                    ensName={nft.ensName}
-                    version={lastSyncVersion}
-                    ownerAddress={nft.owner}
-                    refetch={refetch}
-                  />
-                );
-              })}
+              <thead>
+                {nfts.length > 0 && (
+                  <TableHeader sortBy={sortBy} setSortBy={setSortBy} />
+                )}
+              </thead>
+              <tbody>
+                {nfts.map((nft) => {
+                  return (
+                    <Row
+                      key={`leaderboardnft-${nft.tokenId}`}
+                      nft={nft}
+                      ensName={nft.ensName}
+                      version={lastSyncVersion}
+                      ownerAddress={nft.owner}
+                      refetch={refetch}
+                    />
+                  );
+                })}
+              </tbody>
             </table>
             {count > DEFAULT_ROWS_PER_PAGE && (
               <Footer

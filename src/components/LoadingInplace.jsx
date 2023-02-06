@@ -8,7 +8,7 @@ export default function LoadingInplace({ isLoading, style }) {
         <div className="loader2">
           <div role="status">
             <LoadingCore style={style} isLoading />
-            <span class="sr-only">Loading...</span>
+            <span className="sr-only">Loading...</span>
           </div>
         </div>
       )}

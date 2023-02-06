@@ -12,6 +12,7 @@ export default function CustomPagination({ totalRows, rowsPerPage, setRange }) {
   function renderPage(i) {
     return (
       <div
+        key={`pagination-${i}`}
         className={`${
           i !== "..." &&
           "border-[1px] border-white pl-1 pr-1 hover:cursor-pointer"

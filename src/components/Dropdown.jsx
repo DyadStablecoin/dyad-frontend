@@ -5,11 +5,24 @@ import Icon from "./Icon";
 import { COLORS } from "../consts/colors";
 import { DownOutlined } from "@ant-design/icons";
 
-export default function Dropdown({ options, onChange }) {
-  const [selectedOption, setSelectedOption] = useState();
+export default function Dropdown({ options, defaultValue, onChange }) {
+  const [selectedOption, setSelectedOption] = useState(defaultValue || null);
   const [isShowingOptions, setIsShowingOptions] = useState(false);
   const [style, animate] = useSpring(() => ({ height: "0px" }), []);
   const ref = useRef(null);
+  const fragRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (fragRef.current && !fragRef.current.contains(event.target)) {
+        setIsShowingOptions(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, [setIsShowingOptions]);
 
   useEffect(() => {
     animate({
@@ -18,29 +31,27 @@ export default function Dropdown({ options, onChange }) {
   }, [animate, ref, isShowingOptions]);
 
   return (
-    <div className="w-full">
-      <>
-        <div className={"w-max justify-start flex gap-4 items-center"}>
-          <a
-            className={"cursor-pointer text-white"}
-            onClick={() => setIsShowingOptions(!isShowingOptions)}
-          >
-            {selectedOption ? selectedOption : `Select an Option`}
-          </a>
-          <div
-            className={classNames(
-              "transition-all duration-150 w-min h-min",
-              isShowingOptions ? "rotate-0" : "rotate-180"
-            )}
-          >
-            <Icon onClick={() => setIsShowingOptions(!isShowingOptions)}>
-              <DownOutlined
-                style={{ fontSize: "0.9rem", color: COLORS.Purple }}
-              />
-            </Icon>
-          </div>
+    <div ref={fragRef} className="w-full">
+      <div className={"w-max justify-start flex gap-4 items-center"}>
+        <a
+          className={"cursor-pointer text-white"}
+          onClick={() => setIsShowingOptions(!isShowingOptions)}
+        >
+          {selectedOption ? selectedOption : `Select an Option`}
+        </a>
+        <div
+          className={classNames(
+            "transition-all duration-150 w-min h-min",
+            isShowingOptions ? "rotate-0" : "rotate-180"
+          )}
+        >
+          <Icon onClick={() => setIsShowingOptions(!isShowingOptions)}>
+            <DownOutlined
+              style={{ fontSize: "0.9rem", color: COLORS.Purple }}
+            />
+          </Icon>
         </div>
-      </>
+      </div>
 
       {isShowingOptions && (
         <animated.div
