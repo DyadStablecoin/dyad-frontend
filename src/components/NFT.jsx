@@ -88,7 +88,7 @@ export default function NFT({ tokenId }) {
       onSuccess: () => {
         refetchNft();
         refetchCR();
-        refetchIsClaimable();
+        // refetchIsClaimable();
         refetchOraclePrice();
       },
     });
