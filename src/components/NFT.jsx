@@ -3,7 +3,7 @@ import Exchange from "./Exchange";
 import Popup from "./Popup";
 import { useDisclosure } from "@chakra-ui/react";
 import Button from "./Button";
-import Sync from "./Sync";
+import Sync from "./Rebase";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 import useNft from "../hooks/useNft";
@@ -18,15 +18,15 @@ import useCR from "../hooks/useCR";
 import useNftStatus, { STATUS } from "../hooks/useNftStatus";
 import useNftImage from "../hooks/useNftImage";
 import NftStats from "./NftStats";
-import NftStatus from "./NftStatus";
+// import NftStatus from "./NftStatus";
 import Label from "./Label";
 import Performance from "./NftPerformance";
 import useDyadBalance from "../hooks/useDyadBalance";
 import { useAccount } from "wagmi";
-import Claim from "./Claim";
-import useIsClaimable from "../hooks/useIsClaimable";
-import Activate from "./Activate";
-import Deactivate from "./Deactivate";
+// import Claim from "./Claim";
+// import useIsClaimable from "../hooks/useIsClaimable";
+// import Activate from "./Activate";
+// import Deactivate from "./Deactivate";
 import useOraclePrice from "../hooks/useOraclePrice";
 
 export default function NFT({ tokenId }) {
@@ -40,15 +40,15 @@ export default function NFT({ tokenId }) {
   const { nftImage: image } = useNftImage(nft);
   const { address } = useAccount();
   const { dyadBalance } = useDyadBalance(address);
-  const { isClaimable, refetch: refetchIsClaimable } = useIsClaimable(tokenId);
+  // const { isClaimable, refetch: refetchIsClaimable } = useIsClaimable(tokenId);
   const { refetch: refetchOraclePrice } = useOraclePrice();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    isOpen: isOpenSync,
-    onOpen: onOpenSync,
-    onClose: onCloseSync,
-  } = useDisclosure();
+  // const {
+  //   isOpen: isOpenSync,
+  //   onOpen: onOpenSync,
+  //   onClose: onCloseSync,
+  // } = useDisclosure();
   const {
     isOpen: isOpenDeposit,
     onOpen: onOpenDeposit,
@@ -64,21 +64,21 @@ export default function NFT({ tokenId }) {
     onOpen: onOpenRedeem,
     onClose: onCloseRedeem,
   } = useDisclosure();
-  const {
-    isOpen: isOpenClaim,
-    onOpen: onOpenClaim,
-    onClose: onCloseClaim,
-  } = useDisclosure();
-  const {
-    isOpen: isOpenActivate,
-    onOpen: onOpenActivate,
-    onClose: onCloseActivate,
-  } = useDisclosure();
-  const {
-    isOpen: isOpenDeactivate,
-    onOpen: onOpenDeactivate,
-    onClose: onCloseDeactivate,
-  } = useDisclosure();
+  // const {
+  //   isOpen: isOpenClaim,
+  //   onOpen: onOpenClaim,
+  //   onClose: onCloseClaim,
+  // } = useDisclosure();
+  // const {
+  //   isOpen: isOpenActivate,
+  //   onOpen: onOpenActivate,
+  //   onClose: onCloseActivate,
+  // } = useDisclosure();
+  // const {
+  //   isOpen: isOpenDeactivate,
+  //   onOpen: onOpenDeactivate,
+  //   onClose: onCloseDeactivate,
+  // } = useDisclosure();
 
   useEffect(() => {}, [txHash]);
 
@@ -118,7 +118,7 @@ export default function NFT({ tokenId }) {
             <Popup isOpen={isOpenRedeem} onClose={onCloseRedeem}>
               <Redeem nft={nft} onClose={onCloseRedeem} setTxHash={setTxHash} />
             </Popup>
-            <Popup isOpen={isOpenClaim} onClose={onCloseClaim}>
+            {/* <Popup isOpen={isOpenClaim} onClose={onCloseClaim}>
               <Claim nft={nft} onClose={onCloseClaim} setTxHash={setTxHash} />
             </Popup>
             <Popup isOpen={isOpenSync} onClose={onCloseSync}>
@@ -137,7 +137,7 @@ export default function NFT({ tokenId }) {
                 onClose={onCloseDeactivate}
                 setTxHash={setTxHash}
               />
-            </Popup>
+            </Popup> */}
           </>
         )}
       </>
@@ -168,7 +168,7 @@ export default function NFT({ tokenId }) {
               </div>
               <div className="w-full">
                 <NftStats nft={nft} />
-                {nft.isActive && (
+                {/* {nft.isActive && (
                   <div className="mt-2">
                     <Button
                       borderColor="#463D81"
@@ -179,11 +179,11 @@ export default function NFT({ tokenId }) {
                       Sync
                     </Button>
                   </div>
-                )}
+                )} */}
               </div>
             </div>
             <div className="flex flex-row w-full gap-8 md:w-min">
-              <Performance nft={nft} />
+              {/* <Performance nft={nft} /> */}
               <div className="block w-full md:w-[0px] md:hidden">
                 <Label>Deposit Ratio</Label>
                 <div className="mt-3">
@@ -262,7 +262,7 @@ export default function NFT({ tokenId }) {
                     </Button>
                   </div>
                 </div>
-                {isClaimable && nft.isActive && (
+                {/* {isClaimable && nft.isActive && (
                   <div className="flex animate-claimPulse">
                     <Button
                       onClick={onOpenClaim}
@@ -273,13 +273,13 @@ export default function NFT({ tokenId }) {
                       Claim
                     </Button>
                   </div>
-                )}
+                )} */}
               </div>
-              <NftStatus
+              {/* <NftStatus
                 nft={nft}
                 onOpenActivate={onOpenActivate}
                 onOpenDeactivate={onOpenDeactivate}
-              />
+              /> */}
             </div>
           </div>
           {renderPopups()}

@@ -23,7 +23,7 @@ export default function PopupContent({
   nft,
 }) {
   const { lastSyncVersion } = useLastSyncVersion();
-  const { rank } = useRank(nft.tokenId, lastSyncVersion);
+  const { rank } = useRank(nft?.tokenId, lastSyncVersion);
   const { nftImage } = useNftImage(nft);
   const [isShowingExplanation, setIsShowingExplanation] = useState(true);
   const ref = useRef(null);

@@ -10,18 +10,18 @@ export default function NftStats({ nft }) {
 
   return (
     <>
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <Label>Rank</Label>
         <div>{rank ? "#" + rank : "Syncing"}</div>
       </div>
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <Label>Value</Label>
         <div>{formatUSD(dNFT_PRICE)}</div>
       </div>
-      <div className="flex justify-between items-center">
+      {/* <div className="flex items-center justify-between">
         <Label>XP</Label>
         <div>{nft.xp}</div>
-      </div>
+      </div> */}
     </>
   );
 }

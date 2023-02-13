@@ -7,14 +7,15 @@ import { COLORS } from "../consts/colors";
 import Divider from "./PopupDivider";
 import useDyadDelta from "../hooks/useDyadDelta";
 
-export default function Claim({ nft, onClose, setTxHash }) {
+// TODO: Bring in function
+export default function Claim({ onClose, setTxHash }) {
   const { dyadDelta } = useDyadDelta();
 
   const { isLoading, config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
     functionName: "claim",
-    args: [nft.tokenId],
+    args: [-1],
   });
 
   const { write } = useContractWrite({
@@ -36,7 +37,6 @@ export default function Claim({ nft, onClose, setTxHash }) {
       isDisabled={!write}
       isLoading={isLoading}
       infoOnClick={() => window.open(DOCS_URL + "/dnft#claim")}
-      nft={nft}
     >
       <div className="flex flex-col gap-4">
         <Divider />
