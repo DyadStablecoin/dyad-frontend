@@ -20,12 +20,12 @@ export default function MenuCustom() {
         <MenuItem style={MENU_ITEM_STYLE} onClick={() => router.push("/")}>
           Home
         </MenuItem>
-        <MenuItem
+        {/* <MenuItem
           style={MENU_ITEM_STYLE}
           onClick={() => router.push("/leaderboard")}
         >
           Leaderboard
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem
           style={MENU_ITEM_STYLE}
           onClick={() => window.open(DOCS_URL + "/intro")}

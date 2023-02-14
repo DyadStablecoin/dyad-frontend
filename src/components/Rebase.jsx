@@ -11,12 +11,13 @@ import useLastEthPrice from "../hooks/useLastEthPrice";
 import useOraclePrice from "../hooks/useOraclePrice";
 import { round, normalize } from "../utils/currency";
 
-export default function Sync({ nft, onClose, setTxHash }) {
+export default function Rebase({ onClose, setTxHash }) {
   const { isLoading, config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
-    functionName: "sync",
-    args: [nft.tokenId],
+    functionName: "rebase",
+    // Todo supply delta
+    args: [],
   });
 
   const { write } = useContractWrite({
@@ -33,20 +34,19 @@ export default function Sync({ nft, onClose, setTxHash }) {
 
   return (
     <PopupContent
-      title="Sync"
-      explanation="Sync the ETH price and open up a new Claim window for an XP bonus"
-      btnText="Sync"
+      title="Rebase"
+      explanation="Rebase Explaination Here"
+      btnText="Rebase"
       onClick={() => {
         onClose();
         write?.();
       }}
       isDisabled={!write}
       isLoading={isLoading}
-      infoOnClick={() => window.open(DOCS_URL + "/pool#sync")}
-      nft={nft}
+      infoOnClick={() => window.open(DOCS_URL + "/pool#rebase")}
     >
       <Divider />
-      <div className="flex flex-col gap-4 items-center">
+      <div className="flex flex-col items-center gap-4">
         <div className="w-full px-4 pt-2">
           <Table>
             <Row
@@ -58,10 +58,10 @@ export default function Sync({ nft, onClose, setTxHash }) {
           </Table>
         </div>
         <Divider />
-        <div>+ help sync ALL DYAD NFT's for all players!</div>
+        <div>+ help rebase ALL DYAD NFT's for all players!</div>
         <div className="bg-[#3A403C] h-[1px] w-full"></div>
-        <div className="flex w-full justify-between px-4">
-          <div>Sync Cost</div>
+        <div className="flex justify-between w-full px-4">
+          <div>Rebase Cost</div>
           <div className="text-[#519C58]">{gasCost} ETH</div>
         </div>
       </div>

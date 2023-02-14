@@ -13,13 +13,28 @@ import { addressSummary } from "../utils/address";
 import useNftBalance from "../hooks/useNftBalance";
 import useTotalNftSupply from "../hooks/useTotalNftSupply";
 import useEnsNameFromIndexer from "../hooks/useEnsNameFromIndexer";
+import { useDisclosure } from "@chakra-ui/react";
+import Claim from "./Claim";
+import Popup from "./Popup";
+import Rebase from "./Rebase";
 
-export default function Claim() {
+export default function MintHeader() {
   const { address } = useAccount();
   const { ensName } = useEnsNameFromIndexer(address);
 
   const { nftBalance, refetch: refetchBalance } = useNftBalance(address);
   const { totalNftSupply, refetch: refetchTotalSupply } = useTotalNftSupply();
+
+  const {
+    isOpen: isOpenRebase,
+    onOpen: onOpenRebase,
+    onClose: onCloseRebase,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenClaim,
+    onOpen: onOpenClaim,
+    onClose: onCloseClaim,
+  } = useDisclosure();
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -41,7 +56,7 @@ export default function Claim() {
 
   return (
     <div>
-      <div className="p-4 md:flex md:items-center md:border-b border-gray-800 gap-4 md:justify-between">
+      <div className="gap-4 p-4 border-gray-800 md:flex md:items-center md:border-b md:justify-between">
         <div className="flex items-center justify-center ">
           <div className="w-[56px]">
             <LoadingInplace isLoading={isLoading} style="mt w-[56px]" />
@@ -50,7 +65,7 @@ export default function Claim() {
               alt="claim"
             />
           </div>
-          <div className="ml-2 p-2">
+          <div className="p-2 ml-2">
             <div>Hi, {ensName || addressSummary(address)} 👋</div>
             {nftBalance === 0 ? (
               <div>Please mint your dNFT to play</div>
@@ -60,10 +75,10 @@ export default function Claim() {
           </div>
         </div>
         <div className="md:flex">
-          <div className="flex justify-around items-center p-4">
-            <div className="md:border-l-2 border-gray-800 md:p-4">
+          <div className="flex items-center justify-around p-4">
+            <div className="border-gray-800 md:border-l-2 md:p-4">
               <div>dNFT Remaining</div>
-              <div className="flex gap-1 items-center">
+              <div className="flex items-center gap-1">
                 <div className="rhombus"></div>
                 <div>
                   {TOTAL_SUPPLY - totalNftSupply}/{TOTAL_SUPPLY}
@@ -71,7 +86,7 @@ export default function Claim() {
               </div>
             </div>
             <div className="w-[2px] h-[85px] bg-[#939393] md:invisible"></div>
-            <div className="flex flex-col justify-center items-center md:border-l-2 border-gray-800 md:p-4">
+            <div className="flex flex-col items-center justify-center border-gray-800 md:border-l-2 md:p-4">
               <div>
                 <div>Minimum Deposit</div>
               </div>
@@ -80,23 +95,45 @@ export default function Claim() {
                 <div>${MIN_DEPOSIT_USD}</div>
               </div>
             </div>
-          </div>
-          {write && (
-            <div className="mt-2 md:border-l-2 border-gray-800 md:p-4 md:flex md:items-center md:justify-center">
+            <div className="flex flex-col h-full gap-2 border-gray-800 md:border-l-2 md:p-4">
               <Button
-                isDisabled={!write || isLoading}
-                onClick={() => {
-                  write?.();
-                }}
-                bgColor="#0E190F"
-                borderColor="#1F4F23"
+                borderColor="#463D81"
+                bgColor="#0F0D1B"
+                onClick={() => onOpenRebase()}
               >
-                Mint
+                Rebase
               </Button>
+              <Button
+                borderColor="#463D81"
+                bgColor="#0F0D1B"
+                onClick={() => onOpenClaim()}
+              >
+                Redeem
+              </Button>
+              {write && (
+                <Button
+                  isDisabled={!write || isLoading}
+                  onClick={() => {
+                    write?.();
+                  }}
+                  bgColor="#0E190F"
+                  borderColor="#1F4F23"
+                >
+                  Mint
+                </Button>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </div>
+      <>
+        <Popup isOpen={isOpenClaim} onClose={onCloseClaim}>
+          <Claim onClose={onCloseClaim} setTxHash={console.log} />
+        </Popup>
+        <Popup isOpen={isOpenRebase} onClose={onCloseRebase}>
+          <Rebase onClose={onCloseRebase} setTxHash={console.log} />
+        </Popup>
+      </>
     </div>
   );
 }
