@@ -95,21 +95,7 @@ export default function MintHeader() {
                 <div>${MIN_DEPOSIT_USD}</div>
               </div>
             </div>
-            <div className="flex flex-col h-full gap-2 border-gray-800 md:border-l-2 md:p-4">
-              <Button
-                borderColor="#463D81"
-                bgColor="#0F0D1B"
-                onClick={() => onOpenRebase()}
-              >
-                Rebase
-              </Button>
-              <Button
-                borderColor="#463D81"
-                bgColor="#0F0D1B"
-                onClick={() => onOpenClaim()}
-              >
-                Redeem
-              </Button>
+            <div className="flex flex-col gap-2 border-gray-800 md:border-l-2 md:p-4">
               {write && (
                 <Button
                   isDisabled={!write || isLoading}

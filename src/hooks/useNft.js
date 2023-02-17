@@ -16,15 +16,13 @@ export default function useNft(tokenId) {
   const { refetch, isLoading, isFetching } = useContractRead({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
-    functionName: "idToNft",
+    functionName: "id2Nft",
     args: [String(tokenId)],
     onSuccess: (data) => {
       setNft({
-        xp: parseInt(data[0]._hex),
         deposit: parseInt(data[1]._hex),
         withdrawn: parseInt(data[2]._hex),
         lastOwnershipChange: parseInt(data[3]._hex),
-        isActive: Boolean(data[4]),
         tokenId: tokenId,
       });
     },

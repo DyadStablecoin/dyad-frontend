@@ -102,5 +102,9 @@
 
 // 6th v2 deployment
 //    - xp reward based on deposited dyad
-export const CONTRACT_DYAD = "0x3a2Be54400D7FaC29f6500E0130c00Af960a48fd";
-export const CONTRACT_dNFT = "0xeC182DefC3Bb9d3D87A635375F23111080DFfeDb";
+// export const CONTRACT_DYAD = "0x3a2Be54400D7FaC29f6500E0130c00Af960a48fd";
+// export const CONTRACT_dNFT = "0xeC182DefC3Bb9d3D87A635375F23111080DFfeDb";
+
+// 1 after audit
+export const CONTRACT_DYAD = "0xd9c666da143c2c17744A990FF75F7d1c2a42589e";
+export const CONTRACT_dNFT = "0xd68d47b3c3960A13BCBc4248D115c3Ed8c3e4B3c";
