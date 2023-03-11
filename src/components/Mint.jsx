@@ -39,9 +39,9 @@ export default function MintHeader() {
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFT["abi"],
-    functionName: "mint",
+    functionName: "mintNft",
     args: [address],
-    overrides: { value: String(MIN_DEPOSIT) },
+    overrides: { value: MIN_DEPOSIT },
   });
 
   const { data, write } = useContractWrite(config);
