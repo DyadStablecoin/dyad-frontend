@@ -21,6 +21,8 @@ import Label from "./Label";
 import useDyadBalance from "../hooks/useDyadBalance";
 import { useAccount } from "wagmi";
 import useOraclePrice from "../hooks/useOraclePrice";
+import useIdToEth from "../hooks/useIdToEth";
+import useIdToDyad from "../hooks/useIdToDyad";
 
 export default function NFT({ tokenId }) {
   console.log("NFT: Rendering NFT", tokenId);
@@ -34,6 +36,9 @@ export default function NFT({ tokenId }) {
   const { address } = useAccount();
   const { dyadBalance } = useDyadBalance(address);
   const { refetch: refetchOraclePrice } = useOraclePrice();
+
+  const { eth } = useIdToEth(tokenId);
+  const { dyad } = useIdToDyad(tokenId);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -137,11 +142,7 @@ export default function NFT({ tokenId }) {
           <div className="hidden md:block md:w-full">
             <Label>Deposit Ratio</Label>
             <div className="mt-3">
-              <ProgressBar
-                percent={parseInt(
-                  (nft.deposit / (nft.deposit + nft.withdrawn)) * 100
-                )}
-              />
+              <ProgressBar percent={parseInt((eth / (eth + dyad)) * 100)} />
             </div>
           </div>
           <div className="flex justify-between gap-4 mt-4 md:justify-start md:mt-0">
@@ -150,7 +151,7 @@ export default function NFT({ tokenId }) {
                 <Label>Minted DYAD</Label>
                 <div className="md:flex">
                   <div className="mb-2 md:mr-2 md:mb-0">
-                    {round((nft.deposit + nft.withdrawn) / 10 ** 18, 2)}
+                    {round(dyad / 10 ** 18, 2)}
                   </div>
                   <Button
                     onClick={onOpen}
@@ -172,11 +173,11 @@ export default function NFT({ tokenId }) {
               )}
             </div>
             <div className="flex flex-col gap-2 ml-4 ">
-              <Label>Deposited DYAD</Label>
+              <Label>Deposited ETH</Label>
               <div className="flex flex-col gap-2">
                 <div className="md:flex md:gap-2">
                   <div className="mb-2 md:mr-2 md:mb-0">
-                    {Math.round((nft.deposit / 10 ** 18) * 100) / 100}
+                    {Math.round((eth / 10 ** 18) * 100) / 100}
                   </div>
                   <div className="flex gap-2">
                     <Button

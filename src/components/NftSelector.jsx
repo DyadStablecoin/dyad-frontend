@@ -37,7 +37,6 @@ export default function NftSelector({ selectedNFT, dropSize, setSelectedNFT }) {
               <th>
                 <Label>Rank</Label>
               </th>
-
               <th>
                 <Label>Value</Label>
               </th>
