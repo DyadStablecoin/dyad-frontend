@@ -23,7 +23,8 @@ export default function Deposit({ nft, onClose, setTxHash }) {
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
     functionName: "deposit",
-    args: [nft.tokenId, parseEther(dyad)],
+    args: [nft.tokenId],
+    overrides: { value: parseEther(dyad) },
   });
 
   const { write: writeDeposit } = useContractWrite({
@@ -36,48 +37,34 @@ export default function Deposit({ nft, onClose, setTxHash }) {
 
   return (
     <PopupContent
-      title="Deposit DYAD"
-      explanation="Deposit your withdrawn DYAD ERC-20 token back into your dNFT"
+      title="Deposit ETH"
+      explanation="Deposit ETH to your dNFT"
       nft={nft}
-      btnText={
-        dyad === "" || parseFloat(dyad) === 0
-          ? "Enter an amount"
-          : normalize(maxDeposit) < dyad
-          ? dyad > normalize(dyadBalance)
-            ? "Insufficient DYAD balance"
-            : "Insufficient dNFT balance"
-          : "Deposit"
-      }
-      isDisabled={
-        dyad === "" || parseFloat(dyad) === 0
-          ? true
-          : dyad > normalize(maxDeposit)
-          ? true
-          : !writeDeposit
-      }
+      btnText={"Deposit"}
+      isDisabled={!writeDeposit}
       onClick={() => {
         writeDeposit?.();
       }}
     >
       <Divider />
       <div className="flex flex-col items-center gap-2">
-        <div className="w-full px-4 pt-2">
-          <Table>
-            <Row
-              label="dNFT Withdrawls"
-              unit="DYAD"
-              _old={round(normalize(nft.withdrawn), 2)}
-              _new={round(normalize(nft.withdrawn) - toNumber(dyad), 2)}
-            />
-            <Row
-              label="DYAD Deposit"
-              unit="DYAD"
-              _old={round(normalize(dyadBalance), 2)}
-              _new={round(normalize(dyadBalance) + toNumber(dyad), 2)}
-            />
-          </Table>
-        </div>
-        <Divider />
+        {/* <div className="w-full px-4 pt-2"> */}
+        {/*   <Table> */}
+        {/*     <Row */}
+        {/*       label="dNFT Withdrawls" */}
+        {/*       unit="DYAD" */}
+        {/*       _old={round(normalize(nft.withdrawn), 2)} */}
+        {/*       _new={round(normalize(nft.withdrawn) - toNumber(dyad), 2)} */}
+        {/*     /> */}
+        {/*     <Row */}
+        {/*       label="DYAD Deposit" */}
+        {/*       unit="DYAD" */}
+        {/*       _old={round(normalize(dyadBalance), 2)} */}
+        {/*       _new={round(normalize(dyadBalance) + toNumber(dyad), 2)} */}
+        {/*     /> */}
+        {/*   </Table> */}
+        {/* </div> */}
+        {/* <Divider /> */}
         <div className="flex gap-2 items-center mt-8">
           <div>
             <TextInput

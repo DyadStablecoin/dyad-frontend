@@ -27,7 +27,7 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
-    functionName: "withdraw",
+    functionName: "mintDyad",
     args: [nft.tokenId, address, parseEther(dyad)],
   });
 
