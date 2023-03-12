@@ -41,9 +41,6 @@ export default function NFT({ tokenId }) {
 
   const { eth } = useIdToEth(tokenId);
   const { dyad } = useIdToDyad(tokenId);
-  console.log("eth", eth);
-  console.log("ethPrice", ethPrice * eth);
-  console.log("dyad", dyad);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -163,7 +160,7 @@ export default function NFT({ tokenId }) {
                   onClick={onOpenRedeem}
                   borderColor="#463D81"
                   bgColor="#0F0D1B"
-                  isDisabled={isFetching || isFetchingTx || !nft.isActive}
+                  isDisabled={isFetching || isFetchingTx}
                 >
                   Redeem
                 </Button>
@@ -185,12 +182,7 @@ export default function NFT({ tokenId }) {
                     </Button>
                     <Button
                       onClick={onOpenWithdraw}
-                      isDisabled={
-                        isFetching ||
-                        isFetchingTx ||
-                        isSafetyModeActivated ||
-                        !nft.isActive
-                      }
+                      isDisabled={isFetching || isFetchingTx}
                     >
                       Withdraw
                     </Button>

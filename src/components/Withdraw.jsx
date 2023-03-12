@@ -19,15 +19,11 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
   const [dyad, setDyad] = useState(0);
   const { address } = useAccount();
   const { maxWithdrawl } = useMaxWithdrawl(nft);
-  const { averageTVL: oldAvgTVL } = useAverageTVL();
-  const { averageTVL: newAvgTVL } = useAverageTVL(-1 * dyad);
-  const { cr: oldCR } = useCR();
-  const { cr: newCR } = useCR(-1 * dyad);
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
-    functionName: "mintDyad",
+    functionName: "withdraw",
     args: [nft.tokenId, address, parseEther(dyad)],
   });
 
@@ -41,7 +37,7 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
 
   return (
     <PopupContent
-      title="Withdraw DYAD"
+      title="Withdraw ETH"
       explanation={<WithdrawExplanation />}
       btnText="Withdraw"
       onClick={() => {
@@ -55,18 +51,6 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
       <div className="flex flex-col items-center gap-2">
         <div className="w-full px-4 pt-2">
           <Table>
-            <Row
-              label={`Protocol CR`}
-              unit="%"
-              _old={round(oldCR, 2)}
-              _new={round(newCR, 2)}
-            />
-            <Row
-              label="Average dNFT TVL"
-              unit="DYAD"
-              _old={round(oldAvgTVL, 2)}
-              _new={round(newAvgTVL, 2)}
-            />
             <Row
               label="dNFT Withdrawal"
               unit="DYAD"
@@ -92,9 +76,15 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
             />
           </div>
           <div className="flex flex-col items-end">
-            <div className="flex">
-              <div className="rhombus" />
-              <div>DYAD</div>
+            <div className="flex items-center justify-center gap-1">
+              <div>
+                <img
+                  className="w-4"
+                  src="https://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/1024/Ethereum-ETH-icon.png"
+                  alt=""
+                />
+              </div>
+              <div>ETH</div>
             </div>
             <div className="flex gap-2 items-center justify-center">
               <div className="text-[#737E76]">{round(maxWithdrawl, 2)}</div>

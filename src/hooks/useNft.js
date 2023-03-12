@@ -20,9 +20,6 @@ export default function useNft(tokenId) {
     args: [String(tokenId)],
     onSuccess: (data) => {
       setNft({
-        deposit: parseInt(data[1]._hex),
-        withdrawn: parseInt(data[2]._hex),
-        lastOwnershipChange: parseInt(data[3]._hex),
         tokenId: tokenId,
       });
     },
