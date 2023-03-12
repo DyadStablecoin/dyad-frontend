@@ -1,4 +1,4 @@
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import { useContractWrite, usePrepareContractWrite, useAccount } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import { round, normalize } from "../utils/currency";
 import dNFTABI from "../abi/dNFT.json";
@@ -16,6 +16,7 @@ import Row from "./PopupTableRow";
 
 export default function Mint({ nft, onClose, setTxHash }) {
   const [wETH, setWETH] = useState("");
+  const { address } = useAccount();
   const { ethPrice } = useEthPrice();
   const { ethBalance } = useEthBalance();
   const { cr: oldCR } = useCR();
@@ -24,11 +25,8 @@ export default function Mint({ nft, onClose, setTxHash }) {
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
-    functionName: "exchange",
-    args: [nft.tokenId],
-    overrides: {
-      value: parseEther(wETH),
-    },
+    functionName: "mintDyad",
+    args: [nft.tokenId, address, parseEther(wETH)],
   });
 
   const { write } = useContractWrite({
@@ -42,7 +40,7 @@ export default function Mint({ nft, onClose, setTxHash }) {
   return (
     <PopupContent
       title="Mint DYAD"
-      explanation="Mint new deposited DYAD to your dNFT with ETH"
+      explanation="Mint new DYAD from your dNFT"
       btnText="MINT"
       onClick={() => {
         onClose();
@@ -82,34 +80,12 @@ export default function Mint({ nft, onClose, setTxHash }) {
             />
             <div className="items-end flex flex-col">
               <div className="flex items-center justify-center gap-1">
-                <div>
-                  <img
-                    className="w-4"
-                    src="https://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/1024/Ethereum-ETH-icon.png"
-                    alt=""
-                  />
-                </div>
-                <div>ETH</div>
+                <div className="rhombus" />
+                <div>DYAD</div>
               </div>
               <div className="text-[#737E76]">
                 Balance:{round(ethBalance, 2)}
               </div>
-            </div>
-          </div>
-          <div>
-            <ArrowDownOutlined />
-          </div>
-          <div className="flex gap-4 justify-between items-between w-full">
-            <div>
-              <TextInput
-                value={round(wETH * ethPrice, 2)}
-                type="number"
-                isDisabled
-              />
-            </div>
-            <div className="items-end flex">
-              <div className="rhombus" />
-              <div>DYAD</div>
             </div>
           </div>
         </div>
