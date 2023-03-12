@@ -23,6 +23,7 @@ import { useAccount } from "wagmi";
 import useOraclePrice from "../hooks/useOraclePrice";
 import useIdToEth from "../hooks/useIdToEth";
 import useIdToDyad from "../hooks/useIdToDyad";
+import useEthPrice from "../hooks/useEthPrice";
 
 export default function NFT({ tokenId }) {
   console.log("NFT: Rendering NFT", tokenId);
@@ -36,9 +37,13 @@ export default function NFT({ tokenId }) {
   const { address } = useAccount();
   const { dyadBalance } = useDyadBalance(address);
   const { refetch: refetchOraclePrice } = useOraclePrice();
+  const { ethPrice } = useEthPrice();
 
   const { eth } = useIdToEth(tokenId);
   const { dyad } = useIdToDyad(tokenId);
+  console.log("eth", eth);
+  console.log("ethPrice", ethPrice * eth);
+  console.log("dyad", dyad);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -126,23 +131,15 @@ export default function NFT({ tokenId }) {
                 <NftStats nft={nft} />
               </div>
             </div>
-            <div className="flex flex-row w-full gap-8 md:w-min">
-              <div className="block w-full md:w-[0px] md:hidden">
-                <Label>Deposit Ratio</Label>
-                <div className="mt-3">
-                  <ProgressBar
-                    percent={parseInt(
-                      (nft.deposit / (nft.deposit + nft.withdrawn)) * 100
-                    )}
-                  />
-                </div>
-              </div>
-            </div>
           </div>
           <div className="hidden md:block md:w-full">
             <Label>Deposit Ratio</Label>
             <div className="mt-3">
-              <ProgressBar percent={parseInt((eth / (eth + dyad)) * 100)} />
+              <ProgressBar
+                percent={parseInt(
+                  ((eth * ethPrice) / (eth * ethPrice + dyad)) * 100
+                )}
+              />
             </div>
           </div>
           <div className="flex justify-between gap-4 mt-4 md:justify-start md:mt-0">
