@@ -4,7 +4,7 @@ import useIdToEth from "./useIdToEth";
 import useEthPrice from "./useEthPrice";
 import { normalize } from "../utils/currency";
 
-export default function useIdToCR(tokenId, newDyad = 0) {
+export default function useIdToCR(tokenId, newDyad = 0, newEth = 0) {
   const [cr, setCR] = useState(0);
 
   const { dyad } = useIdToDyad(tokenId);
@@ -12,7 +12,7 @@ export default function useIdToCR(tokenId, newDyad = 0) {
   const { ethPrice } = useEthPrice();
 
   useEffect(() => {
-    let collat = normalize(eth, 18) * ethPrice;
+    let collat = normalize(eth, 18) * ethPrice + newEth;
 
     if (dyad === 0 && newDyad === 0) {
       setCR(9999999999);
