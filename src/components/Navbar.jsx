@@ -1,5 +1,5 @@
 import { useAccount } from "wagmi";
-import { formatUSD, round } from "../utils/currency";
+import { formatUSD } from "../utils/currency";
 import useCR from "../hooks/useCR";
 import Menu from "./Menu";
 import useSafetyModeActivated from "../hooks/useSafetyMode";
@@ -34,8 +34,6 @@ export default function Navbar() {
         {isConnected && (
           <div className="items-center justify-center hidden gap-8 mr-6 lg:flex">
             <Stat name="TVL" value={formatUSD(ethInPool * ethPrice)} />
-            <Divider />
-            <Stat name="CR" value={`${round(cr, 0)}%`} />
             <Divider />
           </div>
         )}
