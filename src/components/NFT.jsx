@@ -12,7 +12,6 @@ import LoadingInplace from "./LoadingInplace";
 import { useEffect, useState } from "react";
 import { useWaitForTransaction } from "wagmi";
 import Redeem from "./Redeem";
-import useSafetyModeActivated from "../hooks/useSafetyMode";
 import useCR from "../hooks/useCR";
 import useNftStatus, { STATUS } from "../hooks/useNftStatus";
 import useNftImage from "../hooks/useNftImage";
@@ -23,7 +22,7 @@ import { useAccount } from "wagmi";
 import useOraclePrice from "../hooks/useOraclePrice";
 import useIdToEth from "../hooks/useIdToEth";
 import useIdToDyad from "../hooks/useIdToDyad";
-import useEthPrice from "../hooks/useEthPrice";
+import useIdToDepositRatio from "../hooks/useIdToDepositRatio";
 
 export default function NFT({ tokenId }) {
   console.log("NFT: Rendering NFT", tokenId);
@@ -31,13 +30,13 @@ export default function NFT({ tokenId }) {
   const [txHash, setTxHash] = useState();
   const { nft, refetch: refetchNft, isLoading, isFetching } = useNft(tokenId);
   const { cr, refetch: refetchCR } = useCR();
-  const { isSafetyModeActivated } = useSafetyModeActivated(cr);
   const { status } = useNftStatus(nft);
   const { nftImage: image } = useNftImage(nft);
   const { address } = useAccount();
   const { dyadBalance } = useDyadBalance(address);
   const { refetch: refetchOraclePrice } = useOraclePrice();
-  const { ethPrice } = useEthPrice();
+
+  const { depositRatio } = useIdToDepositRatio(tokenId);
 
   const { eth } = useIdToEth(tokenId);
   const { dyad } = useIdToDyad(tokenId);
@@ -132,11 +131,7 @@ export default function NFT({ tokenId }) {
           <div className="hidden md:block md:w-full">
             <Label>Deposit Ratio</Label>
             <div className="mt-3">
-              <ProgressBar
-                percent={parseInt(
-                  ((eth * ethPrice) / (eth * ethPrice + dyad)) * 100
-                )}
-              />
+              <ProgressBar percent={depositRatio} />
             </div>
           </div>
           <div className="flex justify-between gap-4 mt-4 md:justify-start md:mt-0">
