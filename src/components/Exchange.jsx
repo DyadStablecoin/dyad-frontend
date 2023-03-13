@@ -6,21 +6,20 @@ import { useState } from "react";
 import TextInput from "./TextInput";
 import { parseEther } from "../utils/currency";
 import PopupContent from "./PopupContent";
-import { ArrowDownOutlined } from "@ant-design/icons";
-import useEthPrice from "../hooks/useEthPrice";
 import useEthBalance from "../hooks/useEthBalance";
-import useCR from "../hooks/useCR";
 import Divider from "./PopupDivider";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
+import useIdToDyad from "../hooks/useIdToDyad";
+import useIdToCR from "../hooks/useIdToCR";
 
 export default function Mint({ nft, onClose, setTxHash }) {
-  const [wETH, setWETH] = useState("");
+  const [wETH, setWETH] = useState(0);
   const { address } = useAccount();
-  const { ethPrice } = useEthPrice();
   const { ethBalance } = useEthBalance();
-  const { cr: oldCR } = useCR();
-  const { cr: newCR } = useCR(wETH * ethPrice, 18);
+  const { dyad } = useIdToDyad(nft.tokenId);
+  const { cr: oldCR } = useIdToCR(nft.tokenId);
+  const { cr: newCR } = useIdToCR(nft.tokenId, parseFloat(wETH));
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
@@ -62,8 +61,8 @@ export default function Mint({ nft, onClose, setTxHash }) {
             <Row
               label="dNFT Deposit"
               unit="DYAD"
-              _old={round(normalize(nft.deposit), 2)}
-              _new={round(normalize(nft.deposit) + wETH * ethPrice, 2)}
+              _old={round(normalize(dyad), 2)}
+              _new={round(normalize(dyad) + parseFloat(wETH), 2)}
             />
           </Table>
         </div>
