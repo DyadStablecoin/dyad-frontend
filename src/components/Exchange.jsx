@@ -6,26 +6,25 @@ import { useState } from "react";
 import TextInput from "./TextInput";
 import { parseEther } from "../utils/currency";
 import PopupContent from "./PopupContent";
-import useEthBalance from "../hooks/useEthBalance";
 import Divider from "./PopupDivider";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
 import useIdToDyad from "../hooks/useIdToDyad";
 import useIdToCR from "../hooks/useIdToCR";
+import { toNumber } from "lodash";
 
 export default function Mint({ nft, onClose, setTxHash }) {
-  const [wETH, setWETH] = useState(0);
+  const [newDyad, setNewDyad] = useState("");
   const { address } = useAccount();
-  const { ethBalance } = useEthBalance();
   const { dyad } = useIdToDyad(nft.tokenId);
   const { cr: oldCR } = useIdToCR(nft.tokenId);
-  const { cr: newCR } = useIdToCR(nft.tokenId, parseFloat(wETH));
+  const { cr: newCR } = useIdToCR(nft.tokenId, toNumber(newDyad));
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
     functionName: "mintDyad",
-    args: [nft.tokenId, address, parseEther(wETH)],
+    args: [nft.tokenId, address, parseEther(newDyad)],
   });
 
   const { write } = useContractWrite({
@@ -62,7 +61,7 @@ export default function Mint({ nft, onClose, setTxHash }) {
               label="dNFT Deposit"
               unit="DYAD"
               _old={round(normalize(dyad), 2)}
-              _new={round(normalize(dyad) + parseFloat(wETH), 2)}
+              _new={round(normalize(dyad) + toNumber(newDyad), 2)}
             />
           </Table>
         </div>
@@ -70,21 +69,16 @@ export default function Mint({ nft, onClose, setTxHash }) {
         <div className="flex flex-col gap-2 items-center mt-4">
           <div className="flex gap-4 justify-between items-between w-full">
             <TextInput
-              value={wETH}
+              value={newDyad}
               onChange={(v) => {
-                setWETH(v);
+                setNewDyad(v);
               }}
               placeholder={0}
               type="number"
             />
-            <div className="items-end flex flex-col">
-              <div className="flex items-center justify-center gap-1">
-                <div className="rhombus" />
-                <div>DYAD</div>
-              </div>
-              <div className="text-[#737E76]">
-                Balance:{round(ethBalance, 2)}
-              </div>
+            <div className="flex items-center justify-center gap-1">
+              <div className="rhombus" />
+              <div>DYAD</div>
             </div>
           </div>
         </div>
