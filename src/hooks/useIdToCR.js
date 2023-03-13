@@ -14,7 +14,7 @@ export default function useIdToCR(tokenId, newDyad = 0) {
   useEffect(() => {
     let collat = normalize(eth, 18) * ethPrice;
 
-    if (dyad === 0) {
+    if (dyad === 0 && newDyad === 0) {
       setCR(9999999999);
       return;
     }

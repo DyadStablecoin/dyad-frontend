@@ -52,13 +52,13 @@ export default function Mint({ nft, onClose, setTxHash }) {
         <div className="w-full px-4 pt-2">
           <Table>
             <Row
-              label="DYAD CR"
+              label="dNFT CR"
               unit="%"
               _old={round(oldCR, 2)}
               _new={round(newCR, 2)}
             />
             <Row
-              label="dNFT Deposit"
+              label="dNFT DYAD"
               unit="DYAD"
               _old={round(normalize(dyad), 2)}
               _new={round(normalize(dyad) + toNumber(newDyad), 2)}
