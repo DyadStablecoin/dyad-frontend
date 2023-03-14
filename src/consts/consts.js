@@ -5,7 +5,7 @@ export const dNFT_AVERAGE_PRICE = 10000;
 export const TOTAL_SUPPLY = 2000;
 export const MIN_DEPOSIT = "100000000000000000";
 export const MIN_DEPOSIT_USD = 1;
-export const SAFETY_MODE_THRESHOLD = 150;
+export const SAFETY_MODE_THRESHOLD = 300;
 export const LIQUIDATION_RISK_THRESHOLD = 0.05; // 5%
 
 // Leaderboard Table

@@ -6,25 +6,28 @@ import TextInput from "./TextInput";
 import { round, floor, normalize, parseEther } from "../utils/currency";
 import PopupContent from "./PopupContent";
 import MaxButton from "./MaxButton";
-import useMaxWithdrawl from "../hooks/useMaxWithdrawl";
 import Divider from "./PopupDivider";
-import useAverageTVL from "../hooks/useAverageTVL";
-import useCR from "../hooks/useCR";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
 import { toNumber } from "lodash";
 import WithdrawExplanation from "./WithdrawExplanation";
+import useIdToEth from "../hooks/useIdToEth";
+import useIdToCR from "../hooks/useIdToCR";
 
 export default function Withdraw({ nft, onClose, setTxHash }) {
-  const [dyad, setDyad] = useState(0);
+  const [newEth, setDyad] = useState("");
   const { address } = useAccount();
-  const { maxWithdrawl } = useMaxWithdrawl(nft);
+
+  const { eth } = useIdToEth(nft.tokenId);
+
+  const { cr: oldCR } = useIdToCR(nft.tokenId);
+  const { cr: newCR } = useIdToCR(nft.tokenId, 0, toNumber(newEth));
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
     functionName: "withdraw",
-    args: [nft.tokenId, address, parseEther(dyad)],
+    args: [nft.tokenId, address, parseEther(newEth)],
   });
 
   const { write } = useContractWrite({
@@ -52,16 +55,16 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
         <div className="w-full px-4 pt-2">
           <Table>
             <Row
-              label="dNFT Withdrawal"
-              unit="DYAD"
-              _old={round(normalize(nft.withdrawn), 2)}
-              _new={round(normalize(nft.withdrawn) + toNumber(dyad), 2)}
+              label="dNFT Collateral Ratio"
+              unit="%"
+              _old={round(oldCR, 2)}
+              _new={round(newCR, 2)}
             />
             <Row
               label="dNFT Deposit"
               unit="DYAD"
-              _old={round(normalize(nft.deposit), 2)}
-              _new={round(normalize(nft.deposit) - toNumber(dyad), 2)}
+              _old={round(normalize(eth), 2)}
+              _new={round(normalize(eth) - toNumber(newEth), 2)}
             />
           </Table>
         </div>
@@ -69,7 +72,7 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
         <div className="flex gap-2 items-center mt-8">
           <div>
             <TextInput
-              value={dyad}
+              value={newEth}
               onChange={(v) => setDyad(v)}
               placeholder={0}
               type="number"
@@ -87,8 +90,8 @@ export default function Withdraw({ nft, onClose, setTxHash }) {
               <div>ETH</div>
             </div>
             <div className="flex gap-2 items-center justify-center">
-              <div className="text-[#737E76]">{round(maxWithdrawl, 2)}</div>
-              <MaxButton onClick={() => setDyad(floor(maxWithdrawl, 2))} />
+              <div className="text-[#737E76]">{round(normalize(eth), 2)}</div>
+              <MaxButton onClick={() => setDyad(floor(normalize(eth), 2))} />
             </div>
           </div>
         </div>
