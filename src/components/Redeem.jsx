@@ -14,19 +14,23 @@ import useDyadBalance from "../hooks/useDyadBalance";
 import Divider from "./PopupDivider";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
+import useIdToDyad from "../hooks/useIdToDyad";
+import { toNumber } from "lodash";
 
 export default function Redeem({ nft, onClose, setTxHash }) {
-  const [dyad, setDyad] = useState(0);
+  const [newDyad, setDyad] = useState("");
   const { ethPrice } = useEthPrice();
   const { address } = useAccount();
   const { dyadBalance } = useDyadBalance(address);
   const { maxDeposit } = useMaxDeposit(nft, dyadBalance);
 
+  const { dyad } = useIdToDyad(nft.tokenId);
+
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
     functionName: "redeem",
-    args: [nft.tokenId, address, parseEther(dyad)],
+    args: [nft.tokenId, address, parseEther(newDyad)],
   });
 
   const { write: writeRedeem } = useContractWrite({
@@ -42,10 +46,10 @@ export default function Redeem({ nft, onClose, setTxHash }) {
       title="Redeem"
       explanation="Redeem your DYAD ERC-20 token for ETH"
       btnText={
-        dyad === "" || parseFloat(dyad) === 0
+        newDyad === "" || parseFloat(newDyad) === 0
           ? "Enter an amount"
-          : normalize(maxDeposit) < dyad
-          ? dyad > normalize(dyadBalance)
+          : normalize(maxDeposit) < newDyad
+          ? newDyad > normalize(dyadBalance)
             ? "Insufficient DYAD balance"
             : "Insufficient dNFT balance"
           : "Redeem"
@@ -54,9 +58,9 @@ export default function Redeem({ nft, onClose, setTxHash }) {
         writeRedeem?.();
       }}
       isDisabled={
-        dyad === "" || parseFloat(dyad) === 0
+        newDyad === "" || parseFloat(newDyad) === 0
           ? true
-          : normalize(maxDeposit) < dyad
+          : normalize(maxDeposit) < newDyad
           ? true
           : !writeRedeem
       }
@@ -68,8 +72,8 @@ export default function Redeem({ nft, onClose, setTxHash }) {
             <Row
               label="dNFT Withdrawls"
               unit="DYAD"
-              _old={round(normalize(nft.withdrawn), 2)}
-              _new={round(normalize(nft.withdrawn) - parseFloat(dyad), 2)}
+              _old={round(normalize(dyad), 2)}
+              _new={round(normalize(dyad) - toNumber(newDyad), 2)}
             />
           </Table>
         </div>
@@ -77,7 +81,7 @@ export default function Redeem({ nft, onClose, setTxHash }) {
         <div className="flex flex-col gap-2 items-center mt-4">
           <div className="flex gap-4 justify-between items-between w-full">
             <TextInput
-              value={dyad}
+              value={newDyad}
               onChange={(v) => {
                 setDyad(v);
               }}
@@ -105,7 +109,7 @@ export default function Redeem({ nft, onClose, setTxHash }) {
           <div className="flex gap-4 justify-between items-between w-full">
             <div>
               <TextInput
-                value={round(dyad / ethPrice, 5)}
+                value={round(newDyad / ethPrice, 5)}
                 type="number"
                 isDisabled
               />

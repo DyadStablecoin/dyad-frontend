@@ -1,4 +1,4 @@
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import { useContractWrite, usePrepareContractWrite, useAccount } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import { round, normalize } from "../utils/currency";
 import dNFTABI from "../abi/dNFT.json";
@@ -6,29 +6,25 @@ import { useState } from "react";
 import TextInput from "./TextInput";
 import { parseEther } from "../utils/currency";
 import PopupContent from "./PopupContent";
-import { ArrowDownOutlined } from "@ant-design/icons";
-import useEthPrice from "../hooks/useEthPrice";
-import useEthBalance from "../hooks/useEthBalance";
-import useCR from "../hooks/useCR";
 import Divider from "./PopupDivider";
 import Table from "./PopupTable";
 import Row from "./PopupTableRow";
+import useIdToDyad from "../hooks/useIdToDyad";
+import useIdToCR from "../hooks/useIdToCR";
+import { toNumber } from "lodash";
 
 export default function Mint({ nft, onClose, setTxHash }) {
-  const [wETH, setWETH] = useState("");
-  const { ethPrice } = useEthPrice();
-  const { ethBalance } = useEthBalance();
-  const { cr: oldCR } = useCR();
-  const { cr: newCR } = useCR(wETH * ethPrice, 18);
+  const [newDyad, setNewDyad] = useState("");
+  const { address } = useAccount();
+  const { dyad } = useIdToDyad(nft.tokenId);
+  const { cr: oldCR } = useIdToCR(nft.tokenId);
+  const { cr: newCR } = useIdToCR(nft.tokenId, toNumber(newDyad));
 
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
-    functionName: "exchange",
-    args: [nft.tokenId],
-    overrides: {
-      value: parseEther(wETH),
-    },
+    functionName: "mintDyad",
+    args: [nft.tokenId, address, parseEther(newDyad)],
   });
 
   const { write } = useContractWrite({
@@ -42,7 +38,7 @@ export default function Mint({ nft, onClose, setTxHash }) {
   return (
     <PopupContent
       title="Mint DYAD"
-      explanation="Mint new deposited DYAD to your dNFT with ETH"
+      explanation="Mint new DYAD from your dNFT"
       btnText="MINT"
       onClick={() => {
         onClose();
@@ -56,16 +52,16 @@ export default function Mint({ nft, onClose, setTxHash }) {
         <div className="w-full px-4 pt-2">
           <Table>
             <Row
-              label="DYAD CR"
+              label="dNFT CR"
               unit="%"
               _old={round(oldCR, 2)}
               _new={round(newCR, 2)}
             />
             <Row
-              label="dNFT Deposit"
+              label="dNFT DYAD"
               unit="DYAD"
-              _old={round(normalize(nft.deposit), 2)}
-              _new={round(normalize(nft.deposit) + wETH * ethPrice, 2)}
+              _old={round(normalize(dyad), 2)}
+              _new={round(normalize(dyad) + toNumber(newDyad), 2)}
             />
           </Table>
         </div>
@@ -73,41 +69,14 @@ export default function Mint({ nft, onClose, setTxHash }) {
         <div className="flex flex-col gap-2 items-center mt-4">
           <div className="flex gap-4 justify-between items-between w-full">
             <TextInput
-              value={wETH}
+              value={newDyad}
               onChange={(v) => {
-                setWETH(v);
+                setNewDyad(v);
               }}
               placeholder={0}
               type="number"
             />
-            <div className="items-end flex flex-col">
-              <div className="flex items-center justify-center gap-1">
-                <div>
-                  <img
-                    className="w-4"
-                    src="https://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/1024/Ethereum-ETH-icon.png"
-                    alt=""
-                  />
-                </div>
-                <div>ETH</div>
-              </div>
-              <div className="text-[#737E76]">
-                Balance:{round(ethBalance, 2)}
-              </div>
-            </div>
-          </div>
-          <div>
-            <ArrowDownOutlined />
-          </div>
-          <div className="flex gap-4 justify-between items-between w-full">
-            <div>
-              <TextInput
-                value={round(wETH * ethPrice, 2)}
-                type="number"
-                isDisabled
-              />
-            </div>
-            <div className="items-end flex">
+            <div className="flex items-center justify-center gap-1">
               <div className="rhombus" />
               <div>DYAD</div>
             </div>

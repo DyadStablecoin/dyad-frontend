@@ -54,7 +54,7 @@ export default function PopupContent({
           >
             <img src={nftImage} alt="" />
           </div>
-          <p className="w-1/4 p-4 text-[#F0F0F0]">{nft.xp} XP</p>
+          <p className="w-1/4 p-4 text-[#F0F0F0]"></p>
         </div>
       )}
       <Divider />

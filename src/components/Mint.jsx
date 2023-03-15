@@ -39,9 +39,9 @@ export default function MintHeader() {
   const { config } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFT["abi"],
-    functionName: "mint",
+    functionName: "mintNft",
     args: [address],
-    overrides: { value: String(MIN_DEPOSIT) },
+    overrides: { value: MIN_DEPOSIT },
   });
 
   const { data, write } = useContractWrite(config);
@@ -86,15 +86,6 @@ export default function MintHeader() {
               </div>
             </div>
             <div className="w-[2px] h-[85px] bg-[#939393] md:invisible"></div>
-            <div className="flex flex-col items-center justify-center border-gray-800 md:border-l-2 md:p-4">
-              <div>
-                <div>Minimum Deposit</div>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-green-400 rounded"></div>
-                <div>${MIN_DEPOSIT_USD}</div>
-              </div>
-            </div>
             <div className="flex flex-col gap-2 border-gray-800 md:border-l-2 md:p-4">
               {write && (
                 <Button

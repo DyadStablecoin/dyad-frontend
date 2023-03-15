@@ -1,29 +1,33 @@
-import { useContractWrite, usePrepareContractWrite, useAccount } from "wagmi";
+import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_dNFT } from "../consts/contract";
 import dNFTABI from "../abi/dNFT.json";
 import { useState } from "react";
 import TextInput from "./TextInput";
 import { parseEther, round, normalize, floor } from "../utils/currency";
 import PopupContent from "./PopupContent";
-import MaxButton from "./MaxButton";
-import useMaxDeposit from "../hooks/useMaxDeposit";
-import useDyadBalance from "../hooks/useDyadBalance";
-import Divider from "./PopupDivider";
-import Table from "./PopupTable";
 import Row from "./PopupTableRow";
+import MaxButton from "./MaxButton";
+import Divider from "./PopupDivider";
 import { toNumber } from "lodash";
+import Table from "./PopupTable";
+import useIdToCR from "../hooks/useIdToCR";
+import useEthBalance from "../hooks/useEthBalance";
+import useIdToEth from "../hooks/useIdToEth";
 
 export default function Deposit({ nft, onClose, setTxHash }) {
-  const { address } = useAccount();
-  const [dyad, setDyad] = useState(0);
-  const { dyadBalance } = useDyadBalance(address);
-  const { maxDeposit } = useMaxDeposit(nft, dyadBalance);
+  const [newEth, setNewEth] = useState("");
+  const { ethBalance } = useEthBalance();
+  console.log("ethBalance", ethBalance);
+  const { eth } = useIdToEth(nft.tokenId);
+  const { cr: oldCR } = useIdToCR(nft.tokenId);
+  const { cr: newCR } = useIdToCR(nft.tokenId, toNumber(newEth));
 
   const { config: configDeposit } = usePrepareContractWrite({
     addressOrName: CONTRACT_dNFT,
     contractInterface: dNFTABI["abi"],
     functionName: "deposit",
-    args: [nft.tokenId, parseEther(dyad)],
+    args: [nft.tokenId],
+    overrides: { value: parseEther(newEth) },
   });
 
   const { write: writeDeposit } = useContractWrite({
@@ -36,25 +40,11 @@ export default function Deposit({ nft, onClose, setTxHash }) {
 
   return (
     <PopupContent
-      title="Deposit DYAD"
-      explanation="Deposit your withdrawn DYAD ERC-20 token back into your dNFT"
+      title="Deposit ETH"
+      explanation="Deposit ETH to your dNFT"
       nft={nft}
-      btnText={
-        dyad === "" || parseFloat(dyad) === 0
-          ? "Enter an amount"
-          : normalize(maxDeposit) < dyad
-          ? dyad > normalize(dyadBalance)
-            ? "Insufficient DYAD balance"
-            : "Insufficient dNFT balance"
-          : "Deposit"
-      }
-      isDisabled={
-        dyad === "" || parseFloat(dyad) === 0
-          ? true
-          : dyad > normalize(maxDeposit)
-          ? true
-          : !writeDeposit
-      }
+      btnText={"Deposit"}
+      isDisabled={!writeDeposit}
       onClick={() => {
         writeDeposit?.();
       }}
@@ -64,16 +54,16 @@ export default function Deposit({ nft, onClose, setTxHash }) {
         <div className="w-full px-4 pt-2">
           <Table>
             <Row
-              label="dNFT Withdrawls"
-              unit="DYAD"
-              _old={round(normalize(nft.withdrawn), 2)}
-              _new={round(normalize(nft.withdrawn) - toNumber(dyad), 2)}
+              label="dNFT CR"
+              unit="%"
+              _old={round(oldCR, 2)}
+              _new={round(newCR, 2)}
             />
             <Row
-              label="DYAD Deposit"
-              unit="DYAD"
-              _old={round(normalize(dyadBalance), 2)}
-              _new={round(normalize(dyadBalance) + toNumber(dyad), 2)}
+              label="dNFT Deposit"
+              unit="ETH"
+              _old={round(normalize(eth), 2)}
+              _new={round(normalize(eth) + toNumber(newEth), 2)}
             />
           </Table>
         </div>
@@ -81,9 +71,9 @@ export default function Deposit({ nft, onClose, setTxHash }) {
         <div className="flex gap-2 items-center mt-8">
           <div>
             <TextInput
-              value={dyad}
+              value={newEth}
               onChange={(v) => {
-                setDyad(v);
+                setNewEth(v);
               }}
               type="number"
               placeholder={0}
@@ -92,15 +82,13 @@ export default function Deposit({ nft, onClose, setTxHash }) {
           <div className="flex flex-col items-end">
             <div className="flex">
               <div className="rhombus" />
-              <div>DYAD</div>
+              <div>ETH</div>
             </div>
             <div className="flex gap-2 items-center justify-center">
               <div className="text-[#737E76]">
-                Balance:{round(normalize(maxDeposit), 2)}
+                Balance:{round(ethBalance, 2)}
               </div>
-              <MaxButton
-                onClick={() => setDyad(floor(normalize(maxDeposit), 2))}
-              />
+              <MaxButton onClick={() => setNewEth(floor(ethBalance, 2))} />
             </div>
           </div>
         </div>

@@ -1,11 +1,10 @@
 import { useAccount } from "wagmi";
-import { formatUSD, round } from "../utils/currency";
+import { formatUSD } from "../utils/currency";
 import useCR from "../hooks/useCR";
 import Menu from "./Menu";
 import useSafetyModeActivated from "../hooks/useSafetyMode";
 import useEthInPool from "../hooks/useEthInPool";
 import useEthPrice from "../hooks/useEthPrice";
-import useEthDelta from "../hooks/useEthDelta";
 import Stat from "./NavbarStat";
 import Divider from "./NavbarDivider";
 import Wallet from "./Wallet";
@@ -17,7 +16,6 @@ export default function Navbar() {
   const { ethInPool } = useEthInPool();
   const { ethPrice } = useEthPrice();
   const { cr } = useCR();
-  const { ethDelta } = useEthDelta();
   const { isSafetyModeActivated } = useSafetyModeActivated(cr);
 
   return (
@@ -36,10 +34,6 @@ export default function Navbar() {
         {isConnected && (
           <div className="items-center justify-center hidden gap-8 mr-6 lg:flex">
             <Stat name="TVL" value={formatUSD(ethInPool * ethPrice)} />
-            <Divider />
-            <Stat name="ETH Price Δ" value={formatUSD(ethDelta)} />
-            <Divider />
-            <Stat name="CR" value={`${round(cr, 0)}%`} />
             <Divider />
           </div>
         )}
